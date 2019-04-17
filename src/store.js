@@ -1,8 +1,7 @@
 /* eslint-disable */
 
 import { getLocalUser } from './helpers/auth.js'
-
-const user = getLocalUser();
+const user = getLocalUser(); // A function from auth.js
 
 export default {
     state: {
