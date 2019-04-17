@@ -7,8 +7,6 @@ export function initialize (store, router) {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     const currentUser = store.state.currentUser
 
-    console.log(to.meta);
-
     if (requiresAuth && !currentUser) {
       next('/login') // Take the user to login page
     } else if (to.path == '/login' && currentUser) {
