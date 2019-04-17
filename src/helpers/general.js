@@ -3,15 +3,18 @@ import ApiSettings from '../api/ApiSettings'
 
 export function initialize (store, router) {
   router.beforeEach((to, from, next) => {
+
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     const currentUser = store.state.currentUser
+
+    console.log(to.meta);
 
     if (requiresAuth && !currentUser) {
       next('/login') // Take the user to login page
     } else if (to.path == '/login' && currentUser) {
       next('/') // Take the user to the home page
     } else {
-      next() // In all other cases sent the user to the home page
+      next()
     }
   })
 

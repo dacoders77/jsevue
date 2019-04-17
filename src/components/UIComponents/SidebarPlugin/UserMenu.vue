@@ -6,7 +6,7 @@
     <div class="info">
       <a data-toggle="collapse" @click="toggleMenu" href="javascript:void(0)">
            <span>
-             {{ currentUser.name }}
+             {{ currentUser ? currentUser.name : 'null_user' }}
              <b class="caret"></b>
           </span>
       </a>

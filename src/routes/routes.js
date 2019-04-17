@@ -1,5 +1,47 @@
 /* eslint-disable */
+
+import DashboardLayout from 'src/components/Dashboard/Layout/DashboardLayout.vue'
+import Login from 'src/components/Dashboard/Views/Pages/Login.vue'
+import DashboardJse from 'src/components/Jse/DashboardJse.vue'
+import Chart from 'src/components/Jse/Chart.vue'
+import Settings from 'src/components/Jse/Settings.vue'
+
 export const routes = [
+  {
+    path: '/',
+    component: DashboardLayout,
+    redirect: '/dashboard',
+    meta: {
+      requiresAuth: true // Will be handled in general.js for router.beforeEach
+    },
+  },
+  {
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/',
+    component: DashboardLayout,
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: DashboardJse
+      },
+      {
+        path: 'chart',
+        name: 'Chart',
+        component: Chart
+      },
+      {
+        path: 'settings',
+        name: 'Settings',
+        component: Settings
+      }
+    ]
+  },
+
+  /*
   {
     path: '/login',
     component: () => import('src/components/Dashboard/Views/Pages/Login.vue'),
@@ -40,7 +82,7 @@ export const routes = [
         component: () => import('src/components/Jse/Settings.vue')
       }
     ]
-  }
+  }*/
 
 ]
 
