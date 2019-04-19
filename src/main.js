@@ -21,7 +21,6 @@ import SideBar from './components/UIComponents/SidebarPlugin'
 import routes from './routes/routes'
 
 // library imports
-
 import './assets/sass/paper-dashboard.scss'
 import './assets/sass/element_variables.scss'
 import './assets/sass/demo.scss'
@@ -36,6 +35,9 @@ Vue.use(SideBar, {sidebarLinks: sidebarLinks})
 Vue.use(VeeValidate)
 Vue.use(Vuex) // Vuex use link
 locale.use(lang)
+
+// Pusher
+
 
 // Axios
 window.axios = require('axios');
