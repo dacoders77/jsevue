@@ -1,6 +1,9 @@
-/* eslint-disable */
+/*eslint-disable*/
 <template>
-    <div class="col">
+    <div id="app" style="border: 1px solid red">
+        <div id="container" style="width:100%; height:75vh;"></div>
+
+        <div class="col">
         <div class="card h-100">
             <div class="card-header"><span style="font-size:140%">Quotes</span>
                 <div class="card-tools">
@@ -13,39 +16,66 @@
             </div>
 
             <div class="card-body">
-
             </div>
         </div>
+        </div>
+
     </div>
+
+
 </template>
 <script>
-    import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
+  import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
+  import Opt from 'src/components/Jse/ChartSettingsVue.vue'
   export default {
     data () {
       return {
         quotes: []
       }
     },
-      created () {
+    created() {
+    },
+    mounted() {
+      var Highchart = require('highcharts/highstock');
+      this.chart = Highchart.stockChart('container', Opt.data().options);
+      this.HistoryBarsLoad();
+      this.ListenWebSocket(this);
+    },
+    methods: {
+      HistoryBarsLoad () {
+        axios.get('trading/history')
+          .then((response) => {
+            this.chart.series[0].setData(response.data.candles, true);
+            this.chart.series[1].setData(response.data.priceChannelHighValues, true);
+            this.chart.series[2].setData(response.data.priceChannelLowValues, true);
+            this.chart.series[3].setData(response.data.sma, true);
+          })
+          .catch((err) => {
+            alert("Chart.vue can not get history bars. " + err);
+          })
+      },
+      ListenWebSocket () {
         this.pusher = new Pusher('c904be2b46a9939a2402', { // Pusher key
           encrypted: true,
           cluster: 'mt1'
         });
-        var quotes = this.quotes;
+        // var quotes = this.quotes;
+        var self = this;
         this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
         this.channel.bind("App\\Events\\jseevent", function (data) { // Full event name as shown at pusher debug console
-          if (quotes.length < 10) {
-            if (data.payload.data[0].lastPrice) quotes.push(data.payload.data[0].symbol + ": " + data.payload.data[0].lastPrice)
-          } else {
-            quotes.shift();
-            if (data.payload.data[0].lastPrice) quotes.push(data.payload.data[0].symbol + ": " + data.payload.data[0].lastPrice)
+          // Here access to different bot clones will be performed. We have only one ID for now.
+          if (data.payload['clientId'] == 12345) {
+            if (data.payload.messageType === 'symbolTickPriceResponse') this.ChartBarsUpdate(e, chart1); // Sent from CandleMaker.php
+            if (data.payload.messageType === 'error') swal("Failed!", "Error: " + e.update['payload'], "warning");
+            if (data.payload.messageType === 'info') toast({type: 'success', title: e.update['payload']});
+            if (data.payload.messageType === 'reloadChartAfterHistoryLoaded') {
+              // Vue.toasted.show("Chart is reloaded!", { type: 'success' });
+              self.HistoryBarsLoad()
+            }
+            ;
           }
         })
-      },
-    methods: {
-
+      }
     }
   }
 </script>
-<style>
-</style>

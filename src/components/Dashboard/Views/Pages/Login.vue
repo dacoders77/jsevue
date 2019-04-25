@@ -67,8 +67,6 @@
                           Error: {{ authError }}
                         </small>
                       </div>
-
-
                       <!--<div class="forgot">
                         <router-link to="/register">
                           Forgot your password?
@@ -82,7 +80,6 @@
             </div>
           </div>
         </div>
-
         <!--<footer class="footer footer-transparent">
           <div class="container">
             <div class="copyright">
@@ -108,11 +105,9 @@
     </div>-->
   </div>
 </template>
-
 <script>
     import {login} from '../../../../helpers/auth.js'
     import {mapFields} from 'vee-validate'
-
     export default {
         name: 'login',
         data () {

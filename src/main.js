@@ -8,6 +8,17 @@ import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 import App from './App.vue'
 
+// https://github.com/highcharts/highcharts-vue/blob/master/demo/src/main.js
+// Used a component - remove is used via NMP (more likely)
+// import HighchartsVue from 'highcharts-vue'
+// import Highcharts from 'highcharts'
+// import stockInit from 'highcharts/modules/stock'
+// import mapInit from 'highcharts/modules/map'
+// stockInit(Highcharts)
+// mapInit(Highcharts)
+// Vue.use(HighchartsVue)
+
+
 import { initialize } from './helpers/general' // Import function
 import Vuex from 'vuex' // Vue store plugin link
 import StoreData from './store.js' // Vue store settings (getters, muations, etc.)
@@ -35,9 +46,6 @@ Vue.use(SideBar, {sidebarLinks: sidebarLinks})
 Vue.use(VeeValidate)
 Vue.use(Vuex) // Vuex use link
 locale.use(lang)
-
-// Pusher
-
 
 // Axios
 window.axios = require('axios');
