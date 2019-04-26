@@ -73,6 +73,42 @@
                 dataGrouping: {
                   enabled: false
                 }
+              },
+              {
+                name: 'Long markers',
+                visible: true,
+                enableMouseTracking: true,
+                type: 'scatter',
+                color: 'purple',
+                dataGrouping: {
+                  enabled: false
+                },
+                marker: {
+                  fillColor: 'lime',
+                  lineColor: 'green',
+                  lineWidth: 1,
+                  radius: 6,
+                  symbol: 'triangle'
+                }
+              },
+              {
+                name: 'Short markers',
+                visible: true,
+                enableMouseTracking: true,
+                type: 'scatter',
+                //yAxis: 1, // To which of two y axis this series should be linked
+                color: 'purple',
+                //data: response.data['shortTradeMarkers'],
+                dataGrouping: {
+                  enabled: false
+                },
+                marker: {
+                  fillColor: 'red',
+                  lineColor: 'red',
+                  lineWidth: 1,
+                  radius: 6,
+                  symbol: 'triangle-down'
+                }
               }
             ]
           }

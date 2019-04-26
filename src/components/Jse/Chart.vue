@@ -19,7 +19,7 @@
         </div>
         </div>
     </div>
-    
+
 </template>
 <script>
   import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
@@ -46,6 +46,8 @@
             this.chart.series[1].setData(response.data.priceChannelHighValues, true);
             this.chart.series[2].setData(response.data.priceChannelLowValues, true);
             this.chart.series[3].setData(response.data.sma, true);
+            this.chart.series[4].setData(response.data.longTradeMarkers, true); //
+            this.chart.series[5].setData(response.data.shortTradeMarkers, true); //
           })
           .catch((err) => {
             alert("Chart.vue can not get history bars. " + err);
