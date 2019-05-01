@@ -48,11 +48,9 @@
                 enableMouseTracking: true,
                 color: 'red',
                 lineWidth: 1,
-                // data: response.data['priceChannelHighValues'],
                 dataGrouping: {
                   enabled: false
                 }
-
               },
               {
                 name: 'Price channel low',
@@ -109,6 +107,23 @@
                   radius: 6,
                   symbol: 'triangle-down'
                 }
+              },
+              ///
+              {
+                name: 'MACD line',
+                yAxis: 1, // To which of two y axis this series should be linked
+                visible: true,
+                enableMouseTracking: true,
+                color: 'blue',
+                lineWidth: 2
+              },
+              {
+                name: 'MACD signal line',
+                yAxis: 1, // To which of two y axis this series should be linked
+                visible: true,
+                enableMouseTracking: true,
+                color: 'purple',
+                lineWidth: 2
               }
             ]
           }

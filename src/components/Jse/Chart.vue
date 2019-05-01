@@ -42,12 +42,15 @@
       HistoryBarsLoad () {
         axios.get('trading/history')
           .then((response) => {
+          console.log(response);
             this.chart.series[0].setData(response.data.candles, true);
             this.chart.series[1].setData(response.data.priceChannelHighValues, true);
             this.chart.series[2].setData(response.data.priceChannelLowValues, true);
-            this.chart.series[3].setData(response.data.sma, true);
-            this.chart.series[4].setData(response.data.longTradeMarkers, true); //
-            this.chart.series[5].setData(response.data.shortTradeMarkers, true); //
+            this.chart.series[3].setData(response.data.sma1, true);
+            this.chart.series[4].setData(response.data.longTradeMarkers, true);
+            this.chart.series[5].setData(response.data.shortTradeMarkers, true);
+            this.chart.series[6].setData(response.data.macdLine, true);
+            this.chart.series[7].setData(response.data.macdSignalLine, true);
           })
           .catch((err) => {
             alert("Chart.vue can not get history bars. " + err);
