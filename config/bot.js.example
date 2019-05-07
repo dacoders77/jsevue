@@ -1,0 +1,3 @@
+module.exports = {
+  PUSHER_ID: '"12345"' // Pusher key
+}
