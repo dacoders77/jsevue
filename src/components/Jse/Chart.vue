@@ -83,7 +83,9 @@
         }
       },
       ListenWebSocket () {
-        this.pusher = new Pusher(require('../../../config/bot.js').default.PUSHER_KEY, {
+        var key = require('../../../config/bot.js').default.PUSHER_KEY;
+        console.log(key);
+        this.pusher = new Pusher(key, {
           encrypted: true,
           cluster: 'mt1'
         });
