@@ -38,7 +38,6 @@
       this.chart = Highchart.stockChart('container', Opt.data().options);
       this.HistoryBarsLoad();
       this.ListenWebSocket();
-      //console.log(require('../../../config/bot.js').default.PUSHER_KEY);
     },
     methods: {
       HistoryBarsLoad () {
@@ -58,13 +57,14 @@
           })
       },
       ChartBarsUpdate (payload) {
+        //console.log(payload);
         let last = this.chart.series[0].data[this.chart.series[0].data.length - 1];
         // Update the chart only when the series is loaded. WS events can start coming earlier than the chart is loaded.
         if (last != null) {
           last.update({
-            // 'open': is created when new bar is added to the chart
-            'high': payload.payload.tradeBarHigh,
-            'low': payload.payload.tradeBarLow,
+             //'open': (payload.payload.tradeBarHigh == payload.payload.tradeBarLow ? payload.payload.tradePrice : null), // is created when new bar is added to the chart
+             'high': payload.payload.tradeBarHigh, // if tradeBarHigh > open
+             'low': payload.payload.tradeBarLow, // if tradeBarLow < open of the current bar
             'close': payload.payload.tradePrice
           }, true);
         }
@@ -78,18 +78,17 @@
             payload.payload.tradePrice,
             payload.payload.tradePrice
           ], true, false);
+
           // Add price channel calculated values. Price channel is calculated on each new bar issued. CandleMaker.php line 165
           this.HistoryBarsLoad();
         }
       },
       ListenWebSocket () {
         var key = require('../../../config/bot.js').default.PUSHER_KEY;
-        console.log(key);
         this.pusher = new Pusher(key, {
           encrypted: true,
           cluster: 'mt1'
         });
-        // var quotes = this.quotes;
         var self = this;
         this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
         this.channel.bind("App\\Events\\jseevent", function (data) { // Full event name as shown at pusher debug console

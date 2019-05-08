@@ -3,7 +3,7 @@ node_modules/
 dist/
 .idea/
 npm-debug.log
-bot.js
+config/
 
 storybook-static/
 test/unit/coverage/
