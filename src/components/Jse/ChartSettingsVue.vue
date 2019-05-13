@@ -27,7 +27,7 @@
                 selected: 1
               },
             title: {
-              text: 'AAPL Stock Price'
+              //text: 'AAPL Stock Price'
             },
             series: [{
               name: 'AAPL',

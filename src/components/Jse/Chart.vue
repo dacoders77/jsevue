@@ -51,18 +51,18 @@
             this.chart.series[5].setData(response.data.shortTradeMarkers, true);
             this.chart.series[6].setData(response.data.macdLine, true);
             this.chart.series[7].setData(response.data.macdSignalLine, true);
+            this.chart.setTitle({text: response.data.symbol});
           })
           .catch((err) => {
             alert("Chart.vue can not get history bars. " + err);
           })
       },
       ChartBarsUpdate (payload) {
-        //console.log(payload);
         let last = this.chart.series[0].data[this.chart.series[0].data.length - 1];
         // Update the chart only when the series is loaded. WS events can start coming earlier than the chart is loaded.
         if (last != null) {
           last.update({
-             //'open': (payload.payload.tradeBarHigh == payload.payload.tradeBarLow ? payload.payload.tradePrice : null), // is created when new bar is added to the chart
+             //'open': is created when new bar is added to the chart
              'high': payload.payload.tradeBarHigh, // if tradeBarHigh > open
              'low': payload.payload.tradeBarLow, // if tradeBarLow < open of the current bar
             'close': payload.payload.tradePrice
@@ -78,7 +78,6 @@
             payload.payload.tradePrice,
             payload.payload.tradePrice
           ], true, false);
-
           // Add price channel calculated values. Price channel is calculated on each new bar issued. CandleMaker.php line 165
           this.HistoryBarsLoad();
         }
