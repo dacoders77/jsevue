@@ -8,10 +8,15 @@ export default [
     name: 'Trading',
     icon: 'ti-settings',
     collapsed: false,
-    children: [{
-      name: 'Chart',
-      path: '/chart'
-    },
+    children: [
+      {
+        name: 'Chart',
+        path: '/chart'
+      },
+      {
+        name: 'Chart1',
+        path: '/chart1'
+      },
       {
         name: 'Settings',
         path: '/settings'

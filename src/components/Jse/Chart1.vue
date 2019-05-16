@@ -3,21 +3,21 @@
     <div id="app" style="border: 0px solid red">
         <div id="container" style="width:100%; height:75vh;"></div>
         <div class="col">
-        <div class="card h-100">
+            <div class="card h-100">
 
-            <!--<div class="card-header"><span style="font-size:140%">Quotes</span>
-                <div class="card-tools">
-                    <span v-for="quote in quotes">
-                  <small>
-                      {{ quote }}<br>
-                  </small>
-                </span>
+                <!--<div class="card-header"><span style="font-size:140%">Quotes</span>
+                    <div class="card-tools">
+                        <span v-for="quote in quotes">
+                      <small>
+                          {{ quote }}<br>
+                      </small>
+                    </span>
+                    </div>
+                </div>-->
+
+                <div class="card-body">
                 </div>
-            </div>-->
-
-            <div class="card-body">
             </div>
-        </div>
         </div>
     </div>
 
@@ -41,7 +41,7 @@
     },
     methods: {
       HistoryBarsLoad () {
-        axios.get('trading/history/0') // Back end bot id
+        axios.get('trading/history/1') // Back end bot id
           .then((response) => {
             this.chart.series[0].setData(response.data.candles, true);
             this.chart.series[1].setData(response.data.priceChannelHighValues, true);
@@ -62,9 +62,9 @@
         // Update the chart only when the series is loaded. WS events can start coming earlier than the chart is loaded.
         if (last != null) {
           last.update({
-             //'open': is created when new bar is added to the chart
-             'high': payload.payload.tradeBarHigh, // if tradeBarHigh > open
-             'low': payload.payload.tradeBarLow, // if tradeBarLow < open of the current bar
+            //'open': is created when new bar is added to the chart
+            'high': payload.payload.tradeBarHigh, // if tradeBarHigh > open
+            'low': payload.payload.tradeBarLow, // if tradeBarLow < open of the current bar
             'close': payload.payload.tradePrice
           }, true);
         }
@@ -91,7 +91,7 @@
         var self = this;
         this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
         this.channel.bind("App\\Events\\jseevent", function (data) { // Full event name as shown at pusher debug console
-          if (data.payload['clientId'] == 12345) { // Back end id. Each bot instans must han a unique number
+          if (data.payload['clientId'] == 12346) { // Back end id. Each bot instans must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload);
             // if (data.payload.messageType === 'error') swal("Failed!", "Error: " + e.update['payload'], "warning");
             // if (data.payload.messageType === 'info') toast({type: 'success', title: e.update['payload']});
