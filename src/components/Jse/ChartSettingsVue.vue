@@ -66,8 +66,8 @@
                 name: 'sma',
                 visible: true,
                 enableMouseTracking: true,
-                color: 'green',
-                lineWidth: 2,
+                color: 'yellow',
+                lineWidth: 1,
                 dataGrouping: {
                   enabled: false
                 }
@@ -123,6 +123,19 @@
                 visible: true,
                 enableMouseTracking: true,
                 color: 'purple',
+                lineWidth: 2
+              },
+              {
+                name: 'Trade Profit',
+                yAxis: 1, // To which of two y axis this series should be linked
+                //type: 'area',
+                step: true,
+                visible: true,
+                //enableMouseTracking: true,
+                color: 'green',
+                //negativeColor: 'rgba(255, 0, 0, 1)',
+                negativeColor: 'red',
+                //threshold: 2,
                 lineWidth: 2
               }
             ]

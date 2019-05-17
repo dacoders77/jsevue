@@ -51,6 +51,7 @@
             this.chart.series[5].setData(response.data.shortTradeMarkers, true);
             this.chart.series[6].setData(response.data.macdLine, true);
             this.chart.series[7].setData(response.data.macdSignalLine, true);
+            this.chart.series[8].setData(response.data.profitDiagram, true);
             this.chart.setTitle({text: response.data.symbol});
           })
           .catch((err) => {
