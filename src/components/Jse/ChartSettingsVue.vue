@@ -24,7 +24,14 @@
             }],
             rangeSelector:
               {
-                selected: 1
+                selected: 4,
+                inputEnabled: false,
+                buttonTheme: {
+                  visibility: 'hidden'
+                },
+                labelStyle: {
+                  visibility: 'hidden'
+                }
               },
             title: {
               //text: 'AAPL Stock Price'
@@ -126,17 +133,26 @@
                 lineWidth: 2
               },
               {
-                name: 'Trade Profit',
+                name: 'Accum profit',
                 yAxis: 1, // To which of two y axis this series should be linked
-                //type: 'area',
-                step: true,
+                type: 'area',
+                // step: true,
+                visible: true,
+                //enableMouseTracking: true,
+                color: 'rgba(51, 204, 51, 0.05)',
+                negativeColor: 'rgba(255, 0, 0, 0)'
+              },
+              {
+                name: 'Net profit',
+                yAxis: 1, // To which of two y axis this series should be linked
+                type: 'line',
+                // step: true,
                 visible: true,
                 //enableMouseTracking: true,
                 color: 'green',
-                //negativeColor: 'rgba(255, 0, 0, 1)',
                 negativeColor: 'red',
-                //threshold: 2,
-                lineWidth: 2
+                // threshold: 2,
+                lineWidth: 1
               }
             ]
           }
