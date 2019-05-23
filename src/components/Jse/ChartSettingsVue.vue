@@ -13,7 +13,8 @@
                   color: 'purple'
                 }
               }
-            }, { // Secondary yAxis
+            },
+              { // Secondary yAxis
               title: {
                 text: 'profit',
                 style: {
@@ -21,7 +22,18 @@
                 }
               },
               opposite: false
-            }],
+              },
+              { // Third yAxis for MACD
+                title: {
+                  text: 'MACD',
+                  style: {
+                    color: 'green'
+                  }
+                },
+                visible: false,
+                opposite: false
+              }
+            ],
             rangeSelector:
               {
                 selected: 4,
@@ -37,7 +49,7 @@
               //text: 'AAPL Stock Price'
             },
             series: [{
-              name: 'AAPL',
+              name: 'Chart',
               type: 'candlestick',
               // data: [
               //  [10, 10, 10, 10, 10, 10],
@@ -118,7 +130,7 @@
               ///
               {
                 name: 'MACD line',
-                yAxis: 1, // To which of two y axis this series should be linked
+                yAxis: 2, // To which of two y axis this series should be linked
                 visible: true,
                 enableMouseTracking: true,
                 color: 'blue',
@@ -126,7 +138,7 @@
               },
               {
                 name: 'MACD signal line',
-                yAxis: 1, // To which of two y axis this series should be linked
+                yAxis: 2, // To which of two y axis this series should be linked
                 visible: true,
                 enableMouseTracking: true,
                 color: 'purple',
