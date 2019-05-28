@@ -134,7 +134,8 @@
                 visible: true,
                 enableMouseTracking: true,
                 color: 'blue',
-                lineWidth: 2
+                dashStyle: 'LongDash',
+                lineWidth: 1
               },
               {
                 name: 'MACD signal line',

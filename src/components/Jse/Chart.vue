@@ -3,7 +3,7 @@
     <div id="app" style="border: 0px solid red">
         <button class="btn btn-x btn-fill btn-info" @click="botMinus">Bot-</button>
         <button class="btn btn-x btn-fill btn-info" @click="botPlus">Bot+</button>
-        <span>Bot instanc ID: {{ botId }} Bot symbol: {{ botSymbol }}</span>
+        <span>Bot instance ID: {{ botId }} Bot symbol: {{ botSymbol }}</span>
 
         <div id="container" style="width:100%; height:75vh; padding-top: 10px"></div>
         <div class="col">
@@ -47,7 +47,6 @@
     },
     methods: {
       HistoryBarsLoad (botId) {
-
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
             this.chart.series[0].setData(response.data.candles, true);
