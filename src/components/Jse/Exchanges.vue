@@ -1,6 +1,7 @@
 <template>
-    
+
     <div class="row">
+
 
         <div class="col-md-12">
             <div class="card">
@@ -71,7 +72,7 @@
 
                 </div>
             </div>
-            <el-tag
+            <!--<el-tag
                     :key="tag"
                     v-for="tag in tags.dynamicTags"
                     type="primary"
@@ -83,34 +84,79 @@
                 <button class="btn btn-icon btn-simple btn-info">
                     <i class="ti-plus"></i>
                 </button>
-            </el-tag>
+            </el-tag>-->
         </div>
 
-        <button type="button" @click="click">
-            Launch demo modal
+        <button @click="click()">
+            hello
         </button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--hide-footer="flase" - param for footer hide -->
 
+        <b-modal
+                no-fade
+                data-backdrop="static"
+                keyboard="false"
+                id="modal-scoped"
+                ref="my-modal"
+                size="sm"
+                title="Update Exchnage"
+                @ok="handleOkModalButton"
+        >
+
+            <form ref="form" @submit.stop.prevent="handleSubmit">
+                <b-form-group
+                        :state="nameState"
+                        label-for="name-input"
+                >
+                    <b-form-input id="name-input" v-model="name" :state="nameState" required
+                                  placeholder="ffsdf"
+                                  :class="{ 'is-invalid': form.errors.has('execution_name')}"></b-form-input>
+                    <has-error :form="form" field="execution_name"></has-error>
+                </b-form-group>
+
+                <b-form-group
+                        :state="nameState"
+                        label-for="name-input"
+                        invalid-feedback="Name is required">
+                    <b-form-input id="name-input" v-model="name" :state="nameState" required placeholder="URL"></b-form-input>
+                </b-form-group>
+            </form>
+
+
+
+                <!--<div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" style="width:80px;">Symbol:</div>
+                    </div>
+                    <select name="symbol" v-model="form.symbol" id="symbol" class="form-control" :class="{ 'is-invalid': form.errors.has('symbol') }">
+                        &lt;!&ndash;<option v-for="symbol in symbols.data">{{ symbol.execution_name }}</option>&ndash;&gt;
+                        <option>zx</option>
+                    </select>
+                    <has-error :form="form" field="symbol"></has-error>
+                </div>-->
+
+                <!--<div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" style="width:80px;">%</div>
+                    </div>
+                    <input v-model="form.percent" type="number" name="percent"
+                           class="form-control" :class="{ 'is-invalid': form.errors.has('percent') }">
+                    <has-error :form="form" field="percent"></has-error>
+                </div>
+
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" style="width:80px;">Direction:</div>
+                    </div>
+                    <select name="type" v-model="form.direction" id="type" class="form-control" :class="{ 'is-invalid': form.errors.has('direction') }">
+                        <option value="long">Long</option>
+                        <option value="short">Short</option>
+                    </select>
+                    <has-error :form="form" field="direction"></has-error>
+                </div>-->
+
+        </b-modal>
 
 
     </div>
@@ -126,13 +172,22 @@
     },
     data () {
       return {
-        editmode: true, // Modal edit record or create new flag
+        form: new Form({
+          id: '',
+          name: '',
+          status: ''
+        }),
+        editmode: true, // Modal edit record or create new flag. Delete
         exchanges: null,
+        show: null, // delete. for popup
         tags: {
           dynamicTags: null, // ['Tag 1d', 'Tag 2', 'Tag 3']
           inputVisible: false,
           inputValue: ''
-        }
+        },
+        name: '', // Delete
+        nameState: null, // Delete
+        submittedNames: [] // Delete
       }
     },
     created() {
@@ -144,23 +199,45 @@
     },
     methods: {
       loadExchangesList() {
-        axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
+        // vue.common.dev.js?e3e7:630 [Vue warn]: Failed to resolve filter: myDate - goes from here
+        //axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
       },
       list() {
-        axios.get('/exchange/1').then(({data}) => (this.tags.dynamicTags = data)); // Resource controllers are defined in api.php
+        //axios.get('/exchange/1').then(({data}) => (this.tags.dynamicTags = data)); // Resource controllers are defined in api.php
       },
       click() {
         //this.editmode = false;
         //this.form.reset();
-        $('#exampleModalScrollable').modal('show');
+        //alert('f');
+        //$('#exampleModal').modal('show');
+        this.$refs['my-modal'].show();
+      },
+      handleOkModalButton(bvModalEvt) {
+        // Prevent modal from closing
+        // bvModalEvt.preventDefault()
+
+        // Trigger submit handler
+        //this.handleSubmit()
+        // Submit goes here
+        // ..
+        this.$refs['my-modal'].hide();
+
       }
 
     }
   }
 
 </script>
+
 <style>
     .el-table .cell {
         white-space: nowrap;
+    }
+    .modal-backdrop {
+        opacity: 0.5;
+
+    }
+    .close {
+        display: none; /*Remove X button from modal*/
     }
 </style>

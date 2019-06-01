@@ -23,15 +23,17 @@ import { initialize } from './helpers/general' // Import function
 import Vuex from 'vuex' // Vue store plugin link
 import StoreData from './store.js' // Vue store settings (getters, muations, etc.)
 
+
+
 // Plugins
 import GlobalComponents from './gloablComponents'
 import GlobalDirectives from './globalDirectives'
 import SideBar from './components/UIComponents/SidebarPlugin'
 
-// router setup
+// Router setup
 import routes from './routes/routes'
 
-// library imports
+// Library imports
 import './assets/sass/paper-dashboard.scss'
 import './assets/sass/element_variables.scss'
 import './assets/sass/demo.scss'
@@ -70,9 +72,17 @@ initialize(store, router);
 // Global event bus
 export const bus = new Vue();
 
-// JQuery
-window.$ = require('jquery')
-window.JQuery = require('jquery')
+// Bootstrap-vue
+import BootstrapVue from 'bootstrap-vue'
+//import 'bootstrap/dist/css/bootstrap.css' //// Need to disable them. Otherwise the menu is broken.
+//import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(BootstrapVue)
+
+// Vform. https://github.com/cretueusebiu/vform
+import { Form, HasError, AlertError } from 'vform'
+window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 new Vue({
   router,
