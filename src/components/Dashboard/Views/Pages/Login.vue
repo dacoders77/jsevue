@@ -13,7 +13,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <span class="navbar-brand">JSE BOT TRADING</span>
+          <span class="navbar-brand">JSE BOT</span>
         </div>
       </div>
     </nav>

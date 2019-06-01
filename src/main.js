@@ -70,6 +70,10 @@ initialize(store, router);
 // Global event bus
 export const bus = new Vue();
 
+// JQuery
+window.$ = require('jquery')
+window.JQuery = require('jquery')
+
 new Vue({
   router,
   store,

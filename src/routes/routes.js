@@ -6,6 +6,7 @@ import DashboardJse from 'src/components/Jse/DashboardJse.vue'
 import Chart from 'src/components/Jse/Chart.vue'
 import Chart1 from 'src/components/Jse/Chart1.vue'
 import Settings from 'src/components/Jse/Settings.vue'
+import Exchnages from 'src/components/Jse/Exchanges.vue'
 
 export const routes = [
   {
@@ -35,14 +36,14 @@ export const routes = [
         component: Chart
       },
       {
-        path: 'chart1',
-        name: 'Chart1',
-        component: Chart1
-      },
-      {
         path: 'settings',
         name: 'Settings',
         component: Settings
+      },
+      {
+        path: 'exchanges',
+        name: 'Exchanges',
+        component: Exchnages
       }
     ]
   },

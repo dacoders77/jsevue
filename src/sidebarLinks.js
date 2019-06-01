@@ -5,21 +5,45 @@ export default [
     path: '/dashboard'
   },
   {
-    name: 'Trading',
+    name: 'Chart',
+    icon: 'ti-bar-chart-alt',
+    path: '/chart'
+  },
+  {
+    name: 'Bots',
+    icon: 'ti-files',
+    path: '/dashboard'
+  },
+  {
+    name: 'Settings',
     icon: 'ti-settings',
-    collapsed: false,
+    collapsed: true,
     children: [
       {
-        name: 'Chart',
-        path: '/chart'
+        name: 'Exchanges',
+        path: '/exchanges'
       },
       {
-        name: 'Chart1',
+        name: 'Accounts',
         path: '/chart1'
       },
       {
-        name: 'Settings',
+        name: 'Symbols',
         path: '/settings'
+      }]
+  },
+  {
+    name: 'Strategies',
+    icon: 'ti-pulse',
+    collapsed: true,
+    children: [
+      {
+        name: 'Price channel',
+        path: '/chart'
+      },
+      {
+        name: 'MACD',
+        path: '/chart1'
       }]
   }
 ]

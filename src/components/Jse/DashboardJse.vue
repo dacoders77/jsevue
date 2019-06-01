@@ -16,7 +16,6 @@
                         <el-table-column label="Profit" property="profit"></el-table-column>
                         <el-table-column label="Accum" property="accProfit"></el-table-column>
                     </el-table>
-
                 </div>
             </div>
         </div>

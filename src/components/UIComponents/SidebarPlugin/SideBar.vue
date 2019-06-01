@@ -40,7 +40,7 @@
     props: {
       title: {
         type: String,
-        default: 'JSE BOT TRADING'
+        default: 'JSE BOT'
       },
       type: {
         type: String,
