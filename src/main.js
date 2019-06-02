@@ -84,6 +84,12 @@ window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+// Pretty date formatting
+import moment from 'moment';
+Vue.filter('myDate', function(created_at){
+  return moment(created_at).format('MM.DD h:mm'); // MMMM Do YYYY, h:mm:ss a
+});
+
 new Vue({
   router,
   store,

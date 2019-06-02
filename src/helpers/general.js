@@ -15,14 +15,29 @@ export function initialize (store, router) {
     }
   })
 
-  axios.interceptors.response.use(null, (error) => {
+ /* axios.interceptors.response.use(null, (error) => {
     if (error.resposne.status == 401) {
       store.commit('logout')
       router.push('/login')
     }
-
+    alert('d');
     return Promise.reject(error)
-  })
+  })*/
+
+  // https://github.com/axios/axios/issues/960
+  axios.interceptors.response.use((response) => {
+    return response;
+  }, function (error) {
+    // Do something with response error
+    if (error.response.status === 401) {
+      console.log('unauthorized, logging out ...');
+      auth.logout();
+      router.replace('/auth/login');
+    }
+    return Promise.reject(error.response);
+  });
+
+
 
   if (store.getters.currentUser) {
     //alert('currentUser || general.js');

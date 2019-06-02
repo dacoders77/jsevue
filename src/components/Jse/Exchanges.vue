@@ -1,9 +1,8 @@
 <template>
 
     <div class="row">
-
-
         <div class="col-md-12">
+
             <div class="card">
                 <div class="card-header" style="border: 0px solid red; padding: 0px">
                     <!--<h4 class="title">Trades log</h4>-->
@@ -24,15 +23,12 @@
                                 <th>Status</th>
                                 <th>Memo</th>
                             </tr>
+
                             <tr v-for="exchange in exchanges" :key="exchange.id">
                                 <td>{{ exchange.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-success" @click="click">
-                                        <i class="ti-marker-alt"></i>
-                                    </button>
-                                    <button class="btn btn-icon btn-simple btn-danger">
-                                        <i class="ti-trash"></i>
-                                    </button>
+                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-danger"><i class="ti-trash"></i></button>
                                 </td>
                                 <!--<td>
                                     <div class="btn-group">
@@ -43,11 +39,7 @@
                                 </td>-->
                                 <td>{{ exchange.name }}</td>
                                 <td>{{ exchange.created_at | myDate }}</td>
-                                <td>
-                                    <button class="btn btn-icon btn-simple btn-info">
-                                    <i class="ti-link"></i>
-                                    </button>
-                                </td>
+                                <td><button class="btn btn-icon btn-simple btn-info"><i class="ti-link"></i></button></td>
                                 <td>{{ exchange.live_api_path }}</td>
                                 <td>{{ exchange.testnet_api_path }}</td>
                                 <td><span class="text-success">Online</span></td>
@@ -85,11 +77,25 @@
                     <i class="ti-plus"></i>
                 </button>
             </el-tag>-->
-        </div>
 
-        <button @click="click()">
-            hello
-        </button>
+
+            <drop-down>
+                <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 150px;">
+                    Exchnage
+                    <b class="caret"></b>
+                </button>
+                <li><a href="javascript:void(0)">Kraken</a></li>
+                <li><a href="javascript:void(0)">Hitbtc</a></li>
+                <li><a href="javascript:void(0)">Okex</a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)">Cryptofac</a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)">Derebit</a></li>
+            </drop-down>
+
+
+
+        </div>
 
         <!--hide-footer="flase" - param for footer hide -->
 
@@ -105,59 +111,70 @@
         >
 
             <form ref="form" @submit.stop.prevent="handleSubmit">
-                <b-form-group
-                        :state="nameState"
-                        label-for="name-input"
-                >
-                    <b-form-input id="name-input" v-model="name" :state="nameState" required
-                                  placeholder="ffsdf"
-                                  :class="{ 'is-invalid': form.errors.has('execution_name')}"></b-form-input>
-                    <has-error :form="form" field="execution_name"></has-error>
-                </b-form-group>
+
 
                 <b-form-group
                         :state="nameState"
-                        label-for="name-input"
-                        invalid-feedback="Name is required">
-                    <b-form-input id="name-input" v-model="name" :state="nameState" required placeholder="URL"></b-form-input>
+                        label="Exchange name"
+                        label-for="name">
+                    <b-form-input
+                            id="name"
+                            v-model="form.name"
+                            :state="nameState"
+                            required
+                            placeholder="Exchange Name">
+                    </b-form-input>
+                    <b-form-invalid-feedback id="input-1-live-feedback">
+                        {{ form.errors2.name[0] }}
+                    </b-form-invalid-feedback>
+                </b-form-group>
+
+                <b-form-group :state="nameState" label-for="url" invalid-feedback="Name is required">
+                    <b-form-input
+                            id="url"
+                            v-model="form.url"
+                            :state="nameState"
+                            required
+                            placeholder="URL"
+                            :class="{ 'is-invalid': form.errors.has('execution_name')}">
+                    </b-form-input>
+                </b-form-group>
+
+                <b-form-group :state="nameState" label-for="live_api_path" invalid-feedback="Name is required">
+                    <b-form-input
+                            id="live_api_path"
+                            v-model="form.live_api_path"
+                            :state="nameState"
+                            required
+                            placeholder="Live API path"
+                            :class="{ 'is-invalid': form.errors.has('execution_name')}">
+                    </b-form-input>
+                </b-form-group>
+
+                <b-form-group :state="nameState" label-for="testnet_api_path" invalid-feedback="Name is required">
+                    <b-form-input
+                            id="testnet_api_path"
+                            v-model="form.testnet_api_path"
+                            :state="nameState"
+                            required
+                            placeholder="Testnet API path"
+                            :class="{ 'is-invalid': form.errors.has('execution_name')}">
+                    </b-form-input>
+                </b-form-group>
+                <b-form-group :state="nameState" label-for="memo" invalid-feedback="Name is required">
+                    <b-form-textarea
+                            id="memo"
+                            v-model="form.memo"
+                            :state="nameState"
+                            required
+                            placeholder="Memo note"
+                            rows="3"
+                            max-rows="6"
+                            :class="{ 'is-invalid': form.errors.has('execution_name')}">
+                    </b-form-textarea>
                 </b-form-group>
             </form>
-
-
-
-                <!--<div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text" style="width:80px;">Symbol:</div>
-                    </div>
-                    <select name="symbol" v-model="form.symbol" id="symbol" class="form-control" :class="{ 'is-invalid': form.errors.has('symbol') }">
-                        &lt;!&ndash;<option v-for="symbol in symbols.data">{{ symbol.execution_name }}</option>&ndash;&gt;
-                        <option>zx</option>
-                    </select>
-                    <has-error :form="form" field="symbol"></has-error>
-                </div>-->
-
-                <!--<div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text" style="width:80px;">%</div>
-                    </div>
-                    <input v-model="form.percent" type="number" name="percent"
-                           class="form-control" :class="{ 'is-invalid': form.errors.has('percent') }">
-                    <has-error :form="form" field="percent"></has-error>
-                </div>
-
-                <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text" style="width:80px;">Direction:</div>
-                    </div>
-                    <select name="type" v-model="form.direction" id="type" class="form-control" :class="{ 'is-invalid': form.errors.has('direction') }">
-                        <option value="long">Long</option>
-                        <option value="short">Short</option>
-                    </select>
-                    <has-error :form="form" field="direction"></has-error>
-                </div>-->
-
         </b-modal>
-
 
     </div>
 </template>
@@ -175,19 +192,21 @@
         form: new Form({
           id: '',
           name: '',
-          status: ''
+          url: '',
+          live_api_path: '',
+          testnet_api_path: '',
+          status: '',
+          memo: '',
+          errors2: []
         }),
-        editmode: true, // Modal edit record or create new flag. Delete
         exchanges: null,
-        show: null, // delete. for popup
         tags: {
           dynamicTags: null, // ['Tag 1d', 'Tag 2', 'Tag 3']
           inputVisible: false,
           inputValue: ''
         },
-        name: '', // Delete
-        nameState: null, // Delete
-        submittedNames: [] // Delete
+        name: '',
+        nameState: 'invalid' // Delete. 'valid' invalid null
       }
     },
     created() {
@@ -200,36 +219,39 @@
     methods: {
       loadExchangesList() {
         // vue.common.dev.js?e3e7:630 [Vue warn]: Failed to resolve filter: myDate - goes from here
-        //axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
+        axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
       },
       list() {
         //axios.get('/exchange/1').then(({data}) => (this.tags.dynamicTags = data)); // Resource controllers are defined in api.php
       },
-      click() {
-        //this.editmode = false;
-        //this.form.reset();
-        //alert('f');
-        //$('#exampleModal').modal('show');
+      editExchange(exchange) {
+        this.form.reset();
+        this.form.fill(exchange);
         this.$refs['my-modal'].show();
       },
       handleOkModalButton(bvModalEvt) {
-        // Prevent modal from closing
-        // bvModalEvt.preventDefault()
 
-        // Trigger submit handler
-        //this.handleSubmit()
-        // Submit goes here
-        // ..
-        this.$refs['my-modal'].hide();
+        bvModalEvt.preventDefault(); // Prevent modal from closing
 
+        this.form.put('/exchange/' + this.form.id)
+          .then((response) => {
+              console.log(response);
+              this.$refs['my-modal'].hide();
+        })
+          .catch(error => {
+              //alert('put error ' + error.response.data.message);
+            console.log(error);
+            this.form.errors2 = error.data.errors;
+
+          })
       }
-
     }
   }
 
 </script>
 
 <style>
+
     .el-table .cell {
         white-space: nowrap;
     }
@@ -240,4 +262,46 @@
     .close {
         display: none; /*Remove X button from modal*/
     }
+
+    .invalid-feedback {
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 80%;
+        color: #dc3545;
+    }
+
+    .was-validated .form-control:invalid ~ .invalid-feedback,
+    .was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.is-invalid ~ .invalid-feedback,
+    .form-control.is-invalid ~ .invalid-tooltip {
+        display: block;
+    }
+
+    .was-validated .custom-select:invalid ~ .invalid-feedback,
+    .was-validated .custom-select:invalid ~ .invalid-tooltip, .custom-select.is-invalid ~ .invalid-feedback,
+    .custom-select.is-invalid ~ .invalid-tooltip {
+        display: block;
+    }
+
+    .was-validated .form-control-file:invalid ~ .invalid-feedback,
+    .was-validated .form-control-file:invalid ~ .invalid-tooltip, .form-control-file.is-invalid ~ .invalid-feedback,
+    .form-control-file.is-invalid ~ .invalid-tooltip {
+        display: block;
+    }
+
+    .was-validated .form-check-input:invalid ~ .invalid-feedback,
+    .was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.is-invalid ~ .invalid-feedback,
+    .form-check-input.is-invalid ~ .invalid-tooltip {
+        display: block;
+    }
+
+    .was-validated .custom-range:invalid ~ .invalid-feedback,
+    .was-validated .custom-range:invalid ~ .invalid-tooltip, .custom-range.is-invalid ~ .invalid-feedback,
+    .custom-range.is-invalid ~ .invalid-tooltip {
+        display: block;
+    }
+
+
+
+
 </style>
