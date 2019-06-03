@@ -25,7 +25,7 @@ export default [
       },
       {
         name: 'Accounts',
-        path: '/chart1'
+        path: '/accounts'
       },
       {
         name: 'Symbols',

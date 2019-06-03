@@ -15,28 +15,21 @@
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
                                 <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
-                                <th>Name</th>
+                                <th>Exchnage</th>
                                 <th>Added</th>
-                                <th>URL</th>
-                                <th>Api path</th>
-                                <th>Testnet api path</th>
+                                <th>Api</th>
+                                <th>Api secret</th>
                                 <th>Status</th>
+                                <th>IsTestNet</th>
                                 <th>Memo</th>
                             </tr>
 
-                            <tr v-for="exchange in exchanges" :key="exchange.id">
+                            <!--<tr v-for="exchange in exchanges" :key="exchange.id">
                                 <td>{{ exchange.id }}</td>
                                 <td>
                                     <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
                                     <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
                                 </td>
-                                <!--<td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary" @click="deleteSymbol(exchange.id)">
-                                            <i class="nav-icon fas fa-trash white"></i>
-                                        </button>
-                                    </div>
-                                </td>-->
                                 <td>{{ exchange.name }}</td>
                                 <td>{{ exchange.created_at | myDate }}</td>
                                 <td><button class="btn btn-icon btn-simple btn-info"><a :href="exchange.url"><i class="ti-link"></i></a> </button></td>
@@ -44,13 +37,83 @@
                                 <td>{{ exchange.testnet_api_path }}</td>
                                 <td><span class="text-success">Online</span></td>
                                 <td>{{ exchange.memo }}</td>
+                            </tr>-->
+
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
+                                </td>
+                                <td>
+                                    <drop-down>
+                                        <button slot="title" class="btn dropdown-toggle btn-warning btn-sm" data-toggle="dropdown" style="width: 100px;">
+                                            Exchnage
+                                            <b class="caret"></b>
+                                        </button>
+                                        <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
+                                    </drop-down>
+                                </td>
+                                <td>17:32</td>
+                                <td>dfgdFRT534r5</td>
+                                <td>43gttr333346</td>
+                                <td><button class="btn btn-danger btn-fill btn-sm">No access</button></td>
+                                <td><span class="text-success">No</span></td>
+                                <td>First account</td>
+                            </tr>
+
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
+                                </td>
+                                <td>
+                                    <drop-down>
+                                        <button slot="title" class="btn dropdown-toggle btn-warning btn-sm" data-toggle="dropdown" style="width: 100px;">
+                                            Exchnage
+                                            <b class="caret"></b>
+                                        </button>
+                                        <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
+                                    </drop-down>
+                                </td>
+                                <td>09:11</td>
+                                <td>dfg56664444h</td>
+                                <td>hjkyuiyu7534</td>
+                                <td>Ok</td>
+                                <td><span class="text-success">Yes</span></td>
+                                <td>Just a test account</td>
+                            </tr>
+
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
+                                </td>
+                                <td>
+                                    <drop-down>
+                                        <button slot="title" class="btn dropdown-toggle btn-warning btn-sm" data-toggle="dropdown" style="width: 100px;">
+                                            Exchnage
+                                            <b class="caret"></b>
+                                        </button>
+                                        <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
+                                    </drop-down>
+                                </td>
+                                <td>01:34</td>
+                                <td>fgh666666666</td>
+                                <td>34545hhhhhhh</td>
+                                <td>Ok</td>
+                                <td><span class="text-success">No</span></td>
+                                <td>Putin's account</td>
                             </tr>
                             </tbody></table>
-
                     </div>
-
                 </div>
             </div>
+
+            <button class="btn btn-default btn-fill btn-wd">Add account</button>
+            <button class="btn btn-primary btn-fill btn-wd">Validate account</button>
             <!--<el-tag
                     :key="tag"
                     v-for="tag in tags.dynamicTags"
@@ -64,14 +127,6 @@
                     <i class="ti-plus"></i>
                 </button>
             </el-tag>-->
-
-            <drop-down>
-                <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 150px;">
-                    Exchnage
-                    <b class="caret"></b>
-                </button>
-                <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
-            </drop-down>
 
         </div>
 
@@ -126,8 +181,8 @@
                             v-model="form.memo"
                             :state="this.validationErrors.has('memo') ? 'invalid' : 'valid'"
                             placeholder="Memo">
-                            rows="3"
-                            max-rows="6"
+                        rows="3"
+                        max-rows="6"
                     </b-form-textarea>
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}</b-form-invalid-feedback>
                 </b-form-group>
@@ -181,28 +236,28 @@
         axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // Resource controllers are defined in api.php
       },
       editExchange(exchange) {
-        this.form.reset();
-        this.form.fill(exchange);
-        this.$refs['my-modal'].show();
+        //this.form.reset();
+        //this.form.fill(exchange);
+        //this.$refs['my-modal'].show();
       },
       deleteExchange(exchange) {
-        this.form.delete('/exchange/' + exchange.id)
+        /*this.form.delete('/exchange/' + exchange.id)
           .then((response) => {
             console.log(response);
             Fire.$emit('AfterCreate');
           })
           .catch(error => {
             console.log(error);
-          })
+          })*/
       },
       handleOkModalButton(bvModalEvt) {
         bvModalEvt.preventDefault(); // Prevent modal from closing
         this.form.put('/exchange/' + this.form.id)
           .then((response) => {
-              console.log(response);
-              this.$refs['my-modal'].hide();
-              Fire.$emit('AfterCreate');
-        })
+            console.log(response);
+            this.$refs['my-modal'].hide();
+            Fire.$emit('AfterCreate');
+          })
           .catch(error => {
             console.log(error);
             this.validationErrors.record(error.data.errors)

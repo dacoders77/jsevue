@@ -7,6 +7,7 @@ import Chart from 'src/components/Jse/Chart.vue'
 import Chart1 from 'src/components/Jse/Chart1.vue'
 import Settings from 'src/components/Jse/Settings.vue'
 import Exchnages from 'src/components/Jse/Exchanges.vue'
+import Accounts from 'src/components/Jse/Accounts.vue'
 
 export const routes = [
   {
@@ -44,6 +45,11 @@ export const routes = [
         path: 'exchanges',
         name: 'Exchanges',
         component: Exchnages
+      },
+      {
+        path: 'accounts',
+        name: 'Accounts',
+        component: Accounts
       }
     ]
   },
