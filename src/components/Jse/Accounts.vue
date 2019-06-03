@@ -113,20 +113,7 @@
             </div>
 
             <button class="btn btn-default btn-fill btn-wd">Add account</button>
-            <button class="btn btn-primary btn-fill btn-wd">Validate account</button>
-            <!--<el-tag
-                    :key="tag"
-                    v-for="tag in tags.dynamicTags"
-                    type="primary"
-                    :closable="false"
-                    :close-transition="false"
-                    @close="handleClose(tag)"
-            >
-                {{tag}}
-                <button class="btn btn-icon btn-simple btn-info">
-                    <i class="ti-plus"></i>
-                </button>
-            </el-tag>-->
+            
 
         </div>
 
