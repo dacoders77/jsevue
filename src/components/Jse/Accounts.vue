@@ -24,98 +24,30 @@
                                 <th>Memo</th>
                             </tr>
 
-                            <!--<tr v-for="exchange in exchanges" :key="exchange.id">
-                                <td>{{ exchange.id }}</td>
+                            <tr v-for="account in accounts" :key="account.id">
+                                <td>{{ account.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteAccount(account)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-info" @click="validateAccount(2)"><i class="ti-thumb-up"></i></button>
                                 </td>
-                                <td>{{ exchange.name }}</td>
-                                <td>{{ exchange.created_at | myDate }}</td>
-                                <td><button class="btn btn-icon btn-simple btn-info"><a :href="exchange.url"><i class="ti-link"></i></a> </button></td>
-                                <td>{{ exchange.live_api_path }}</td>
-                                <td>{{ exchange.testnet_api_path }}</td>
+                                <td>{{ account.name }}</td>
+                                <td>{{ account.created_at | myDate }}</td>
+                                <td>{{ account.api }}</td>
+                                <td><button class="btn btn-icon btn-simple btn-info" @click="showApiSecret(account.api_secret)"><i class="ti-user"></i></button></td>
                                 <td><span class="text-success">Online</span></td>
-                                <td>{{ exchange.memo }}</td>
-                            </tr>-->
-
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
-                                </td>
-                                <td>
-                                    <drop-down>
-                                        <button slot="title" class="btn dropdown-toggle btn-warning btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            Exchnage
-                                            <b class="caret"></b>
-                                        </button>
-                                        <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
-                                    </drop-down>
-                                </td>
-                                <td>17:32</td>
-                                <td>dfgdFRT534r5</td>
-                                <td>43gttr333346</td>
-                                <td><button class="btn btn-danger btn-fill btn-sm">No access</button></td>
-                                <td><span class="text-success">No</span></td>
-                                <td>First account</td>
-                            </tr>
-
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
-                                </td>
-                                <td>
-                                    <drop-down>
-                                        <button slot="title" class="btn dropdown-toggle btn-warning btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            Exchnage
-                                            <b class="caret"></b>
-                                        </button>
-                                        <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
-                                    </drop-down>
-                                </td>
-                                <td>09:11</td>
-                                <td>dfg56664444h</td>
-                                <td>hjkyuiyu7534</td>
-                                <td>Ok</td>
-                                <td><span class="text-success">Yes</span></td>
-                                <td>Just a test account</td>
-                            </tr>
-
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
-                                </td>
-                                <td>
-                                    <drop-down>
-                                        <button slot="title" class="btn dropdown-toggle btn-warning btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            Exchnage
-                                            <b class="caret"></b>
-                                        </button>
-                                        <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
-                                    </drop-down>
-                                </td>
-                                <td>01:34</td>
-                                <td>fgh666666666</td>
-                                <td>34545hhhhhhh</td>
-                                <td>Ok</td>
-                                <td><span class="text-success">No</span></td>
-                                <td>Putin's account</td>
+                                <td>{{ account.is_testnet }}</td>
+                                <td>{{ account.memo }}</td>
                             </tr>
                             </tbody></table>
                     </div>
                 </div>
             </div>
 
-            <button class="btn btn-default btn-fill btn-wd">Add account</button>
-            
+            <button class="btn btn-default btn-fill btn-wd" @click="addAccount()">Add account</button>
 
         </div>
+
+
 
         <b-modal
                 no-fade
@@ -124,12 +56,21 @@
                 id="modal-scoped"
                 ref="my-modal"
                 size="sm"
-                title="Update Exchnage"
+                title="Add account"
                 @ok="handleOkModalButton"
         >
 
-            <form ref="form" @submit.stop.prevent="handleSubmit">
-                <b-form-group label="" label-for="name">
+            <form ref="form" @submit.stop.prevent="">
+
+                <drop-down style="padding-bottom: 15px">
+                    <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100%;">
+                        Exchnage
+                        <b class="caret"></b>
+                    </button>
+                    <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="selectExchange(ex.id)">{{ ex.name }}</a> </li>
+                </drop-down>
+
+                <!--<b-form-group label="" label-for="name">
                     <b-form-input
                             id="name"
                             v-model="form.name"
@@ -138,28 +79,28 @@
                             placeholder="Exchange Name">
                     </b-form-input>
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('name') }}</b-form-invalid-feedback>
+                </b-form-group>-->
+
+                <b-form-group label="" label-for="api">
+                    <b-form-input
+                            id="api"
+                            v-model="form.api"
+                            :state="this.validationErrors.has('api') ? 'invalid' : 'valid'"
+                            required
+                            placeholder="Api">
+                    </b-form-input>
+                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('api') }}</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="" label-for="live_api_path">
+                <b-form-group label="" label-for="api_secret">
                     <b-form-input
-                            id="live_api_path"
-                            v-model="form.live_api_path"
-                            :state="this.validationErrors.has('live_api_path') ? 'invalid' : 'valid'"
+                            id="api_secret"
+                            v-model="form.api_secret"
+                            :state="this.validationErrors.has('api_secret') ? 'invalid' : 'valid'"
                             required
-                            placeholder="Live api path">
+                            placeholder="Api secret">
                     </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('live_api_path') }}</b-form-invalid-feedback>
-                </b-form-group>
-
-                <b-form-group label="" label-for="testnet_api_path">
-                    <b-form-input
-                            id="testnet_api_path"
-                            v-model="form.testnet_api_path"
-                            :state="this.validationErrors.has('testnet_api_path') ? 'invalid' : 'valid'"
-                            required
-                            placeholder="Test net api path">
-                    </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('testnet_api_path') }}</b-form-invalid-feedback>
+                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('api_secret') }}</b-form-invalid-feedback>
                 </b-form-group>
 
                 <b-form-group label="" label-for="memo">
@@ -182,6 +123,7 @@
   import Vue from 'vue'
   import {Table, TableColumn, Tag} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
+  import swal from 'sweetalert2'
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
@@ -193,71 +135,113 @@
         validationErrors: new ValidationErrors(),
         form: new Form({
           id: '',
-          name: '',
+          exchange_id: '',
+          //name: '', // No need to use name. It will be pulled in controller using exchange_id
           url: '',
-          live_api_path: '',
-          testnet_api_path: '',
+          api: '',
+          api_secret: '',
           status: '',
           memo: ''
         }),
-        exchanges: null, // Exchanges for table
-        allExchanges: null // Exchnages for dropdown
+        accounts: null, // Exchanges for table
+        allExchanges: null, // Exchnages for dropdown
+        type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
+        notifications: {
+          topCenter: false
+        }
       }
     },
     created() {
       // First created then mounted
       // Event listener
       Fire.$on('AfterCreate', () => {
-        this.loadExchanges();
+        this.loadAccounts();
       });
     },
     mounted() {
-      this.loadExchanges();
+      this.loadAccounts();
       this.loadExchangesList(); // Exchanges for dropdown
     },
     methods: {
-      loadExchanges() {
-        axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
+      loadAccounts() {
+        axios.get('/account').then(({data}) => (this.accounts = data.data)); // Resource controllers are defined in api.php
       },
       loadExchangesList() {
-        axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // Resource controllers are defined in api.php
+        axios.get('/exchangeslist').then(({data}) => {
+          this.allExchanges = data.data;
+          console.log(this.allExchanges);
+        });
       },
-      editExchange(exchange) {
-        //this.form.reset();
-        //this.form.fill(exchange);
-        //this.$refs['my-modal'].show();
-      },
-      deleteExchange(exchange) {
-        /*this.form.delete('/exchange/' + exchange.id)
+      deleteAccount(account) {
+        this.form.delete('/account/' + account.id)
           .then((response) => {
-            console.log(response);
             Fire.$emit('AfterCreate');
+            this.showNotification('bottom', 'right', 'Account deleted! <br>' + '&nbsp')
           })
           .catch(error => {
-            console.log(error);
-          })*/
+            this.showNotification('bottom', 'right', 'Delete account error! <br>' + '&nbsp')
+          })
       },
       handleOkModalButton(bvModalEvt) {
         bvModalEvt.preventDefault(); // Prevent modal from closing
-        this.form.put('/exchange/' + this.form.id)
+        this.form.post('/account')
           .then((response) => {
             console.log(response);
             this.$refs['my-modal'].hide();
             Fire.$emit('AfterCreate');
+            this.showNotification('bottom', 'right', 'Account added! <br>' + '&nbsp')
           })
           .catch(error => {
-            console.log(error);
-            this.validationErrors.record(error.data.errors)
+            this.validationErrors.record(error.data.errors);
+            this.showNotification('bottom', 'right', 'Add account error! <br>' + '&nbsp')
           })
       },
-      createExchnage(exchnageName) {
-        this.form.name = exchnageName;
+      createAccount() {
+        //this.form.name = exchnageName;
         this.form.post('/exchange')
           .then((response) => {
             Fire.$emit('AfterCreate');
           })
           .catch(error => {
             console.log(error);
+          })
+      },
+      selectExchange(id) {
+        this.form.id = id;
+      },
+      validateAccount(id) {
+        swal({
+          title: `Account validated`,
+          text: 'Account id: ' + id,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill',
+          type: 'success'
+        })
+      },
+      showApiSecret(apiSecret) {
+        swal({
+          title: 'Api secret: ',
+          text: apiSecret,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill'
+        })
+      },
+      addAccount() {
+        this.form.reset();
+        //this.form.fill(exchange);
+        this.$refs['my-modal'].show();
+      },
+      showNotification (verticalAlign, horizontalAlign, notificationText) {
+        var color = Math.floor((Math.random() * 4) + 1)
+        this.$notify(
+          {
+            component: {
+              template: "<span>" + notificationText + "</span>"
+            },
+            icon: 'ti-info-alt',
+            horizontalAlign: horizontalAlign,
+            verticalAlign: verticalAlign,
+            type: this.type[color]
           })
       }
     }

@@ -144,7 +144,7 @@
   Vue.use(TableColumn)
   export default {
     components: {
-      [Tag.name]: Tag
+      [Tag.name]: Tag // remove this
     },
     data () {
       return {
@@ -159,7 +159,11 @@
           memo: ''
         }),
         exchanges: null, // Exchanges for table
-        allExchanges: null // Exchnages for dropdown
+        allExchanges: null, // Exchanges for dropdown
+        type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
+        notifications: {
+          topCenter: false
+        }
       }
     },
     created() {
@@ -190,9 +194,10 @@
           .then((response) => {
             console.log(response);
             Fire.$emit('AfterCreate');
+            this.showNotification('bottom', 'right', 'Exchange successfully removed! <br>' + '&nbsp')
           })
           .catch(error => {
-            console.log(error);
+            this.showNotification('bottom', 'right', 'Exchange delete error! <br>' + '&nbsp')
           })
       },
       handleOkModalButton(bvModalEvt) {
@@ -202,10 +207,12 @@
               console.log(response);
               this.$refs['my-modal'].hide();
               Fire.$emit('AfterCreate');
+              this.showNotification('bottom', 'right', 'Exchange successfully updated! <br> id: ' + this.form.id)
         })
           .catch(error => {
             console.log(error);
             this.validationErrors.record(error.data.errors)
+            this.showNotification('bottom', 'right', 'Exchange edit error! <br> id: ' + this.form.id)
           })
       },
       createExchnage(exchnageName) {
@@ -213,9 +220,23 @@
         this.form.post('/exchange')
           .then((response) => {
             Fire.$emit('AfterCreate');
+            this.showNotification('bottom', 'right', 'Exchange successfully added! <br>' + '&nbsp')
           })
           .catch(error => {
-            console.log(error);
+            this.showNotification('bottom', 'right', 'Add exchange error! <br>' + '&nbsp')
+          })
+      },
+      showNotification (verticalAlign, horizontalAlign, notificationText) {
+        var color = Math.floor((Math.random() * 4) + 1)
+        this.$notify(
+          {
+            component: {
+              template: "<span>" + notificationText + "</span>"
+            },
+            icon: 'ti-info-alt',
+            horizontalAlign: horizontalAlign,
+            verticalAlign: verticalAlign,
+            type: this.type[color]
           })
       }
     }
