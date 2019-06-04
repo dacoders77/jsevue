@@ -4,10 +4,11 @@ import DashboardLayout from 'src/components/Dashboard/Layout/DashboardLayout.vue
 import Login from 'src/components/Dashboard/Views/Pages/Login.vue'
 import DashboardJse from 'src/components/Jse/DashboardJse.vue'
 import Chart from 'src/components/Jse/Chart.vue'
-import Chart1 from 'src/components/Jse/Chart1.vue'
+//import Chart1 from 'src/components/Jse/Chart1.vue'
 import Settings from 'src/components/Jse/Settings.vue'
 import Exchnages from 'src/components/Jse/Exchanges.vue'
 import Accounts from 'src/components/Jse/Accounts.vue'
+import Symbols from 'src/components/Jse/Symbols.vue'
 
 export const routes = [
   {
@@ -50,7 +51,13 @@ export const routes = [
         path: 'accounts',
         name: 'Accounts',
         component: Accounts
+      },
+      {
+        path: 'Symbols',
+        name: 'Symbols',
+        component: Symbols
       }
+
     ]
   },
 

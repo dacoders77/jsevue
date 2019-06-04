@@ -29,7 +29,7 @@ export default [
       },
       {
         name: 'Symbols',
-        path: '/settings'
+        path: '/symbols'
       }]
   },
   {

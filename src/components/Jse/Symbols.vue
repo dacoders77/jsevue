@@ -14,36 +14,31 @@
                             <tbody>
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
-                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
-                                <th>Name</th>
-                                <th>Added</th>
-                                <th>URL</th>
-                                <th>Api path</th>
-                                <th>Testnet api path</th>
-                                <th>Status</th>
-                                <th>Memo</th>
+                                <th>Action</th>
+                                <th>Exchange</th>
+                                <th>Symbols</th>
                             </tr>
 
                             <tr v-for="exchange in exchanges" :key="exchange.id">
                                 <td>{{ exchange.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-success" @click="addSymbol(exchange)"><i class="ti-plus"></i></button>
                                 </td>
-                                <!--<td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary" @click="deleteSymbol(exchange.id)">
-                                            <i class="nav-icon fas fa-trash white"></i>
-                                        </button>
-                                    </div>
-                                </td>-->
                                 <td>{{ exchange.name }}</td>
-                                <td>{{ exchange.created_at | myDate }}</td>
-                                <td><button class="btn btn-icon btn-simple btn-info"><a :href="exchange.url"><i class="ti-link"></i></a> </button></td>
-                                <td>{{ exchange.live_api_path }}</td>
-                                <td>{{ exchange.testnet_api_path }}</td>
-                                <td><span class="text-success">Online</span></td>
-                                <td>{{ exchange.memo }}</td>
+                                <td>
+                                    <el-tag
+                                            v-for="(symbol, index) in symbols"
+                                            :key="symbol.id"
+                                            v-if="symbol.exchange_id == exchange.id"
+                                            type="primary"
+                                            :closable="true"
+                                            :close-transition="false"
+                                            @close="deleteSymbol(symbol)"
+                                    >
+                                        <a href="#" style="color:white" @click="onSymbolClick(index)">{{symbol.execution_symbol_name}}</a>
+                                    </el-tag>
+                                </td>
+
                             </tr>
                             </tbody></table>
 
@@ -65,14 +60,6 @@
                 </button>
             </el-tag>-->
 
-            <drop-down>
-                <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 150px;">
-                    Exchnage
-                    <b class="caret"></b>
-                </button>
-                <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
-            </drop-down>
-
         </div>
 
         <b-modal
@@ -82,42 +69,42 @@
                 id="modal-scoped"
                 ref="my-modal"
                 size="sm"
-                title="Update Exchnage"
+                title="Add symbol"
                 @ok="handleOkModalButton"
         >
 
             <form ref="form" @submit.stop.prevent="handleSubmit">
-                <b-form-group label="" label-for="name">
+                <b-form-group label="" label-for="execution_symbol_name">
                     <b-form-input
-                            id="name"
-                            v-model="form.name"
-                            :state="this.validationErrors.has('name') ? 'invalid' : 'valid'"
+                            id="execution_symbol_name"
+                            v-model="form.execution_symbol_name"
+                            :state="this.validationErrors.has('execution_symbol_name') ? 'invalid' : 'valid'"
                             required
-                            placeholder="Exchange Name">
+                            placeholder="Execution symbol name">
                     </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('name') }}</b-form-invalid-feedback>
+                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('execution_symbol_name') }}</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="" label-for="live_api_path">
+                <b-form-group label="" label-for="history_symbol_name">
                     <b-form-input
-                            id="live_api_path"
-                            v-model="form.live_api_path"
-                            :state="this.validationErrors.has('live_api_path') ? 'invalid' : 'valid'"
+                            id="history_symbol_name"
+                            v-model="form.history_symbol_name"
+                            :state="this.validationErrors.has('history_symbol_name') ? 'invalid' : 'valid'"
                             required
-                            placeholder="Live api path">
+                            placeholder="History symbol name">
                     </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('live_api_path') }}</b-form-invalid-feedback>
+                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('history_symbol_name') }}</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="" label-for="testnet_api_path">
+                <b-form-group label="" label-for="commission">
                     <b-form-input
-                            id="testnet_api_path"
-                            v-model="form.testnet_api_path"
-                            :state="this.validationErrors.has('testnet_api_path') ? 'invalid' : 'valid'"
+                            id="commission"
+                            v-model="form.commission"
+                            :state="this.validationErrors.has('commission') ? 'invalid' : 'valid'"
                             required
-                            placeholder="Test net api path">
+                            placeholder="Commission %">
                     </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('testnet_api_path') }}</b-form-invalid-feedback>
+                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('commission') }}</b-form-invalid-feedback>
                 </b-form-group>
 
                 <b-form-group label="" label-for="memo">
@@ -126,11 +113,14 @@
                             v-model="form.memo"
                             :state="this.validationErrors.has('memo') ? 'invalid' : 'valid'"
                             placeholder="Memo">
-                            rows="3"
-                            max-rows="6"
+                        rows="3"
+                        max-rows="6"
                     </b-form-textarea>
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}</b-form-invalid-feedback>
                 </b-form-group>
+
+                <p-switch v-model="isSymbolActive" type="primary" on-text="Active" off-text="Not"></p-switch>
+
             </form>
         </b-modal>
 
@@ -140,29 +130,39 @@
   import Vue from 'vue'
   import {Table, TableColumn, Tag} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
+  import PSwitch from 'src/components/UIComponents/Switch.vue'
+  import swal from 'sweetalert2'
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
     components: {
-      [Tag.name]: Tag
+      [Tag.name]: Tag,
+      PSwitch
     },
     data () {
       return {
         validationErrors: new ValidationErrors(),
         form: new Form({
+          exchange_id: '',
           id: '',
-          name: '',
-          url: '',
-          live_api_path: '',
-          testnet_api_path: '',
-          status: '',
+          execution_symbol_name: '',
+          history_symbol_name: '',
+          commission: '',
+          is_active: '',
           memo: ''
         }),
         exchanges: null, // Exchanges for table
-        allExchanges: null, // Exchnages for dropdown
+        allExchanges: null, // Exchanges for dropdown
+        symbols: null,
+        isSymbolActive: null,
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
+        },
+        tags: {
+          dynamicTags: ['Tag 1', 'Tag 2', 'Tag 3'],
+          inputVisible: false,
+          inputValue: ''
         }
       }
     },
@@ -171,59 +171,46 @@
       // Event listener
       Fire.$on('AfterCreate', () => {
         this.loadExchanges();
+        this.loadSymbols();
       });
     },
     mounted() {
       this.loadExchanges();
-      this.loadExchangesList(); // Exchanges for dropdown
+      this.loadSymbols();
     },
     methods: {
       loadExchanges() {
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
       },
-      loadExchangesList() {
-        axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // Resource controllers are defined in api.php
+      loadSymbols() {
+        axios.get('/symbol').then(({data}) => (this.symbols = data.data));
       },
-      editExchange(exchange) {
+      addSymbol(exchange) {
         this.form.reset();
-        this.form.fill(exchange);
+        this.form.exchange_id = exchange.id;
         this.$refs['my-modal'].show();
       },
-      deleteExchange(exchange) {
-        this.form.delete('/exchange/' + exchange.id)
+      deleteSymbol(symbol) {
+        this.form.delete('/symbol/' + symbol.id)
           .then((response) => {
-            console.log(response);
             Fire.$emit('AfterCreate');
-            this.showNotification('bottom', 'right', 'Exchange successfully removed! <br>' + '&nbsp')
+            this.showNotification('bottom', 'right', 'Symbol successfully removed! <br>' + '&nbsp')
           })
           .catch(error => {
-            this.showNotification('bottom', 'right', 'Exchange delete error! <br>' + '&nbsp')
+            this.showNotification('bottom', 'right', 'Symbol delete error! <br>' + '&nbsp')
           })
       },
       handleOkModalButton(bvModalEvt) {
         bvModalEvt.preventDefault(); // Prevent modal from closing
-        this.form.put('/exchange/' + this.form.id)
+        this.form.post('/symbol')
           .then((response) => {
-              console.log(response);
-              this.$refs['my-modal'].hide();
-              Fire.$emit('AfterCreate');
-              this.showNotification('bottom', 'right', 'Exchange successfully updated! <br> id: ' + this.form.id)
-        })
-          .catch(error => {
-            console.log(error);
-            this.validationErrors.record(error.data.errors)
-            this.showNotification('bottom', 'right', 'Exchange edit error! <br> id: ' + this.form.id)
-          })
-      },
-      createExchnage(exchnageName) {
-        this.form.name = exchnageName;
-        this.form.post('/exchange')
-          .then((response) => {
+            this.$refs['my-modal'].hide();
             Fire.$emit('AfterCreate');
-            this.showNotification('bottom', 'right', 'Exchange successfully added! <br>' + '&nbsp')
+            this.showNotification('bottom', 'right', 'Symbol added! <br>' + '&nbsp')
           })
           .catch(error => {
-            this.showNotification('bottom', 'right', 'Add exchange error! <br>' + '&nbsp')
+            this.validationErrors.record(error.data.errors);
+            this.showNotification('bottom', 'right', 'Add symbol error! <br>' + '&nbsp')
           })
       },
       showNotification (verticalAlign, horizontalAlign, notificationText) {
@@ -237,6 +224,32 @@
             horizontalAlign: horizontalAlign,
             verticalAlign: verticalAlign,
             type: this.type[color]
+          })
+      },
+      // Add tag
+      handleInputConfirm () {
+        let inputValue = this.tags.inputValue
+        if (inputValue) {
+          this.tags.dynamicTags.push(inputValue)
+        }
+        this.tags.inputVisible = false
+        this.tags.inputValue = ''
+      },
+      // Remove tag
+      handleClose (tag) {
+        this.tags.dynamicTags.splice(this.tags.dynamicTags.indexOf(tag), 1)
+      },
+      onSymbolClick(index) {
+          swal({
+            title: 'Symbol details: ',
+            html:
+            "Execution name: " + this.symbols[index]['execution_symbol_name'] +
+            "<br>History name: " + "<br>" + this.symbols[index]['history_symbol_name'] +
+            "<br>Commission: " + this.symbols[index]['commission'] + "%" +
+            "<br> Active: " + this.symbols[index]['is_active'] +
+            "<br> Memo: <br>" + this.symbols[index]['memo'],
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success btn-fill'
           })
       }
     }

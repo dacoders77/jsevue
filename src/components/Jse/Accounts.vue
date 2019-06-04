@@ -169,7 +169,6 @@
       loadExchangesList() {
         axios.get('/exchangeslist').then(({data}) => {
           this.allExchanges = data.data;
-          console.log(this.allExchanges);
         });
       },
       deleteAccount(account) {
@@ -186,7 +185,6 @@
         bvModalEvt.preventDefault(); // Prevent modal from closing
         this.form.post('/account')
           .then((response) => {
-            console.log(response);
             this.$refs['my-modal'].hide();
             Fire.$emit('AfterCreate');
             this.showNotification('bottom', 'right', 'Account added! <br>' + '&nbsp')
@@ -203,7 +201,7 @@
             Fire.$emit('AfterCreate');
           })
           .catch(error => {
-            console.log(error);
+            //console.log(error);
           })
       },
       selectExchange(id) {
