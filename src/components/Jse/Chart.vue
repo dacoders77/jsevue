@@ -1,9 +1,17 @@
 /*eslint-disable*/
 <template>
     <div id="app" style="border: 0px solid red">
-        <button class="btn btn-x btn-fill btn-info" @click="botMinus">Bot-</button>
+
+        <span v-for="(bot, index) in bots">
+        <button class="btn btn-warning btn-fill btn-wd" @click="botMinus">{{ bot.name }}/{{ bot.time_frame }}/{{ bot.volume }}</button>&nbsp
+        </span>
+
+
+
+        <!--<button class="btn btn-x btn-fill btn-info" @click="botMinus">Bot-</button>
         <button class="btn btn-x btn-fill btn-info" @click="botPlus">Bot+</button>
-        <span>Bot instance ID: {{ botId }} Bot symbol: {{ botSymbol }}</span>
+        <span>Bot instance ID: {{ botId }} Bot symbol: {{ botSymbol }}</span>-->
+
 
         <div id="container" style="width:100%; height:75vh; padding-top: 10px"></div>
         <div class="col">
@@ -34,7 +42,9 @@
         quotes: [],
         botId: 0,
         clientId: 12345,
-        botSymbol: ''
+        botSymbol: '',
+        bots: '',
+        accounts: ''
       }
     },
     created() {
@@ -44,8 +54,15 @@
       this.chart = Highchart.stockChart('container', Opt.data().options);
       this.HistoryBarsLoad(this.botId);
       this.ListenWebSocket(this.clientId);
+      this.loadResources();
     },
     methods: {
+      loadResources() {
+        axios.get('/bot').then(({data}) => (this.bots = data.data));
+        axios.get('/account').then(({data}) => (this.accounts = data.data));
+        //axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
+        //axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+      },
       HistoryBarsLoad (botId) {
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {

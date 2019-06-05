@@ -12,7 +12,7 @@ export default [
   {
     name: 'Bots',
     icon: 'ti-files',
-    path: '/dashboard'
+    path: '/bots'
   },
   {
     name: 'Settings',

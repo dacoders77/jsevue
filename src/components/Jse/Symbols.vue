@@ -46,19 +46,24 @@
 
                 </div>
             </div>
-            <!--<el-tag
-                    :key="tag"
-                    v-for="tag in tags.dynamicTags"
-                    type="primary"
-                    :closable="false"
-                    :close-transition="false"
-                    @close="handleClose(tag)"
-            >
-                {{tag}}
-                <button class="btn btn-icon btn-simple btn-info">
-                    <i class="ti-plus"></i>
-                </button>
-            </el-tag>-->
+
+            <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
+                <span class="btn-label">
+                    <i class="ti-search"></i>
+                </span>Validate symbols
+            </button>
+
+            <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify">
+                <span class="btn-label">
+                    <i class="ti-search"></i>
+                </span>Delete unvalidated
+            </button>
+
+            <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
+                <span class="btn-label">
+                    <i class="ti-search"></i>
+                </span>Delete inactive
+            </button>
 
         </div>
 

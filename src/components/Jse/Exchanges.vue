@@ -30,13 +30,6 @@
                                     <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
                                     <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
                                 </td>
-                                <!--<td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary" @click="deleteSymbol(exchange.id)">
-                                            <i class="nav-icon fas fa-trash white"></i>
-                                        </button>
-                                    </div>
-                                </td>-->
                                 <td>{{ exchange.name }}</td>
                                 <td>{{ exchange.created_at | myDate }}</td>
                                 <td><button class="btn btn-icon btn-simple btn-info"><a :href="exchange.url"><i class="ti-link"></i></a> </button></td>
@@ -51,19 +44,6 @@
 
                 </div>
             </div>
-            <!--<el-tag
-                    :key="tag"
-                    v-for="tag in tags.dynamicTags"
-                    type="primary"
-                    :closable="false"
-                    :close-transition="false"
-                    @close="handleClose(tag)"
-            >
-                {{tag}}
-                <button class="btn btn-icon btn-simple btn-info">
-                    <i class="ti-plus"></i>
-                </button>
-            </el-tag>-->
 
             <drop-down>
                 <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 150px;">
