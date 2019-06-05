@@ -29,13 +29,13 @@
                                 <td>{{ bot.id }}</td>
                                 <td>
                                     <div v-if="bot.status == 'idle'">
-                                        <button type="button" class="btn btn-info btn-fill btn-magnify" @click="runBot(bot)">
+                                        <button type="button" class="btn btn-info btn-fill btn-magnify" @click="updateBotNew(['runBot', bot])">
                                             <span class="btn-label"><i class="ti-control-play"></i></span>
                                         </button>
                                     </div>
 
                                     <div v-if="bot.status == 'running'">
-                                        <button type="button" class="btn btn-info btn-fill btn-danger" @click="stopBot(bot)">
+                                        <button type="button" class="btn btn-info btn-fill btn-danger" @click="updateBotNew(['stopBot', bot])">
                                             <span class="btn-label"><i class="ti-control-stop"></i></span>
                                         </button>
                                     </div>
@@ -53,7 +53,7 @@
                                 </td>
 
                                 <td>
-                                    <input type="text" value="2" class="form-control" v-model="bot.name" style="width: 100px" @keyup.enter="updateBot(bot)">
+                                    <input type="text" value="2" class="form-control" v-model="bot.name" style="width: 100px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
 
                                 <td>{{ bot.status }}</td>
@@ -64,20 +64,20 @@
                                 <td>
                                     <drop-down>
                                         <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 120px;">
-                                            {{ (accounts[bot.account_id] == null  ? 'error_X' :  accounts[bot.account_id].name) }}
+                                            {{ accounts[bot.account_id - 1].name }}
                                             <b class="caret"></b>
                                         </button>
-                                        <li v-for="(account, index) in accounts"><a href="javascript:void(0)" @click="updateAccount([bot, index])">{{ account.name }}</a> </li>
+                                        <li v-for="(account, index) in accounts"><a href="javascript:void(0)" @click="updateBotNew(['updateAccount', bot, index])">{{ account.name }}</a> </li>
                                     </drop-down>
                                 </td>
 
                                 <td>
                                     <drop-down>
                                         <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            {{ (accounts[bot.account_id] == null  ? 'error_Z' : symbols[bot.symbol_id].execution_symbol_name) }}
+                                            {{ symbols[bot.symbol_id - 1].execution_symbol_name }}
                                             <b class="caret"></b>
                                         </button>
-                                        <li v-for="(symbol, index) in symbols"><a href="javascript:void(0)" @click="updateSymbol(bot)">{{ symbol.execution_symbol_name }}</a> </li>
+                                        <li v-for="(symbol, index) in symbols"><a href="javascript:void(0)" @click="updateBotNew(['updateSymbol', bot, index])">{{ symbol.execution_symbol_name }}</a> </li>
                                     </drop-down>
                                 </td>
 
@@ -144,9 +144,9 @@
           memo: ''
         }),
         bots: null,
-        accounts: null,
-        exchanges: null,
-        symbols: null,
+        accounts: [1,2,3,4], // Random values. Otherwise getting a error on array null value in v-for
+        exchanges: [1,2,3,4],
+        symbols: [1,2,3,4],
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -186,6 +186,47 @@
             horizontalAlign: horizontalAlign,
             verticalAlign: verticalAlign,
             type: this.type[color]
+          })
+      },
+      updateBotNew(params) {
+        // Receives two params: bot instance and action (updateBotName)
+        let bot = params[1];
+
+        let botStatus = bot.status;
+        let accountId = bot.account_id;
+        let symbolId = bot.symbol_id;
+
+        // Run/Stop bot
+        if (params[0] === 'runBot') botStatus = 'running';
+        if (params[0] === 'stopBot') botStatus = 'idle';
+
+        // Update account drop down
+        if (params[0] === 'updateAccount') accountId = params[2] + 1; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
+
+        // Update symbol drop down
+        if (params[0] === 'updateSymbol') symbolId = params[2] + 1;
+
+        this.form.reset();
+        this.form.status = botStatus; // runBot, stopBot
+        this.form.account_id = accountId; // Account drop down
+        this.form.symbol_id = symbolId; // Symbol drop down
+
+        this.form.name = bot.name;
+        this.form.volume = bot.volume;
+        this.form.bars_to_load = bot.bars_to_load;
+        this.form.rate_limit = bot.rate_limit;
+        this.form.memo = bot.memo;
+
+        console.log(this.form);
+
+        this.form.put('/bot/' + bot.id)
+          .then((response) => {
+            Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
+            this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + bot.id)
+          })
+          .catch(error => {
+            //this.validationErrors.record(error.data.errors)
+            this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
           })
       },
       updateBot(bot) {
@@ -253,6 +294,7 @@
       updateAccount(params) {
         // NOT USE THIS CODE! USE ONE METHOD!
         let bot = params[0];
+
         this.form.reset();
         this.form.status = bot.status;
         this.form.account_id = params[1] + 1;
