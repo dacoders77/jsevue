@@ -39,17 +39,6 @@
                                             <span class="btn-label"><i class="ti-control-stop"></i></span>
                                         </button>
                                     </div>
-
-                                    <!--<div v-if="signal.status == 'new'">
-                                        <button class="btn btn-success" @click="executeSymbol(signal)"><i class="fas fa-play"></i></button>
-                                    </div>
-                                    <div v-if="signal.status == 'success'">
-                                        <button class="btn btn-danger" @click="executeSymbol(signal)"><i class="fas fa-stop"></i></button>
-                                    </div>
-                                    <div v-if="signal.status == 'error' || signal.status == 'finished'">
-                                        <button class="btn btn-light" disabled><i class="fas fa-check"></i></button>
-                                    </div>-->
-
                                 </td>
 
                                 <td>
@@ -58,9 +47,6 @@
 
                                 <td>{{ bot.status }}</td>
 
-                                <!-- One of this drop downs throw a error that 1 can not be found
-                                 render: "TypeError: Cannot read property '1' of null"
-                                 -->
                                 <td>
                                     <drop-down>
                                         <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 120px;">
@@ -82,16 +68,16 @@
                                 </td>
 
                                 <td>
-                                    <input type="email" placeholder="Email" class="form-control" v-model="bot.volume" style="width: 70px" @keyup.enter="updateBot(bot)">
+                                    <input type="text" class="form-control" v-model="bot.volume" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
                                 <td>
-                                    <input type="email" placeholder="Email" class="form-control" v-model="bot.bars_to_load" style="width: 70px" @keyup.enter="updateBot(bot)">
+                                    <input type="text" class="form-control" v-model="bot.bars_to_load" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
                                 <td>
-                                    <input type="email" placeholder="Email" class="form-control" v-model="bot.rate_limit" style="width: 50px" @keyup.enter="updateBot(bot)">
+                                    <input type="text" class="form-control" v-model="bot.rate_limit" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
                                 <td>
-                                    <input type="email" placeholder="Email" class="form-control" v-model="bot.memo" style="width: 150px" @keyup.enter="updateBot(bot)">
+                                    <input type="text" class="form-control" v-model="bot.memo" style="width: 150px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
 
 
@@ -192,33 +178,28 @@
         // Receives two params: bot instance and action (updateBotName)
         let bot = params[1];
 
-        let botStatus = bot.status;
-        let accountId = bot.account_id;
-        let symbolId = bot.symbol_id;
-
         // Run/Stop bot
+        let botStatus = bot.status;
         if (params[0] === 'runBot') botStatus = 'running';
         if (params[0] === 'stopBot') botStatus = 'idle';
 
         // Update account drop down
+        let accountId = bot.account_id;
         if (params[0] === 'updateAccount') accountId = params[2] + 1; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
 
         // Update symbol drop down
+        let symbolId = bot.symbol_id;
         if (params[0] === 'updateSymbol') symbolId = params[2] + 1;
 
         this.form.reset();
         this.form.status = botStatus; // runBot, stopBot
         this.form.account_id = accountId; // Account drop down
         this.form.symbol_id = symbolId; // Symbol drop down
-
         this.form.name = bot.name;
         this.form.volume = bot.volume;
         this.form.bars_to_load = bot.bars_to_load;
         this.form.rate_limit = bot.rate_limit;
         this.form.memo = bot.memo;
-
-        console.log(this.form);
-
         this.form.put('/bot/' + bot.id)
           .then((response) => {
             Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
@@ -228,8 +209,8 @@
             //this.validationErrors.record(error.data.errors)
             this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
           })
-      },
-      updateBot(bot) {
+      }
+/*      updateBot(bot) {
         this.form.reset();
         this.form.status = bot.status;
         this.form.account_id = bot.account_id;
@@ -248,50 +229,8 @@
             //this.validationErrors.record(error.data.errors)
             this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
           })
-      },
-      runBot(bot) {
-        // NOT USE THIS CODE! USE ONE METHOD!
-        this.form.reset();
-        this.form.status = 'running';
-        this.form.account_id = bot.account_id;
-        this.form.symbol_id = bot.symbol_id;
-        this.form.name = bot.name;
-        this.form.volume = bot.volume;
-        this.form.bars_to_load = bot.bars_to_load;
-        this.form.rate_limit = bot.rate_limit;
-        this.form.memo = bot.memo;
-        this.form.put('/bot/' + bot.id)
-          .then((response) => {
-            Fire.$emit('AfterCreate');
-            this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + bot.id)
-          })
-          .catch(error => {
-            //this.validationErrors.record(error.data.errors)
-            this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
-          })
-      },
-      stopBot(bot) {
-        // NOT USE THIS CODE! USE ONE METHOD!
-        this.form.reset();
-        this.form.status = 'idle';
-        this.form.account_id = bot.account_id;
-        this.form.symbol_id = bot.symbol_id;
-        this.form.name = bot.name;
-        this.form.volume = bot.volume;
-        this.form.bars_to_load = bot.bars_to_load;
-        this.form.rate_limit = bot.rate_limit;
-        this.form.memo = bot.memo;
-        this.form.put('/bot/' + bot.id)
-          .then((response) => {
-            Fire.$emit('AfterCreate');
-            this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + bot.id)
-          })
-          .catch(error => {
-            //this.validationErrors.record(error.data.errors)
-            this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
-          })
-      },
-      updateAccount(params) {
+      },*/
+/*      updateAccount(params) {
         // NOT USE THIS CODE! USE ONE METHOD!
         let bot = params[0];
 
@@ -313,7 +252,7 @@
             //this.validationErrors.record(error.data.errors)
             this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
           })
-      }
+      }*/
     }
   }
 </script>
