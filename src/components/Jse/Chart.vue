@@ -3,16 +3,11 @@
     <div id="app" style="border: 0px solid red">
 
         <span v-for="(bot, index) in bots">
-        <button class="btn btn-warning btn-fill btn-wd" @click="botMinus(bot)">
+        <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]" @click="botTabClick(bot)">
             {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}
+            <!--{{ bot.name }}/{{ getExecutionSymbolName(bot) }}/{{ bot.time_frame }}-->
         </button>&nbsp
         </span>
-
-
-
-        <!--<button class="btn btn-x btn-fill btn-info" @click="botMinus">Bot-</button>
-        <button class="btn btn-x btn-fill btn-info" @click="botPlus">Bot+</button>
-        <span>Bot instance ID: {{ botId }} Bot symbol: {{ botSymbol }}</span>-->
 
 
         <div id="container" style="width:100%; height:75vh; padding-top: 10px"></div>
@@ -44,10 +39,9 @@
         quotes: [],
         botId: 1,
         clientId: 12345,
-        botSymbol: '',
-        bots: '',
-        accounts: '',
-        symbols: ''
+        bots: [],
+        accounts: [],
+        symbols: []
       }
     },
     created() {
@@ -131,16 +125,7 @@
           }
         })
       },
-      /*botPlus() {
-        this.botId++;
-        this.clientId++;
-        this.HistoryBarsLoad(this.botId);
-        // this.ListenWebSocket(this.clientId)
-
-      },*/
-      botMinus(bot) {
-        console.log(bot.id);
-        console.log(bot.front_end_id);
+      botTabClick(bot) {
         this.botId = bot.id;
         this.clientId = bot.front_end_id;
         this.HistoryBarsLoad(this.botId);
