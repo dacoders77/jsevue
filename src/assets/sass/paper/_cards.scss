@@ -1,10 +1,11 @@
 .card{
     border-radius: $border-radius-extreme;
-    box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+    // box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
     background-color: $white-color;
     color: $card-black-color;
     margin-bottom: 20px;
     position: relative;
+    overflow-x: scroll;
 
     .card-title,
     .stats,
@@ -91,7 +92,7 @@
     }
 
     .card-content{
-        padding: 15px 15px 10px 15px;
+        padding: 0px 15px 0px 15px;
 
         .card-title{
             margin: 10px 0 20px 0;
@@ -611,4 +612,12 @@
 
 .card-content .ct-chart {
   min-height: 210px;
+}
+
+@media (max-width: 991px){
+  .card {
+    .card-content {
+      padding: 0;
+    }
+  }
 }

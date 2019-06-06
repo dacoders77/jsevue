@@ -603,6 +603,7 @@
   }
   .table-responsive{
     overflow: visible;
+
   }
 
 }
@@ -611,8 +612,11 @@
 @media (max-width: 991px){
   .table-responsive {
     width: 100%;
-    margin-bottom: 15px;
-    border: 1px solid $medium-gray;
+      margin-bottom: 0;
+      border: 0;
+      padding: 0;
+    // margin-bottom: 15px;
+    // border: 1px solid $medium-gray;
     overflow-x: scroll;
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;

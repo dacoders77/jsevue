@@ -29,13 +29,13 @@
                                 <td>{{ bot.id }}</td>
                                 <td>
                                     <div v-if="bot.status == 'idle'">
-                                        <button type="button" class="btn btn-info btn-fill btn-magnify" @click="updateBotNew(['runBot', bot])">
+                                        <button type="button" class="btn btn-info btn-fill btn-magnify btn-circle" @click="updateBotNew(['runBot', bot])">
                                             <span class="btn-label"><i class="ti-control-play"></i></span>
                                         </button>
                                     </div>
 
                                     <div v-if="bot.status == 'running'">
-                                        <button type="button" class="btn btn-info btn-fill btn-danger" @click="updateBotNew(['stopBot', bot])">
+                                        <button type="button" class="btn btn-info btn-fill btn-danger btn-circle" @click="updateBotNew(['stopBot', bot])">
                                             <span class="btn-label"><i class="ti-control-stop"></i></span>
                                         </button>
                                     </div>
