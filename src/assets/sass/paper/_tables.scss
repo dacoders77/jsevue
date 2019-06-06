@@ -133,7 +133,8 @@
   .form-control {
     background-color: transparent;
     border: 1px solid $gray-input-outline;
-    // font-size: 12px;
+    font-size: 12px;
+    border-radius: $border-radius-extreme;
   }
 }
 
