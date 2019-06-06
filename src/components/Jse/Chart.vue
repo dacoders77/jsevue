@@ -3,7 +3,9 @@
     <div id="app" style="border: 0px solid red">
 
         <span v-for="(bot, index) in bots">
-        <button class="btn btn-warning btn-fill btn-wd" @click="botMinus">{{ bot.name }}/{{ bot.time_frame }}/{{ bot.volume }}</button>&nbsp
+        <button class="btn btn-warning btn-fill btn-wd" @click="botMinus(bot)">
+            {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}
+        </button>&nbsp
         </span>
 
 
@@ -40,11 +42,12 @@
     data () {
       return {
         quotes: [],
-        botId: 0,
+        botId: 1,
         clientId: 12345,
         botSymbol: '',
         bots: '',
-        accounts: ''
+        accounts: '',
+        symbols: ''
       }
     },
     created() {
@@ -61,7 +64,7 @@
         axios.get('/bot').then(({data}) => (this.bots = data.data));
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         //axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
-        //axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+        axios.get('/symbol').then(({data}) => (this.symbols = data.data));
       },
       HistoryBarsLoad (botId) {
         axios.get('trading/history/' + botId) // Back end bot id
@@ -117,7 +120,7 @@
         var self = this;
         this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
         this.channel.bind("App\\Events\\jseevent", function (data) { // Full event name as shown at pusher debug console
-          if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instans must han a unique number
+          if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instanse must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
             // if (data.payload.messageType === 'error') swal("Failed!", "Error: " + e.update['payload'], "warning");
             // if (data.payload.messageType === 'info') toast({type: 'success', title: e.update['payload']});
@@ -128,16 +131,18 @@
           }
         })
       },
-      botPlus() {
+      /*botPlus() {
         this.botId++;
         this.clientId++;
         this.HistoryBarsLoad(this.botId);
         // this.ListenWebSocket(this.clientId)
 
-      },
-      botMinus() {
-        this.botId--;
-        this.clientId--;
+      },*/
+      botMinus(bot) {
+        console.log(bot.id);
+        console.log(bot.front_end_id);
+        this.botId = bot.id;
+        this.clientId = bot.front_end_id;
         this.HistoryBarsLoad(this.botId);
         // this.ListenWebSocket(this.clientId)
       }
