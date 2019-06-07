@@ -8,7 +8,7 @@
                 <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-info">
                             <tbody>
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
@@ -25,12 +25,12 @@
                             <tr v-for="exchange in exchanges" :key="exchange.id">
                                 <td>{{ exchange.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
                                 </td>
                                 <td>{{ exchange.name }}</td>
                                 <td>{{ exchange.created_at | myDate }}</td>
-                                <td><button class="btn btn-icon btn-simple btn-info"><a :href="exchange.url"><i class="ti-link"></i></a> </button></td>
+                                <td><button class="btn btn-icon btn-simple btn-icon--info"><a :href="exchange.url"><i class="ti-link"></i></a> </button></td>
                                 <td>{{ exchange.live_api_path }}</td>
                                 <td>{{ exchange.testnet_api_path }}</td>
                                 <td><span class="text-success">Online</span></td>
@@ -65,7 +65,7 @@
         >
 
             <form ref="form" @submit.stop.prevent="handleSubmit" class="form-exchange">
-                <b-form-group label="Name:" label-for="name" class="exchange-form">
+                <b-form-group label="Name:" label-for="name" class="exchange-row">
 
                     <b-form-input
                             id="name"

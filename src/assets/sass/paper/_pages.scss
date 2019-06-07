@@ -145,3 +145,9 @@
         }
     }
 }
+
+.exchange {
+  > table > tbody > tr > th {
+    background-color: $info-color;
+  }
+}

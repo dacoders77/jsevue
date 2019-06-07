@@ -10,7 +10,7 @@
                 <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-info">
                             <tbody>
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
@@ -27,13 +27,13 @@
                             <tr v-for="account in accounts" :key="account.id">
                                 <td>{{ account.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-danger" @click="deleteAccount(account)"><i class="ti-trash"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-info" @click="validateAccount(2)"><i class="ti-thumb-up"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteAccount(account)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--info" @click="validateAccount(2)"><i class="ti-thumb-up"></i></button>
                                 </td>
                                 <td>{{ account.name }}</td>
                                 <td>{{ account.created_at | myDate }}</td>
                                 <td>{{ account.api }}</td>
-                                <td><button class="btn btn-icon btn-simple btn-info" @click="showApiSecret(account.api_secret)"><i class="ti-user"></i></button></td>
+                                <td><button class="btn btn-icon btn-simple btn-icon--info" @click="showApiSecret(account.api_secret)"><i class="ti-user"></i></button></td>
                                 <td><span class="text-success">Online</span></td>
                                 <td>{{ account.is_testnet }}</td>
                                 <td>{{ account.memo }}</td>

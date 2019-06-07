@@ -23,11 +23,30 @@
          outline: 0 !important;
     }
 
-    &.btn-icon{
+    &.btn-icon {
         border-radius: 25px;
         padding: 7px 10px;
-        i{
+        border-radius: 50%;
+        background-color: $default-bg;
+
+
+        i {
           margin-right: 0px;
+          font-size: 16px;
+          color: $white-color;
+          line-height: 1;
+        }
+
+        &--success {
+            background-color: $success-color;
+        }
+
+        &--info {
+          background-color: $info-color;
+        }
+
+        &--danger {
+          background-color: $danger-color;
         }
     }
 
@@ -127,7 +146,7 @@
 .navbar .navbar-nav > li > a.btn.btn-sm,
 .btn-sm{
     @include btn-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $border-radius-btn-small, $line-height-small);
-    &.btn-icon{
+  &.btn-icon{
         padding: 3px 6px;
         .fa{
             line-height: 1.6;
