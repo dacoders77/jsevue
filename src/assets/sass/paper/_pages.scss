@@ -151,3 +151,28 @@
     background-color: $info-color;
   }
 }
+
+.align-items {
+  align-items: stretch;
+  display: flex;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.h-50 {
+  height: 48%;
+}
+
+.p-15 {
+  padding: 15px;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.m-0 {
+  margin: 0;
+}

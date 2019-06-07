@@ -1,118 +1,203 @@
 <template>
+<div>
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header" style="border: 0px solid red; padding: 0px">
-                    <!--<h4 class="title">Trades log</h4>-->
+    <div class="col-md-3">
+      <div data-v-92af36ea="" class="card card-stats card-dashbord">
+        <div data-v-92af36ea="" class="card-body p-15">
+            <div class="row p-15">
+              <div class="col-md-6">
+                <div class="icon-big text-center icon-success">
+                  <i class="ti-wallet"></i>
                 </div>
-                <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
-                    <el-table class="table-striped" :data="tableData" style="width: 100%" ref="table">
-                        <el-table-column label="Id" property="id" style="white-space: nowrap"></el-table-column>
-                        <el-table-column min-width=120px label="Date" property="date"></el-table-column>
-                        <el-table-column label="Side" property="side"><span class="badge badge-danger">Short</span></el-table-column>
-                        <el-table-column label="In" property="in"></el-table-column>
-                        <el-table-column label="Out" property="out"></el-table-column>
-                        <el-table-column label="Duration" property="duration"></el-table-column>
-                        <el-table-column label="Profit" property="profit"></el-table-column>
-                        <el-table-column label="Accum" property="accProfit"></el-table-column>
-                    </el-table>
+                  <h4 class="text-info">Bitmex</h4>
+                  <p>PC</p>
+                  <p>BTC/USD</p>
+                  <span>Trades: 217</span>
+              </div>
+              <div class="col-md-6">
+                <div class="numbers">
+                  <p>Revenue</p>
+                  $1,345
                 </div>
+              </div>
             </div>
+            <div>
+              <hr>
+              <div class="stats">
+                <i class="ti-calendar"></i> Running
+            </div>
+          </div>
         </div>
-
+      </div>
     </div>
+    <div class="col-md-3">
+      <div data-v-92af36ea="" class="card card-stats card-dashbord">
+        <div data-v-92af36ea="" class="card-body p-15">
+            <div class="row p-15">
+              <div class="col-md-6">
+                <div class="icon-big text-center icon-success">
+                  <i class="ti-wallet"></i>
+                </div>
+                  <h4 class="text-info">Bitmex</h4>
+                  <p>PC</p>
+                  <p>BTC/USD</p>
+                  <span>Trades: 217</span>
+              </div>
+              <div class="col-md-6">
+                <div class="numbers">
+                  <p>Revenue</p>
+                  $1,345
+                </div>
+              </div>
+            </div>
+            <div>
+              <hr>
+              <div class="stats">
+                <i class="ti-calendar"></i> Running
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div data-v-92af36ea="" class="card card-stats card-dashbord">
+        <div data-v-92af36ea="" class="card-body p-15">
+            <div class="row p-15">
+              <div class="col-md-6">
+                <div class="icon-big text-center icon-success">
+                  <i class="ti-wallet"></i>
+                </div>
+                  <h4 class="text-info">Bitmex</h4>
+                  <p>PC</p>
+                  <p>BTC/USD</p>
+                  <span>Trades: 217</span>
+              </div>
+              <div class="col-md-6">
+                <div class="numbers">
+                  <p>Revenue</p>
+                  $1,345
+                </div>
+              </div>
+            </div>
+            <div>
+              <hr>
+              <div class="stats">
+                <i class="ti-calendar"></i> Running
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div data-v-92af36ea="" class="card card-stats card-dashbord">
+        <div data-v-92af36ea="" class="card-body p-15">
+            <div class="row p-15">
+              <div class="col-md-6">
+                <div class="icon-big text-center icon-success">
+                  <i class="ti-wallet"></i>
+                </div>
+                  <h4 class="text-info">Bitmex</h4>
+                  <p>PC</p>
+                  <p>BTC/USD</p>
+                  <span>Trades: 217</span>
+              </div>
+              <div class="col-md-6">
+                <div class="numbers">
+                  <p>Revenue</p>
+                  $1,345
+                </div>
+              </div>
+            </div>
+            <div>
+              <hr>
+              <div class="stats">
+                <i class="ti-calendar"></i> Running
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row align-items">
+      <div class="col-md-6">
+        <div class="card h-100"><!---->
+          <div class="card-header">
+            <h4 class="card-title">Solar Employment Crowth by Sector, 2010-2016</h4>
+            <p class="card-category">Sourse: thesolarfoundation.com</p>
+          </div>
+          <div class="card-body">
+            <div>
+              <div id="div_433605845954" class="ct-chart">
+                <svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="245px" class="ct-chart-line" style="width: 100%; height: 245px;"><g class="ct-grids"><line y1="210" y2="210" x1="50" x2="369.6000061035156" class="ct-grid ct-vertical"></line><line y1="182.14285714285714" y2="182.14285714285714" x1="50" x2="369.6000061035156" class="ct-grid ct-vertical"></line><line y1="154.28571428571428" y2="154.28571428571428" x1="50" x2="369.6000061035156" class="ct-grid ct-vertical"></line><line y1="126.42857142857143" y2="126.42857142857143" x1="50" x2="369.6000061035156" class="ct-grid ct-vertical"></line><line y1="98.57142857142857" y2="98.57142857142857" x1="50" x2="369.6000061035156" class="ct-grid ct-vertical"></line><line y1="70.71428571428572" y2="70.71428571428572" x1="50" x2="369.6000061035156" class="ct-grid ct-vertical"></line><line y1="42.85714285714286" y2="42.85714285714286" x1="50" x2="369.6000061035156" class="ct-grid ct-vertical"></line><line y1="15" y2="15" x1="50" x2="369.6000061035156" class="ct-grid ct-vertical"></line></g><g><g class="ct-series ct-series-a"><path d="M50,114.729C58.878,114.636,67.756,114.45,76.633,114.45C85.511,114.45,94.389,120.857,103.267,120.857C112.144,120.857,121.022,76.286,129.9,76.286C138.778,76.286,147.656,83.807,156.533,83.807C165.411,83.807,174.289,55.95,183.167,55.95C192.044,55.95,200.922,174.9,209.8,174.9C218.678,174.9,227.556,155.92,236.433,144.814C245.311,133.708,254.189,113.424,263.067,107.486C271.944,101.547,280.822,101.843,289.7,95.786C298.578,89.728,307.456,68.338,316.333,55.114C325.211,41.89,334.089,29.3,342.967,16.393" class="ct-line"></path><line x1="50" y1="114.72857142857143" x2="50.01" y2="114.72857142857143" class="ct-point" ct:value="542"></line><line x1="76.63333384195964" y1="114.45" x2="76.64333384195965" y2="114.45" class="ct-point" ct:value="543"></line><line x1="103.26666768391928" y1="120.85714285714286" x2="103.27666768391929" y2="120.85714285714286" class="ct-point" ct:value="520"></line><line x1="129.9000015258789" y1="76.28571428571428" x2="129.9100015258789" y2="76.28571428571428" class="ct-point" ct:value="680"></line><line x1="156.53333536783856" y1="83.80714285714286" x2="156.54333536783855" y2="83.80714285714286" class="ct-point" ct:value="653"></line><line x1="183.1666692097982" y1="55.94999999999999" x2="183.17666920979818" y2="55.94999999999999" class="ct-point" ct:value="753"></line><line x1="209.8000030517578" y1="174.9" x2="209.8100030517578" y2="174.9" class="ct-point" ct:value="326"></line><line x1="236.43333689371747" y1="144.81428571428572" x2="236.44333689371746" y2="144.81428571428572" class="ct-point" ct:value="434"></line><line x1="263.0666707356771" y1="107.48571428571428" x2="263.0766707356771" y2="107.48571428571428" class="ct-point" ct:value="568"></line><line x1="289.7000045776367" y1="95.78571428571429" x2="289.7100045776367" y2="95.78571428571429" class="ct-point" ct:value="610"></line><line x1="316.3333384195964" y1="55.11428571428573" x2="316.34333841959636" y2="55.11428571428573" class="ct-point" ct:value="756"></line><line x1="342.966672261556" y1="16.39285714285714" x2="342.976672261556" y2="16.39285714285714" class="ct-point" ct:value="895"></line></g><g class="ct-series ct-series-b"><path d="M50,201.643C58.878,195.793,67.756,190.879,76.633,184.093C85.511,177.307,94.389,168.497,103.267,159.857C112.144,151.217,121.022,135.473,129.9,132C138.778,128.527,147.656,128.518,156.533,125.593C165.411,122.667,174.289,116.164,183.167,111.664C192.044,107.165,200.922,103.604,209.8,98.571C218.678,93.539,227.556,84.866,236.433,80.743C245.311,76.619,254.189,72.919,263.067,71.271C271.944,69.624,280.822,69.453,289.7,67.929C298.578,66.404,307.456,64.037,316.333,60.686C325.211,57.334,334.089,49.729,342.967,44.25" class="ct-line"></path><line x1="50" y1="201.64285714285714" x2="50.01" y2="201.64285714285714" class="ct-point" ct:value="230"></line><line x1="76.63333384195964" y1="184.09285714285716" x2="76.64333384195965" y2="184.09285714285716" class="ct-point" ct:value="293"></line><line x1="103.26666768391928" y1="159.85714285714286" x2="103.27666768391929" y2="159.85714285714286" class="ct-point" ct:value="380"></line><line x1="129.9000015258789" y1="132" x2="129.9100015258789" y2="132" class="ct-point" ct:value="480"></line><line x1="156.53333536783856" y1="125.59285714285714" x2="156.54333536783855" y2="125.59285714285714" class="ct-point" ct:value="503"></line><line x1="183.1666692097982" y1="111.66428571428571" x2="183.17666920979818" y2="111.66428571428571" class="ct-point" ct:value="553"></line><line x1="209.8000030517578" y1="98.57142857142857" x2="209.8100030517578" y2="98.57142857142857" class="ct-point" ct:value="600"></line><line x1="236.43333689371747" y1="80.74285714285713" x2="236.44333689371746" y2="80.74285714285713" class="ct-point" ct:value="664"></line><line x1="263.0666707356771" y1="71.27142857142857" x2="263.0766707356771" y2="71.27142857142857" class="ct-point" ct:value="698"></line><line x1="289.7000045776367" y1="67.92857142857142" x2="289.7100045776367" y2="67.92857142857142" class="ct-point" ct:value="710"></line><line x1="316.3333384195964" y1="60.68571428571428" x2="316.34333841959636" y2="60.68571428571428" class="ct-point" ct:value="736"></line><line x1="342.966672261556" y1="44.25" x2="342.976672261556" y2="44.25" class="ct-point" ct:value="795"></line></g></g><g class="ct-labels"><foreignObject style="overflow: visible;" x="50" y="215" width="26.633333841959637" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Jan</span></foreignObject><foreignObject style="overflow: visible;" x="76.63333384195964" y="215" width="26.633333841959637" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Feb</span></foreignObject><foreignObject style="overflow: visible;" x="103.26666768391928" y="215" width="26.633333841959633" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Mar</span></foreignObject><foreignObject style="overflow: visible;" x="129.9000015258789" y="215" width="26.63333384195964" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Apr</span></foreignObject><foreignObject style="overflow: visible;" x="156.53333536783856" y="215" width="26.63333384195964" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Mai</span></foreignObject><foreignObject style="overflow: visible;" x="183.1666692097982" y="215" width="26.633333841959626" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Jun</span></foreignObject><foreignObject style="overflow: visible;" x="209.8000030517578" y="215" width="26.633333841959654" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Jul</span></foreignObject><foreignObject style="overflow: visible;" x="236.43333689371747" y="215" width="26.633333841959626" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Aug</span></foreignObject><foreignObject style="overflow: visible;" x="263.0666707356771" y="215" width="26.633333841959626" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Sep</span></foreignObject><foreignObject style="overflow: visible;" x="289.7000045776367" y="215" width="26.633333841959654" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Oct</span></foreignObject><foreignObject style="overflow: visible;" x="316.3333384195964" y="215" width="26.633333841959654" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 27px; height: 20px;">Nov</span></foreignObject><foreignObject style="overflow: visible;" x="342.966672261556" y="215" width="30" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 30px; height: 20px;">Dec</span></foreignObject><foreignObject style="overflow: visible;" y="182.14285714285714" x="10" height="27.857142857142858" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 28px; width: 30px;">200</span></foreignObject><foreignObject style="overflow: visible;" y="154.28571428571428" x="10" height="27.857142857142858" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 28px; width: 30px;">300</span></foreignObject><foreignObject style="overflow: visible;" y="126.42857142857142" x="10" height="27.857142857142854" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 28px; width: 30px;">400</span></foreignObject><foreignObject style="overflow: visible;" y="98.57142857142857" x="10" height="27.85714285714286" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 28px; width: 30px;">500</span></foreignObject><foreignObject style="overflow: visible;" y="70.71428571428572" x="10" height="27.857142857142847" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 28px; width: 30px;">600</span></foreignObject><foreignObject style="overflow: visible;" y="42.85714285714286" x="10" height="27.85714285714286" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 28px; width: 30px;">700</span></foreignObject><foreignObject style="overflow: visible;" y="15" x="10" height="27.85714285714286" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 28px; width: 30px;">800</span></foreignObject><foreignObject style="overflow: visible;" y="-15" x="10" height="30" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 30px; width: 30px;">900</span></foreignObject></g></svg>
+              </div>
+            <div class="footer">
+              <div class="chart-legend">
+                <div>
+                  <i class="fa fa-circle text-info"></i>
+                  Tesla Model S
+                  <i class="fa fa-circle text-warning"></i>
+                   BMW 5 Series
+                </div>
+              </div>
+              <hr>
+              <div class="stats">
+                <span>
+                  <i class="ti-check"></i>
+                  Data information certified
+                </span>
+              </div>
+              <div class="pull-right"></div>
+            </div>
+          </div>
+        </div><!---->
+      </div>
+    </div>
+    <div class="col-md-6">
+    <div data-v-92af36ea="" class="card card-stats h-100 p-15">
+        <div data-v-92af36ea="" class="row h-100">
+          <div data-v-92af36ea="" class="col-md-6 h-50 mb-15">
+            <div class="card card-pages-dashbord"><!---->
+            <div class="card-header">
+              <h4 class="card-title">Account</h4>
+              <p class="card-category">Name, Funds, Status</p>
+              <a class="card-pages-dashbord__link" src="#">Go to Strategies</a>
+              </div>
+            </div>
+          </div>
+          <div data-v-92af36ea="" class="col-md-6 h-50 mb-15">
+            <div class="card card-pages-dashbord"><!---->
+            <div class="card-header">
+              <h4 class="card-title">Exchange</h4>
+              <p class="card-category">Name, status,first. 3 symbols</p>
+              <a class="card-pages-dashbord__link" src="#">Go to Exchange</a>
+            </div>
+            </div>
+          </div>
+          <div data-v-92af36ea="" class="col-md-12 h-50">
+            <div class="card card-pages-dashbord"><!---->
+            <div class="card-header">
+              <h4 class="card-title">Last 50 trades</h4>
+              <p class="card-category">Bot name, exchange, strategy, symbol, volume, direction.price</p>
+              <a class="card-pages-dashbord__link">Go to Trades</a>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+    </div>
+</div>
 </template>
 <script>
   import Vue from 'vue'
-  import {Table, TableColumn} from 'element-ui'
-  Vue.use(Table)
-  Vue.use(TableColumn)
+
   export default {
     data () {
       return {
-        tableData: [
-          {
-            id: 1,
-            date: '01.12.19 12:23:22',
-            side: 'Long',
-            in: '7823',
-            out: '7856',
-            duration: '76',
-            profit: '-723.22',
-            accProfit: '0'
-          },
-          {
-            id: 2,
-            date: '12.12.19 16:23:45',
-            side: 'Short',
-            in: '6578',
-            out: '7688',
-            duration: '554',
-            profit: '1723.22',
-            accProfit: '176'
-          },
-          {
-            id: 1,
-            date: '01.12.19 12:23:22',
-            side: 'Long',
-            in: '7823',
-            out: '7856',
-            duration: '76',
-            profit: '-723.22',
-            accProfit: '0'
-          },
-          {
-            id: 2,
-            date: '12.12.19 16:23:45',
-            side: 'Short',
-            in: '6578',
-            out: '7688',
-            duration: '554',
-            profit: '1723.22',
-            accProfit: '176'
-          },
-          {
-            id: 1,
-            date: '01.12.19 12:23:22',
-            side: 'Long',
-            in: '7823',
-            out: '7856',
-            duration: '76',
-            profit: '-723.22',
-            accProfit: '0'
-          },
-          {
-            id: 2,
-            date: '12.12.19 16:23:45',
-            side: 'Short',
-            in: '6578',
-            out: '7688',
-            duration: '554',
-            profit: '1723.22',
-            accProfit: '176'
-          }
-          ]
       }
-    },
-    methods: {
-      tableRowClassName (row, index) {
-        if (index === 0) {
-          return 'success'
-        } else if (index === 2) {
-          return 'info'
-        } else if (index === 4) {
-          return 'danger'
-        } else if (index === 6) {
-          return 'warning'
-        }
-        return ''
-      }
-    }
   }
-
+}
 </script>
 <style>
-    .el-table .cell {
-        white-space: nowrap;
-    }
+
 </style>
