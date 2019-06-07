@@ -1,6 +1,6 @@
 <template>
   <div class="form-group">
-    <label v-if="label">
+    <label v-if="label" class="d-inline">
       {{label}}
     </label>
     <input class="form-control border-input"

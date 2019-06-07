@@ -1,6 +1,12 @@
-form{
+form {
 
-    label{
+    label {
+      width: 100px;
+      margin-right: 20px;
+      margin-bottom: 0;
+      font-weight: 400;
+      text-transform: uppercase;
+
         &.radio,
         &.checkbox{
             font-size: $font-size-base;
@@ -9,9 +15,36 @@ form{
         }
     }
 }
+
 .form-group{
     position: relative;
 }
+
+.exchange-row,
+.account-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > div {
+    width: 80%;
+  }
+
+  .form-control {
+       background-color: $white-bg;
+       border: 1px solid  $light-blue;
+
+       &:focus,
+       &:hover {
+          border: 1px solid $info-color;
+       }
+  }
+}
+
+.account-form {
+
+}
+
 .form-horizontal{
     .checkbox,
     .radio{

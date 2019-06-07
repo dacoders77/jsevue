@@ -1,6 +1,17 @@
 .modal-header {
-    border: 0 none;
+  border-bottom: 2px solid $info-color;
+  background-color: $info-color;
+  border-top-left-radius: $border-radius-extreme;
+  border-top-right-radius: $border-radius-extreme;
 }
+
+  .modal-title {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: $white-color;
+}
+
 .modal-content {
     border: 0 none;
     border-radius: 10px;
@@ -8,10 +19,13 @@
 }
 .modal-dialog {
     padding-top: 60px;
+    max-width: 600px!important;
+
 }
+
 .modal-footer {
     border-top: 0 none;
-    padding: 10px 10px;        
+    padding: 10px 10px;
 }
 .modal-footer .modal-footer .btn-default.btn-simple{
     font-weight: 400;
@@ -66,7 +80,7 @@
 }
 .social-area{
     text-align: center;
-    
+
     .btn-social{
         margin: 0 10px;
     }
@@ -74,6 +88,3 @@
 .modal-backdrop.in {
     opacity: 0.25;
 }
-
-
-

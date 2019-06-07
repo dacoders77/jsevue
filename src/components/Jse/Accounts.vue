@@ -55,20 +55,20 @@
                 keyboard="false"
                 id="modal-scoped"
                 ref="my-modal"
-                size="sm"
+                size="lg"
                 title="Add account"
                 @ok="handleOkModalButton"
         >
 
-            <form ref="form" @submit.stop.prevent="">
+            <form ref="form" @submit.stop.prevent="" class="form-account">
 
-                <drop-down style="padding-bottom: 15px">
-                    <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100%;">
-                        Exchnage
-                        <b class="caret"></b>
-                    </button>
-                    <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="selectExchange(ex.id)">{{ ex.name }}</a> </li>
-                </drop-down>
+            <drop-down style="padding-bottom: 30px" class="account-dropdown">
+                <button slot="title" class="btn dropdown-toggle btn-exchange" data-toggle="dropdown"  type="button">
+                    Exchnage
+                    <b class="caret"></b>
+                </button>
+                <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="selectExchange(ex.id)">{{ ex.name }}</a> </li>
+            </drop-down>
 
                 <!--<b-form-group label="" label-for="name">
                     <b-form-input
@@ -81,7 +81,7 @@
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('name') }}</b-form-invalid-feedback>
                 </b-form-group>-->
 
-                <b-form-group label="" label-for="api">
+                <b-form-group label="Api:" label-for="api" class="account-row">
                     <b-form-input
                             id="api"
                             v-model="form.api"
@@ -92,7 +92,7 @@
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('api') }}</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="" label-for="api_secret">
+                <b-form-group label="Api secret:" label-for="api_secret" class="account-row">
                     <b-form-input
                             id="api_secret"
                             v-model="form.api_secret"
@@ -103,11 +103,11 @@
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('api_secret') }}</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="" label-for="memo">
+                <b-form-group label="Memo:" label-for="memo" class="account-row">
                     <b-form-textarea
-                            id="memo"
+                            id="memo_a"
                             v-model="form.memo"
-                            :state="this.validationErrors.has('memo') ? 'invalid' : 'valid'"
+                            :state="this.validationErrors.has('memo_a') ? 'invalid' : 'valid'"
                             placeholder="Memo">
                         rows="3"
                         max-rows="6"
@@ -141,7 +141,7 @@
           api: '',
           api_secret: '',
           status: '',
-          memo: ''
+          memo_a: ''
         }),
         accounts: null, // Exchanges for table
         allExchanges: null, // Exchnages for dropdown

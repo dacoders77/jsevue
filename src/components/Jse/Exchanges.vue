@@ -44,7 +44,7 @@
             </div>
 
             <drop-down>
-                <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 150px;">
+                <button slot="title" class="btn dropdown-toggle btn-wd">
                     Exchnage
                     <b class="caret"></b>
                 </button>
@@ -59,13 +59,14 @@
                 keyboard="false"
                 id="modal-scoped"
                 ref="my-modal"
-                size="sm"
+                size="lg"
                 title="Update Exchnage"
                 @ok="handleOkModalButton"
         >
 
-            <form ref="form" @submit.stop.prevent="handleSubmit">
-                <b-form-group label="" label-for="name">
+            <form ref="form" @submit.stop.prevent="handleSubmit" class="form-exchange">
+                <b-form-group label="Name:" label-for="name" class="exchange-form">
+
                     <b-form-input
                             id="name"
                             v-model="form.name"
@@ -76,7 +77,7 @@
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('name') }}</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="" label-for="live_api_path">
+                <b-form-group label="Live api:" label-for="live_api_path" class="exchange-row">
                     <b-form-input
                             id="live_api_path"
                             v-model="form.live_api_path"
@@ -87,7 +88,7 @@
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('live_api_path') }}</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="" label-for="testnet_api_path">
+                <b-form-group label="Test net api:" label-for="testnet_api_path" class="exchange-row">
                     <b-form-input
                             id="testnet_api_path"
                             v-model="form.testnet_api_path"
@@ -98,7 +99,7 @@
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('testnet_api_path') }}</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="" label-for="memo">
+                <b-form-group label= "Memo:" label-for="memo" class="exchange-row">
                     <b-form-textarea
                             id="memo"
                             v-model="form.memo"

@@ -14,11 +14,13 @@
 .form-control {
     background-color: $gray-input-bg;
     border: 1px solid $gray-input-outline;
-    border-radius: $border-radius-base;
+    // border-radius: $border-radius-base;
+    border-radius: $border-radius-extreme;
     color: $font-color;
     font-size: $font-size-base;
     @include input-size($padding-base-vertical, $padding-base-horizontal, $height-base);
     @include box-shadow(none);
+
 
     &:focus{
        border: 1px solid $gray-input-outline;

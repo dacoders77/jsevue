@@ -177,3 +177,22 @@
   padding: 10px;
   line-height: 1;
 }
+
+.btn-exchange {
+  width: 100%;
+}
+.account-dropdown {
+  .dropdown-menu {
+    left: 40%;
+    margin-top: -15px;
+  }
+}
+
+@media (min-width: 768px){
+
+  .btn-exchange {
+    width: 80%;
+    display: block;
+    margin-left: auto;
+  }
+}
