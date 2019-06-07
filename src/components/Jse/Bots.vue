@@ -19,6 +19,7 @@
                                 <th>Status</th>
                                 <th>Account</th>
                                 <th>Symbol</th>
+                                <th>Strategy</th>
                                 <th>Vol</th>
                                 <th>L/Bars</th>
                                 <th>R/Limit</th>
@@ -66,6 +67,17 @@
                                         <li v-for="(symbol, index) in symbols"><a href="javascript:void(0)" @click="updateBotNew(['updateSymbol', bot, index])">{{ symbol.execution_symbol_name }}</a> </li>
                                     </drop-down>
                                 </td>
+
+                                <td>
+                                    <drop-down>
+                                        <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
+                                            {{ strategies[bot.strategy_id - 1]}}
+                                            <b class="caret"></b>
+                                        </button>
+                                        <li v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">{{ strategy_name }}</a> </li>
+                                    </drop-down>
+                                </td>
+
 
                                 <td>
                                     <input type="text" class="form-control" v-model="bot.volume" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
@@ -123,6 +135,7 @@
           name: '',
           account_id: '',
           symbol_id: '',
+          strategy_id: '',
           volume: '',
           bars_to_load: '',
           rate_limit: '',
@@ -133,6 +146,7 @@
         accounts: [1,2,3,4], // Random values. Otherwise getting a error on array null value in v-for
         exchanges: [1,2,3,4],
         symbols: [1,2,3,4],
+        strategies: [1,2,3,4],
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -155,6 +169,7 @@
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+        axios.get('/strategy').then(({data}) => (this.strategies = data.data));
       },
       editExchange(exchange) {
         this.form.reset();
@@ -191,10 +206,15 @@
         let symbolId = bot.symbol_id;
         if (params[0] === 'updateSymbol') symbolId = params[2] + 1;
 
+        // Update strategy drop down
+        let strategyId = bot.strategy_id;
+        if (params[0] === 'updateSymbol') strategyId = params[2] + 1;
+
         this.form.reset();
         this.form.status = botStatus; // runBot, stopBot
         this.form.account_id = accountId; // Account drop down
         this.form.symbol_id = symbolId; // Symbol drop down
+        this.form.strategy_id = strategyId; // Strategy drop down
         this.form.name = bot.name;
         this.form.volume = bot.volume;
         this.form.bars_to_load = bot.bars_to_load;
@@ -215,6 +235,7 @@
         this.form.status = bot.status;
         this.form.account_id = bot.account_id;
         this.form.symbol_id = bot.symbol_id;
+        this.form.strategy_id = bot.strategy_id;
         this.form.name = bot.name;
         this.form.volume = bot.volume;
         this.form.bars_to_load = bot.bars_to_load;
@@ -238,6 +259,7 @@
         this.form.status = bot.status;
         this.form.account_id = params[1] + 1;
         this.form.symbol_id = bot.symbol_id;
+        this.form.strategy_id = bot.strategy_id;
         this.form.name = bot.name;
         this.form.volume = bot.volume;
         this.form.bars_to_load = bot.bars_to_load;
