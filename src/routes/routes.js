@@ -9,7 +9,6 @@ import Exchnages from 'src/components/Jse/Exchanges.vue'
 import Accounts from 'src/components/Jse/Accounts.vue'
 import Symbols from 'src/components/Jse/Symbols.vue'
 import Bots from 'src/components/Jse/Bots.vue'
-import Bots from 'src/components/Jse/DashboardCard.vue'
 
 export const routes = [
   {
