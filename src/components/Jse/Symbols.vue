@@ -10,7 +10,7 @@
                 <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-info">
                             <tbody>
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
@@ -22,7 +22,7 @@
                             <tr v-for="exchange in exchanges" :key="exchange.id">
                                 <td>{{ exchange.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-success" @click="addSymbol(exchange)"><i class="ti-plus"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="addSymbol(exchange)"><i class="ti-plus"></i></button>
                                 </td>
                                 <td>{{ exchange.name }}</td>
                                 <td>
