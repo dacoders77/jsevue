@@ -28,6 +28,7 @@
         padding: 7px 10px;
         border-radius: 50%;
         background-color: $default-bg;
+        border: 1px solid transparent;
 
 
         i {
@@ -39,14 +40,44 @@
 
         &--success {
             background-color: $success-color;
+
+            &:hover,
+            &:focus {
+              border: 1px solid $success-color;
+              background-color: $white-bg;
+
+              i {
+                color: $success-color;
+              }
+            }
         }
 
         &--info {
           background-color: $info-color;
+
+          &:hover,
+          &:focus {
+             border: 1px solid $info-color;
+             background-color: $white-bg;
+
+            i {
+              color: $info-color;
+            }
+          }
         }
 
         &--danger {
           background-color: $danger-color;
+
+          &:hover,
+          &:focus {
+             border: 1px solid $danger-color;
+             background-color: $white-bg;
+
+            i {
+              color: $danger-color;
+            }
+          }
         }
     }
 
