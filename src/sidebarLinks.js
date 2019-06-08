@@ -33,17 +33,26 @@ export default [
       }]
   },
   {
-    name: 'Strategies',
+    name: 'Trading',
     icon: 'ti-pulse',
     collapsed: true,
     children: [
       {
-        name: 'Price channel',
-        path: '/chart'
+        name: 'Strategies',
+        path: '/strategies'
       },
       {
-        name: 'MACD',
-        path: '/chart1'
-      }]
+        name: 'Que worker',
+        path: '/queworker'
+      },
+      {
+        name: 'Trades',
+        path: '/trades'
+      },
+      {
+        name: 'Orders',
+        path: '/orders'
+      }
+      ]
   }
 ]

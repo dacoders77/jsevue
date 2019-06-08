@@ -25,8 +25,8 @@
                             <tr v-for="exchange in exchanges" :key="exchange.id">
                                 <td>{{ exchange.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="editExchange(item)"><i class="ti-marker-alt"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteExchange(item)"><i class="ti-trash"></i></button>
                                 </td>
                                 <td>{{ exchange.name }}</td>
                                 <td>{{ exchange.created_at | myDate }}</td>
@@ -45,7 +45,7 @@
 
             <drop-down>
                 <button slot="title" class="btn dropdown-toggle btn-wd">
-                    Exchnage
+                    Add Exchnage
                     <b class="caret"></b>
                 </button>
                 <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
@@ -161,7 +161,7 @@
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
       },
       loadExchangesList() {
-        axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // Resource controllers are defined in api.php
+        axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // ExchangeController.php@show
       },
       editExchange(exchange) {
         this.form.reset();
@@ -176,6 +176,7 @@
             this.showNotification('bottom', 'right', 'Exchange successfully removed! <br>' + '&nbsp')
           })
           .catch(error => {
+            console.log(error);
             this.showNotification('bottom', 'right', 'Exchange delete error! <br>' + '&nbsp')
           })
       },
