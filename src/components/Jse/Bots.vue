@@ -68,13 +68,14 @@
                                     </drop-down>
                                 </td>
 
+
                                 <td>
                                     <drop-down>
-                                        <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            {{ strategies[bot.strategy_id - 1]}}
+                                        <button v-if="strategies" slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
+                                            {{ strategies[bot.strategy_id - 1].name}}
                                             <b class="caret"></b>
                                         </button>
-                                        <li v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">{{ strategy_name }}</a> </li>
+                                        <li v-if="strategies" v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">{{ strategy.name }}</a> </li>
                                     </drop-down>
                                 </td>
 
@@ -144,9 +145,9 @@
         }),
         bots: null,
         accounts: [1,2,3,4], // Random values. Otherwise getting a error on array null value in v-for
-        exchanges: [1,2,3,4],
+        exchanges: [1,2,3,4], // add v-if to all rendered lists (v-for) and delete this 1,2,3,4
         symbols: [1,2,3,4],
-        strategies: [1,2,3,4],
+        strategies: null,
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -208,8 +209,8 @@
 
         // Update strategy drop down
         let strategyId = bot.strategy_id;
-        if (params[0] === 'updateSymbol') strategyId = params[2] + 1;
-
+        if (params[0] === 'updateStrategy') strategyId = params[2] + 1;
+        
         this.form.reset();
         this.form.status = botStatus; // runBot, stopBot
         this.form.account_id = accountId; // Account drop down

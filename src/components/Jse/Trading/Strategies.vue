@@ -29,9 +29,6 @@
                                 <td>{{ (item.strategy_type_id == 1 ? 'Price channel' : 'MACD') }}</td>
 
                                 <td v-if="(item.strategy_type_id == '1' ? true : false)"><span class="text-success">
-
-                                    <!--{{ item.pricechannel_settings_id }}-->
-
                                     PC time frame: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] }} <br>
                                     SMA filter period: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['sma_filter_period'] }} <br>
                                 </span></td>
