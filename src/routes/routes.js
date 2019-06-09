@@ -61,26 +61,6 @@ export const routes = [
         path: 'bots',
         name: 'Bots',
         component: Bots
-      },
-      {
-        path: 'strategies',
-        name: 'Strategies',
-        component: Strategies
-      },
-      {
-        path: 'queworker',
-        name: 'Que worker',
-        component: QueWorker
-      },
-      {
-        path: 'orders',
-        name: 'Orders',
-        component: Orders
-      },
-      {
-        path: 'trades',
-        name: 'Trades',
-        component: Trades
       }
 
     ]

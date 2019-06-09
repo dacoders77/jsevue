@@ -1,124 +1,7 @@
 <template>
 <div>
+  <dashboard-jse-card></dashboard-jse-card>
     <div class="row">
-    <div class="col-md-3">
-      <div data-v-92af36ea="" class="card card-stats card-dashbord">
-        <div data-v-92af36ea="" class="card-body p-15">
-            <div class="row p-15">
-              <div class="col-md-6">
-                <div class="icon-big text-center icon-success">
-                  <i class="ti-wallet"></i>
-                </div>
-                  <h4 class="text-info">Bitmex</h4>
-                  <p>PC</p>
-                  <p>BTC/USD</p>
-                  <span>Trades: 217</span>
-              </div>
-              <div class="col-md-6">
-                <div class="numbers">
-                  <p>Revenue</p>
-                  $1,345
-                </div>
-              </div>
-            </div>
-            <div>
-              <hr>
-              <div class="stats">
-                <i class="ti-calendar"></i> Running
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div data-v-92af36ea="" class="card card-stats card-dashbord">
-        <div data-v-92af36ea="" class="card-body p-15">
-            <div class="row p-15">
-              <div class="col-md-6">
-                <div class="icon-big text-center icon-success">
-                  <i class="ti-wallet"></i>
-                </div>
-                  <h4 class="text-info">Bitmex</h4>
-                  <p>PC</p>
-                  <p>BTC/USD</p>
-                  <span>Trades: 217</span>
-              </div>
-              <div class="col-md-6">
-                <div class="numbers">
-                  <p>Revenue</p>
-                  $1,345
-                </div>
-              </div>
-            </div>
-            <div>
-              <hr>
-              <div class="stats">
-                <i class="ti-calendar"></i> Running
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div data-v-92af36ea="" class="card card-stats card-dashbord">
-        <div data-v-92af36ea="" class="card-body p-15">
-            <div class="row p-15">
-              <div class="col-md-6">
-                <div class="icon-big text-center icon-success">
-                  <i class="ti-wallet"></i>
-                </div>
-                  <h4 class="text-info">Bitmex</h4>
-                  <p>PC</p>
-                  <p>BTC/USD</p>
-                  <span>Trades: 217</span>
-              </div>
-              <div class="col-md-6">
-                <div class="numbers">
-                  <p>Revenue</p>
-                  $1,345
-                </div>
-              </div>
-            </div>
-            <div>
-              <hr>
-              <div class="stats">
-                <i class="ti-calendar"></i> Running
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div data-v-92af36ea="" class="card card-stats card-dashbord">
-        <div data-v-92af36ea="" class="card-body p-15">
-            <div class="row p-15">
-              <div class="col-md-6">
-                <div class="icon-big text-center icon-success">
-                  <i class="ti-wallet"></i>
-                </div>
-                  <h4 class="text-info">Bitmex</h4>
-                  <p>PC</p>
-                  <p>BTC/USD</p>
-                  <span>Trades: 217</span>
-              </div>
-              <div class="col-md-6">
-                <div class="numbers">
-                  <p>Revenue</p>
-                  $1,345
-                </div>
-              </div>
-            </div>
-            <div>
-              <hr>
-              <div class="stats">
-                <i class="ti-calendar"></i> Running
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div class="row align-items">
       <div class="col-md-6">
         <div class="card h-100"><!---->
           <div class="card-header">
@@ -153,34 +36,68 @@
       </div>
     </div>
     <div class="col-md-6">
-    <div data-v-92af36ea="" class="card card-stats h-100 p-15">
-        <div data-v-92af36ea="" class="row h-100">
-          <div data-v-92af36ea="" class="col-md-6 h-50 mb-15">
-            <div class="card card-pages-dashbord"><!---->
-            <div class="card-header">
+    <div class="card card-stats h-100 p-15">
+        <div class="row h-100">
+          <div class="col-md-6  mb-15">
+            <div class="card card-pages-dashboard"><!---->
+
               <h4 class="card-title">Account</h4>
-              <p class="card-category">Name, Funds, Status</p>
-              <a class="card-pages-dashbord__link" src="#">Go to Strategies</a>
+              <table class="table table-hover table-info card-pages-dashboard__table overflow-scroll-y">
+                  <tbody>
+                  <tr>
+                      <th>Exchnage</th>
+                      <th>Api</th>
+                      <th>Status</th>
+                  </tr>
+                  <tr v-for="account in accounts" :key="account.id">
+                      <td>{{ account.name }}</td>
+                      <td class="card-pages-dashboard__api"><span class="text-break">{{ account.api }}</span></td>
+                      <td class="text-success">{{ account.status }}</td>
+
+                  </tr>
+                  </tbody></table>
+              <a class="card-pages-dashboard__link" src="#">Go to Strategies</a>
               </div>
-            </div>
+
           </div>
-          <div data-v-92af36ea="" class="col-md-6 h-50 mb-15">
-            <div class="card card-pages-dashbord"><!---->
-            <div class="card-header">
+          <div class="col-md-6  mb-15">
+            <div class="card card-pages-dashboard"><!---->
               <h4 class="card-title">Exchange</h4>
-              <p class="card-category">Name, status,first. 3 symbols</p>
-              <a class="card-pages-dashbord__link" src="#">Go to Exchange</a>
-            </div>
+              <table class="table table-hover table-info card-pages-dashboard__table  overflow-scroll-y">
+                  <tbody>
+                  <tr>
+                      <th>Name</th>
+                      <th>Api</th>
+                      <th>Status</th>
+                  </tr>
+                  <tr v-for="exchange in exchanges" :key="exchange.id">
+                      <td>{{ exchange.name }}</td>
+                      <td class="card-pages-dashboard__api"><span class="text-break">{{ exchange.live_api_path }}</span></td>
+                      <td class="text-success">{{ exchange.status }}</td>
+                  </tr>
+                  </tbody></table>
+              <a class="card-pages-dashboard__link" src="#">Go to Exchange</a>
             </div>
           </div>
-          <div data-v-92af36ea="" class="col-md-12 h-50">
-            <div class="card card-pages-dashbord"><!---->
-            <div class="card-header">
+          <div class="col-md-12">
+            <div class="card card-pages-dashboard"><!---->
               <h4 class="card-title">Last 50 trades</h4>
-              <p class="card-category">Bot name, exchange, strategy, symbol, volume, direction.price</p>
-              <a class="card-pages-dashbord__link">Go to Trades</a>
+              <table class="table table-hover table-info card-pages-dashboard__table">
+                  <tbody>
+                  <tr>
+                      <th>Exchnage</th>
+                      <th>Api</th>
+                      <th>Status</th>
+                  </tr>
+                  <tr v-for="account in accounts" :key="account.id">
+                      <td>{{ account.name }}</td>
+                      <td class="card-pages-dashboard__api"><span class="text-break">{{ account.api }}</span></td>
+                      <td class="text-success">Online</td>
+
+                  </tr>
+                  </tbody></table>
+              <a class="card-pages-dashboard__link">Go to Trades</a>
               </div>
-            </div>
           </div>
       </div>
     </div>
@@ -189,15 +106,63 @@
 </div>
 </template>
 <script>
-  import Vue from 'vue'
 
+import DashboardJseCard from './DashboardJseCard'
   export default {
+    components: {
+      DashboardJseCard
+    },
     data () {
       return {
+      accounts: null,
+      strategies: null,
+      exchanges: null,
+      symbols: null
+    }
+    },
+
+    mounted() {
+    this.load()
+      },
+    methods: {
+    async load() {
+              try {
+                const response = await axios.get('/bot')
+                this.name = response.data.data.name
+
+                this.bots_status = response.data.data.status
+                console.log(response.data.data)
+                this.bots = response.data.data
+                console.log(this.bots)
+
+                const responseStrategy = await axios.get('/strategy')
+                this.strategy_name = responseStrategy.data.data.name
+                this.strategies = responseStrategy.data.data
+                console.log(this.strategies)
+                console.log(responseStrategy.data)
+
+                const responseExchange = await axios.get('/exchange')
+                this.exchange_name = responseExchange.data.data.name
+                this.exchanges = responseExchange.data.data
+                console.log(this.exchanges)
+                console.log(responseExchange.data)
+
+                const responseSymbol = await axios.get('/symbol')
+                this.symbol_name = responseSymbol.data.data.name
+                this.symbols = responseSymbol.data.data
+                console.log(this.symbols)
+
+                const responseAccount = await axios.get('/account')
+                this.account_name = responseAccount.data.data.name
+                this.accounts = responseAccount.data.data
+                console.log(this.accounts)
+
+              } catch (e) {
+          }
       }
-  }
-}
-</script>
+    }
+    }
+  </script>
 <style>
 
 </style>
