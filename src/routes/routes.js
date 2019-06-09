@@ -9,8 +9,15 @@ import Exchnages from 'src/components/Jse/Exchanges.vue'
 import Accounts from 'src/components/Jse/Accounts.vue'
 import Symbols from 'src/components/Jse/Symbols.vue'
 import Bots from 'src/components/Jse/Bots.vue'
+<<<<<<< HEAD
 // import DashboardJseCard from 'src/components/Jse/DashboardJseCard.vue'
 
+=======
+import Strategies from 'src/components/Jse/Trading/Strategies.vue'
+import QueWorker from 'src/components/Jse/Trading/QueWorker.vue'
+import Orders from 'src/components/Jse/Trading/Orders.vue'
+import Trades from 'src/components/Jse/Trading/Trades.vue'
+>>>>>>> 75b634af481018a7fccea2ff282cdb30ba9e99c8
 
 export const routes = [
   {
@@ -68,6 +75,26 @@ export const routes = [
         path: 'bots',
         name: 'Bots',
         component: Bots
+      },
+      {
+        path: 'strategies',
+        name: 'Strategies',
+        component: Strategies
+      },
+      {
+        path: 'queworker',
+        name: 'Que worker',
+        component: QueWorker
+      },
+      {
+        path: 'orders',
+        name: 'Orders',
+        component: Orders
+      },
+      {
+        path: 'trades',
+        name: 'Trades',
+        component: Trades
       }
 
     ]
