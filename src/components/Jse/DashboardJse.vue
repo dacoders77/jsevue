@@ -1,5 +1,136 @@
 <template>
 <div>
+<div class="row">
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-stats card-dashboard">
+    <div  class="card-body p-15">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="icon-success">
+              <i class="ti-wallet card-dashboard__icon"></i>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="numbers text-warning">
+              <p>Bot_1</p>
+              $1,345
+            </div>
+          </div>
+        </div>
+        <div class="row align-items">
+          <div class="col-sm-6">
+            <h5 class="text-info">Bitmex</h5>
+            <p>PC</p>
+            <p>BTC</p>
+            <span>Trades: 217</span>
+          </div>
+          <div class="col-sm-6 card-dashboard__status">
+            <div class="stats">
+              Running <i class="ti-flag-alt"></i>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-stats card-dashboard">
+    <div  class="card-body p-15">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="icon-success">
+              <i class="ti-wallet card-dashboard__icon"></i>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="numbers text-warning">
+              <p>Bot_1</p>
+              $1,345
+            </div>
+          </div>
+        </div>
+        <div class="row align-items">
+          <div class="col-sm-6">
+            <h5 class="text-info">Bitmex</h5>
+            <p>PC</p>
+            <p>BTC</p>
+            <span>Trades: 217</span>
+          </div>
+          <div class="col-sm-6 card-dashboard__status">
+            <div class="stats">
+              Running <i class="ti-flag-alt"></i>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-stats card-dashboard">
+    <div  class="card-body p-15">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="icon-success">
+              <i class="ti-wallet card-dashboard__icon"></i>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="numbers text-warning">
+              <p>Bot_1</p>
+              $1,345
+            </div>
+          </div>
+        </div>
+        <div class="row align-items">
+          <div class="col-sm-6">
+            <h5 class="text-info">Bitmex</h5>
+            <p>PC</p>
+            <p>BTC</p>
+            <span>Trades: 217</span>
+          </div>
+          <div class="col-sm-6 card-dashboard__status">
+            <div class="stats">
+              Running <i class="ti-flag-alt"></i>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-stats card-dashboard">
+    <div  class="card-body p-15">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="icon-success">
+              <i class="ti-wallet card-dashboard__icon"></i>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="numbers text-warning">
+              <p>Bot_1</p>
+              $1,345
+            </div>
+          </div>
+        </div>
+        <div class="row align-items">
+          <div class="col-sm-6">
+            <h5 class="text-info">Bitmex</h5>
+            <p>PC</p>
+            <p>BTC</p>
+            <span>Trades: 217</span>
+          </div>
+          <div class="col-sm-6 card-dashboard__status">
+            <div class="stats">
+              Running <i class="ti-flag-alt"></i>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
   <dashboard-jse-card></dashboard-jse-card>
     <div class="row">
       <div class="col-md-6">
