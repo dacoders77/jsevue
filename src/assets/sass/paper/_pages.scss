@@ -176,3 +176,20 @@
 .m-0 {
   margin: 0;
 }
+
+.pr-15 {
+  padding-right: 15px;
+}
+
+.d-flex {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+
+}
+
+.flex-grow {
+  flex-grow: 1;
+}

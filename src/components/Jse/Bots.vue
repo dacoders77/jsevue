@@ -1,6 +1,6 @@
 <template>
 
-    <!--<div class="row">
+  <!--<div class="row">
         <div class="col-md-12">
 
             <div class="card">
@@ -30,7 +30,7 @@
                             </tr>
 
                             <tr v-for="bot in bots" :key="bot.id" v-if="bot">
-                              <!--<td>{{ bot.id }}</td>
+                              <td>{{ bot.id }}</td>
                                 <td>
                                 <div v-if="bot.status == 'idle'">
                                    <button type="button" class="btn btn-info btn-fill btn-magnify btn-circle" @click="updateBotNew(['runBot', bot])">
@@ -41,7 +41,7 @@
                                    <button type="button" class="btn btn-info btn-fill btn-danger btn-circle" @click="updateBotNew(['stopBot', bot])">
                                        <span class="btn-label"><i class="ti-control-stop"></i></span>
                                    </button>
-                               </div>-->
+                               </div>
                                 </td>
 
                                 <td>
@@ -98,7 +98,6 @@
                                 <td>
                                     <input type="text" class="form-control" v-model="bot.memo" style="width: 150px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
-
 
                             </tr>
                             </tbody></table>

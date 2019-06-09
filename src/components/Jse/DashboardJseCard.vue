@@ -1,38 +1,38 @@
 <template>
 
 <div class="row">
-<div class="col-sm-6 col-lg-3" v-for="(bot, index) in bots">
-  <div class="card card-stats card-dashboard">
-    <div  class="card-body p-15">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="icon-success">
-              <i class="ti-wallet card-dashboard__icon"></i>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="numbers text-warning">
-              <p>{{bot.name}}</p>
-              $1,345
-            </div>
+  <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
+    <div class="card card-stats card-dashboard p-15">
+      <div class="d-flex flex-grow">
+        <div >
+          <div class="icon-success">
+            <i class="ti-wallet card-dashboard__icon"></i>
           </div>
         </div>
-        <div class="row align-items">
-          <div class="col-sm-6">
-            <h5 class="text-info">{{exchange_name}}</h5>
-            <p>PC</p>
-            <p>{{symbol_name}}</p>
-            <span>Trades: {{trades_num}}</span>
-          </div>
-          <div class="col-sm-6 card-dashboard__status">
-            <div class="stats">
-              <!-- {{bot.status}} <i class="ti-flag-alt"></i>-->
-            </div>
+        <div class="flex-grow">
+          <div class="numbers">
+            <p>{{bot.name}}</p>
+            {{bot.money_num}}
           </div>
         </div>
+      </div>
+        <h5 class="col-sm-12" >{{bot.exchange_name}}</h5>
+      <div class="card-dashboard__text">
+        <div class="col-sm-6">
+          <p>
+            <span class="pr-15">{{bot.strategy_name}}</span>
+            <span>{{bot.symbol_name}}</span>
+          </p>
+          <p>Trades: {{bot.trades_num}}</p>
+        </div>
+        <div class="col-sm-6 card-dashboard__status">
+          <div class="stats">
+            {{bot.bots_status}} <i class="ti-flag-alt"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </template>
 
@@ -40,24 +40,51 @@
   export default {
     data () {
       return {
-        id: null,
-        name: null,
-        money_num: null,
-        strategy_name: null,
-        trades_num: '217',
-        bots_status: null,
-        symbol_name: 'BTC',
-        exchange_name: 'Bitmex',
-        bots: null,
-        strategies: null,
-        exchanges: null,
-        symbols: null
+      bots: [
+          {
+          id: '1',
+          name: 'Bots_1',
+          money_num: '1,235$',
+          strategy_name: 'PC',
+          trades_num: '217',
+          bots_status: 'idle',
+          symbol_name: 'BTC',
+          exchange_name: 'Bitmex'
+
+          },
+          {
+          id: '2',
+          name: 'Bots_2',
+          money_num: '1,524$',
+          strategy_name: 'PA',
+          trades_num: '217',
+          bots_status: 'Running',
+          symbol_name: 'USD',
+          exchange_name: 'Bitmex'
+          },
+          {
+          id: 3,
+          name: 'Bots_3',
+          money_num: '1,1000$',
+          strategy_name: 'PA',
+          trades_num: '200',
+          bots_status: 'idle',
+          symbol_name: 'USD',
+          exchange_name: 'Bitmex'
+          },
+          {
+          id: 4,
+          name: 'Bots_4',
+          money_num: '100000$',
+          strategy_name: 'BTC',
+          trades_num: '500',
+          bots_status: 'Runnig',
+          symbol_name: 'BTC',
+          exchange_name: 'Bitmex'
+          }
+          ]
       }
     },
-
-  mounted() {
-     this.load()
-        },
   methods: {
    async load() {
                 try {
