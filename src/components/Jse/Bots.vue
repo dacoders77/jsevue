@@ -29,7 +29,7 @@
                                 <th>Memo</th>
                             </tr>
 
-                            <tr v-for="bot in bots" :key="bot.id">
+                            <tr v-for="bot in bots" :key="bot.id" v-if="bot">
                                 <td>{{ bot.id }}</td>
                                 <td>
                                     <div v-if="bot.status == 'idle'">
