@@ -1,6 +1,6 @@
 <template>
 
-    <div class="row exchange">
+    <!--<div class="row exchange">
         <div class="col-md-12">
 
             <div class="card">
@@ -25,12 +25,12 @@
                             <tr v-for="exchange in exchanges" :key="exchange.id">
                                 <td>{{ exchange.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="editExchange(item)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteExchange(item)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon&#45;&#45;success" @click="editExchange(item)"><i class="ti-marker-alt"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon&#45;&#45;danger" @click="deleteExchange(item)"><i class="ti-trash"></i></button>
                                 </td>
                                 <td>{{ exchange.name }}</td>
                                 <td>{{ exchange.created_at | myDate }}</td>
-                                <td><button class="btn btn-icon btn-simple btn-icon--info"><a :href="exchange.url"><i class="ti-link"></i></a> </button></td>
+                                <td><button class="btn btn-icon btn-simple btn-icon&#45;&#45;info"><a :href="exchange.url"><i class="ti-link"></i></a> </button></td>
                                 <td>{{ exchange.live_api_path }}</td>
                                 <td>{{ exchange.testnet_api_path }}</td>
                                 <td><span class="text-success">Online</span></td>
@@ -113,7 +113,8 @@
             </form>
         </b-modal>
 
-    </div>
+    </div>-->
+
 </template>
 <script>
   import Vue from 'vue'

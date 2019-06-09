@@ -1,11 +1,11 @@
 <template>
 
-    <div class="row">
+    <!--<div class="row">
         <div class="col-md-12">
 
             <div class="card">
                 <div class="card-header" style="border: 0px solid red; padding: 0px">
-                    <!--<h4 class="title">Trades log</h4>-->
+                    &lt;!&ndash;<h4 class="title">Trades log</h4>&ndash;&gt;
                 </div>
                 <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
@@ -124,7 +124,8 @@
         </div>
 
 
-    </div>
+    </div>-->
+
 </template>
 <script>
   import Vue from 'vue'
