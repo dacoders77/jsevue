@@ -180,6 +180,23 @@
   }
 }
 
+.table-success {
+
+  > tbody > tr > th {
+    background-color: $success-color;
+    border-bottom: 1px solid $success-color;
+    color: $white-color;
+
+    &:first-child {
+      border-top-left-radius: $border-radius-extreme;
+    }
+
+    &:last-child {
+      border-top-right-radius: $border-radius-extreme;
+    }
+  }
+}
+
 .table-striped {
 
   tbody > tr:nth-of-type(2n+1) {

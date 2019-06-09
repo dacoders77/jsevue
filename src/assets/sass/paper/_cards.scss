@@ -617,7 +617,7 @@
 
 .card-pages-dashboard {
   border-radius: $border-radius-extreme;
-  border: 2px solid $medium-gray;
+  border: 1px solid $medium-gray;
   // height: 100%;
   margin-bottom: 0;
   width: 100%;
@@ -628,6 +628,11 @@
   position: static;
   padding-bottom: 30px;
   box-sizing: border-box;
+  background-color: rgba($card-background-blue, 0.4);
+
+    &--green {
+      background-color: $card-background-green;
+    }
 
     &__table {
           overflow-x: scroll;
@@ -640,12 +645,20 @@
     &__link {
       display: inline-block;
       padding: 7px 15px;
-      width: calc(100% - 30px - 6px);
+      width: calc(100% - 30px - 2px);
       margin-top: auto;
-      bottom: 5px;
-      right: 18px;
+      bottom: 1px;
+      right: 16px;
       background-color: $white-color;
       text-align: right;
+      border-bottom-left-radius: $border-radius-extreme;
+      border-bottom-right-radius: $border-radius-extreme;
+      transition: 0.5s;
+
+      &:focus,
+      &:hover {
+        letter-spacing: 2px;
+      }
     }
     a {
         position: absolute;
@@ -667,22 +680,36 @@
     }
   }
 
-.card-dashbord {
-  font-size: 16px;
+  .card-dashboard {
+    font-size: 14px;
+    transition: 0.5s;
 
-  &__status {
-    align-self: flex-end;
-  }
-  .stats {
-    text-align: right;
+    &:focus,
+    &:hover {
+      -webkit-transform: scale(1.05);
+      -ms-ransform: scale(1.05);
+      transform: scale(1.05);
+    }
 
+      &__status {
+        align-self: flex-end;
+      }
+      .stats {
+        text-align: right;
+
+        & i {
+      -moz-transform: scale(-1, 1);
+      -webkit-transform: scale(-1, 1);
+      -o-transform: scale(-1, 1);
+      transform: scale(-1, 1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
+    }
   }
+
   p {
     text-transform: uppercase;
-  }
-  h4 {
-
-    margin-top: 0;
+    font-size: 14px;
   }
 
   i {
@@ -690,12 +717,25 @@
     display: inline-block;
   }
 
+  &__icon {
+    padding: 15px;
+    background-color: $success-color;
+    color: $white-color;
+    border-radius: 50%;
+    font-size: 2.5em;
+    line-height: 1;
+
+  }
+
   .numbers {
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 400;
 
      p {
-       margin-bottom: 10px;
+       margin-bottom: 15px;
+       font-size: 24px;
+       color: $black-color;
+       font-weight: 500;
      }
   }
 }

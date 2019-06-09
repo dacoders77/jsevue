@@ -61,7 +61,7 @@
 
           </div>
           <div class="col-md-6  mb-15">
-            <div class="card card-pages-dashboard"><!---->
+            <div class="card card-pages-dashboard "><!---->
               <h4 class="card-title">Exchange</h4>
               <table class="table table-hover table-info card-pages-dashboard__table  overflow-scroll-y">
                   <tbody>
@@ -80,9 +80,9 @@
             </div>
           </div>
           <div class="col-md-12">
-            <div class="card card-pages-dashboard"><!---->
+            <div class="card card-pages-dashboard card-pages-dashboard--green"><!---->
               <h4 class="card-title">Last 50 trades</h4>
-              <table class="table table-hover table-info card-pages-dashboard__table">
+              <table class="table table-hover table-success card-pages-dashboard__table">
                   <tbody>
                   <tr>
                       <th>Exchnage</th>
@@ -96,7 +96,7 @@
 
                   </tr>
                   </tbody></table>
-              <a class="card-pages-dashboard__link">Go to Trades</a>
+              <a class="card-pages-dashboard__link text-success">Go to Trades</a>
               </div>
           </div>
       </div>
@@ -127,14 +127,6 @@ import DashboardJseCard from './DashboardJseCard'
     methods: {
     async load() {
               try {
-                const response = await axios.get('/bot')
-                this.name = response.data.data.name
-
-                this.bots_status = response.data.data.status
-                console.log(response.data.data)
-                this.bots = response.data.data
-                console.log(this.bots)
-
                 const responseStrategy = await axios.get('/strategy')
                 this.strategy_name = responseStrategy.data.data.name
                 this.strategies = responseStrategy.data.data

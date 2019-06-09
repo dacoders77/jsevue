@@ -206,24 +206,19 @@
       updateBotNew(params) {
         // Receives two params: bot instance and action (updateBotName)
         let bot = params[1];
-
         // Run/Stop bot
         let botStatus = bot.status;
         if (params[0] === 'runBot') botStatus = 'running';
         if (params[0] === 'stopBot') botStatus = 'idle';
-
         // Update account drop down
         let accountId = bot.account_id;
         if (params[0] === 'updateAccount') accountId = params[2] + 1; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
-
         // Update symbol drop down
         let symbolId = bot.symbol_id;
         if (params[0] === 'updateSymbol') symbolId = params[2] + 1;
-
         // Update strategy drop down
         let strategyId = bot.strategy_id;
         if (params[0] === 'updateStrategy') strategyId = params[2] + 1;
-
         this.form.reset();
         this.form.status = botStatus; // runBot, stopBot
         this.form.account_id = accountId; // Account drop down
@@ -251,7 +246,6 @@
         // We use create method in BotController.php
         this.unlink.botId = params[0].id;
         this.unlink.unlinkField = params[1];
-
         this.unlink.post('/bot')
           .then((response) => {
             Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
@@ -266,18 +260,15 @@
   }
 </script>
 <style>
-
     .el-table .cell {
         white-space: nowrap;
     }
     .modal-backdrop {
         opacity: 0.5;
-
     }
     .close {
         display: none; /*Remove X button from modal*/
     }
-
     .invalid-feedback {
         display: none;
         width: 100%;
@@ -285,31 +276,26 @@
         font-size: 80%;
         color: #dc3545;
     }
-
     .was-validated .form-control:invalid ~ .invalid-feedback,
     .was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.is-invalid ~ .invalid-feedback,
     .form-control.is-invalid ~ .invalid-tooltip {
         display: block;
     }
-
     .was-validated .custom-select:invalid ~ .invalid-feedback,
     .was-validated .custom-select:invalid ~ .invalid-tooltip, .custom-select.is-invalid ~ .invalid-feedback,
     .custom-select.is-invalid ~ .invalid-tooltip {
         display: block;
     }
-
     .was-validated .form-control-file:invalid ~ .invalid-feedback,
     .was-validated .form-control-file:invalid ~ .invalid-tooltip, .form-control-file.is-invalid ~ .invalid-feedback,
     .form-control-file.is-invalid ~ .invalid-tooltip {
         display: block;
     }
-
     .was-validated .form-check-input:invalid ~ .invalid-feedback,
     .was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.is-invalid ~ .invalid-feedback,
     .form-check-input.is-invalid ~ .invalid-tooltip {
         display: block;
     }
-
     .was-validated .custom-range:invalid ~ .invalid-feedback,
     .was-validated .custom-range:invalid ~ .invalid-tooltip, .custom-range.is-invalid ~ .invalid-feedback,
     .custom-range.is-invalid ~ .invalid-tooltip {
