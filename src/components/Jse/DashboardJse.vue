@@ -52,7 +52,8 @@
                   <tr v-for="account in accounts" :key="account.id">
                       <td>{{ account.name }}</td>
                       <td class="card-pages-dashboard__api"><span class="text-break">{{ account.api }}</span></td>
-                      <td class="text-success">{{ account.status }}</td>
+                      <td></td>
+                      <!--<td class="text-success">{{ account.status }}</td>-->
 
                   </tr>
                   </tbody></table>
@@ -73,7 +74,8 @@
                   <tr v-for="exchange in exchanges" :key="exchange.id">
                       <td>{{ exchange.name }}</td>
                       <td class="card-pages-dashboard__api"><span class="text-break">{{ exchange.live_api_path }}</span></td>
-                      <td class="text-success">{{ exchange.status }}</td>
+                      <td></td>
+                      <!--<td class="text-success">{{ exchange.status }}</td>-->
                   </tr>
                   </tbody></table>
               <a class="card-pages-dashboard__link" src="#">Go to Exchange</a>

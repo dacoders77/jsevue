@@ -26,7 +26,7 @@
           </div>
           <div class="col-sm-6 card-dashboard__status">
             <div class="stats">
-               {{bot.status}} <i class="ti-flag-alt"></i>
+              <!-- {{bot.status}} <i class="ti-flag-alt"></i>-->
             </div>
           </div>
         </div>
@@ -69,7 +69,6 @@
                   console.log(responseBots.data.data)
                   this.bots = responseBots.data.data
                   console.log(this.bots)
-
 
                   const responseExchange = await axios.get('/exchange')
                   this.exchange_name = responseExchange.data.data.name

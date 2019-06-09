@@ -32,24 +32,14 @@
                             <tr v-for="bot in bots" :key="bot.id" v-if="bot">
                                 <td>{{ bot.id }}</td>
                                 <td>
-                                    <div v-if="bot.status == 'idle'">
-                                        <button type="button" class="btn btn-info btn-fill btn-magnify btn-circle" @click="updateBotNew(['runBot', bot])">
-                                            <span class="btn-label"><i class="ti-control-play"></i></span>
-                                        </button>
-                                    </div>
 
-                                    <div v-if="bot.status == 'running'">
-                                        <button type="button" class="btn btn-info btn-fill btn-danger btn-circle" @click="updateBotNew(['stopBot', bot])">
-                                            <span class="btn-label"><i class="ti-control-stop"></i></span>
-                                        </button>
-                                    </div>
                                 </td>
 
                                 <td>
                                     <input type="text" value="2" class="form-control" v-model="bot.name" style="width: 100px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
 
-                                <td>{{ bot.status }}</td>
+                                <td></td>
 
                                 <td>
                                     <drop-down>

@@ -22,7 +22,7 @@
         <div>
           <hr>
           <div class="stats">
-            <i class="ti-calendar"></i> {{bots_status}}
+            <i class="ti-calendar"></i>
         </div>
       </div>
     </div>
