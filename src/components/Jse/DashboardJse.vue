@@ -127,24 +127,24 @@ import DashboardJseCard from './DashboardJseCard'
     methods: {
     async load() {
               try {
-                const responseStrategy = await axios.get('/strategy')
+                let responseStrategy = await axios.get('/strategy')
                 this.strategy_name = responseStrategy.data.data.name
                 this.strategies = responseStrategy.data.data
                 console.log(this.strategies)
                 console.log(responseStrategy.data)
 
-                const responseExchange = await axios.get('/exchange')
+                let responseExchange = await axios.get('/exchange')
                 this.exchange_name = responseExchange.data.data.name
                 this.exchanges = responseExchange.data.data
                 console.log(this.exchanges)
                 console.log(responseExchange.data)
 
-                const responseSymbol = await axios.get('/symbol')
+                let responseSymbol = await axios.get('/symbol')
                 this.symbol_name = responseSymbol.data.data.name
                 this.symbols = responseSymbol.data.data
                 console.log(this.symbols)
 
-                const responseAccount = await axios.get('/account')
+                let responseAccount = await axios.get('/account')
                 this.account_name = responseAccount.data.data.name
                 this.accounts = responseAccount.data.data
                 console.log(this.accounts)
