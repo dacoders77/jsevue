@@ -19,7 +19,7 @@ export default {
       form: new Form({
         id: '',
         exchange_id: '',
-        name: '',
+        strategy_name: '',
         url: '',
         api: '',
         api_secret: '',
