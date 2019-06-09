@@ -157,13 +157,12 @@
   display: flex;
 }
 
-
 .h-100 {
   height: 100%;
 }
 
 .h-50 {
-  height: 50%;
+  height: 48%;
 }
 
 .p-15 {
@@ -177,11 +176,3 @@
 .m-0 {
   margin: 0;
 }
-.overflow-scroll-y {
-  overflow-y: scroll;
-}
-
-.text-break {
-    word-break: break-all;
-    white-space: wrap;
-  }

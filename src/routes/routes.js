@@ -9,10 +9,6 @@ import Exchnages from 'src/components/Jse/Exchanges.vue'
 import Accounts from 'src/components/Jse/Accounts.vue'
 import Symbols from 'src/components/Jse/Symbols.vue'
 import Bots from 'src/components/Jse/Bots.vue'
-import Strategies from 'src/components/Jse/Trading/Strategies.vue'
-import QueWorker from 'src/components/Jse/Trading/QueWorker.vue'
-import Orders from 'src/components/Jse/Trading/Orders.vue'
-import Trades from 'src/components/Jse/Trading/Trades.vue'
 
 export const routes = [
   {
@@ -27,11 +23,6 @@ export const routes = [
     path: '/login',
     component: Login
   },
-  // {
-  //   path: 'dashboardcard',
-  //   name: 'DashboardJseCard',
-  //   component: DashboardJseCard
-  // },
   {
     path: '/',
     component: DashboardLayout,
