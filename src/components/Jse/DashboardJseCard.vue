@@ -27,7 +27,7 @@
         </div>
         <div class="col-sm-6 card-dashboard__status">
           <div class="stats">
-            {{bot.bots_status}} <i class="ti-flag-alt"></i>
+            {{bot.status}} <i class="ti-flag-alt"></i>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
           bots_status: 'idle',
           symbol_name: 'BTC',
           exchange_name: 'Bitmex'
-        }
+      }
       ]
       }
     },
@@ -63,7 +63,7 @@
       this.loadResources();
     },
     methods: {
-      loadResources() {
+      loadResources: function () {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
 
         //you need to go like this:

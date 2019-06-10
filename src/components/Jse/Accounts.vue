@@ -156,15 +156,43 @@
           status: '',
           memo_a: ''
         }),
-        accounts: null, // Exchanges for table
-        allExchanges: null, // Exchnages for dropdown
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
         },
         pickedExchange: 'Pick an exchange',
-        isTestnet: null
-        }
+        isTestnet: null,
+        accounts: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            'bot_id': 1,
+            'exchnage_id': 1,
+            'name': 'dd',
+            'api': 'a',
+            'api_secret': 'd',
+            'status': 's',
+            'is_testnet': true,
+            'memo': 'memo'
+          }
+        ],
+        allExchanges: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'name': 'name',
+            'status': 'online',
+            'live_api_path': 'd',
+            'testnet_api_path': 'a',
+            'url': 'www',
+            //
+            'memo': 'memo'
+          }
+        ]
+      }
 
     },
     created() {
@@ -185,6 +213,7 @@
       loadExchangesList() {
         axios.get('/exchangeslist').then(({data}) => {
           this.allExchanges = data.data;
+          //console.log(this.allExchanges);
         });
       },
       deleteAccount(account) {

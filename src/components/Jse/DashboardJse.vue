@@ -112,41 +112,17 @@ import DashboardJseCard from './DashboardJseCard'
     },
     data () {
       return {
-     //accounts: null,
-      //strategies: null,
-      //exchanges: null,
-    // symbols: null
-    //
+      accounts: null,
+      strategies: null,
+      exchanges: null,
+      symbols: null,
+
       accounts: [
           {
           id: '1',
           name: 'Kate',
           api: '17389738747474798794',
           status: 'Online'
-          },
-          {
-          id: '2',
-          name: 'Piter',
-          api: '1ffjkjlkj798794',
-          status: 'Online'
-          },
-          {
-          id: '3',
-          name: 'John',
-          api: '17389738747474798794',
-          status: 'Off'
-          },
-          {
-          id: '4',
-          name: 'Kate',
-          api: '173kfkfkfkf47474798794',
-          status: 'Online'
-          },
-          {
-          id: '5',
-          name: 'Helga',
-          api: 'swdmwejdfl47474798794',
-          status: 'off'
           }
         ],
         exchanges: [
@@ -155,30 +131,6 @@ import DashboardJseCard from './DashboardJseCard'
             name: 'Kate',
             live_api_path: '17389738747474798794',
             status: 'Online'
-            },
-            {
-            id: '2',
-            name: 'Piter',
-            live_api_path: '1ffjkjlkj798794',
-            status: 'Online'
-            },
-            {
-            id: '3',
-            name: 'John',
-            live_api_path: '1gbhbh474798794',
-            status: 'Off'
-            },
-            {
-            id: '4',
-            name: 'Boris',
-            live_api_path: 'kfkfkfk47474798794',
-            status: 'Online'
-            },
-            {
-            id: '5',
-            name: 'Nastya',
-            live_api_path: 'stttttt74798794',
-            status: 'off'
             }
           ]
         }
@@ -192,8 +144,8 @@ import DashboardJseCard from './DashboardJseCard'
       lastExchanges: function () {
         return this.exchanges.slice(-3).reverse();
       }
-    }
-    /*mounted() {
+    },
+    mounted() {
       this.load()
     },
     methods: {
@@ -224,7 +176,7 @@ import DashboardJseCard from './DashboardJseCard'
         } catch (e) {
           }
     }
-  }*/
+  }
 }
 </script>
 <style>
