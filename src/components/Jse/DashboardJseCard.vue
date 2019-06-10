@@ -1,39 +1,45 @@
 <template>
 
-<div class="row">
-  <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
-    <div class="card card-stats card-dashboard p-15">
-      <div class="d-flex flex-grow">
-        <div >
-          <div class="icon-success">
-            <i class="ti-wallet card-dashboard__icon"></i>
+  <div class="row">
+    <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
+      <div class="card card-stats card-dashboard p-15">
+        <div class="d-flex flex-grow">
+          <div >
+            <div class="icon-success">
+              <i class="ti-wallet card-dashboard__icon"></i>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <div class="numbers">
+              <p>{{bot.name}}</p>
+              {{bot.money_num}}
+            </div>
           </div>
         </div>
-        <div class="flex-grow">
-          <div class="numbers">
-            <p>{{bot.name}}</p>
-            {{bot.money_num}}
-          </div>
+        <div class="card-dashboard__bar">
+          <h5>{{bot.exchange_name}}</h5>
+          <p class="card-dashboard__status" v-if="bot.bots_status == 'idle'">
+            {{bot.bots_status}}
+            <i class="card-dashboard__status-icon"></i>
+          </p>
+          <p class="card-dashboard__status" v-else-if="bot.bots_status == 'running'">
+            {{bot.bots_status}}
+            <i class="card-dashboard__status-icon card-dashboard__status-icon--fill"></i>
+          </p>
+          <p class="card-dashboard__status" v-else>
+            {{bot.bots_status}}
+          </p>
         </div>
-      </div>
-        <h5 class="col-sm-12" >{{bot.exchange_name}}</h5>
-      <div class="card-dashboard__text">
-        <div class="col-sm-6">
+        <div class="card-dashboard__text d-flex">
           <p>
             <span class="pr-15">{{bot.strategy_name}}</span>
             <span>{{bot.symbol_name}}</span>
           </p>
           <p>Trades: {{bot.trades_num}}</p>
         </div>
-        <div class="col-sm-6 card-dashboard__status">
-          <div class="stats">
-            {{bot.status}} <i class="ti-flag-alt"></i>
-          </div>
-        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
