@@ -194,6 +194,7 @@
         ],
         modalMode: 'xxx' // Can be add or edit. Depending add or edit button is clicked
       }
+
     },
     created() {
       // First created then mounted
