@@ -48,7 +48,7 @@
                                 </td>
 
                                 <td>
-                                    <input type="text" value="2" class="form-control" v-if="bot"
+                                    <input type="text" value="2" class="form-control" v-if="bot" v-bind="(bot.status == 'running' ? disabled : enabled)"
                                            v-model="bot.name" style="width: 100px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
 

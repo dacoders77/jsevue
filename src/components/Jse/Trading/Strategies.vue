@@ -30,26 +30,18 @@
                                 <!-- Price channel -->
                                 <td v-if="(item.strategy_type_id == '1' ? true : false)"><span class="text-success">
                                     <!-- TypeError: Cannot read property. Handling -->
-                                    <div v-if="
-                                        strategiesSettings &&
-                                        strategiesSettings.pricechannel_settings &&
-                                        strategiesSettings &&
-                                        item.pricechannel_settings_id &&
-                                        strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1] &&
-                                        strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] &&
-                                        item">
-                                        {{ item.pricechannel_settings_id - 1}} -
+                                    <div v-if="strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1] && strategiesSettings && item">
                                         PC time frame: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] }}<br>
-                                        <!--SMA filter period: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['sma_filter_period'] }}<br>-->
+                                        SMA filter period: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['sma_filter_period'] }}<br>
                                     </div>
                                 </span></td>
 
                                 <!-- Macd -->
                                 <td v-if="(item.strategy_type_id == '2' ? true : false)"><span class="text-success">
                                     <div v-if="strategiesSettings.macd_settings[item.macd_settings_id - 1] && strategiesSettings && item">
-                                        <!--Ema period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['ema_period'] }} <br>
+                                        Ema period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['ema_period'] }} <br>
                                         Macd line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_line_period'] }} <br>
-                                        Macd signal line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_signalline_period'] }}-->
+                                        Macd signal line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_signalline_period'] }}
                                     </div>
                                 </span></td>
 
@@ -260,7 +252,7 @@
         notifications: {
           topCenter: false
         },
-        modalMode: 'xxx_x' // Can me add or edit. Depending add or edit buttin is clicked
+        modalMode: 'xxx' // Can be add or edit. Depending add or edit button is clicked
       }
     },
     created() {

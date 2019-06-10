@@ -14,7 +14,7 @@
                             <tbody>
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
-                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                                 <th>Name</th>
                                 <th>Exchnage</th>
                                 <th>Added</th>
@@ -29,6 +29,7 @@
                                 <td>{{ account.id }}</td>
                                 <td>
                                     <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteAccount(account)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="editAccount(account)"><i class="ti-marker-alt"></i></button>
                                     <button class="btn btn-icon btn-simple btn-icon--info" @click="validateAccount(2)"><i class="ti-thumb-up"></i></button>
                                 </td>
                                 <td>{{ account.name }}</td>
@@ -58,7 +59,7 @@
                 id="modal-scoped"
                 ref="my-modal"
                 size="lg"
-                title="Add account"
+                :title="(modalMode == 'add' ? 'Add account' : 'Edit account')"
                 @ok="handleOkModalButton"
         >
 
@@ -120,7 +121,6 @@
 
                 <b-form-group label="Testnet account:" label-for="memo" class="account-row">
                     <p-switch v-model="isTestnet" type="primary" on-text="Yes" off-text="No"></p-switch>
-
                 </b-form-group>
 
 
@@ -191,7 +191,8 @@
             //
             'memo': 'memo'
           }
-        ]
+        ],
+        modalMode: 'xxx' // Can be add or edit. Depending add or edit button is clicked
       }
     },
     created() {
@@ -225,21 +226,47 @@
             this.showNotification('bottom', 'right', 'Delete account error! <br>' + '&nbsp')
           })
       },
+      editAccount(account) {
+        this.modalMode = 'edit';
+        this.isTestnet = (account.is_testnet == '1' ? true : false);
+        this.pickedExchange = this.allExchanges[account.exchange_id - 1].name;
+        this.form.reset();
+        this.form.fill(account);
+        this.$refs['my-modal'].show();
+      },
       handleOkModalButton(bvModalEvt) {
         this.form.is_testnet = this.isTestnet;
         bvModalEvt.preventDefault(); // Prevent modal from closing
-        this.form.post('/account')
-          .then((response) => {
-            this.$refs['my-modal'].hide();
-            Fire.$emit('AfterCreate');
-            this.showNotification('bottom', 'right', 'Account added! <br>' + '&nbsp')
-          })
-          .catch(error => {
-            this.validationErrors.record(error.data.errors);
-            this.showNotification('bottom', 'right', 'Add account error! <br>' + '&nbsp')
-          })
+
+        if(this.modalMode == 'add') {
+          this.form.post('/account')
+            .then((response) => {
+              this.$refs['my-modal'].hide();
+              Fire.$emit('AfterCreate');
+              this.showNotification('bottom', 'right', 'Account added! <br>' + '&nbsp')
+            })
+            .catch(error => {
+              this.validationErrors.record(error.data.errors);
+              this.showNotification('bottom', 'right', 'Add account error! <br>' + '&nbsp')
+            })
+        }
+        if(this.modalMode == 'edit') {
+          this.form.put('/account/' + this.form.id)
+            .then((response) => {
+              this.$refs['my-modal'].hide();
+              Fire.$emit('AfterCreate');
+              this.showNotification('bottom', 'right', 'Account successfully updated! <br> id: ' + this.form.id)
+            })
+            .catch(error => {
+              console.log(error);
+              this.validationErrors.record(error.data.errors)
+              this.showNotification('bottom', 'right', 'Account edit error! <br> id: ' + this.form.id)
+            })
+        }
+
+
       },
-      createAccount() {
+      /*createAccount() {
         //this.form.name = exchnageName;
         this.form.post('/exchange')
           .then((response) => {
@@ -248,7 +275,7 @@
           .catch(error => {
             //console.log(error);
           })
-      },
+      },*/
       selectExchange(id) {
         this.form.id = id;
         this.pickedExchange = this.allExchanges[id - 1].name;
@@ -271,6 +298,7 @@
         })
       },
       addAccount() {
+        this.modalMode = 'add';
         this.form.reset();
         //this.form.fill(exchange);
         this.$refs['my-modal'].show();
