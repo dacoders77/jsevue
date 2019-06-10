@@ -90,8 +90,8 @@
           }
           ]
       }
-    },
-  methods: {
+  //  },
+/*  methods: {
    async load() {
                 try {
                   const responseBots = await axios.get('/bot')
@@ -116,7 +116,7 @@
 
                 } catch (e) {
             }
-        }
+        }*/
     }
 }
 </script>
