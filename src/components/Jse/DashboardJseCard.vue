@@ -40,7 +40,8 @@
   export default {
     data () {
       return {
-      bots: [
+        bots: [],
+      /*bots: [
           {
           id: '1',
           name: 'Bots_1',
@@ -82,35 +83,28 @@
           symbol_name: 'BTC',
           exchange_name: 'Bitmex'
           }
-          ]
+          ]*/
       }
     },
-  methods: {
-   async load() {
-                try {
-                  const responseBots = await axios.get('/bot')
-                  this.name = responseBots.data.data.name
-                  console.log(responseBots.data.data)
+    created() {
+      // First created then mounted
+      // This component loads twice. Why?
+    },
+    mounted() {
+      this.loadResources();
+    },
+    methods: {
+      loadResources() {
+        axios.get('/bot').then(({data}) => (this.bots = data.data));
 
-                  this.bots_status = responseBots.data.data.status
-                  console.log(responseBots.data.data)
-                  this.bots = responseBots.data.data
-                  console.log(this.bots)
+        //you need to go like this:
+        axios.get('/bot').then(({data}) => (console.log(data.data)));
 
-                  const responseExchange = await axios.get('/exchange')
-                  this.exchange_name = responseExchange.data.data.name
-                  this.exchanges = responseExchange.data.data
-                  console.log(this.exchanges)
-
-                  const responseSymbol = await axios.get('/symbol')
-                  this.symbol_name = responseSymbol.data.data.name
-                  this.symbols = responseSymbol.data.data
-                  console.log(this.symbols)
-
-
-                } catch (e) {
-            }
-        }
+        //axios.get('/account').then(({data}) => (this.accounts = data.data));
+        //axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
+        //axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+        //axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+      }
     }
 }
 </script>

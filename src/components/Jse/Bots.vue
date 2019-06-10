@@ -212,6 +212,10 @@
     methods: {
       loadResources() {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
+
+        //you need to go like this:
+        axios.get('/bot').then(({data}) => (console.log(data.data)));
+
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
