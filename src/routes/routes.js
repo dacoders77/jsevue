@@ -5,14 +5,11 @@ import Login from 'src/components/Dashboard/Views/Pages/Login.vue'
 import DashboardJse from 'src/components/Jse/DashboardJse.vue'
 import Chart from 'src/components/Jse/Chart.vue'
 import Settings from 'src/components/Jse/Settings.vue'
-import Exchnages from 'src/components/Jse/Exchanges.vue'
+import Exchanges from 'src/components/Jse/Exchanges.vue'
 import Accounts from 'src/components/Jse/Accounts.vue'
 import Symbols from 'src/components/Jse/Symbols.vue'
 import Bots from 'src/components/Jse/Bots.vue'
 import Strategies from 'src/components/Jse/Trading/Strategies.vue'
-import QueWorker from 'src/components/Jse/Trading/QueWorker.vue'
-import Orders from 'src/components/Jse/Trading/Orders.vue'
-import Trades from 'src/components/Jse/Trading/Trades.vue'
 
 export const routes = [
   {
@@ -49,7 +46,7 @@ export const routes = [
       {
         path: 'exchanges',
         name: 'Exchanges',
-        component: Exchnages
+        component: Exchanges
       },
       {
         path: 'accounts',
@@ -70,21 +67,6 @@ export const routes = [
         path: 'strategies',
         name: 'Strategies',
         component: Strategies
-      },
-      {
-        path: 'queworker',
-        name: 'Que worker',
-        component: QueWorker
-      },
-      {
-        path: 'orders',
-        name: 'Orders',
-        component: Orders
-      },
-      {
-        path: 'trades',
-        name: 'Trades',
-        component: Trades
       }
 
     ]

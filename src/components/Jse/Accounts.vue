@@ -15,6 +15,7 @@
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
                                 <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                <th>Name</th>
                                 <th>Exchnage</th>
                                 <th>Added</th>
                                 <th>Api</th>
@@ -31,6 +32,7 @@
                                     <button class="btn btn-icon btn-simple btn-icon--info" @click="validateAccount(2)"><i class="ti-thumb-up"></i></button>
                                 </td>
                                 <td>{{ account.name }}</td>
+                                <td v-if="allExchanges[account.exchange_id - 1] && account.exchange_id" >{{ allExchanges[account.exchange_id - 1].name }}</td>
                                 <td>{{ account.created_at | myDate }}</td>
                                 <td>{{ account.api }}</td>
                                 <td><button class="btn btn-icon btn-simple btn-icon--info" @click="showApiSecret(account.api_secret)"><i class="ti-user"></i></button></td>
@@ -62,24 +64,24 @@
 
             <form ref="form" @submit.stop.prevent="" class="form-account">
 
-            <drop-down style="padding-bottom: 30px" class="account-dropdown">
-                <button slot="title" class="btn dropdown-toggle btn-exchange" data-toggle="dropdown"  type="button">
-                    Exchnage
-                    <b class="caret"></b>
-                </button>
-                <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="selectExchange(ex.id)">{{ ex.name }}</a> </li>
-            </drop-down>
+                <drop-down style="padding-bottom: 30px" class="account-dropdown">
+                    <button slot="title" class="btn dropdown-toggle btn-exchange" data-toggle="dropdown" type="button" style="width: 100%">
+                        {{ pickedExchange }}
+                        <b class="caret"></b>
+                    </button>
+                    <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="selectExchange(ex.id)">{{ ex.name }}</a> </li>
+                </drop-down>
 
-                <!--<b-form-group label="" label-for="name">
+                <b-form-group label="Name:" label-for="api" class="account-row">
                     <b-form-input
                             id="name"
                             v-model="form.name"
                             :state="this.validationErrors.has('name') ? 'invalid' : 'valid'"
                             required
-                            placeholder="Exchange Name">
+                            placeholder="name">
                     </b-form-input>
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('name') }}</b-form-invalid-feedback>
-                </b-form-group>-->
+                </b-form-group>
 
                 <b-form-group label="Api:" label-for="api" class="account-row">
                     <b-form-input
@@ -114,6 +116,14 @@
                     </b-form-textarea>
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}</b-form-invalid-feedback>
                 </b-form-group>
+
+
+                <b-form-group label="Testnet account:" label-for="memo" class="account-row">
+                    <p-switch v-model="isTestnet" type="primary" on-text="Yes" off-text="No"></p-switch>
+
+                </b-form-group>
+
+
             </form>
         </b-modal>
 
@@ -122,21 +132,24 @@
 <script>
   import Vue from 'vue'
   import {Table, TableColumn, Tag} from 'element-ui'
+  import PSwitch from 'src/components/UIComponents/Switch.vue'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import swal from 'sweetalert2'
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
     components: {
-      [Tag.name]: Tag
+      [Tag.name]: Tag,
+      PSwitch
     },
     data () {
       return {
         validationErrors: new ValidationErrors(),
         form: new Form({
           id: '',
+          is_testnet: null,
           exchange_id: '',
-          //name: '', // No need to use name. It will be pulled in controller using exchange_id
+          name: '',
           url: '',
           api: '',
           api_secret: '',
@@ -148,7 +161,9 @@
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
-        }
+        },
+        pickedExchange: 'Pick an exchange',
+        isTestnet: null
       }
     },
     created() {
@@ -182,6 +197,7 @@
           })
       },
       handleOkModalButton(bvModalEvt) {
+        this.form.is_testnet = this.isTestnet;
         bvModalEvt.preventDefault(); // Prevent modal from closing
         this.form.post('/account')
           .then((response) => {
@@ -206,6 +222,7 @@
       },
       selectExchange(id) {
         this.form.id = id;
+        this.pickedExchange = this.allExchanges[id - 1].name;
       },
       validateAccount(id) {
         swal({

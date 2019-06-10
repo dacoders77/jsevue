@@ -28,18 +28,22 @@
                                 <td>{{ item.name }}</td>
                                 <td>{{ (item.strategy_type_id == 1 ? 'Price channel' : 'MACD') }}</td>
 
+                                <!-- Price channel -->
                                 <td v-if="(item.strategy_type_id == '1' ? true : false)"><span class="text-success">
-
-                                    <!--{{ item.pricechannel_settings_id }}-->
-
-                                    PC time frame: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] }} <br>
-                                    SMA filter period: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['sma_filter_period'] }} <br>
+                                    <!-- TypeError: Cannot read property. Handling -->
+                                    <div v-if="strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1] && strategiesSettings && item">
+                                        PC time frame: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] }} <br>
+                                        SMA filter period: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['sma_filter_period'] }} <br>
+                                    </div>
                                 </span></td>
 
+                                <!-- Macd -->
                                 <td v-if="(item.strategy_type_id == '2' ? true : false)"><span class="text-success">
-                                    Ema period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['ema_period'] }} <br>
-                                    Macd line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_line_period'] }} <br>
-                                    Macd signal line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_signalline_period'] }}
+                                    <div v-if="strategiesSettings.macd_settings[item.macd_settings_id - 1] && strategiesSettings && item">
+                                        Ema period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['ema_period'] }} <br>
+                                        Macd line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_line_period'] }} <br>
+                                        Macd signal line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_signalline_period'] }}
+                                    </div>
                                 </span></td>
 
 
@@ -202,9 +206,15 @@
           macd_signalline_period: '',
           memo: ''
         }),
+<<<<<<< HEAD
         strategyId: null, // Price channel or macd. Shown in drop down in modal
         strategies: null,
         strategiesSettings: null, // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
+=======
+        strategyId: [], // Price channel or macd. Shown in drop down in modal
+        strategies: [],
+        strategiesSettings: [], // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
+>>>>>>> 5b414f62aff28eec3d235ed37e775d8732405692
         strategyTypes: [
           {'id': 1, 'name': 'Price channel'},
           {'id': 2, 'name': 'MACD'}], // Strategies for drop down in modal
@@ -233,12 +243,15 @@
         axios.get('/strategy/1').then(({data}) => (this.strategiesSettings = data)); // ExchangeController.php@show
         //axios.get('/exchange/1').then(({data}) => (this.allExchanges = data));
       },
+<<<<<<< HEAD
       /*loadExchanges() {
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
       },
       loadExchangesList() {
         axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // Resource controllers are defined in api.php
       },*/
+=======
+>>>>>>> 5b414f62aff28eec3d235ed37e775d8732405692
       editExchange(exchange) {
         this.modalMode = 'edit';
         this.form.reset();
@@ -383,4 +396,8 @@
     .custom-range.is-invalid ~ .invalid-tooltip {
         display: block;
     }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 5b414f62aff28eec3d235ed37e775d8732405692

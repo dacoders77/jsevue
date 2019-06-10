@@ -40,18 +40,7 @@ export default [
       {
         name: 'Strategies',
         path: '/strategies'
-     },
-     { name: 'Que worker',
-        path: '/queworker'
-      },
-      {
-        name: 'Trades',
-        path: '/trades'
-      },
-      {
-        name: 'Orders',
-        path: '/orders'
-      }
+     }
    ]
   }
 ]
