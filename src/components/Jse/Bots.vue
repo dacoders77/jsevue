@@ -1,11 +1,11 @@
 <template>
 
-  <!--<div class="row">
+  <div class="row">
         <div class="col-md-12">
 
             <div class="card">
                 <div class="card-header" style="border: 0px solid red; padding: 0px">
-                    &lt;!&ndash;<h4 class="title">Trades log</h4>&ndash;&gt;
+                    <!--<h4 class="title">Trades log</h4>-->
                 </div>
                 <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
@@ -23,6 +23,7 @@
                                 <th></th>
                                 <th>Strategy</th>
                                 <th></th>
+                                <th>T/Frame</th>
                                 <th>Vol</th>
                                 <th>L/Bars</th>
                                 <th>R/Limit</th>
@@ -48,12 +49,14 @@
                                     <input type="text" value="2" class="form-control" v-model="bot.name" style="width: 100px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
 
-                                <td></td>
+                                <td v-if="bot">{{ bot.status }}</td>
 
+                                <!-- Account -->
                                 <td>
                                     <drop-down>
                                         <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 120px;">
-                                            <span v-if="accounts[bot.account_id - 1]">{{ accounts[bot.account_id - 1].name }}</span>
+                                            <!--<span v-if="accounts[bot.account_id - 1]">{{ accounts[bot.account_id - 1].name }}</span>-->
+                                            <span v-for="account in accounts" v-if="account.id == bot.account_id">{{ account.name }}</span>
                                             <b class="caret"></b>
                                         </button>
                                             <li v-for="(account, index) in accounts"><a href="javascript:void(0)" @click="updateBotNew(['updateAccount', bot, index])">{{ account.name }}</a> </li>
@@ -62,10 +65,12 @@
 
                                 <td><a href="#" style="color: red;" @click="unlinkButtonClick([bot, 'account_id'])"><i class="ti-trash"></i></a></td>
 
+                                <!-- Symbol -->
                                 <td>
                                     <drop-down>
                                         <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            <span v-if="symbols[bot.symbol_id - 1]">{{ symbols[bot.symbol_id - 1].execution_symbol_name }}</span>
+                                            <!--<span v-if="symbols[bot.symbol_id - 1]">{{ symbols[bot.symbol_id - 1].execution_symbol_name }}</span>-->
+                                            <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
                                             <b class="caret"></b>
                                         </button>
                                         <li v-for="(symbol, index) in symbols"><a href="javascript:void(0)" @click="updateBotNew(['updateSymbol', bot, index])">{{ symbol.execution_symbol_name }}</a> </li>
@@ -74,27 +79,36 @@
 
                                 <td><a href="#" style="color: red;" @click="unlinkButtonClick([bot, 'symbol_id'])"><i class="ti-trash"></i></a></td>
 
+                                <!-- Strategy -->
                                 <td>
                                     <drop-down >
                                         <button v-if="strategies" slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            <span v-if="strategies[bot.strategy_id - 1]">{{ strategies[bot.strategy_id - 1].name}}</span>
+                                            <!--<span v-if="strategies[bot.strategy_id - 1]">{{ strategies[bot.strategy_id - 1].name}}</span>-->
+                                            <span v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</span>
                                             <b class="caret"></b>
                                         </button>
-                                        <li v-if="strategies" v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">{{ strategy.name }}</a> </li>
+                                        <li v-if="strategies" v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">ID:{{ strategy.id }} {{ strategy.name }}</a> </li>
                                     </drop-down>
                                 </td>
-
                                 <td><a href="#" style="color: red;" @click="unlinkButtonClick([bot, 'strategy_id'])"><i class="ti-trash"></i></a></td>
 
+                                <!-- Time frame -->
+                                <td>
+                                    <input type="text" class="form-control" v-model="bot.time_frame" style="width: 70px" @keyup.enter="updateBotNew(['updateTimeFrame', bot])">
+                                </td>
+                                <!-- Volume -->
                                 <td>
                                     <input type="text" class="form-control" v-model="bot.volume" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
+                                <!-- Bars to load -->
                                 <td>
                                     <input type="text" class="form-control" v-model="bot.bars_to_load" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
+                                <!-- Rate limit -->
                                 <td>
                                     <input type="text" class="form-control" v-model="bot.rate_limit" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
+                                <!-- Memo -->
                                 <td>
                                     <input type="text" class="form-control" v-model="bot.memo" style="width: 150px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
@@ -122,7 +136,7 @@
         </div>
 
 
-    </div>-->
+    </div>
 
 </template>
 <script>
@@ -145,6 +159,7 @@
           strategy_id: '',
           volume: '',
           bars_to_load: '',
+          time_frame: '',
           rate_limit: '',
           status: '',
           memo: ''
@@ -202,28 +217,34 @@
             type: this.type[color]
           })
       },
-      updateBotNew(params) {
+      updateBotNew(params) { // updateTimeFrame
         // Receives two params: bot instance and action (updateBotName)
         let bot = params[1];
         // Run/Stop bot
         let botStatus = bot.status;
         if (params[0] === 'runBot') botStatus = 'running';
         if (params[0] === 'stopBot') botStatus = 'idle';
+
         // Update account drop down
         let accountId = bot.account_id;
-        if (params[0] === 'updateAccount') accountId = params[2] + 1; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
+        if (params[0] === 'updateAccount') accountId = this.accounts[params[2]].id; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
+
         // Update symbol drop down
         let symbolId = bot.symbol_id;
-        if (params[0] === 'updateSymbol') symbolId = params[2] + 1;
+        /*if (params[0] === 'updateSymbol') symbolId = params[2] + 1;*/
+        if (params[0] === 'updateSymbol') symbolId = this.symbols[params[2]].id;
+
         // Update strategy drop down
         let strategyId = bot.strategy_id;
-        if (params[0] === 'updateStrategy') strategyId = params[2] + 1;
+        if (params[0] === 'updateStrategy') strategyId = this.strategies[params[2]].id;
+
         this.form.reset();
         this.form.status = botStatus; // runBot, stopBot
         this.form.account_id = accountId; // Account drop down
         this.form.symbol_id = symbolId; // Symbol drop down
         this.form.strategy_id = strategyId; // Strategy drop down
         this.form.name = bot.name;
+        this.form.time_frame = bot.time_frame;
         this.form.volume = bot.volume;
         this.form.bars_to_load = bot.bars_to_load;
         this.form.rate_limit = bot.rate_limit;
