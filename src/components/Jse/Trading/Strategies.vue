@@ -206,15 +206,9 @@
           macd_signalline_period: '',
           memo: ''
         }),
-<<<<<<< HEAD
-        strategyId: null, // Price channel or macd. Shown in drop down in modal
-        strategies: null,
-        strategiesSettings: null, // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
-=======
         strategyId: [], // Price channel or macd. Shown in drop down in modal
         strategies: [],
         strategiesSettings: [], // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
->>>>>>> 5b414f62aff28eec3d235ed37e775d8732405692
         strategyTypes: [
           {'id': 1, 'name': 'Price channel'},
           {'id': 2, 'name': 'MACD'}], // Strategies for drop down in modal
@@ -243,15 +237,6 @@
         axios.get('/strategy/1').then(({data}) => (this.strategiesSettings = data)); // ExchangeController.php@show
         //axios.get('/exchange/1').then(({data}) => (this.allExchanges = data));
       },
-<<<<<<< HEAD
-      /*loadExchanges() {
-        axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
-      },
-      loadExchangesList() {
-        axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // Resource controllers are defined in api.php
-      },*/
-=======
->>>>>>> 5b414f62aff28eec3d235ed37e775d8732405692
       editExchange(exchange) {
         this.modalMode = 'edit';
         this.form.reset();
@@ -396,8 +381,4 @@
     .custom-range.is-invalid ~ .invalid-tooltip {
         display: block;
     }
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> 5b414f62aff28eec3d235ed37e775d8732405692

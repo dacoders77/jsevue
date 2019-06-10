@@ -7,6 +7,7 @@
                 mode="out-in">
       <router-view></router-view>
     </transition>
+    <router-view/>
   </div>
 </template>
 <script>

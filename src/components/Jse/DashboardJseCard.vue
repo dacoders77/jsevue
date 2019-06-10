@@ -16,20 +16,26 @@
           </div>
         </div>
       </div>
-        <h5 class="col-sm-12" >{{bot.exchange_name}}</h5>
-      <div class="card-dashboard__text">
-        <div class="col-sm-6">
+      <div class="card-dashboard__bar">
+        <h5>{{bot.exchange_name}}</h5>
+        <p class="card-dashboard__status" v-if="bot.bots_status == 'idle'">
+          {{bot.bots_status}}
+          <i class="card-dashboard__status-icon"></i>
+        </p>
+        <p class="card-dashboard__status" v-else-if="bot.bots_status == 'running'">
+          {{bot.bots_status}}
+          <i class="card-dashboard__status-icon card-dashboard__status-icon--fill"></i>
+        </p>
+        <p class="card-dashboard__status" v-else>
+          {{bot.bots_status}}
+        </p>
+      </div>
+      <div class="card-dashboard__text d-flex">
           <p>
             <span class="pr-15">{{bot.strategy_name}}</span>
             <span>{{bot.symbol_name}}</span>
           </p>
           <p>Trades: {{bot.trades_num}}</p>
-        </div>
-        <div class="col-sm-6 card-dashboard__status">
-          <div class="stats">
-            {{bot.bots_status}} <i class="ti-flag-alt"></i>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -58,7 +64,7 @@
           money_num: '1,524$',
           strategy_name: 'PA',
           trades_num: '217',
-          bots_status: 'Running',
+          bots_status: 'running',
           symbol_name: 'USD',
           exchange_name: 'Bitmex'
           },
@@ -78,7 +84,7 @@
           money_num: '100000$',
           strategy_name: 'BTC',
           trades_num: '500',
-          bots_status: 'Runnig',
+          bots_status: 'running',
           symbol_name: 'BTC',
           exchange_name: 'Bitmex'
           }

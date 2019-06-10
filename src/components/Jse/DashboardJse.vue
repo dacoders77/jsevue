@@ -40,7 +40,26 @@
       <div class="row h-100">
         <div class="col-md-6  mb-15">
           <div class="card card-pages-dashboard"><!---->
-            <h4 class="card-title">Account</h4>
+            <h4 class="card-title">Accounts</h4>
+              <table class="table table-hover table-info card-pages-dashboard__table overflow-scroll-y">
+                <tbody>
+                  <tr>
+                    <th>Accounts</th>
+                    <th class="card-pages-dashboard__api">Api</th>
+                    <th>Status</th>
+                  </tr>
+                  <tr v-for="account in lastAccounts" :key="account.id">
+                    <td>{{ account.name }}</td>
+                    <td class="card-pages-dashboard__api"><span class="text-break">{{ account.api }}</span></td>
+                    <td class="text-success">{{ account.status }}</td>
+                  </tr>
+                </tbody></table>
+              <router-link to="/strategies" class="card-pages-dashboard__link" active-class="active">Go to Strategies</router-link>
+            </div>
+          </div>
+          <div class="col-md-6  mb-15">
+            <div class="card card-pages-dashboard"><!---->
+              <h4 class="card-title">Exchanges</h4>
               <table class="table table-hover table-info card-pages-dashboard__table overflow-scroll-y">
                 <tbody>
                   <tr>
@@ -48,39 +67,19 @@
                     <th class="card-pages-dashboard__api">Api</th>
                     <th>Status</th>
                   </tr>
-                  <tr v-for="account in accounts" :key="account.id">
-                    <td>{{ account.name }}</td>
-                    <td class="card-pages-dashboard__api"><span class="text-break">{{ account.api }}</span></td>
-                    <td></td>
-                    <!--<td class="text-success">{{ account.status }}</td>-->
-                  </tr>
-                </tbody></table>
-              <a class="card-pages-dashboard__link" src="#">Go to Strategies</a>
-            </div>
-          </div>
-          <div class="col-md-6  mb-15">
-            <div class="card card-pages-dashboard "><!---->
-              <h4 class="card-title">Exchange</h4>
-              <table class="table table-hover table-info card-pages-dashboard__table  overflow-scroll-y">
-                <tbody>
-                  <tr>
-                    <th>Name</th>
-                    <th class="card-pages-dashboard__api">Api</th>
-                    <th>Status</th>
-                  </tr>
-                  <tr v-for="exchange in exchanges" :key="exchange.id">
+                  <tr v-for="exchange in lastExchanges" :key="exchange.id">
                     <td>{{ exchange.name }}</td>
                     <td class="card-pages-dashboard__api"><span class="text-break">{{ exchange.live_api_path }}</span></td>
-                    <td></td>
-                    <!--<td class="text-success">{{ exchange.status }}</td>-->
+                    <td class="text-success">{{ exchange.status }}</td>
                   </tr>
-                </tbody></table>
-              <a class="card-pages-dashboard__link" src="#">Go to Exchange</a>
+                </tbody>
+                </table>
+              <router-link to="/exchanges" class="card-pages-dashboard__link" active-class="active">Go to Exchanges</router-link>
             </div>
           </div>
           <div class="col-md-12">
             <div class="card card-pages-dashboard card-pages-dashboard--green"><!---->
-              <h4 class="card-title">Last 50 trades</h4>
+              <h4 class="card-title">Trades</h4>
               <table class="table table-hover table-success card-pages-dashboard__table">
                 <tbody>
                   <tr>
@@ -95,7 +94,7 @@
                   </tr>
                 </tbody>
               </table>
-              <a class="card-pages-dashboard__link text-success">Go to Trades</a>
+              <router-link to="/strategies" class="card-pages-dashboard__link text-success" active-class="active">Go to Trades</router-link>
             </div>
           </div>
         </div>
@@ -113,14 +112,88 @@ import DashboardJseCard from './DashboardJseCard'
     },
     data () {
       return {
-      accounts: null,
-      strategies: null,
-      exchanges: null,
-      symbols: null
-      }
+     //accounts: null,
+      //strategies: null,
+      //exchanges: null,
+    // symbols: null
+    //
+      accounts: [
+          {
+          id: '1',
+          name: 'Kate',
+          api: '17389738747474798794',
+          status: 'Online'
+          },
+          {
+          id: '2',
+          name: 'Piter',
+          api: '1ffjkjlkj798794',
+          status: 'Online'
+          },
+          {
+          id: '3',
+          name: 'John',
+          api: '17389738747474798794',
+          status: 'Off'
+          },
+          {
+          id: '4',
+          name: 'Kate',
+          api: '173kfkfkfkf47474798794',
+          status: 'Online'
+          },
+          {
+          id: '5',
+          name: 'Helga',
+          api: 'swdmwejdfl47474798794',
+          status: 'off'
+          }
+        ],
+        exchanges: [
+            {
+            id: '1',
+            name: 'Kate',
+            live_api_path: '17389738747474798794',
+            status: 'Online'
+            },
+            {
+            id: '2',
+            name: 'Piter',
+            live_api_path: '1ffjkjlkj798794',
+            status: 'Online'
+            },
+            {
+            id: '3',
+            name: 'John',
+            live_api_path: '1gbhbh474798794',
+            status: 'Off'
+            },
+            {
+            id: '4',
+            name: 'Boris',
+            live_api_path: 'kfkfkfk47474798794',
+            status: 'Online'
+            },
+            {
+            id: '5',
+            name: 'Nastya',
+            live_api_path: 'stttttt74798794',
+            status: 'off'
+            }
+          ]
+        }
     },
 
-    mounted() {
+    computed: {
+      lastAccounts: function () {
+      return this.accounts.slice(-3).reverse();
+      },
+
+      lastExchanges: function () {
+        return this.exchanges.slice(-3).reverse();
+      }
+    }
+    /*mounted() {
       this.load()
     },
     methods: {
@@ -151,7 +224,7 @@ import DashboardJseCard from './DashboardJseCard'
         } catch (e) {
           }
     }
-  }
+  }*/
 }
 </script>
 <style>
