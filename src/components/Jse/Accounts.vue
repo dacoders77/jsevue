@@ -164,7 +164,8 @@
         },
         pickedExchange: 'Pick an exchange',
         isTestnet: null
-      }
+        }
+
     },
     created() {
       // First created then mounted
