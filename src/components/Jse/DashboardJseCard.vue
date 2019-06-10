@@ -111,31 +111,6 @@
         //axios.get('/symbol').then(({data}) => (this.symbols = data.data));
         //axios.get('/strategy').then(({data}) => (this.strategies = data.data));
       }
-   /*async load() {
-                try {
-                  const responseBots = await axios.get('/bot')
-                  this.name = responseBots.data.data.name
-                  console.log(responseBots.data.data)
-
-                  this.bots_status = responseBots.data.data.status
-                  console.log(responseBots.data.data)
-                  this.bots = responseBots.data.data
-                  console.log(this.bots)
-
-                  const responseExchange = await axios.get('/exchange')
-                  this.exchange_name = responseExchange.data.data.name
-                  this.exchanges = responseExchange.data.data
-                  console.log(this.exchanges)
-
-                  const responseSymbol = await axios.get('/symbol')
-                  this.symbol_name = responseSymbol.data.data.name
-                  this.symbols = responseSymbol.data.data
-                  console.log(this.symbols)
-
-
-                } catch (e) {
-            }
-        }*/
     }
 }
 </script>

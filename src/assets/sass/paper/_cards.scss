@@ -675,7 +675,6 @@
   &__table {
     overflow-x: scroll;
     overflow-y: scroll;
-    // display: block;
     width: 100%;
 
   }
@@ -703,7 +702,6 @@
   }
 
   tbody {
-    // width: 100%;
 
     > tr {
       height: 25px;
@@ -711,8 +709,6 @@
 
       > th,
       > td {
-        // width: 33%;
-        // max-width: 33%;
         font-size: 12px;
         padding: 5px;
         overflow: hidden;
