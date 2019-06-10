@@ -18,16 +18,16 @@
         </div>
         <div class="card-dashboard__bar">
           <h5>{{bot.exchange_name}}</h5>
-          <p class="card-dashboard__status" v-if="bot.bots_status == 'idle'">
-            {{bot.bots_status}}
+          <p class="card-dashboard__status" v-if="bot.status == 'idle'">
+            {{bot.status}}
             <i class="card-dashboard__status-icon"></i>
           </p>
-          <p class="card-dashboard__status" v-else-if="bot.bots_status == 'running'">
-            {{bot.bots_status}}
+          <p class="card-dashboard__status" v-else-if="bot.status == 'running'">
+            {{bot.status}}
             <i class="card-dashboard__status-icon card-dashboard__status-icon--fill"></i>
           </p>
           <p class="card-dashboard__status" v-else>
-            {{bot.bots_status}}
+            {{bot.status}}
           </p>
         </div>
         <div class="card-dashboard__text d-flex">
@@ -54,7 +54,7 @@
           money_num: '1,235$',
           strategy_name: 'PC',
           trades_num: '217',
-          bots_status: 'idle',
+          status: 'idle',
           symbol_name: 'BTC',
           exchange_name: 'Bitmex'
       }
