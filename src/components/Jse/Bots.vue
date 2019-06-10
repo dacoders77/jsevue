@@ -170,7 +170,25 @@
           botId: '',
           unlinkField: ''
         }),
-        bots: [1,2,3,4],
+        bots: [
+          {
+            'id':1,
+            'account_id': 9,
+            'bars_to_load': 50,
+            'created_at': '2019-06-10 01:13:39',
+            'db_table_name': 'bot_1',
+            'front_end_id': 12345,
+            'memo': 'memo',
+            'name': 'bot_01',
+            'rate_limit': 4,
+            'status': 'running',
+            'strategy_id': 1,
+            'symbol_id': 1,
+            'time_frame': 1,
+            'updated_at': '2019-06-10 01:13:39',
+            'volume': 1
+          },
+        ],
         accounts: [1,2,3,4], // Random values. Otherwise getting a error on array null value in v-for
         exchanges: [1,2,3,4], // add v-if to all rendered lists (v-for) and delete this 1,2,3,4
         symbols: [1,2,3,4],
