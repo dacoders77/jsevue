@@ -47,8 +47,8 @@
     data () {
       return {
         bots: [],
-      /*bots: [
-          {
+      bots: [
+        {
           id: '1',
           name: 'Bots_1',
           money_num: '1,235$',
@@ -57,39 +57,8 @@
           bots_status: 'idle',
           symbol_name: 'BTC',
           exchange_name: 'Bitmex'
-
-          },
-          {
-          id: '2',
-          name: 'Bots_2',
-          money_num: '1,524$',
-          strategy_name: 'PA',
-          trades_num: '217',
-          bots_status: 'running',
-          symbol_name: 'USD',
-          exchange_name: 'Bitmex'
-          },
-          {
-          id: 3,
-          name: 'Bots_3',
-          money_num: '1,1000$',
-          strategy_name: 'PA',
-          trades_num: '200',
-          bots_status: 'idle',
-          symbol_name: 'USD',
-          exchange_name: 'Bitmex'
-          },
-          {
-          id: 4,
-          name: 'Bots_4',
-          money_num: '100000$',
-          strategy_name: 'BTC',
-          trades_num: '500',
-          bots_status: 'running',
-          symbol_name: 'BTC',
-          exchange_name: 'Bitmex'
-          }
-          ]*/
+        }
+      ]
       }
     },
     created() {
