@@ -33,20 +33,23 @@
                             <tr v-for="bot in bots" :key="bot.id" v-if="bot">
                               <td>{{ bot.id }}</td>
                                 <td>
-                                <div v-if="bot.status == 'idle'">
-                                   <button type="button" class="btn btn-info btn-fill btn-magnify btn-circle" @click="updateBotNew(['runBot', bot])">
-                                       <span class="btn-label"><i class="ti-control-play"></i></span>
-                                   </button>
-                               </div>
-                               <div v-if="bot.status == 'running'">
-                                   <button type="button" class="btn btn-info btn-fill btn-danger btn-circle" @click="updateBotNew(['stopBot', bot])">
-                                       <span class="btn-label"><i class="ti-control-stop"></i></span>
-                                   </button>
-                               </div>
+                                <div v-if="bot">
+                                    <div v-if="bot.status == 'idle'">
+                                        <button type="button" class="btn btn-info btn-fill btn-magnify btn-circle" @click="updateBotNew(['runBot', bot])">
+                                            <span class="btn-label"><i class="ti-control-play"></i></span>
+                                        </button>
+                                    </div>
+                                    <div v-if="bot.status == 'running'">
+                                        <button type="button" class="btn btn-info btn-fill btn-danger btn-circle" @click="updateBotNew(['stopBot', bot])">
+                                            <span class="btn-label"><i class="ti-control-stop"></i></span>
+                                        </button>
+                                    </div>
+                                </div>
                                 </td>
 
                                 <td>
-                                    <input type="text" value="2" class="form-control" v-model="bot.name" style="width: 100px" @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                    <input type="text" value="2" class="form-control" v-if="bot"
+                                           v-model="bot.name" style="width: 100px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
 
                                 <td v-if="bot">{{ bot.status }}</td>
@@ -55,7 +58,6 @@
                                 <td>
                                     <drop-down>
                                         <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 120px;">
-                                            <!--<span v-if="accounts[bot.account_id - 1]">{{ accounts[bot.account_id - 1].name }}</span>-->
                                             <span v-for="account in accounts" v-if="account.id == bot.account_id">{{ account.name }}</span>
                                             <b class="caret"></b>
                                         </button>
@@ -69,7 +71,6 @@
                                 <td>
                                     <drop-down>
                                         <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            <!--<span v-if="symbols[bot.symbol_id - 1]">{{ symbols[bot.symbol_id - 1].execution_symbol_name }}</span>-->
                                             <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
                                             <b class="caret"></b>
                                         </button>
@@ -83,7 +84,6 @@
                                 <td>
                                     <drop-down >
                                         <button v-if="strategies" slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
-                                            <!--<span v-if="strategies[bot.strategy_id - 1]">{{ strategies[bot.strategy_id - 1].name}}</span>-->
                                             <span v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</span>
                                             <b class="caret"></b>
                                         </button>
@@ -170,7 +170,7 @@
           botId: '',
           unlinkField: ''
         }),
-        bots: null,
+        bots: [1,2,3,4],
         accounts: [1,2,3,4], // Random values. Otherwise getting a error on array null value in v-for
         exchanges: [1,2,3,4], // add v-if to all rendered lists (v-for) and delete this 1,2,3,4
         symbols: [1,2,3,4],
