@@ -138,8 +138,22 @@
           status: '',
           memo: ''
         }),
-        exchanges: null, // Exchanges for table
-        allExchanges: null, // Exchnages for dropdown
+        exchanges: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'name': 'name',
+            'status': 'online',
+            'live_api_path': 'd',
+            'testnet_api_path': 'a',
+            'url': 'www',
+            //
+            'memo': 'memo'
+          }
+        ],
+        allExchanges: ['exchange1', 'exchange2'], // Exchnages for dropdown
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false

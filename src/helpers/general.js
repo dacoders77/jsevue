@@ -29,7 +29,7 @@ export function initialize (store, router) {
     return response;
   }, function (error) {
     // Do something with response error
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
       console.log('unauthorized, logging out ...');
       auth.logout();
       router.replace('/auth/login');

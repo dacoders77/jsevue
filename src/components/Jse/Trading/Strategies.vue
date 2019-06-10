@@ -1,5 +1,4 @@
 <template>
-
     <div class="row exchange">
         <div class="col-md-12">
 
@@ -31,21 +30,28 @@
                                 <!-- Price channel -->
                                 <td v-if="(item.strategy_type_id == '1' ? true : false)"><span class="text-success">
                                     <!-- TypeError: Cannot read property. Handling -->
-                                    <div v-if="strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1] && strategiesSettings && item">
-                                        PC time frame: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] }} <br>
-                                        SMA filter period: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['sma_filter_period'] }} <br>
+                                    <div v-if="
+                                        strategiesSettings &&
+                                        strategiesSettings.pricechannel_settings &&
+                                        strategiesSettings &&
+                                        item.pricechannel_settings_id &&
+                                        strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1] &&
+                                        strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] &&
+                                        item">
+                                        {{ item.pricechannel_settings_id - 1}} -
+                                        PC time frame: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] }}<br>
+                                        <!--SMA filter period: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['sma_filter_period'] }}<br>-->
                                     </div>
                                 </span></td>
 
                                 <!-- Macd -->
                                 <td v-if="(item.strategy_type_id == '2' ? true : false)"><span class="text-success">
                                     <div v-if="strategiesSettings.macd_settings[item.macd_settings_id - 1] && strategiesSettings && item">
-                                        Ema period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['ema_period'] }} <br>
+                                        <!--Ema period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['ema_period'] }} <br>
                                         Macd line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_line_period'] }} <br>
-                                        Macd signal line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_signalline_period'] }}
+                                        Macd signal line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_signalline_period'] }}-->
                                     </div>
                                 </span></td>
-
 
                                 <td>{{ item.memo }}</td>
                             </tr>
@@ -208,7 +214,45 @@
         }),
         strategyId: [], // Price channel or macd. Shown in drop down in modal
         strategies: [],
-        strategiesSettings: [], // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
+        strategies2: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'name': 'name',
+            'is_active': true,
+            'macd_settings_id': 1,
+            'pricechannel_settings_id': 1,
+            'strategy_type_id': 1,
+            //
+            'memo': 'memo'
+          }
+        ],
+        strategiesSettings: [],
+        strategiesSettings2: {
+          'pricechannel_settings': {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'time_frame': 1,
+            'sma_filer_period': 1,
+            //
+            'memo': 'memo'
+          },
+          'macd_settings': {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'ema_period': 1,
+            'macd_line_period': 1,
+            'macd_signalline_period': 1,
+            //
+            'memo': 'memo'
+          }
+        }, // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
         strategyTypes: [
           {'id': 1, 'name': 'Price channel'},
           {'id': 2, 'name': 'MACD'}], // Strategies for drop down in modal

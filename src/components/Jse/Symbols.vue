@@ -156,9 +156,36 @@
           is_active: '',
           memo: ''
         }),
-        exchanges: null, // Exchanges for table
-        allExchanges: null, // Exchanges for dropdown
-        symbols: null,
+        exchanges: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'name': 'name',
+            'status': 'online',
+            'live_api_path': 'd',
+            'testnet_api_path': 'a',
+            'url': 'www',
+            //
+            'memo': 'memo'
+          }
+        ],
+        /*allExchanges: [], // Exchanges for dropdown*/
+        symbols: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'exchange_id': 1,
+            'execution_symbol_name': 'b',
+            'history_symbol_name': 'c',
+            'is_active': true,
+            //
+            'memo': 'memo'
+          }
+        ],
         isSymbolActive: null,
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
@@ -185,7 +212,7 @@
     },
     methods: {
       loadExchanges() {
-        axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
+        axios.get('/exchange').then(({data}) => (this.exchanges = data.data));  //
       },
       loadSymbols() {
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));

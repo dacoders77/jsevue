@@ -189,10 +189,65 @@
             'volume': 1
           },
         ],
-        accounts: [1,2,3,4], // Random values. Otherwise getting a error on array null value in v-for
-        exchanges: [1,2,3,4], // add v-if to all rendered lists (v-for) and delete this 1,2,3,4
-        symbols: [1,2,3,4],
-        strategies: null,
+        accounts: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            'bot_id': 1,
+            'exchnage_id': 1,
+            'name': 'dd',
+            'api': 'a',
+            'api_secret': 'd',
+            'status': 's',
+            'is_testnet': true,
+            'memo': 'memo'
+          }
+        ], // Random values. Otherwise getting a error on array null value in v-for
+        exchanges: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'name': 'name',
+            'status': 'online',
+            'live_api_path': 'd',
+            'testnet_api_path': 'a',
+            'url': 'www',
+            //
+            'memo': 'memo'
+          }
+        ], // add v-if to all rendered lists (v-for) and delete this 1,2,3,4
+        symbols: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'exchange_id': 1,
+            'execution_symbol_name': 'b',
+            'history_symbol_name': 'c',
+            'is_active': true,
+            //
+            'memo': 'memo'
+          }
+        ],
+        strategies: [
+          {
+            'id': '1',
+            'created_at': '2019-06-10 01:31:52',
+            'updated_at': '2019-06-10 01:31:52',
+            //
+            'name': 'name',
+            'is_active': true,
+            'macd_settings_id': 1,
+            'pricechannel_settings_id': 1,
+            'strategy_type_id': 1,
+            //
+            'memo': 'memo'
+          }
+        ],
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -212,10 +267,6 @@
     methods: {
       loadResources() {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
-
-        //you need to go like this:
-        axios.get('/bot').then(({data}) => (console.log(data.data)));
-
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
