@@ -46,7 +46,8 @@
   export default {
     data () {
       return {
-      bots: [
+        bots: [],
+      /*bots: [
           {
           id: '1',
           name: 'Bots_1',
@@ -88,11 +89,29 @@
           symbol_name: 'BTC',
           exchange_name: 'Bitmex'
           }
-          ]
+          ]*/
       }
     },
-  methods: {
-   async load() {
+    created() {
+      // First created then mounted
+      // This component loads twice. Why?
+    },
+    mounted() {
+      this.loadResources();
+    },
+    methods: {
+      loadResources() {
+        axios.get('/bot').then(({data}) => (this.bots = data.data));
+
+        //you need to go like this:
+        axios.get('/bot').then(({data}) => (console.log(data.data)));
+
+        //axios.get('/account').then(({data}) => (this.accounts = data.data));
+        //axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
+        //axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+        //axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+      }
+   /*async load() {
                 try {
                   const responseBots = await axios.get('/bot')
                   this.name = responseBots.data.data.name
@@ -116,7 +135,7 @@
 
                 } catch (e) {
             }
-        }
+        }*/
     }
 }
 </script>
