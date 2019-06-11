@@ -25,8 +25,8 @@
                             <tr v-for="exchange in exchanges" :key="exchange.id">
                                 <td>{{ exchange.id }}</td>
                                 <td>
-                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="editExchange(item)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteExchange(item)"><i class="ti-trash"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="editExchange(exchange)"><i class="ti-marker-alt"></i></button>
+                                    <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteExchange(exchange)"><i class="ti-trash"></i></button>
                                 </td>
                                 <td>{{ exchange.name }}</td>
                                 <td>{{ exchange.created_at | myDate }}</td>
