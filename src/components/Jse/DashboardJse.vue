@@ -124,20 +124,8 @@ import DashboardJseCard from './DashboardJseCard'
       strategies: null,
       exchanges: null,
       symbols: null,
-        bots: null,
-
-        bots: [
-          {
-            id: '1',
-            name: 'Bots_1',
-            money_num: '1,235$',
-            strategy_name: 'PC',
-            trades_num: '217',
-            status: 'idle',
-            symbol_name: 'BTC',
-            exchange_name: 'Bitmex'
-          }
-        ],
+      bots: null,
+      botId: 1,
 
       accounts: [
           {
@@ -169,7 +157,8 @@ import DashboardJseCard from './DashboardJseCard'
       }
     },
     mounted() {
-      this.load()
+      this.load(),
+      this.HistoryBarsLoad(this.botId);
     },
      methods: {
       async load() {
@@ -178,35 +167,49 @@ import DashboardJseCard from './DashboardJseCard'
           let responseBots = await axios.get('/bot')
           this.name = responseBots.data.data.name
           this.bots = responseBots.data.data
-          console.log("b")
-          console.log(responseBots.data)
 
           let responseStrategy = await axios.get('/strategy')
           this.strategy_name = responseStrategy.data.data.name
           this.strategoties = responseStrategy.data.data
-          console.log("kfkfkfkf")
-          console.log(responseStrategy.data)
 
           let responseExchange = await axios.get('/exchange')
           this.exchange_name = responseExchange.data.data.name
           this.exchanges = responseExchange.data.data
-          console.log(this.exchanges)
-          console.log(responseExchange.data)
 
           let responseSymbol = await axios.get('/symbol')
           this.symbol_name = responseSymbol.data.data.name
           this.symbols = responseSymbol.data.data
-          console.log(this.symbols)
 
           let responseAccount = await axios.get('/account')
           this.account_name = responseAccount.data.data.name
           this.accounts = responseAccount.data.data
-          console.log("account")
-          console.log(this.accounts)
 
         } catch (e) {
           }
-    }
+    },
+       HistoryBarsLoad (botId) {
+         axios.get('trading/history/' + botId) // Back end bot id
+           .then((response) => {
+             this.chart.series[0].setData(response.data.candles, true);
+             console.log(response.data);
+             console.log("1");
+
+             this.chart.series[1].setData(response.data.priceChannelHighValues, true);
+             this.chart.series[2].setData(response.data.priceChannelLowValues, true);
+             this.chart.series[3].setData(response.data.sma1, true);
+             this.chart.series[4].setData(response.data.longTradeMarkers, true);
+             this.chart.series[5].setData(response.data.shortTradeMarkers, true);
+             this.chart.series[6].setData(response.data.macdLine, true);
+             this.chart.series[7].setData(response.data.macdSignalLine, true);
+             this.chart.series[8].setData(response.data.accumulatedProfit, true);
+             this.chart.series[9].setData(response.data.netProfit, true);
+             // this.chart.setTitle({text: response.data.symbol});
+             console.log(response.data);
+           })
+           .catch((err) => {
+             //alert("Chart.vue can not get history bars. " + err);
+           })
+       }
    }
 }
 </script>

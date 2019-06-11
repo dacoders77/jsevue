@@ -704,6 +704,7 @@
 
     > tr {
       height: 25px;
+      vertical-align: middle;
 
       > th,
       > td {
@@ -711,9 +712,11 @@
         max-width: 33%;
         font-size: 12px;
         padding: 5px;
-        overflow: scroll;
+        overflow-x: scroll;
         text-overflow: ellipsis;
         white-space: nowrap;
+        line-height: 1;
+        padding-top: 10px;
       }
     }
   }
