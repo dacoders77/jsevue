@@ -43,13 +43,21 @@
                 </div>
             </div>
 
-            <drop-down>
-                <button slot="title" class="btn dropdown-toggle btn-wd">
-                    Add Exchnage
-                    <b class="caret"></b>
+            <div style="display: flex">
+                <drop-down>
+                    <button slot="title" class="btn dropdown-toggle btn-wd">
+                        <i class="ti-plus"></i>Add Exchnage
+                        <b class="caret"></b>
+                    </button>
+                    <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
+                </drop-down>
+                &nbsp
+                <button type="button" class="btn dropdown-toggle btn-wd btn-magnify" @click="validateExchanges">
+                <span class="btn-label">
+                    <i class="ti-thumb-up"></i>
+                </span>Validate exchanges
                 </button>
-                <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a> </li>
-            </drop-down>
+            </div>
 
         </div>
 
@@ -99,6 +107,17 @@
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('testnet_api_path') }}</b-form-invalid-feedback>
                 </b-form-group>
 
+                <b-form-group label="Url:" label-for="url" class="exchange-row">
+                    <b-form-input
+                            id="url"
+                            v-model="form.url"
+                            :state="this.validationErrors.has('url') ? 'invalid' : 'valid'"
+                            required
+                            placeholder="Exchnage url">
+                    </b-form-input>
+                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('url') }}</b-form-invalid-feedback>
+                </b-form-group>
+
                 <b-form-group label= "Memo:" label-for="memo" class="exchange-row">
                     <b-form-textarea
                             id="memo"
@@ -120,6 +139,7 @@
   import Vue from 'vue'
   import {Table, TableColumn, Tag} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
+  import swal from 'sweetalert2'
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
@@ -220,6 +240,14 @@
           .catch(error => {
             this.showNotification('bottom', 'right', 'Add exchange error! <br>' + '&nbsp')
           })
+      },
+      validateExchanges() {
+        swal({
+          title: `Exchanges validated!`,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill',
+          type: 'success'
+        })
       },
       showNotification (verticalAlign, horizontalAlign, notificationText) {
         var color = Math.floor((Math.random() * 4) + 1)

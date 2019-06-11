@@ -131,7 +131,8 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Table, TableColumn, Tag} from 'element-ui'
+  //import {Table, TableColumn, Tag} from 'element-ui'
+  import {Table, TableColumn} from 'element-ui'
   import PSwitch from 'src/components/UIComponents/Switch.vue'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import swal from 'sweetalert2'
@@ -139,7 +140,7 @@
   Vue.use(TableColumn)
   export default {
     components: {
-      [Tag.name]: Tag,
+      //[Tag.name]: Tag,
       PSwitch
     },
     data () {
