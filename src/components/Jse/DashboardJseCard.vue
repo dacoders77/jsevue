@@ -17,13 +17,14 @@
         </div>
         <div class="card-dashboard__bar">
 
-          <h5 v-for="account in accounts" v-if=""> <!-- account.bots_id == bot.id -->
+          <h5> <!-- account.bots_id == bot.id -->
+            <span v-for="account in accounts">
             <span v-if="account.id == bot.id">
-              <!--{{ account.exchange_id }}-->
               <!-- Now go through all exchanges -->
               <span v-for="exchange in exchanges" v-if="account.exchange_id == exchange.id">{{ exchange.name }}</span>
             </span>
            <!--<span v-for="exchange in exchanges" v-if="exchange.account_id == account.exchange_id"> {{ exchange.name }}</span>-->
+            </span>
           </h5>
           
           <p class="card-dashboard__status" v-if="bot.status == 'idle'">
