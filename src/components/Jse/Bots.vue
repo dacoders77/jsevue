@@ -48,7 +48,7 @@
                                 </td>
 
                                 <td>
-                                    <input type="text" value="2" class="form-control" v-if="bot" v-bind="(bot.status == 'running' ? disabled : enabled)"
+                                    <input type="text" value="2" class="form-control" v-if="bot" :disabled="bot.status == 'running'"
                                            v-model="bot.name" style="width: 100px" @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
 
@@ -57,60 +57,63 @@
                                 <!-- Account -->
                                 <td>
                                     <drop-down>
-                                        <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 120px;">
+                                        <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 120px;" :disabled="bot.status == 'running'">
                                             <span v-for="account in accounts" v-if="account.id == bot.account_id">{{ account.name }}</span>
                                             <b class="caret"></b>
                                         </button>
-                                            <li v-for="(account, index) in accounts"><a href="javascript:void(0)" @click="updateBotNew(['updateAccount', bot, index])">{{ account.name }}</a> </li>
+                                            <li v-if="bot.status == 'idle'" v-for="(account, index) in accounts"><a href="javascript:void(0)" @click="updateBotNew(['updateAccount', bot, index])">{{ account.name }}</a> </li>
                                     </drop-down>
                                 </td>
-
-                                <td><a href="#" style="color: red;" @click="unlinkButtonClick([bot, 'account_id'])"><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'account_id']) : '')" ><i class="ti-trash"></i></a></td>
 
                                 <!-- Symbol -->
                                 <td>
                                     <drop-down>
-                                        <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
+                                        <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
                                             <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
                                             <b class="caret"></b>
                                         </button>
-                                        <li v-for="(symbol, index) in symbols"><a href="javascript:void(0)" @click="updateBotNew(['updateSymbol', bot, index])">{{ symbol.execution_symbol_name }}</a> </li>
+                                        <li v-if="bot.status == 'idle'" v-for="(symbol, index) in symbols"><a href="javascript:void(0)" @click="updateBotNew(['updateSymbol', bot, index])">{{ symbol.execution_symbol_name }}</a> </li>
                                     </drop-down>
                                 </td>
-
-                                <td><a href="#" style="color: red;" @click="unlinkButtonClick([bot, 'symbol_id'])"><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'symbol_id']) : '')"><i class="ti-trash"></i></a></td>
 
                                 <!-- Strategy -->
                                 <td>
                                     <drop-down >
-                                        <button v-if="strategies" slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;">
+                                        <button v-if="strategies" slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
                                             <span v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</span>
                                             <b class="caret"></b>
                                         </button>
-                                        <li v-if="strategies" v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">ID:{{ strategy.id }} {{ strategy.name }}</a> </li>
+                                        <li v-if="strategies && bot.status == 'idle'" v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">ID:{{ strategy.id }} {{ strategy.name }}</a> </li>
                                     </drop-down>
                                 </td>
-                                <td><a href="#" style="color: red;" @click="unlinkButtonClick([bot, 'strategy_id'])"><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'strategy_id']): '')"><i class="ti-trash"></i></a></td>
 
                                 <!-- Time frame -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.time_frame" style="width: 70px" @keyup.enter="updateBotNew(['updateTimeFrame', bot])">
+                                    <input type="text" class="form-control" v-model="bot.time_frame" style="width: 70px" :disabled="bot.status == 'running'"
+                                           @keyup.enter="updateBotNew(['updateTimeFrame', bot])">
                                 </td>
                                 <!-- Volume -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.volume" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                    <input type="text" class="form-control" v-model="bot.volume" style="width: 70px" :disabled="bot.status == 'running'"
+                                           @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
                                 <!-- Bars to load -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.bars_to_load" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                    <input type="text" class="form-control" v-model="bot.bars_to_load" style="width: 70px" :disabled="bot.status == 'running'"
+                                           @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
                                 <!-- Rate limit -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.rate_limit" style="width: 70px" @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                    <input type="text" class="form-control" v-model="bot.rate_limit" style="width: 70px" :disabled="bot.status == 'running'"
+                                           @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
                                 <!-- Memo -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.memo" style="width: 150px" @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                    <input type="text" class="form-control" v-model="bot.memo" style="width: 150px" :disabled="bot.status == 'running'"
+                                           @keyup.enter="updateBotNew(['updateBotName', bot])">
                                 </td>
 
                             </tr>
