@@ -2,7 +2,7 @@
 <template>
     <div id="app" style="border: 0px solid red">
 
-        <span v-for="(bot, index) in bots">
+        <span v-for="(bot, index) in bots" :key="item.id>
         <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]" @click="botTabClick(bot)">
             {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}
             <!--{{ bot.name }}/{{ getExecutionSymbolName(bot) }}/{{ bot.time_frame }}-->
