@@ -58,31 +58,7 @@
         strategies: null,
         exchanges: null,
         symbols: null,
-        accounts: null,
-
-        // bots: [
-        //   {
-        //     id: '1',
-        //     name: 'Bots_1',
-        //     money_num: '1,235$',
-        //     strategy_name: 'PC',
-        //     trades_num: '217',
-        //     status: 'idle',
-        //     symbol_name: 'BTC',
-        //     exchange_name: 'Bitmex'
-        //   }
-        // ],
-
-        // form: new Form({
-        //   id: '',
-        //   name: '',
-        //   money_num: '',
-        //   strategy_name: '',
-        //   trades_num: '',
-        //   status: '',
-        //   symbol_name: '',
-        //   exchange_name: '',
-        // })
+        accounts: null
       }
     },
     created() {
@@ -106,61 +82,7 @@
         console.log("symbols");
 
       }
-    //   showNotification(verticalAlign, horizontalAlign, notificationText) {
-    //     var color = Math.floor((Math.random() * 4) + 1)
-    //     this.$notify(
-    //       {
-    //         component: {
-    //           template: "<span>" + notificationText + "</span>"
-    //         },
-    //         icon: 'ti-info-alt',
-    //         horizontalAlign: horizontalAlign,
-    //         verticalAlign: verticalAlign,
-    //         type: this.type[color]
-    //       })
-    //   },
-    //   updateBotNew(params) { // updateTimeFrame
-    //     // Receives two params: bot instance and action (updateBotName)
-    //     let bot = params[1];
-    //     // Run/Stop bot
-    //     let botStatus = bot.status;
-    //     if (params[0] === 'runBot') botStatus = 'running';
-    //     if (params[0] === 'stopBot') botStatus = 'idle';
-    //
-    //     // Update account drop down
-    //     let accountId = bot.account_id;
-    //     if (params[0] === 'updateAccount') accountId = this.accounts[params[2]].id; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
-    //
-    //     // Update symbol drop down
-    //     let symbolId = bot.symbol_id;
-    //     /*if (params[0] === 'updateSymbol') symbolId = params[2] + 1;*/
-    //     if (params[0] === 'updateSymbol') symbolId = this.symbols[params[2]].id;
-    //
-    //     // Update strategy drop down
-    //     let strategyId = bot.strategy_id;
-    //     if (params[0] === 'updateStrategy') strategyId = this.strategies[params[2]].id;
-    //
-    //     this.form.reset();
-    //     this.form.status = botStatus; // runBot, stopBot
-    //     this.form.account_id = accountId; // Account drop down
-    //     this.form.symbol_id = symbolId; // Symbol drop down
-    //     this.form.strategy_id = strategyId; // Strategy drop down
-    //     this.form.name = bot.name;
-    //     this.form.time_frame = bot.time_frame;
-    //     this.form.volume = bot.volume;
-    //     this.form.bars_to_load = bot.bars_to_load;
-    //     this.form.rate_limit = bot.rate_limit;
-    //     this.form.memo = bot.memo;
-    //     this.form.put('/bot/' + bot.id)
-    //       .then((response) => {
-    //         Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
-    //         this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + bot.id)
-    //       })
-    //       .catch(error => {
-    //         //this.validationErrors.record(error.data.errors)
-    //         this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
-    //       })
-    //   }
+
      }
   }
 </script>

@@ -95,6 +95,10 @@
                     <td>{{ account.name }}</td>
                     <td class="card-pages-dashboard__api"><span class="text-break">{{ account.exchange_id }}</span></td>
                     <td class="text-success">Online</td>
+                    <td class="text-success">Online</td>
+                    <td class="text-success">Online</td>
+                    <td class="text-success">Online</td>
+                    <td class="text-success">Online</td>
                   </tr>
                 </tbody>
               </table>
