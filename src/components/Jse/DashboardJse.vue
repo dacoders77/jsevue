@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="col-md-6">
-    <div class="card card-stats h-100 p-10 pb-0">
+    <div class="card card-stats h-100 p-10 pb-0  overflow-scroll-x">
       <div class="row h-100">
         <div class="col-sm-6  col-md-12 col-lg-6 mb-30 p-15 py-0">
           <div class="card card-pages-dashboard"><!---->
@@ -50,11 +50,13 @@
                   </tr>
                   <tr v-for="account in lastAccounts" :key="account.id">
                     <td>{{ account.name }}</td>
-                    <td class="card-pages-dashboard__api"><span>{{ account.exchange_id }}</span></td>
+                    <td class="card-pages-dashboard__api">
+                      <span v-for="exchange in exchanges" v-if="account.exchange_id == exchange.id">{{ exchange.name }}</span>
+                    </td>
                     <td class="text-success">{{ account.status }}</td>
                   </tr>
                 </tbody></table>
-              <router-link to="/strategies" class="card-pages-dashboard__link" active-class="active">Go to Accounts</router-link>
+              <router-link to="/accounts" class="card-pages-dashboard__link" active-class="active">Go to Accounts</router-link>
             </div>
           </div>
           <div class="col-sm-6 col-md-12 col-lg-6 mb-30 p-15 py-0">
@@ -69,7 +71,10 @@
                   </tr>
                   <tr v-for="exchange in lastExchanges" :key="exchange.id">
                     <td>{{ exchange.name }}</td>
-                    <td class="card-pages-dashboard__api"><span class="text-break">{{ exchange.testnet_api_path }}</span></td>
+                    <td class="card-pages-dashboard__api" >
+                      <span v-if='exchange.id == "1"'>Testnet</span>
+                      <span v-else>Live</span></span>
+                    </td>
                     <td class="text-success">{{ exchange.status }}</td>
                   </tr>
                 </tbody>
@@ -126,6 +131,7 @@ import DashboardJseCard from './DashboardJseCard'
       symbols: null,
       bots: null,
       botId: 1,
+      tradings: null,
 
       accounts: [
           {
@@ -157,7 +163,8 @@ import DashboardJseCard from './DashboardJseCard'
       }
     },
     mounted() {
-      this.load()
+      this.load();
+        this.HistoryBarsLoad(this.botId);
     },
      methods: {
        async load() {
@@ -174,6 +181,7 @@ import DashboardJseCard from './DashboardJseCard'
            let responseExchange = await axios.get('/exchange');
            this.exchange_name = responseExchange.data.data.name;
            this.exchanges = responseExchange.data.data;
+           console.log(responseExchange.data.data);
 
            let responseSymbol = await axios.get('/symbol');
            this.symbol_name = responseSymbol.data.data.name;
@@ -181,11 +189,25 @@ import DashboardJseCard from './DashboardJseCard'
 
            let responseAccount = await axios.get('/account');
            this.account_name = responseAccount.data.data.name;
-           this.accounts = responseAccount.data.data
+           this.accounts = responseAccount.data.data;
 
          } catch (e) {
          }
-       }
+       },
+       HistoryBarsLoad (botId) {
+         axios.get('trading/history/' + botId) // Back end bot id
+           .then((response) => {
+             console.log(response);
+             console.log(response.data);
+             console.log(axios.get('trading/history/1'));
+             console.log("1");
+             console.log(this.trading.series[0]);
+           })
+           .catch((err) => {
+             //alert("Chart.vue can not get history bars. " + err);
+           })
+       },
+
      }
 }
 </script>

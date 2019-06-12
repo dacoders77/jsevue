@@ -204,8 +204,15 @@
   justify-content: space-between;
   align-items: stretch;
 
+  &--no-width {
+    width: auto;
+  }
 }
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.overflow-scroll-x {
+  overflow-x: hidden;
 }
