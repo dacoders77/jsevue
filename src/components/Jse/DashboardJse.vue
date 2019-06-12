@@ -91,19 +91,19 @@
                 <tbody>
                   <tr>
                     <th class="card-pages-dashboard__time">Date</th>
-                    <th class="card-pages-dashboard__api">Bot name</th>
-                    <th>Symbol</th>
-                    <th>Volume</th>
-                    <th>Direction</th>
-                    <th>Price</th>
+                    <th class="card-pages-dashboard__api text-align-center">Bot name</th>
+                    <th class="text-align-center">Symbol</th>
+                    <th class="text-align-center">Vol.</th>
+                    <th class="text-align-center">Side</th>
+                    <th class="text-align-center">Price</th>
                   </tr>
                   <tr v-for="trade in lastTrades" :key="trade.id" v-if='trade.trade_date != null'>
                     <td class="card-pages-dashboard__time">{{ trade.date | myDate }}</td>
-                    <td class="text-success">{{bots[0].name}} </td>
-                    <td class="card-pages-dashboard__api"><span class="text-break">{{ symbols[bots[0].symbol_id].execution_symbol_name }}</span></td>
-                    <td class="text-success">{{bots[0].volume}}</td>
-                    <td class="text-success">{{ trade.trade_direction}}</td>
-                    <td class="text-success">{{ trade.trade_price}}</td>
+                    <td class="text-success card-pages-dashboard__api text-align-center"><span>{{ bots[0].name }}</span></td>
+                    <td class="card-pages-dashboard__api text-align-center"><span class="text-break">{{ symbols[bots[0].symbol_id].execution_symbol_name }}</span></td>
+                    <td class="text-success text-align-center">{{ bots[0].volume }}</td>
+                    <td class="text-success text-align-center">{{ trade.trade_direction}}</td>
+                    <td class="text-success text-align-center">{{ trade.trade_price}}</td>
                   </tr>
                 </tbody>
               </table>
