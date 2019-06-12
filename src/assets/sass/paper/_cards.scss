@@ -673,6 +673,10 @@
     background-color: $card-background-green;
   }
 
+  &--big {
+    max-height: 312px;
+  }
+
   &__table {
     table-layout: fixed;
     width: 100%;
@@ -715,7 +719,7 @@
         font-size: 12px;
         padding: 5px;
         overflow-x: scroll;
-        text-overflow: ellipsis;
+
         white-space: nowrap;
         line-height: 1.2;
         padding-top: 12px;
@@ -734,6 +738,11 @@
   &__body {
     width: 100%;
     overflow-x: scroll;
+  }
+
+  &__time {
+    width: 65px!important;
+    max-width: 65px!important;
   }
 
   /*&__api {
