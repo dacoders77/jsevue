@@ -100,7 +100,7 @@
                   <tr v-for="trade in lastTrades" :key="trade.id" v-if='trade.trade_date != null'>
                     <td class="card-pages-dashboard__time">{{ trade.date | myDate }}</td>
                     <td class="text-success card-pages-dashboard__api text-align-center"><span>{{ bots[0].name }}</span></td>
-                    <td class="card-pages-dashboard__api text-align-center"><span class="text-break">{{ symbols[bots[0].symbol_id].execution_symbol_name }}</span></td>
+                    <td class="card-pages-dashboard__api text-align-center"><span class="text-break">{{ symbols[(bots[0].symbol_id) - 1 ].execution_symbol_name }}</span></td>
                     <td class="text-success text-align-center">{{ bots[0].volume }}</td>
                     <td class="text-success text-align-center">{{ trade.trade_direction}}</td>
                     <td class="text-success text-align-center">{{ trade.trade_price}}</td>
