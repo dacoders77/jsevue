@@ -83,27 +83,27 @@
             </div>
           </div>
           <div class="col-md-12 p-15 py-0">
-            <div class="card card-pages-dashboard card-pages-dashboard--green"><!---->
-              <h4 class="card-title">Trades</h4>
+            <div class="card card-pages-dashboard card-pages-dashboard--green card-pages-dashboard--big"><!---->
+              <h4 class="card-title">Trades
+                <span>Bot_1</span>
+              </h4>
               <table class="table table-hover table-success card-pages-dashboard__table">
                 <tbody>
                   <tr>
-                    <th>Date</th>
-                    <th class="card-pages-dashboard__api">Bots</th>
+                    <th class="card-pages-dashboard__time">Date</th>
+                    <th class="card-pages-dashboard__api">Bot name</th>
                     <th>Symbol</th>
-                    <th>Exchange</th>
-                    <th>Account</th>
                     <th>Volume</th>
+                    <th>Direction</th>
                     <th>Price</th>
                   </tr>
-                  <tr v-for="account in lastAccounts" :key="account.id">
-                    <td>{{ account.name }}</td>
-                    <td class="card-pages-dashboard__api"><span class="text-break">{{ account.exchange_id }}</span></td>
-                    <td class="text-success">Online</td>
-                    <td class="text-success">Online</td>
-                    <td class="text-success">Online</td>
-                    <td class="text-success">Online</td>
-                    <td class="text-success">Online</td>
+                  <tr v-for="trade in lastTrades" :key="trade.id" v-if='trade.trade_data != "null"'>
+                    <td class="card-pages-dashboard__time">{{ trade.date | myDate }}</td>
+                    <td class="card-pages-dashboard__api"><span class="text-break">Bots_1</span></td>
+                    <td class="text-success">BTC/USD</td>
+                    <td class="text-success">1200</td>
+                    <td class="text-success">{{ trade.trade_direction}}</td>
+                    <td class="text-success">{{ trade.trade_price}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -118,6 +118,7 @@
 </template>
 <script>
 
+import moment from 'moment'
 import DashboardJseCard from './DashboardJseCard'
   export default {
     components: {
@@ -131,7 +132,7 @@ import DashboardJseCard from './DashboardJseCard'
       symbols: null,
       bots: null,
       botId: 1,
-      tradings: null,
+      trades: null,
 
       accounts: [
           {
@@ -149,7 +150,19 @@ import DashboardJseCard from './DashboardJseCard'
             live_api_path: '17389738747474798794',
             status: 'Online'
             }
-          ]
+          ],
+        trades: [
+          {
+            id: '1',
+            data: "2019-08-01 14:00:00",
+            name: 'Bots_1',
+            symbol_name: '17389738',
+            volume: "1200",
+            trade_direction: "111",
+            trade_price: "20"
+          }
+        ],
+
         }
     },
 
@@ -160,11 +173,15 @@ import DashboardJseCard from './DashboardJseCard'
 
       lastExchanges: function () {
         return this.exchanges.slice(-3).reverse();
+      },
+
+      lastTrades: function () {
+        return this.trades.slice(-5).reverse();
       }
     },
     mounted() {
       this.load();
-        this.HistoryBarsLoad(this.botId);
+      this.HistoryBarsLoad(this.botId);
     },
      methods: {
        async load() {
@@ -173,6 +190,7 @@ import DashboardJseCard from './DashboardJseCard'
            let responseBots = await axios.get('/bot');
            this.name = responseBots.data.data.name;
            this.bots = responseBots.data.data;
+           console.log(this.bots);
 
            let responseStrategy = await axios.get('/strategy');
            this.strategy_name = responseStrategy.data.data.name;
@@ -197,11 +215,7 @@ import DashboardJseCard from './DashboardJseCard'
        HistoryBarsLoad (botId) {
          axios.get('trading/history/' + botId) // Back end bot id
            .then((response) => {
-             console.log(response);
-             console.log(response.data);
-             console.log(axios.get('trading/history/1'));
-             console.log("1");
-             console.log(this.trading.series[0]);
+             this.trades = response.data.rawTable;
            })
            .catch((err) => {
              //alert("Chart.vue can not get history bars. " + err);
