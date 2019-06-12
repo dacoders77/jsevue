@@ -741,10 +741,23 @@
   }
 
   &__time {
-    width: 65px!important;
-    max-width: 65px!important;
+    width: 90px!important;
+    max-width: 90px!important;
   }
 
+  & .card-title {
+    width: 100%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    span {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      width: 50%;
+    }
+  }
   /*&__api {
     max-width: 50px!important;
     width: 10%!important;

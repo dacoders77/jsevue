@@ -84,8 +84,8 @@
           </div>
           <div class="col-md-12 p-15 py-0">
             <div class="card card-pages-dashboard card-pages-dashboard--green card-pages-dashboard--big"><!---->
-              <h4 class="card-title">Trades
-                <span>Bot_1</span>
+              <h4 class="card-title" >Trades
+                <span> {{bots[0].name}}</span>
               </h4>
               <table class="table table-hover table-success card-pages-dashboard__table">
                 <tbody>
@@ -97,11 +97,11 @@
                     <th>Direction</th>
                     <th>Price</th>
                   </tr>
-                  <tr v-for="trade in lastTrades" :key="trade.id" v-if='trade.trade_data != "null"'>
+                  <tr v-for="trade in lastTrades" :key="trade.id" v-if='trade.trade_date != null'>
                     <td class="card-pages-dashboard__time">{{ trade.date | myDate }}</td>
-                    <td class="card-pages-dashboard__api"><span class="text-break">Bots_1</span></td>
-                    <td class="text-success">BTC/USD</td>
-                    <td class="text-success">1200</td>
+                    <td class="text-success">{{bots[0].name}} </td>
+                    <td class="card-pages-dashboard__api"><span class="text-break">{{ symbols[bots[0].symbol_id].execution_symbol_name }}</span></td>
+                    <td class="text-success">{{bots[0].volume}}</td>
                     <td class="text-success">{{ trade.trade_direction}}</td>
                     <td class="text-success">{{ trade.trade_price}}</td>
                   </tr>
@@ -163,6 +163,7 @@ import DashboardJseCard from './DashboardJseCard'
           }
         ],
 
+
         }
     },
 
@@ -176,7 +177,7 @@ import DashboardJseCard from './DashboardJseCard'
       },
 
       lastTrades: function () {
-        return this.trades.slice(-5).reverse();
+        return this.trades.reverse();
       }
     },
     mounted() {
@@ -216,6 +217,11 @@ import DashboardJseCard from './DashboardJseCard'
          axios.get('trading/history/' + botId) // Back end bot id
            .then((response) => {
              this.trades = response.data.rawTable;
+             console.log("1");
+             console.log(this.trades);
+             console.log(response.data.rawTable);
+             cconsole.log("2");
+
            })
            .catch((err) => {
              //alert("Chart.vue can not get history bars. " + err);
