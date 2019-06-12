@@ -1,6 +1,9 @@
 <template>
 <div class="row" >
-  <dashboard-jse-card></dashboard-jse-card>
+  <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
+    <dashboard-jse-card></dashboard-jse-card>
+  </div>
+</div>
 </div>
 </template>
 
@@ -10,11 +13,15 @@ import DashboardJseCard from './DashboardJseCard'
     components: {
       DashboardJseCard
     },
-    data () {
+    data: function () {
       return {
+        bots: [],
+        exchanges: [],
+        accounts: [],
+
+      }
     }
   }
-}
 </script>
 <style>
 

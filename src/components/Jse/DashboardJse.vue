@@ -36,40 +36,40 @@
       </div>
     </div>
     <div class="col-md-6">
-    <div class="card card-stats h-100 p-15">
+    <div class="card card-stats h-100 p-10 pb-0">
       <div class="row h-100">
-        <div class="col-md-6  mb-15">
+        <div class="col-sm-6  col-md-12 col-lg-6 mb-30 p-15 py-0">
           <div class="card card-pages-dashboard"><!---->
             <h4 class="card-title">Accounts</h4>
               <table class="table table-hover table-info card-pages-dashboard__table overflow-scroll-y">
                 <tbody>
                   <tr>
-                    <th>Accounts</th>
-                    <th class="card-pages-dashboard__api">Api</th>
+                    <th>Name</th>
+                    <th class="card-pages-dashboard__api">Exchange</th>
                     <th>Status</th>
                   </tr>
                   <tr v-for="account in lastAccounts" :key="account.id">
                     <td>{{ account.name }}</td>
-                    <td class="card-pages-dashboard__api"><span class="text-break">{{ account.api }}</span></td>
+                    <td class="card-pages-dashboard__api"><span>{{ account.exchange_id }}</span></td>
                     <td class="text-success">{{ account.status }}</td>
                   </tr>
                 </tbody></table>
-              <router-link to="/strategies" class="card-pages-dashboard__link" active-class="active">Go to Strategies</router-link>
+              <router-link to="/strategies" class="card-pages-dashboard__link" active-class="active">Go to Accounts</router-link>
             </div>
           </div>
-          <div class="col-md-6  mb-15">
+          <div class="col-sm-6 col-md-12 col-lg-6 mb-30 p-15 py-0">
             <div class="card card-pages-dashboard"><!---->
               <h4 class="card-title">Exchanges</h4>
               <table class="table table-hover table-info card-pages-dashboard__table overflow-scroll-y">
                 <tbody>
                   <tr>
-                    <th>Exchnage</th>
-                    <th class="card-pages-dashboard__api">Api</th>
+                    <th>Name</th>
+                    <th class="card-pages-dashboard__api">Tesnet</th>
                     <th>Status</th>
                   </tr>
                   <tr v-for="exchange in lastExchanges" :key="exchange.id">
                     <td>{{ exchange.name }}</td>
-                    <td class="card-pages-dashboard__api"><span class="text-break">{{ exchange.live_api_path }}</span></td>
+                    <td class="card-pages-dashboard__api"><span class="text-break">{{ exchange.testnet_api_path }}</span></td>
                     <td class="text-success">{{ exchange.status }}</td>
                   </tr>
                 </tbody>
@@ -77,19 +77,27 @@
               <router-link to="/exchanges" class="card-pages-dashboard__link" active-class="active">Go to Exchanges</router-link>
             </div>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12 p-15 py-0">
             <div class="card card-pages-dashboard card-pages-dashboard--green"><!---->
               <h4 class="card-title">Trades</h4>
               <table class="table table-hover table-success card-pages-dashboard__table">
                 <tbody>
                   <tr>
-                    <th>Exchnage</th>
-                    <th class="card-pages-dashboard__api">Api</th>
-                    <th>Status</th>
+                    <th>Date</th>
+                    <th class="card-pages-dashboard__api">Bots</th>
+                    <th>Symbol</th>
+                    <th>Exchange</th>
+                    <th>Account</th>
+                    <th>Volume</th>
+                    <th>Price</th>
                   </tr>
-                  <tr v-for="account in accounts" :key="account.id">
+                  <tr v-for="account in lastAccounts" :key="account.id">
                     <td>{{ account.name }}</td>
-                    <td class="card-pages-dashboard__api"><span class="text-break">{{ account.api }}</span></td>
+                    <td class="card-pages-dashboard__api"><span class="text-break">{{ account.exchange_id }}</span></td>
+                    <td class="text-success">Online</td>
+                    <td class="text-success">Online</td>
+                    <td class="text-success">Online</td>
+                    <td class="text-success">Online</td>
                     <td class="text-success">Online</td>
                   </tr>
                 </tbody>
@@ -116,6 +124,8 @@ import DashboardJseCard from './DashboardJseCard'
       strategies: null,
       exchanges: null,
       symbols: null,
+      bots: null,
+      botId: 1,
 
       accounts: [
           {
@@ -125,6 +135,7 @@ import DashboardJseCard from './DashboardJseCard'
           status: 'Online'
           }
         ],
+
         exchanges: [
             {
             id: '1',
@@ -148,35 +159,34 @@ import DashboardJseCard from './DashboardJseCard'
     mounted() {
       this.load()
     },
-    methods: {
-      async load() {
-        try {
-          let responseStrategy = await axios.get('/strategy')
-          this.strategy_name = responseStrategy.data.data.name
-          this.strategies = responseStrategy.data.data
-          console.log(this.strategies)
-          console.log(responseStrategy.data)
+     methods: {
+       async load() {
+         try {
 
-          let responseExchange = await axios.get('/exchange')
-          this.exchange_name = responseExchange.data.data.name
-          this.exchanges = responseExchange.data.data
-          console.log(this.exchanges)
-          console.log(responseExchange.data)
+           let responseBots = await axios.get('/bot');
+           this.name = responseBots.data.data.name;
+           this.bots = responseBots.data.data;
 
-          let responseSymbol = await axios.get('/symbol')
-          this.symbol_name = responseSymbol.data.data.name
-          this.symbols = responseSymbol.data.data
-          console.log(this.symbols)
+           let responseStrategy = await axios.get('/strategy');
+           this.strategy_name = responseStrategy.data.data.name;
+           this.strategoties = responseStrategy.data.data;
 
-          let responseAccount = await axios.get('/account')
-          this.account_name = responseAccount.data.data.name
-          this.accounts = responseAccount.data.data
-          console.log(this.accounts)
+           let responseExchange = await axios.get('/exchange');
+           this.exchange_name = responseExchange.data.data.name;
+           this.exchanges = responseExchange.data.data;
 
-        } catch (e) {
-          }
-    }
-  }
+           let responseSymbol = await axios.get('/symbol');
+           this.symbol_name = responseSymbol.data.data.name;
+           this.symbols = responseSymbol.data.data;
+
+           let responseAccount = await axios.get('/account');
+           this.account_name = responseAccount.data.data.name;
+           this.accounts = responseAccount.data.data
+
+         } catch (e) {
+         }
+       }
+     }
 }
 </script>
 <style>
