@@ -666,7 +666,7 @@
   padding-bottom: 30px;
   box-sizing: border-box;
   background-color: rgba($card-background-blue, 0.4);
-
+  overflow-y: hidden;
   max-height: 230px;
 
   &--green {
@@ -676,6 +676,8 @@
   &__table {
     table-layout: fixed;
     width: 100%;
+    padding-top: 10px;
+
   }
 
   &__link {
@@ -715,14 +717,18 @@
         overflow-x: scroll;
         text-overflow: ellipsis;
         white-space: nowrap;
-        line-height: 1;
-        padding-top: 10px;
+        line-height: 1.2;
+        padding-top: 12px;
+        padding-bottom: 0;
+      }
+
+      > th {
+      overflow-x: hidden;
+        padding-top: 0;
+        line-height: 1.5;
+        padding: 5px;
       }
     }
-  }
-
-  & .card-title {
-    margin-bottom: 5px;
   }
 
   &__body {
@@ -748,7 +754,12 @@
     }
   }*/
 }
-
+.card-dashboard-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
 .card-dashboard {
   font-size: 14px;
   transition: 0.5s;
@@ -820,13 +831,23 @@
     font-weight: 400;
     text-align: right;
     word-break: break-all;
+    padding-left: 10px;
+    flex-grow: 1;
+    max-width: 60%;
 
     p {
       margin-bottom: 15px;
       font-size: 20px;
       font-weight: 300;
       color: #9a9a9a;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
+  }
+
+  .d-flex {
+    width: 100%;
   }
 
   &__text {
@@ -839,6 +860,9 @@
       margin-bottom: 0;
       margin-top: 10px;
       padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
   }
 }
@@ -853,5 +877,16 @@
   .card-pages-dashboard__api {
     max-width: 200px !important;
     width: 30% !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .card-dashboard-wrapper {
+    flex-direction: column;
+
+    >div {
+      width: 100%;
+    }
   }
 }

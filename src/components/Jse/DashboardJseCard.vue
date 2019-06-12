@@ -1,19 +1,17 @@
 <template>
-  <div class="row">
+  <div class="row card-dashboard-wrapper">
     <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
       <div class="card card-stats card-dashboard p-10">
-        <div class="d-flex flex-grow">
+        <div class="d-flex">
           <div >
             <div class="icon-success">
               <i class="ti-wallet card-dashboard__icon"></i>
             </div>
           </div>
-          <div class="flex-grow">
             <div class="numbers">
               <p>{{bot.name}}</p>
-              {{bot.volume}}
+              {{bot.volume}} &#36;
             </div>
-          </div>
         </div>
         <div class="card-dashboard__bar">
 
@@ -39,7 +37,7 @@
             {{bot.status}}
           </p>
         </div>
-        <div class="card-dashboard__text d-flex">
+        <div class="card-dashboard__text d-flex flex-grow">
           <p>
             <span class="pr-15" v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</span>
             <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
