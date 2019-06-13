@@ -82,32 +82,48 @@
     mounted() {
       this.loadResources();
       this.HistoryBarsLoad(this.botId);
-      this.HistoryBarsLoad(2);
-      this.HistoryBarsLoad(3);
-      this.HistoryBarsLoad(4);
     },
     methods: {
       loadResources: function () {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
 
         //you need to go like this:
-        axios.get('/bot').then(({data}) => (console.log(data.data)));
+        //axios.get('/bot').then(({data}) => (console.log(data.data)));
 
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
-        console.log("symbols");
-
       },
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
-            this.trades[botId] = response.data.rawTable;
-            console.log("1");
-            console.log(this.trades[botId]);
-            console.log(response.data.rawTable);
-            cconsole.log("2");
+            this.trades = response.data.rawTable;
+            //console.log("1");
+            //console.log(this.trades);
+            //console.log(response.data.rawTable);
+            //cconsole.log("2");
+
+            // MY CODE
+            let count = 0;
+            let notNullRows = [];
+            this.trades.forEach(function(element){
+              if (element.trade_date != null) {
+                //console.log(element);
+                count++;
+                notNullRows.push(element);
+              }
+            })
+            console.log('Trades quantity for Bot #1: ');
+            console.log(count);
+            console.log('Revenue for Bot #1: ');
+            console.log(notNullRows[count - 1].net_profit);
+
+            // this.trades[botId] = response.data.rawTable;
+            // console.log("1");
+            // console.log(this.trades[botId]);
+            // console.log(response.data.rawTable);
+            // cconsole.log("2");
 
           })
           .catch((err) => {
