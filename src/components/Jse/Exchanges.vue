@@ -222,7 +222,7 @@
               console.log(response);
               this.$refs['my-modal'].hide();
               Fire.$emit('AfterCreate');
-              this.showNotification('bottom', 'right', 'Exchange successfully updated! <br> id: ' + this.form.id)
+              this.showNotification('bottom', 'right', 'Exchange successfully updated! <br> id: ' + this.form.id);
         })
           .catch(error => {
             console.log(error);

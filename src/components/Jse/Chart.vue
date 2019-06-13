@@ -1,39 +1,44 @@
 /*eslint-disable*/
 <template>
-    <div id="app" style="border: 0px solid red">
+    <div id="app" style="border: 0px solid red;">
+        <div>
+            <div style="float: left">
+                <span v-for="(bot, index) in bots">
+                <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]" @click="botTabClick(bot)">
+                    {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}
+                </button>&nbsp
+            </span>
+            </div>
 
-        <span v-for="(bot, index) in bots">
-        <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]" @click="botTabClick(bot)">
-            {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}
-            <!--{{ bot.name }}/{{ getExecutionSymbolName(bot) }}/{{ bot.time_frame }}-->
-        </button>&nbsp
-        </span>
-
-
-        <div id="container" style="width:100%; height:75vh; padding-top: 10px"></div>
-        <div class="col">
-        <div class="card h-100">
-
-            <!--<div class="card-header"><span style="font-size:140%">Quotes</span>
-                <div class="card-tools">
-                    <span v-for="quote in quotes">
-                  <small>
-                      {{ quote }}<br>
-                  </small>
+            <div style="float: right">
+                <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify" @click="backtesterButtonClick()">
+                <span class="btn-label">
+                    <i class="ti-stats-up"></i>&nbsp
                 </span>
-                </div>
-            </div>-->
-
-            <div class="card-body">
+                <span v-if="backtesterOpen">Close</span>
+                <span v-if="!backtesterOpen">Backtester</span>
+                </button>
             </div>
         </div>
+
+        <!-- Chart width:100%; height:75vh; padding-top: 10px; float: left -->
+        <div id="container" :style="(!backtesterOpen ? 'width:100%; height:75vh; padding-top: 10px; float: left' : 'width:75%; height:75vh; padding-top: 10px; float: left')"></div>
+
+        <!-- Backtester -->
+        <div v-if="backtesterOpen" style="width:25%; height:75vh; padding-top: 10px; padding-left: 10px; border: 0px solid red; float: right">
+            <backtester></backtester>
         </div>
+
     </div>
 </template>
 <script>
   import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
   import Opt from 'src/components/Jse/ChartSettingsVue.vue'
+  import Backtester from 'src/components/Jse/Backtester.vue'
   export default {
+    components: {
+      Backtester
+    },
     data () {
       return {
         quotes: [],
@@ -41,7 +46,8 @@
         clientId: 12345,
         bots: [],
         accounts: [],
-        symbols: []
+        symbols: [],
+        backtesterOpen: false,
       }
     },
     created() {
@@ -129,7 +135,16 @@
         this.botId = bot.id;
         this.clientId = bot.front_end_id;
         this.HistoryBarsLoad(this.botId);
-        // this.ListenWebSocket(this.clientId)
+      },
+      backtesterButtonClick() {
+        if (this.backtesterOpen) {
+          this.backtesterOpen = false; // Close backtester
+        } else {
+          this.backtesterOpen = true; // Open backtester
+          this.botId = 5;
+          this.clientId = 12350;
+          this.HistoryBarsLoad(5);
+        }
       }
     }
   }

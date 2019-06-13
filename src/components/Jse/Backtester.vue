@@ -1,0 +1,167 @@
+<template>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">History backtester</h4>
+            <!--<p class="category">Max 500 bars load</p>-->
+        </div>
+        <div class="card-content">
+            <el-collapse>
+                <el-collapse-item title="Price channel" name="1">
+                    <div>
+
+                        <!-- Symbol drop down -->
+                        <td>
+                            <drop-down>
+                                <button slot="title" class="btn dropdown-toggle btn-xs" data-toggle="dropdown" style="width: 100%;">
+                                    <!--<span v-for="symbol in symbols" >{{ symbol.execution_symbol_name }}</span>-->
+                                    <span>{{ executionSymbolName }}</span>
+                                    <b class="caret"></b>
+                                </button>
+                                <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
+                            </drop-down>
+                        </td>
+
+                        <b-form-group label="bars_to_load:" label-for="bars_to_load" class="account-row">
+                            <b-form-input
+                                    id="bars_to_load"
+                                    v-model="priceChannel.bars_to_load"
+                                    :state="this.validationErrors.has('bars_to_load') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="bars_to_load">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>
+                        </b-form-group>
+
+                        <b-form-group label="bar_time_frame:" label-for="bar_time_frame" class="account-row">
+                            <b-form-input
+                                    id="bar_time_frame"
+                                    v-model="priceChannel.bar_time_frame"
+                                    :state="this.validationErrors.has('bar_time_frame') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="bar_time_frame">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bar_time_frame') }}</b-form-invalid-feedback>
+                        </b-form-group>
+
+                        <b-form-group label="time_frame:" label-for="time_frame" class="account-row">
+                            <b-form-input
+                                    id="time_frame"
+                                    v-model="priceChannel.time_frame"
+                                    :state="this.validationErrors.has('time_frame') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="time_frame">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('time_frame') }}</b-form-invalid-feedback>
+                        </b-form-group>
+
+                        <b-form-group label="sma_filer_period:" label-for="sma_filer_period" class="account-row">
+                            <b-form-input
+                                    id="sma_filer_period"
+                                    v-model="priceChannel.sma_filer_period"
+                                    :state="this.validationErrors.has('sma_filer_period') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="sma_filer_period">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('sma_filer_period') }}</b-form-invalid-feedback>
+                        </b-form-group>
+                    </div>
+
+                    <div style="float: right">
+
+                        <button type="button" class="btn btn-xs dropdown-toggle btn-magnify" @click="priceChannelBacktestClick()">
+                            <span class="btn-label">
+                                <!--<i class="ti-thumb-up"></i>-->
+                            </span>Go
+                        </button>
+                    </div>
+
+                </el-collapse-item>
+                <el-collapse-item title="MACD" name="2">
+                    <div>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </el-collapse-item>
+            </el-collapse>
+        </div>
+    </div>
+</template>
+<script>
+  import Vue from 'vue'
+  import {Collapse, CollapseItem} from 'element-ui'
+  import ValidationErrors from 'src/components/Jse/ValidationErrors'
+  import swal from 'sweetalert2'
+  Vue.use(Collapse)
+  Vue.use(CollapseItem)
+    export default {
+      data() {
+        return{
+          validationErrors: new ValidationErrors(),
+          priceChannel: new Form({
+            execution_symbol_name: '',
+            history_symbol_name: '',
+            bars_to_load: 50,
+            bar_time_frame: 1,
+            time_frame: 1,
+            sma_filer_period: 2
+          }),
+          macd: new Form({
+            time_frame: 1,
+          }),
+          symbols: [],
+          executionSymbolName: 'Symbol', // Execution symbol name
+          historySymbolName: '',
+          type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
+          notifications: {
+            topCenter: false
+          }
+        }
+      },
+      created() {
+        // First created then mounted
+      },
+      mounted() {
+        this.loadResources();
+      },
+      methods: {
+        loadResources() {
+          axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+        },
+        updateSymbol() {
+          alert('update symbol btn click');
+        },
+        showNotification (verticalAlign, horizontalAlign, notificationText) {
+          var color = Math.floor((Math.random() * 4) + 1)
+          this.$notify(
+            {
+              component: {
+                template: "<span>" + notificationText + "</span>"
+              },
+              icon: 'ti-info-alt',
+              horizontalAlign: horizontalAlign,
+              verticalAlign: verticalAlign,
+              type: this.type[color]
+            })
+        },
+        priceChannelBacktestClick() {
+          this.priceChannel.execution_symbol_name = this.executionSymbolName;
+          this.priceChannel.history_symbol_name = this.historySymbolName;
+          this.priceChannel.post('/backtest')
+            .then((response) => {
+              //this.$refs['my-modal'].hide();
+              //Fire.$emit('AfterCreate');
+              this.showNotification('bottom', 'right', 'Backtester executed successfully! <br>');
+            })
+            .catch(error => {
+              console.log(error);
+              this.validationErrors.record(error.data.errors)
+              this.showNotification('bottom', 'right', 'Backtester execution error! <br>')
+            })
+        },
+        symbolDropDownClick(index) {
+          this.executionSymbolName = this.symbols[index].execution_symbol_name;
+          this.historySymbolName = this.symbols[index].history_symbol_name;
+          //
+        }
+      }
+    }
+</script>
