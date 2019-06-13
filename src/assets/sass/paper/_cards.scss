@@ -788,7 +788,6 @@
   transition: 0.5s;
   height: 100%;
   margin-bottom: 0;
-  padding-bottom: 0!important;
 
   &:focus,
   &:hover {
@@ -887,6 +886,15 @@
       justify-content: space-between;
       width: 100%;
     }
+  }
+
+  &__trades {
+    width: 60%;
+    word-break: break-all;
+  }
+
+  &__symbol {
+    color: #9a9a9a;
   }
 }
 

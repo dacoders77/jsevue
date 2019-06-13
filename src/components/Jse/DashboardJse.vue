@@ -75,7 +75,7 @@
                       <span v-if='exchange.id == "1"'>Testnet</span>
                       <span v-else>Live</span></span>
                     </td>
-                    <td class="text-success">{{ exchange.status }}</td>
+                    <td class="text-success">Online</td>
                   </tr>
                 </tbody>
                 </table>

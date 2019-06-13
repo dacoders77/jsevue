@@ -39,10 +39,14 @@
         </div>
         <div class="card-dashboard__text d-flex flex-grow">
           <p>
-            <span class="pr-15" v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</span>
-            <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
+            <span class="pr-15 card-dashboard__trades" v-if="bot.status == 'running'">Trades:
+              <span> {{total}} </span>
+            </span>
+            <span class="pr-15 card-dashboard__trades" v-else >Trades:</span>
+            <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id" class="card-dashboard__symbol">{{ symbol.execution_symbol_name }}</span>
           </p>
-          <p>Trades: {{bot.trades_num}}</p>
+
+          <p  v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</p>
         </div>
       </div>
     </div>
@@ -57,8 +61,19 @@
         strategies: null,
         exchanges: null,
         symbols: null,
-        accounts: null
+        accounts: null,
+        botId: '1',
+        trades: []
       }
+    },
+    computed: {
+        total: function() {
+          if (this.trades.trade_date != null) {
+            return this.trades.reduce(function (total, trade) {
+              return total + Number(trade.net_profit);
+            }, 0);
+          }
+        }
     },
     created() {
       // First created then mounted
@@ -66,6 +81,7 @@
     },
     mounted() {
       this.loadResources();
+      this.HistoryBarsLoad(this.botId);
     },
     methods: {
       loadResources: function () {
@@ -80,9 +96,22 @@
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
         console.log("symbols");
 
-      }
+      },
+      HistoryBarsLoad(botId) {
+        axios.get('trading/history/' + botId) // Back end bot id
+          .then((response) => {
+            this.trades = response.data.rawTable;
+            console.log("1");
+            console.log(this.trades);
+            console.log(response.data.rawTable);
+            cconsole.log("2");
 
-     }
+          })
+          .catch((err) => {
+            //alert("Chart.vue can not get history bars. " + err);
+          })
+      }
+    }
   }
 </script>
 <style>
