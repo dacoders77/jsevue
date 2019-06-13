@@ -10,7 +10,7 @@
                 <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-info">
                             <tbody>
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
@@ -35,12 +35,12 @@
                                 <td>
                                 <div v-if="bot">
                                     <div v-if="bot.status == 'idle'">
-                                        <button type="button" class="btn btn-info btn-fill btn-magnify btn-circle" @click="updateBotNew(['runBot', bot])">
+                                        <button type="button" class="btn btn-fill btn-success btn-circle" @click="updateBotNew(['runBot', bot])">
                                             <span class="btn-label"><i class="ti-control-play"></i></span>
                                         </button>
                                     </div>
                                     <div v-if="bot.status == 'running'">
-                                        <button type="button" class="btn btn-info btn-fill btn-danger btn-circle" @click="updateBotNew(['stopBot', bot])">
+                                        <button type="button" class="btn btn-fill btn-warning btn-circle" @click="updateBotNew(['stopBot', bot])">
                                             <span class="btn-label"><i class="ti-control-stop"></i></span>
                                         </button>
                                     </div>
@@ -56,39 +56,39 @@
 
                                 <!-- Account -->
                                 <td>
-                                    <drop-down>
-                                        <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 120px;" :disabled="bot.status == 'running'">
+                                    <drop-down class="dropdown-menu--right">
+                                        <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width" data-toggle="dropdown" style="width: 120px;" :disabled="bot.status == 'running'">
                                             <span v-for="account in accounts" v-if="account.id == bot.account_id">{{ account.name }}</span>
                                             <b class="caret"></b>
                                         </button>
-                                            <li v-if="bot.status == 'idle'" v-for="(account, index) in accounts"><a href="javascript:void(0)" @click="updateBotNew(['updateAccount', bot, index])">{{ account.name }}</a> </li>
+                                            <li v-if="bot.status == 'idle'" v-for="(account, index) in accounts" ><a href="javascript:void(0)" @click="updateBotNew(['updateAccount', bot, index])">{{ account.name }}</a> </li>
                                     </drop-down>
                                 </td>
-                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'account_id']) : '')" ><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'account_id']) : '')" class="btn btn-icon btn-simple btn-icon--danger"><i class="ti-trash"></i></a></td>
 
                                 <!-- Symbol -->
                                 <td>
-                                    <drop-down>
-                                        <button slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
+                                    <drop-down class="dropdown-menu--right">
+                                        <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width" data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
                                             <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
                                             <b class="caret"></b>
                                         </button>
                                         <li v-if="bot.status == 'idle'" v-for="(symbol, index) in symbols"><a href="javascript:void(0)" @click="updateBotNew(['updateSymbol', bot, index])">{{ symbol.execution_symbol_name }}</a> </li>
                                     </drop-down>
                                 </td>
-                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'symbol_id']) : '')"><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'symbol_id']) : '')" class="btn btn-icon btn-simple btn-icon--danger"><i class="ti-trash"></i></a></td>
 
                                 <!-- Strategy -->
                                 <td>
-                                    <drop-down >
-                                        <button v-if="strategies" slot="title" class="btn dropdown-toggle btn-sm" data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
+                                    <drop-down class="dropdown-menu--right">
+                                        <button v-if="strategies" slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width" data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
                                             <span v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</span>
                                             <b class="caret"></b>
                                         </button>
                                         <li v-if="strategies && bot.status == 'idle'" v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">ID:{{ strategy.id }} {{ strategy.name }}</a> </li>
                                     </drop-down>
                                 </td>
-                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'strategy_id']): '')"><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'strategy_id']): '')" class="btn btn-icon btn-simple btn-icon--danger"><i class="ti-trash"></i></a></td>
 
                                 <!-- Time frame -->
                                 <td>
@@ -124,13 +124,13 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
+            <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-control-play"></i>
                 </span> All
             </button>
 
-            <button type="button" class="btn btn-wd btn-danger btn-fill btn-magnify">
+            <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-control-stop"></i>
                 </span> All

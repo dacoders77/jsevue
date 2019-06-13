@@ -411,3 +411,10 @@
     }
   }
 }
+.dropdown-menu--right {
+  .dropdown-menu {
+    left: auto;
+    right: 0;
+    z-index: 1000000;
+  }
+}

@@ -24,18 +24,18 @@
     }
 
     &.btn-icon {
-        border-radius: 25px;
-        padding: 7px 10px;
+        padding: 10px;
         border-radius: 50%;
         background-color: $default-bg;
         border: 1px solid transparent;
+        line-height: 1;
 
 
         i {
           margin-right: 0px;
           font-size: 16px;
           color: $white-color;
-          line-height: 1;
+          line-height: 1!important;
         }
 
         &--success {
@@ -79,6 +79,30 @@
             }
           }
         }
+
+      &--green {
+        background-color: darken($color-green-status, 7%);
+        line-height: 1;
+
+        &:hover,
+        &:focus {
+          background-color: darken($color-green-status, 12%);
+          border-color: darken($color-green-status, 12%);
+
+        }
+      }
+
+      &--red {
+        background-color: darken($color-red, 11%);
+        line-height: 1;
+
+        &:hover,
+        &:focus {
+          background-color: darken($color-red, 20%);
+          border-color: darken($color-red, 20%);;
+
+        }
+      }
     }
 
     [class*="ti-"]{
@@ -236,6 +260,37 @@
     left: 40%;
     margin-top: -15px;
   }
+}
+
+.dropdown-toggle {
+  &--thin {
+    border-width: 1px;
+  }
+
+  &--fix-width {
+
+    span {
+      display: inline-block;
+      width: 80%;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    b {
+      display: inline-block;
+
+    }
+  }
+}
+
+.btn-green {
+  @include btn-styles(darken($color-green-status,7%), darken($color-green-status,12%));
+}
+
+.btn-red {
+  @include btn-styles(darken($color-red,11%), darken($color-red,20%));
 }
 
 @media (min-width: 768px){
