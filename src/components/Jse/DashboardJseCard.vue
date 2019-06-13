@@ -82,10 +82,16 @@
     mounted() {
       this.loadResources();
       this.HistoryBarsLoad(this.botId);
+<<<<<<< HEAD
 
       // Let's count trades
       //console.log(this.trades);
 
+=======
+      this.HistoryBarsLoad(2);
+      this.HistoryBarsLoad(3);
+      this.HistoryBarsLoad(3);
+>>>>>>> 6c6142b8a3e3aa953fb9b6308f4901ece80ca763
     },
     methods: {
       loadResources: function () {
@@ -102,6 +108,7 @@
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
+<<<<<<< HEAD
             this.trades = response.data.rawTable;
             //console.log("1");
             //console.log(this.trades);
@@ -122,6 +129,13 @@
             console.log(count);
             console.log('Revenue for Bot #1: ');
             console.log(notNullRows[count - 1].net_profit);
+=======
+            this.trades[botId] = response.data.rawTable;
+            console.log("1");
+            console.log(this.trades[botId]);
+            console.log(response.data.rawTable);
+            cconsole.log("2");
+>>>>>>> 6c6142b8a3e3aa953fb9b6308f4901ece80ca763
 
           })
           .catch((err) => {
