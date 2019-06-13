@@ -1,15 +1,15 @@
 <template>
 
-  <div class="row">
+  <div class="row position-relative">
         <div class="col-md-12">
 
             <div class="card card-bots">
                 <div class="card-header" style="border: 0px solid red; padding: 0px">
                     <!--<h4 class="title">Trades log</h4>-->
                 </div>
-                <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
+                <div class="card-content table-full-width" style="border: 0px solid blue">
 
-                    <div class="card-body table-responsive p-0">
+                    <div class="card-body p-0">
                         <table class="table table-hover table-info table-i">
                             <tbody>
                             <tr>
@@ -123,20 +123,20 @@
 
                 </div>
             </div>
-            <div class="card-bots__buttons">
-              <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
+        </div>
+    <div class="card-bots__buttons col-sm-12">
+      <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-control-play"></i>
                 </span> All
-            </button>
+      </button>
 
-            <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
+      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-control-stop"></i>
                 </span> All
-            </button>
-            </div>
-        </div>
+      </button>
+    </div>
 
 
   </div>
