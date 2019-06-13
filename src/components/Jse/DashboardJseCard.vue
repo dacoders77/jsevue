@@ -82,6 +82,9 @@
     mounted() {
       this.loadResources();
       this.HistoryBarsLoad(this.botId);
+      this.HistoryBarsLoad(2);
+      this.HistoryBarsLoad(3);
+      this.HistoryBarsLoad(3);
     },
     methods: {
       loadResources: function () {
@@ -100,9 +103,9 @@
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
-            this.trades = response.data.rawTable;
+            this.trades[botId] = response.data.rawTable;
             console.log("1");
-            console.log(this.trades);
+            console.log(this.trades[botId]);
             console.log(response.data.rawTable);
             cconsole.log("2");
 
