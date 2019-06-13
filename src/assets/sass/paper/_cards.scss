@@ -5,8 +5,8 @@
   color: $card-black-color;
   margin-bottom: 20px;
   position: relative;
-  overflow: scroll;
-  z-index: 50;
+  overflow: auto;
+
 
   .card-title,
   .stats,
@@ -903,6 +903,33 @@
   }
 }
 
+.card-bots {
+  z-index: 50;
+  padding-bottom: $padding-bottom-bots;
+  background-color: $bg-nude;
+
+  & .card-content {
+    background-color: $white-color;
+  }
+
+  &__buttons {
+    position: absolute;
+    z-index: 51;
+    bottom: $padding-bottom-bots - 20px;
+  }
+
+  & .table  {
+    background-color: $white-color;
+  }
+
+  &__dropdown {
+
+    & .dropdown-menu {
+      max-height: 170px;
+      overflow: scroll;
+    }
+  }
+}
 
 @media (max-width: 768px) {
   .card-dashboard-wrapper {

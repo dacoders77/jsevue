@@ -3,14 +3,14 @@
   <div class="row">
         <div class="col-md-12">
 
-            <div class="card">
+            <div class="card card-bots">
                 <div class="card-header" style="border: 0px solid red; padding: 0px">
                     <!--<h4 class="title">Trades log</h4>-->
                 </div>
                 <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover table-info">
+                        <table class="table table-hover table-info table-i">
                             <tbody>
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
@@ -56,7 +56,7 @@
 
                                 <!-- Account -->
                                 <td>
-                                    <drop-down class="dropdown-menu--right">
+                                    <drop-down class="dropdown-menu--left card-bots__dropdown">
                                         <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width" data-toggle="dropdown" style="width: 120px;" :disabled="bot.status == 'running'">
                                             <span v-for="account in accounts" v-if="account.id == bot.account_id">{{ account.name }}</span>
                                             <b class="caret"></b>
@@ -68,7 +68,7 @@
 
                                 <!-- Symbol -->
                                 <td>
-                                    <drop-down class="dropdown-menu--right">
+                                    <drop-down class="dropdown-menu--left card-bots__dropdown">
                                         <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width" data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
                                             <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
                                             <b class="caret"></b>
@@ -80,7 +80,7 @@
 
                                 <!-- Strategy -->
                                 <td>
-                                    <drop-down class="dropdown-menu--right">
+                                    <drop-down class="dropdown-menu--left card-bots__dropdown">
                                         <button v-if="strategies" slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width" data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
                                             <span v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</span>
                                             <b class="caret"></b>
@@ -123,8 +123,8 @@
 
                 </div>
             </div>
-
-            <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
+            <div class="card-bots__buttons">
+              <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-control-play"></i>
                 </span> All
@@ -135,11 +135,11 @@
                     <i class="ti-control-stop"></i>
                 </span> All
             </button>
-
+            </div>
         </div>
 
 
-    </div>
+  </div>
 
 </template>
 <script>

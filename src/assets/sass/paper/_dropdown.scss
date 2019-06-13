@@ -415,6 +415,13 @@
   .dropdown-menu {
     left: auto;
     right: 0;
-    z-index: 1000000;
+    z-index: 100;
+  }
+}
+
+.dropdown-menu--left{
+  .dropdown-menu {
+    left: 0;
+    z-index: 100;
   }
 }
