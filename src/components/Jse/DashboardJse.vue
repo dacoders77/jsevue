@@ -191,7 +191,7 @@ import DashboardJseCard from './DashboardJseCard'
            let responseBots = await axios.get('/bot');
            this.name = responseBots.data.data.name;
            this.bots = responseBots.data.data;
-           console.log(this.bots);
+           //console.log(this.bots);
 
            let responseStrategy = await axios.get('/strategy');
            this.strategy_name = responseStrategy.data.data.name;
@@ -200,7 +200,7 @@ import DashboardJseCard from './DashboardJseCard'
            let responseExchange = await axios.get('/exchange');
            this.exchange_name = responseExchange.data.data.name;
            this.exchanges = responseExchange.data.data;
-           console.log(responseExchange.data.data);
+           //console.log(responseExchange.data.data);
 
            let responseSymbol = await axios.get('/symbol');
            this.symbol_name = responseSymbol.data.data.name;
@@ -217,10 +217,10 @@ import DashboardJseCard from './DashboardJseCard'
          axios.get('trading/history/' + botId) // Back end bot id
            .then((response) => {
              this.trades = response.data.rawTable;
-             console.log("1");
-             console.log(this.trades);
-             console.log(response.data.rawTable);
-             cconsole.log("2");
+             //console.log("1");
+             //console.log(this.trades);
+             //console.log(response.data.rawTable);
+             //cconsole.log("2");
 
            })
            .catch((err) => {
