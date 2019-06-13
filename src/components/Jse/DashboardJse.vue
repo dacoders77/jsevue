@@ -195,7 +195,7 @@ import DashboardJseCard from './DashboardJseCard'
 
            let responseStrategy = await axios.get('/strategy');
            this.strategy_name = responseStrategy.data.data.name;
-           this.strategoties = responseStrategy.data.data;
+           this.strategies = responseStrategy.data.data;
 
            let responseExchange = await axios.get('/exchange');
            this.exchange_name = responseExchange.data.data.name;

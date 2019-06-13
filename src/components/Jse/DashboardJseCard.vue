@@ -40,13 +40,13 @@
         <div class="card-dashboard__text d-flex flex-grow">
           <p>
             <span class="pr-15 card-dashboard__trades" v-if="bot.status == 'running'">Trades:
-              <span> {{total}} </span>
+              <span > {{total}} </span>
             </span>
             <span class="pr-15 card-dashboard__trades" v-else >Trades:</span>
             <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id" class="card-dashboard__symbol">{{ symbol.execution_symbol_name }}</span>
           </p>
 
-          <p  v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</p>
+          <p v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</p>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@
       this.HistoryBarsLoad(this.botId);
       this.HistoryBarsLoad(2);
       this.HistoryBarsLoad(3);
-      this.HistoryBarsLoad(3);
+      this.HistoryBarsLoad(4);
     },
     methods: {
       loadResources: function () {
