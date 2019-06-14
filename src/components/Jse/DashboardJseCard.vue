@@ -8,7 +8,7 @@
             </div>
           </div>
           <div class="numbers">
-            <p>{{bot.name}}</p>
+            <p>{{bots[bot -1].name}}</p>
             <!--{{bot.volume}} &#36;-->
             {{ netProfit }}
           </div>
@@ -17,36 +17,35 @@
 
           <h5> <!-- account.bots_id == bot.id -->
             <span v-for="account in accounts">
-            <span v-if="account.id == bot.id">
+            <span v-if="account.id == bots[bot-1].id">
               <!-- Now go through all exchanges -->
               <span v-for="exchange in exchanges" v-if="account.exchange_id == exchange.id">{{ exchange.name }}</span>
             </span>
-              <!--<span v-for="exchange in exchanges" v-if="exchange.account_id == account.exchange_id"> {{ exchange.name }}</span>-->
             </span>
           </h5>
 
-          <p class="card-dashboard__status" v-if="bot.status == 'idle'">
-            {{bot.status}}
+          <p class="card-dashboard__status" v-if="bots[bot -1].status == 'idle'">
+            {{bots[bot -1].status}}
             <i class="card-dashboard__status-icon"></i>
           </p>
-          <p class="card-dashboard__status" v-else-if="bot.status == 'running'">
-            {{bot.status}}
+          <p class="card-dashboard__status" v-else-if="bots[bot -1].status == 'running'">
+            {{bots[bot -1].status}}
             <i class="card-dashboard__status-icon card-dashboard__status-icon--fill"></i>
           </p>
           <p class="card-dashboard__status" v-else>
-            {{bot.status}}
+            {{bots[bot -1].status}}
           </p>
         </div>
         <div class="card-dashboard__text d-flex flex-grow">
           <p>
-            <span class="pr-15 card-dashboard__trades" v-if="bot.status == 'running'">Trades:
+            <span class="pr-15 card-dashboard__trades" v-if="bots[bot-1].status == 'running'">Trades:
               <span>{{ total }}</span>
             </span>
             <span class="pr-15 card-dashboard__trades" v-else >Trades:</span>
-            <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id" class="card-dashboard__symbol">{{ symbol.execution_symbol_name }}</span>
+            <span v-for="symbol in symbols" v-if="symbol.id == bots[bot-1].symbol_id" class="card-dashboard__symbol">{{ symbol.execution_symbol_name }}</span>
           </p>
 
-          <p v-for="strategy in strategies" v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</p>
+          <p v-for="strategy in strategies" v-if="strategy.id == bots[bot-1].strategy_id">{{ strategy.name }}</p>
         </div>
       </div>
     </div>
@@ -80,10 +79,18 @@
       },
       // Revenue
       netProfit: function () {
-        //console.log(this.trades.length)
         if (typeof(this.trades[this.trades.length - 2]) !== 'undefined')
           return (this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
-      }
+      },
+      // strategy() {
+      //   return this.strategies.find(s => s.id == this.bots[bot-1].strategy_id)
+      // },
+      // account() {
+      //   return this.accounts.find(a => a.id == this.bots[bot-1].id)
+      // },
+      // exchange() {
+      //   return this.exchanges.find(e => e.id == this.account.exchange_id)
+      // }
     },
       mounted () {
         this.loadResources();
