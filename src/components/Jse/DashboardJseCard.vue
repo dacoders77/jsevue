@@ -9,7 +9,7 @@
           </div>
           <div class="numbers">
             <p>{{bots[bot -1].name}}</p>
-            {{ netProfit }}
+            <p class="revenue">{{ netProfit }}</p>
           </div>
         </div>
         <div class="card-dashboard__bar">
