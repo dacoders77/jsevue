@@ -55,7 +55,7 @@
     props: {
       bot: Object
     },
-    data() {
+    data () {
       return {
         strategies: null,
         exchanges: null,
@@ -65,64 +65,50 @@
       }
     },
     computed: {
-          /*total: function(trades) {
-            return this.trades.filter(function (trade) {
-              return trade.trade_date !== null;
-            }).reduce(function (total, trade) {
-              return total + Number(trade.net_profit);
-            }, 0);
-          }*/
-
-      total: function() {
+      // Total trades quantity
+      total: function () {
         let notNullTrades;
         notNullTrades = (this.trades.filter(function (trade) {
           return trade.trade_date !== null;
         }));
-
-        //console.log(notNullTrades.length);
-        //console.log(notNullTrades[notNullTrades.length - 1].net_profit); // Works good
-
-        if (typeof(notNullTrades[notNullTrades.length - 1]) == 'undefined'){
-          //alert('Not defined exception handled');
-        } else {
+        if (typeof(notNullTrades[notNullTrades.length - 1]) !== 'undefined')
           return notNullTrades.length;
-        }
       },
       // Revenue
-      netProfit: function() {
+      netProfit: function () {
         //console.log(this.trades.length)
-        if (typeof(this.trades[this.trades.length - 2]) == 'undefined'){
-          //alert('Not defined exception handled');
-        } else {
-          //console.log(this.trades[this.trades.length - 2]);
-          return(this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
-        }
+        if (typeof(this.trades[this.trades.length - 2]) !== 'undefined')
+          return (this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
       }
     },
 
-    mounted() {
-      this.loadResources();
-      this.HistoryBarsLoad();
-    },
-
-    methods: {
-      loadResources: function () {
-        axios.get('/account').then(({data}) => (this.accounts = data.data));
-        axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
-        axios.get('/symbol').then(({data}) => (this.symbols = data.data));
-        axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+    //mounted() {
+     // this.loadResources();
+     // this.HistoryBarsLoad();
+    //},
+      mounted () {
+        this.HistoryBarsLoad(this.botId);
       },
-      HistoryBarsLoad() {
-        axios.get(`trading/history/${this.bot.id}`) // Back end bot id
-      .then((response) => {
-        this.trades = response.data.rawTable;
-      })
-      .catch((err) => {
+      methods: {
+          loadResources: function () {
+            axios.get('/account').then(({data}) => (this.accounts = data.data));
+            axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
+            axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+            axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+          },
+          HistoryBarsLoad () {
+            axios.get(`trading/history/${this.bot.id}`) // Back end bot id
+              .then((response) => {
+                this.trades = response.data.rawTable;
+                console.log(this.trades);
+              })
+              .catch((err) => {
+                alert('trading/history load error');
+              })
+          }
+        }
+  }
 
-      })
-  }
-    }
-  }
 </script>
 <style>
 
