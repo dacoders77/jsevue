@@ -108,10 +108,10 @@
             axios.get('trading/history/' + this.bot) // Back end bot id
               .then((response) => {
                 this.trades = response.data.rawTable;
-                console.log(this.trades);
               })
               .catch((err) => {
-                alert('trading/history load error');
+                //alert('trading/history load error');
+                console.log('trading/history load error. DashboardJseCard.vue');
               })
           }
         }

@@ -73,7 +73,7 @@
                     <td>{{ exchange.name }}</td>
                     <td class="card-pages-dashboard__api" >
                       <span v-if='exchange.id == "1"'>Testnet</span>
-                      <span v-else>Live</span></span>
+                      <span v-else>Live</span>
                     </td>
                     <td class="text-success">Online</td>
                   </tr>
