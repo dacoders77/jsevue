@@ -9,7 +9,6 @@
           </div>
           <div class="numbers">
             <p>{{bots[bot -1].name}}</p>
-            <!--{{bot.volume}} &#36;-->
             {{ netProfit }}
           </div>
         </div>
