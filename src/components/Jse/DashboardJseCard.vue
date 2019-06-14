@@ -97,8 +97,7 @@
           //console.log(this.trades[this.trades.length - 2]);
           return(this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
         }
-      },
-
+      }
     },
 
     mounted() {

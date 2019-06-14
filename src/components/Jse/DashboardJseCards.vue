@@ -18,7 +18,6 @@ import DashboardJseCard from './DashboardJseCard'
         bots: [],
         exchanges: [],
         accounts: [],
-
       }
     }
   }
