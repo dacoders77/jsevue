@@ -68,56 +68,30 @@
       }
     },
     computed: {
-          /*total: function(trades) {
-            return this.trades.filter(function (trade) {
-              return trade.trade_date !== null;
-            }).reduce(function (total, trade) {
-              return total + Number(trade.net_profit);
-            }, 0);
-          }*/
-
+      // Total trades quantity
       total: function() {
         let notNullTrades;
         notNullTrades = (this.trades.filter(function (trade) {
           return trade.trade_date !== null;
         }));
-
-        //console.log(notNullTrades.length);
-        //console.log(notNullTrades[notNullTrades.length - 1].net_profit); // Works good
-
-        if (typeof(notNullTrades[notNullTrades.length - 1]) == 'undefined'){
-          //alert('Not defined exception handled');
-        } else {
+        if (typeof(notNullTrades[notNullTrades.length - 1]) !== 'undefined')
           return notNullTrades.length;
-        }
       },
       // Revenue
       netProfit: function() {
         //console.log(this.trades.length)
-        if (typeof(this.trades[this.trades.length - 2]) == 'undefined'){
-          //alert('Not defined exception handled');
-        } else {
-          //console.log(this.trades[this.trades.length - 2]);
+        if (typeof(this.trades[this.trades.length - 2]) !== 'undefined')
           return(this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
-        }
       }
     },
 
     mounted() {
       this.loadResources();
       this.HistoryBarsLoad(this.botId);
-      // this.HistoryBarsLoad(2);
-      //this.HistoryBarsLoad(3);
-       //this.HistoryBarsLoad(4);
-
     },
     methods: {
       loadResources: function () {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
-
-        //you need to go like this:
-        //axios.get('/bot').then(({data}) => (console.log(data.data)));
-
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
@@ -127,29 +101,6 @@
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
             this.trades = response.data.rawTable;
-
-            // MY CODE
-            //let count = 0;
-            //let notNullRows = [];
-            //this.trades.forEach(function(element){
-              //if (element.trade_date != null) {
-                //console.log(element);
-               // count++;
-              //  notNullRows.push(element);
-             // }
-            //})
-           // console.log('Trades quantity for Bot #1: ');
-            //console.log(count);
-           // console.log('Revenue for Bot #1: ');
-            //console.log(notNullRows[count - 1].net_profit);
-            //console.log(trades);
-
-            // this.trades[botId] = response.data.rawTable;
-            // console.log("1");
-            // console.log(this.trades[botId]);
-            // console.log(response.data.rawTable);
-            // cconsole.log("2");
-
           })
           .catch((err) => {
             //alert("Chart.vue can not get history bars. " + err);
