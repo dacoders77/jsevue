@@ -80,7 +80,6 @@
       },
       // Revenue
       netProfit: function () {
-        //console.log(this.trades.length)
         if (typeof(this.trades[this.trades.length - 2]) !== 'undefined')
           return (this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
       }
@@ -101,10 +100,10 @@
             axios.get('trading/history/' + this.bot) // Back end bot id
               .then((response) => {
                 this.trades = response.data.rawTable;
-                console.log(this.trades);
               })
               .catch((err) => {
-                alert('trading/history load error');
+                //alert('trading/history load error');
+                console.log('trading/history load error. DashboardJseCard.vue');
               })
           }
         }
