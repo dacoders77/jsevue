@@ -79,9 +79,9 @@
     mounted() {
       this.loadResources();
       this.HistoryBarsLoad(this.botId);
-      //this.HistoryBarsLoad(2);
-      // this.HistoryBarsLoad(3);
-      // this.HistoryBarsLoad(4);
+      // this.HistoryBarsLoad(2);
+      //this.HistoryBarsLoad(3);
+       //this.HistoryBarsLoad(4);
 
     },
     methods: {
