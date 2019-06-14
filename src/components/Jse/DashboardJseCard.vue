@@ -11,7 +11,7 @@
             <div class="numbers">
               <p>{{bot.name}}</p>
               <!--{{bot.volume}} &#36;-->
-              {{ total }}
+              {{ netProfit }}
             </div>
         </div>
         <div class="card-dashboard__bar">
@@ -41,7 +41,7 @@
         <div class="card-dashboard__text d-flex flex-grow">
           <p>
             <span class="pr-15 card-dashboard__trades" v-if="bot.status == 'running'">Trades:
-              <span>xxx-xxx</span>
+              <span>{{ total }}</span>
             </span>
             <span class="pr-15 card-dashboard__trades" v-else >Trades:</span>
             <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id" class="card-dashboard__symbol">{{ symbol.execution_symbol_name }}</span>
@@ -85,12 +85,21 @@
         //console.log(notNullTrades.length);
         //console.log(notNullTrades[notNullTrades.length - 1].net_profit); // Works good
 
-        if (typeof (notNullTrades[notNullTrades.length - 1]) == 'undefined'){
+        if (typeof(notNullTrades[notNullTrades.length - 1]) == 'undefined'){
           //alert('Not defined exception handled');
         } else {
-          return notNullTrades[notNullTrades.length - 1].net_profit;
+          return notNullTrades.length;
         }
-
+      },
+      // Revenue
+      netProfit: function() {
+        //console.log(this.trades.length)
+        if (typeof(this.trades[this.trades.length - 2]) == 'undefined'){
+          //alert('Not defined exception handled');
+        } else {
+          //console.log(this.trades[this.trades.length - 2]);
+          return(this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
+        }
       }
     },
 
