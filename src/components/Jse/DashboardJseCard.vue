@@ -67,20 +67,19 @@
       }
     },
     computed: {
-        total: function() {
-         return this.trades.reduce(function (total, trade) {
-             return total + Number(trade.net_profit);
-           }, 0);
-         }
+          total: function(trades) {
+            return this.trades.filter(function (trade) {
+              return trade.trade_date !== null;
+            }).reduce(function (total, trade) {
+              return total + Number(trade.net_profit);
+            }, 0);
+          }
     },
-    created() {
-      // First created then mounted
-      // This component loads twice. Why?
-    },
+
     mounted() {
       this.loadResources();
       this.HistoryBarsLoad(this.botId);
-      // this.HistoryBarsLoad(2);
+      //this.HistoryBarsLoad(2);
       // this.HistoryBarsLoad(3);
       // this.HistoryBarsLoad(4);
 
@@ -103,20 +102,20 @@
             this.trades = response.data.rawTable;
 
             // MY CODE
-            let count = 0;
-            let notNullRows = [];
-            this.trades.forEach(function(element){
-              if (element.trade_date != null) {
+            //let count = 0;
+            //let notNullRows = [];
+            //this.trades.forEach(function(element){
+              //if (element.trade_date != null) {
                 //console.log(element);
-                count++;
-                notNullRows.push(element);
-              }
-            })
-            console.log('Trades quantity for Bot #1: ');
-            console.log(count);
-            console.log('Revenue for Bot #1: ');
-            console.log(notNullRows[count - 1].net_profit);
-            console.log(trades);
+               // count++;
+              //  notNullRows.push(element);
+             // }
+            //})
+           // console.log('Trades quantity for Bot #1: ');
+            //console.log(count);
+           // console.log('Revenue for Bot #1: ');
+            //console.log(notNullRows[count - 1].net_profit);
+            //console.log(trades);
 
             // this.trades[botId] = response.data.rawTable;
             // console.log("1");
