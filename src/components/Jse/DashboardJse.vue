@@ -1,6 +1,6 @@
 <template>
 <div>
-  <dashboard-jse-cards></dashboard-jse-cards>
+  <dashboard-jse-card></dashboard-jse-card>
     <div class="row">
       <div class="col-md-6">
         <div class="card h-100"><!---->
@@ -124,11 +124,10 @@
 </template>
 <script>
 
-import moment from 'moment'
-import DashboardJseCards from './DashboardJseCards'
+import DashboardJseCard from './DashboardJseCard'
   export default {
     components: {
-      DashboardJseCards
+      DashboardJseCard
     },
     data () {
       return {
@@ -240,11 +239,6 @@ import DashboardJseCards from './DashboardJseCards'
          axios.get('trading/history/' + botId) // Back end bot id
            .then((response) => {
              this.trades = response.data.rawTable;
-             //console.log("1");
-             //console.log(this.trades);
-             //console.log(response.data.rawTable);
-             //cconsole.log("2");
-
            })
            .catch((err) => {
              //alert("Chart.vue can not get history bars. " + err);

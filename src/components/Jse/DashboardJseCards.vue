@@ -1,8 +1,6 @@
 <template>
-  <div class="row" >
-    <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
-      <DashboardJseCard :bot="bot" />
-    </div>
+  <div>
+    <dashboard-jse-card></dashboard-jse-card>
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
-  <div class="card-dashboard-wrapper">
+  <div class="row card-dashboard-wrapper">
+    <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
       <div class="card card-stats card-dashboard p-10">
         <div class="d-flex">
           <div >
@@ -7,10 +8,11 @@
               <i class="ti-wallet card-dashboard__icon"></i>
             </div>
           </div>
-            <div class="numbers">
-              <p>{{bot.name}}</p>
-              <span v-if="bot.status == 'running'">{{ netProfit }} </span>
-            </div>
+          <div class="numbers">
+            <p>{{bot.name}}</p>
+            <!--{{bot.volume}} &#36;-->
+            {{ netProfit }}
+          </div>
         </div>
         <div class="card-dashboard__bar">
 
@@ -20,6 +22,7 @@
               <!-- Now go through all exchanges -->
               <span v-for="exchange in exchanges" v-if="account.exchange_id == exchange.id">{{ exchange.name }}</span>
             </span>
+              <!--<span v-for="exchange in exchanges" v-if="exchange.account_id == account.exchange_id"> {{ exchange.name }}</span>-->
             </span>
           </h5>
 
@@ -48,19 +51,19 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
   export default {
-    props: {
-      bot: Object
-    },
-    data () {
+    data() {
       return {
+        bots: [],
         strategies: null,
         exchanges: null,
         symbols: null,
         accounts: null,
+        botId: '1',
         trades: []
       }
     },
@@ -81,23 +84,20 @@
           return (this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
       }
     },
-
-    //mounted() {
-     // this.loadResources();
-     // this.HistoryBarsLoad();
-    //},
       mounted () {
+        this.loadResources();
         this.HistoryBarsLoad(this.botId);
       },
       methods: {
           loadResources: function () {
+            axios.get('/bot').then(({data}) => (this.bots = data.data));
             axios.get('/account').then(({data}) => (this.accounts = data.data));
             axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
             axios.get('/symbol').then(({data}) => (this.symbols = data.data));
             axios.get('/strategy').then(({data}) => (this.strategies = data.data));
           },
-          HistoryBarsLoad () {
-            axios.get(`trading/history/${this.bot.id}`) // Back end bot id
+          HistoryBarsLoad(botId) {
+            axios.get('trading/history/' + botId) // Back end bot id
               .then((response) => {
                 this.trades = response.data.rawTable;
                 console.log(this.trades);
