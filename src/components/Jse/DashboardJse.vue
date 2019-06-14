@@ -85,7 +85,7 @@
           <div class="col-md-12 p-15 py-0">
             <div class="card card-pages-dashboard card-pages-dashboard--green card-pages-dashboard--big"><!---->
               <h4 class="card-title" >Trades
-                <span> {{bots[0].name}}</span>
+                <span v-if="bots[0]"> {{bots[0].name}}</span>
               </h4>
               <table class="table table-hover table-success card-pages-dashboard__table">
                 <tbody>
@@ -99,9 +99,15 @@
                   </tr>
                   <tr v-for="trade in lastTrades" :key="trade.id" v-if='trade.trade_date != null'>
                     <td class="card-pages-dashboard__time">{{ trade.date | myDate }}</td>
-                    <td class="text-success card-pages-dashboard__api text-align-center"><span>{{ bots[0].name }}</span></td>
-                    <td class="card-pages-dashboard__api text-align-center"><span class="text-break">{{ symbols[(bots[0].symbol_id) - 1 ].execution_symbol_name }}</span></td>
-                    <td class="text-success text-align-center">{{ bots[0].volume }}</td>
+                    <td class="text-success card-pages-dashboard__api text-align-center"><span v-if="bots[0]">{{ bots[0].name }}</span></td>
+                    <td class="card-pages-dashboard__api text-align-center">
+                      <span v-if="bots[0] && symbols" class="text-break">
+                        {{ symbols[(bots[0].symbol_id) - 1 ].execution_symbol_name }}
+                      </span>
+                    </td>
+
+                    <td class="text-success text-align-center" v-if="bots[0]">{{ bots[0].volume }}</td>
+
                     <td class="text-success text-align-center">{{ trade.trade_direction}}</td>
                     <td class="text-success text-align-center">{{ trade.trade_price}}</td>
                   </tr>
@@ -130,7 +136,24 @@ import DashboardJseCard from './DashboardJseCard'
       strategies: null,
       exchanges: null,
       symbols: null,
-      bots: null,
+      bots: [
+        {
+          'id':1,
+          'account_id': 9,
+          'bars_to_load': 50,
+          'created_at': '2019-06-10 01:13:39',
+          'db_table_name': 'bot_1',
+          'front_end_id': 12345,
+          'memo': 'memo',
+          'name': 'bot_01',
+          'rate_limit': 4,
+          'status': 'running',
+          'strategy_id': 1,
+          'symbol_id': 1,
+          'time_frame': 1,
+          'updated_at': '2019-06-10 01:13:39',
+          'volume': 1
+        }],
       botId: 1,
       trades: null,
 
