@@ -117,12 +117,6 @@
             //console.log(notNullRows[count - 1].net_profit);
             //console.log(trades);
 
-            // this.trades[botId] = response.data.rawTable;
-            // console.log("1");
-            // console.log(this.trades[botId]);
-            // console.log(response.data.rawTable);
-            // cconsole.log("2");
-
           })
           .catch((err) => {
             //alert("Chart.vue can not get history bars. " + err);
