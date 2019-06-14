@@ -1,6 +1,5 @@
 <template>
-  <div class="row card-dashboard-wrapper">
-    <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
+  <div>
       <div class="card card-stats card-dashboard p-10">
         <div class="d-flex">
           <div >
@@ -51,11 +50,13 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
   export default {
+    props: {
+     bot: Number
+    },
     data() {
       return {
         bots: [],
@@ -86,7 +87,7 @@
     },
       mounted () {
         this.loadResources();
-        this.HistoryBarsLoad(this.botId);
+        this.HistoryBarsLoad(this.item);
       },
       methods: {
           loadResources: function () {
@@ -97,7 +98,7 @@
             axios.get('/strategy').then(({data}) => (this.strategies = data.data));
           },
           HistoryBarsLoad(botId) {
-            axios.get('trading/history/' + botId) // Back end bot id
+            axios.get('trading/history/' + this.bot) // Back end bot id
               .then((response) => {
                 this.trades = response.data.rawTable;
                 console.log(this.trades);

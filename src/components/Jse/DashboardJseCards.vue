@@ -1,25 +1,31 @@
+// DashboardJseCards.vue
 <template>
-  <div>
-    <dashboard-jse-card></dashboard-jse-card>
+  <div class="row" >
+    <div class="col-sm-6 col-lg-3 mb-15" v-for="item in count">
+      <!-- 1,2,3,4 -->
+      <!-- В DashBoardJseCar получаешь этот irem и ставишшь его в
+          url запроса. trading/history/item-->
+      <DashboardJseCard :bot="item"/>
+    </div>
   </div>
 </template>
 
 <script>
-import DashboardJseCard from './DashboardJseCard'
+  import DashboardJseCard from './DashboardJseCard'
   export default {
     components: {
       DashboardJseCard
     },
-
     data: function () {
       return {
         bots: [],
         exchanges: [],
         accounts: [],
+        count: 4,
       }
     }
   }
-</script>
+  </script>
 <style>
-
 </style>
+
