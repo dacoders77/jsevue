@@ -1,6 +1,5 @@
 <template>
-  <div class="row card-dashboard-wrapper">
-    <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
+  <div class="card-dashboard-wrapper">
       <div class="card card-stats card-dashboard p-10">
         <div class="d-flex">
           <div >
@@ -10,8 +9,7 @@
           </div>
             <div class="numbers">
               <p>{{bot.name}}</p>
-              <!--{{bot.volume}} &#36;-->
-              {{ netProfit }}
+              <span v-if="bot.status == 'running'">{{ netProfit }} </span>
             </div>
         </div>
         <div class="card-dashboard__bar">
@@ -22,10 +20,9 @@
               <!-- Now go through all exchanges -->
               <span v-for="exchange in exchanges" v-if="account.exchange_id == exchange.id">{{ exchange.name }}</span>
             </span>
-           <!--<span v-for="exchange in exchanges" v-if="exchange.account_id == account.exchange_id"> {{ exchange.name }}</span>-->
             </span>
           </h5>
-          
+
           <p class="card-dashboard__status" v-if="bot.status == 'idle'">
             {{bot.status}}
             <i class="card-dashboard__status-icon"></i>
@@ -51,25 +48,25 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
   export default {
-    data() {
+    props: {
+      bot: Object
+    },
+    data () {
       return {
-        bots: [],
         strategies: null,
         exchanges: null,
         symbols: null,
         accounts: null,
-        botId: '1',
         trades: []
       }
     },
     computed: {
       // Total trades quantity
-      total: function() {
+      total: function () {
         let notNullTrades;
         notNullTrades = (this.trades.filter(function (trade) {
           return trade.trade_date !== null;
@@ -78,36 +75,35 @@
           return notNullTrades.length;
       },
       // Revenue
-      netProfit: function() {
+      netProfit: function () {
         //console.log(this.trades.length)
         if (typeof(this.trades[this.trades.length - 2]) !== 'undefined')
-          return(this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
-      }
-    },
-
-    mounted() {
-      this.loadResources();
-      this.HistoryBarsLoad(this.botId);
-    },
-    methods: {
-      loadResources: function () {
-        axios.get('/bot').then(({data}) => (this.bots = data.data));
-        axios.get('/account').then(({data}) => (this.accounts = data.data));
-        axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
-        axios.get('/symbol').then(({data}) => (this.symbols = data.data));
-        axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+          return (this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
       },
-      HistoryBarsLoad(botId) {
-        axios.get('trading/history/' + botId) // Back end bot id
-          .then((response) => {
-            this.trades = response.data.rawTable;
-          })
-          .catch((err) => {
-            //alert("Chart.vue can not get history bars. " + err);
-          })
+      mounted () {
+        this.HistoryBarsLoad(this.botId);
+      },
+      methods: {
+        loadResources: function () {
+          axios.get('/account').then(({data}) => (this.accounts = data.data));
+          axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
+          axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+          axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+        },
+        HistoryBarsLoad () {
+          axios.get(`trading/history/${this.bot.id}`) // Back end bot id
+            .then((response) => {
+              this.trades = response.data.rawTable;
+              console.log(this.trades);
+            })
+            .catch((err) => {
+              alert('trading/history load error');
+            })
+        }
       }
     }
   }
+
 </script>
 <style>
 

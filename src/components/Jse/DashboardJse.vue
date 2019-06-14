@@ -1,6 +1,6 @@
 <template>
 <div>
-  <dashboard-jse-card></dashboard-jse-card>
+  <dashboard-jse-cards></dashboard-jse-cards>
     <div class="row">
       <div class="col-md-6">
         <div class="card h-100"><!---->
@@ -125,10 +125,10 @@
 <script>
 
 import moment from 'moment'
-import DashboardJseCard from './DashboardJseCard'
+import DashboardJseCards from './DashboardJseCards'
   export default {
     components: {
-      DashboardJseCard
+      DashboardJseCards
     },
     data () {
       return {
