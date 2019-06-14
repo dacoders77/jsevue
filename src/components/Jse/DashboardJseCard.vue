@@ -1,6 +1,5 @@
 <template>
-  <div class="row card-dashboard-wrapper">
-    <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
+  <div class="card-dashboard-wrapper">
       <div class="card card-stats card-dashboard p-10">
         <div class="d-flex">
           <div >
@@ -10,8 +9,7 @@
           </div>
             <div class="numbers">
               <p>{{bot.name}}</p>
-              <!--{{bot.volume}} &#36;-->
-              {{ netProfit }}
+              <span v-if="bot.status == 'running'">{{ netProfit }} </span>
             </div>
         </div>
         <div class="card-dashboard__bar">
@@ -22,10 +20,9 @@
               <!-- Now go through all exchanges -->
               <span v-for="exchange in exchanges" v-if="account.exchange_id == exchange.id">{{ exchange.name }}</span>
             </span>
-           <!--<span v-for="exchange in exchanges" v-if="exchange.account_id == account.exchange_id"> {{ exchange.name }}</span>-->
             </span>
           </h5>
-          
+
           <p class="card-dashboard__status" v-if="bot.status == 'idle'">
             {{bot.status}}
             <i class="card-dashboard__status-icon"></i>
@@ -51,19 +48,19 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
   export default {
+    props: {
+      bot: Object
+    },
     data() {
       return {
-        bots: [],
         strategies: null,
         exchanges: null,
         symbols: null,
         accounts: null,
-        botId: '1',
         trades: []
       }
     },
@@ -100,55 +97,31 @@
           //console.log(this.trades[this.trades.length - 2]);
           return(this.trades[this.trades.length - 2].net_profit); // Get the penultimate row. Net profit in the last on is always null
         }
-      }
+      },
+
     },
 
     mounted() {
       this.loadResources();
-      this.HistoryBarsLoad(this.botId);
-      // this.HistoryBarsLoad(2);
-      //this.HistoryBarsLoad(3);
-       //this.HistoryBarsLoad(4);
-
+      this.HistoryBarsLoad();
     },
+
     methods: {
       loadResources: function () {
-        axios.get('/bot').then(({data}) => (this.bots = data.data));
-
-        //you need to go like this:
-        //axios.get('/bot').then(({data}) => (console.log(data.data)));
-
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
       },
-      HistoryBarsLoad(botId) {
-        axios.get('trading/history/' + botId) // Back end bot id
-          .then((response) => {
-            this.trades = response.data.rawTable;
+      HistoryBarsLoad() {
+        axios.get(`trading/history/${this.bot.id}`) // Back end bot id
+      .then((response) => {
+        this.trades = response.data.rawTable;
+      })
+      .catch((err) => {
 
-            // MY CODE
-            //let count = 0;
-            //let notNullRows = [];
-            //this.trades.forEach(function(element){
-              //if (element.trade_date != null) {
-                //console.log(element);
-               // count++;
-              //  notNullRows.push(element);
-             // }
-            //})
-           // console.log('Trades quantity for Bot #1: ');
-            //console.log(count);
-           // console.log('Revenue for Bot #1: ');
-            //console.log(notNullRows[count - 1].net_profit);
-            //console.log(trades);
-
-          })
-          .catch((err) => {
-            //alert("Chart.vue can not get history bars. " + err);
-          })
-      }
+      })
+  }
     }
   }
 </script>
