@@ -9,7 +9,7 @@
         </div>
         <div class="numbers">
           <p>{{bot.name}}</p>
-          <p class="revenue">{{ netProfit }}</p>
+          <p class="revenue" v-if="bot.status == 'running'">{{ netProfit }}</p>
         </div>
       </div>
       <div class="card-dashboard__bar">
