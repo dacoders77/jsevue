@@ -94,7 +94,7 @@
              //'open': is created when new bar is added to the chart
              'high': payload.payload.tradeBarHigh, // if tradeBarHigh > open
              'low': payload.payload.tradeBarLow, // if tradeBarLow < open of the current bar
-            'close': payload.payload.tradePrice
+             'close': payload.payload.tradePrice
           }, true);
         }
         // New bar is issued. Flag sent from CandleMaker.php
