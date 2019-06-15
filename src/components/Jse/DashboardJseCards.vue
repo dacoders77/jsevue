@@ -2,9 +2,6 @@
 <template>
   <div class="row card-dashboard-wrapper">
     <div class="col-sm-6 col-lg-3 mb-15" v-for="bot in bots">
-      <!-- 1,2,3,4 -->
-      <!-- В DashBoardJseCar получаешь этот irem и ставишшь его в
-          url запроса. trading/history/item-->
       <DashboardJseCard :bot="bot"
                         :account="findAccount(bot)"
                         :symbol="findSymbol(bot)"

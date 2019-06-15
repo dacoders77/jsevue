@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card card-backtasted">
         <div class="card-header">
             <h4 class="card-title">History backtester</h4>
             <!--<p class="category">Max 500 bars load</p>-->
@@ -10,18 +10,21 @@
                     <div>
 
                         <!-- Symbol drop down -->
-                        <td>
-                            <drop-down>
-                                <button slot="title" class="btn dropdown-toggle btn-xs" data-toggle="dropdown" style="width: 100%;">
+
+                            <drop-down class="card-backtasted__dropdown">
+                                <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin mb-10" data-toggle="dropdown" style="width: 100%;">
                                     <!--<span v-for="symbol in symbols" >{{ symbol.execution_symbol_name }}</span>-->
                                     <span>{{ executionSymbolName }}</span>
                                     <b class="caret"></b>
                                 </button>
                                 <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
                             </drop-down>
-                        </td>
 
-                        <b-form-group label="bars_to_load:" label-for="bars_to_load" class="account-row">
+
+                        <b-form-group label="Bars to load:"
+                                      label-for="bars_to_load"
+                                      description="If you put about 300-500 - the request is may take up to 20 seconds or even more. "
+                                      class="account-row card-backtasted__form-group card-backtasted__form-group--baseline">
                             <b-form-input
                                     id="bars_to_load"
                                     v-model="priceChannel.bars_to_load"
@@ -32,7 +35,7 @@
                             <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>
                         </b-form-group>
 
-                        <b-form-group label="bar_time_frame:" label-for="bar_time_frame" class="account-row">
+                        <b-form-group label="Bar time frame:" label-for="bar_time_frame" class="account-row card-backtasted__form-group">
                             <b-form-input
                                     id="bar_time_frame"
                                     v-model="priceChannel.bar_time_frame"
@@ -43,7 +46,7 @@
                             <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bar_time_frame') }}</b-form-invalid-feedback>
                         </b-form-group>
 
-                        <b-form-group label="time_frame:" label-for="time_frame" class="account-row">
+                        <b-form-group label="Time frame:" label-for="time_frame" class="account-row card-backtasted__form-group">
                             <b-form-input
                                     id="time_frame"
                                     v-model="priceChannel.time_frame"
@@ -54,7 +57,7 @@
                             <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('time_frame') }}</b-form-invalid-feedback>
                         </b-form-group>
 
-                        <b-form-group label="sma_filer_period:" label-for="sma_filer_period" class="account-row">
+                        <b-form-group label="Sma filer period:" label-for="sma_filer_period" class="account-row card-backtasted__form-group">
                             <b-form-input
                                     id="sma_filer_period"
                                     v-model="priceChannel.sma_filer_period"
@@ -66,20 +69,96 @@
                         </b-form-group>
                     </div>
 
-                    <div style="float: right">
+                  <div style="float: right" class="w-100">
 
-                        <button type="button" class="btn btn-xs dropdown-toggle btn-magnify" @click="priceChannelBacktestClick()">
-                            <span class="btn-label">
-                                <!--<i class="ti-thumb-up"></i>-->
-                            </span>Go
-                        </button>
-                    </div>
+                    <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="priceChannelBacktestClick()">
+                      Go
+                    </button>
+                  </div>
 
                 </el-collapse-item>
                 <el-collapse-item title="MACD" name="2">
-                    <div>
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
+                  <div>
+
+                    <!-- Symbol drop down -->
+
+                    <drop-down class="card-backtasted__dropdown">
+                      <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin mb-10" data-toggle="dropdown" style="width: 100%;">
+                        <!--<span v-for="symbol in symbols" >{{ symbol.execution_symbol_name }}</span>-->
+                        <span>{{ executionSymbolName }}</span>
+                        <b class="caret"></b>
+                      </button>
+                      <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
+                    </drop-down>
+
+
+                    <b-form-group
+                      label="Bars to load:"
+                      label-for="macd_bars_to_load"
+                      description="If you put about 300-500 - the request is may take up to 20 seconds or even more. "
+                      class="account-row card-backtasted__form-group card-backtasted__form-group--baseline">
+                      <b-form-input
+                        id="macd_bars_to_load"
+                        v-model="priceChannel.bars_to_load"
+                        :state="this.validationErrors.has('bars_to_load') ? 'invalid' : 'valid'"
+                        required
+                        placeholder="Bars to load">
+                      </b-form-input>
+                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>
+                    </b-form-group>
+
+                    <b-form-group label="Bar time frame:" label-for="macd_bar_time_frame" class="account-row card-backtasted__form-group">
+                      <b-form-input
+                        id="macd_bar_time_frame"
+                        v-model="priceChannel.bar_time_frame"
+                        :state="this.validationErrors.has('bar_time_frame') ? 'invalid' : 'valid'"
+                        required
+                        placeholder="bar_time_frame">
+                      </b-form-input>
+                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bar_time_frame') }}</b-form-invalid-feedback>
+                    </b-form-group>
+
+                    <b-form-group label="Ema period:" label-for="time_frame" class="account-row card-backtasted__form-group">
+                      <b-form-input
+                        id="ema_period"
+                        v-model="priceChannel.ema_period"
+                        :state="this.validationErrors.has('ema_period') ? 'invalid' : 'valid'"
+                        required
+                        placeholder="ema_period">
+                      </b-form-input>
+                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('ema_period') }}</b-form-invalid-feedback>
+                    </b-form-group>
+
+                    <b-form-group label="MACD period:" label-for="macd_period" class="account-row card-backtasted__form-group">
+                      <b-form-input
+                        id="macd_period"
+                        v-model="priceChannel.macd_period"
+                        :state="this.validationErrors.has('macd_period') ? 'invalid' : 'valid'"
+                        required
+                        placeholder="macd_period">
+                      </b-form-input>
+                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_period') }}</b-form-invalid-feedback>
+                    </b-form-group>
+
+                    <b-form-group label="MACD signal period:" label-for="macd_signal_period" class="account-row card-backtasted__form-group">
+                      <b-form-input
+                        id="macd_signal_period"
+                        v-model="priceChannel.macd_signal_period"
+                        :state="this.validationErrors.has('macd_signal_period') ? 'invalid' : 'valid'"
+                        required
+                        placeholder="macd_signal_period">
+                      </b-form-input>
+                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_signal_period') }}</b-form-invalid-feedback>
+                    </b-form-group>
+
+                  </div>
+
+                  <div style="float: right" class="w-100">
+
+                    <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="priceChannelBacktestClick()">
+                      Go
+                    </button>
+                  </div>
                 </el-collapse-item>
             </el-collapse>
         </div>

@@ -1,45 +1,49 @@
 /*eslint-disable*/
 <template>
-    <div id="app" style="border: 0px solid red;">
-        <div>
-            <div style="float: left">
+  <div id="app" style="border: 0px solid red;">
+    <div>
+      <div style="float: left">
                 <span v-for="(bot, index) in bots">
-                <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]" @click="botTabClick(bot)">
+                <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]"
+                        @click="botTabClick(bot)">
                     {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}
                 </button>&nbsp
             </span>
-            </div>
+      </div>
 
-            <div style="float: right">
-                <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify" @click="backtesterButtonClick()">
+      <div style="float: right">
+        <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify" @click="backtesterButtonClick()">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
                 </span>
-                <span v-if="backtesterOpen">Close</span>
-                <span v-if="!backtesterOpen">Backtester</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Chart width:100%; height:75vh; padding-top: 10px; float: left -->
-        <div id="container" :style="(!backtesterOpen ? 'width:100%; height:75vh; padding-top: 10px; float: left' : 'width:75%; height:75vh; padding-top: 10px; float: left')"></div>
-
-        <!-- Backtester -->
-        <div v-if="backtesterOpen" style="width:25%; height:75vh; padding-top: 10px; padding-left: 10px; border: 0px solid red; float: right">
-            <backtester></backtester>
-        </div>
-
+          <span v-if="backtesterOpen">Close</span>
+          <span v-if="!backtesterOpen">Backtester</span>
+        </button>
+      </div>
     </div>
+
+    <!-- Chart width:100%; height:75vh; padding-top: 10px; float: left -->
+    <div id="container"
+         :style="(!backtesterOpen ? 'width:100%; height:75vh; padding-top: 10px; float: left' : 'width:75%; height:75vh; padding-top: 10px; float: left')"></div>
+
+    <!-- Backtester -->
+    <div v-if="backtesterOpen"
+         style="width:25%; padding-top: 10px; padding-left: 10px; border: 0px solid red; float: right">
+      <backtester></backtester>
+    </div>
+
+  </div>
 </template>
 <script>
   import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
   import Opt from 'src/components/Jse/ChartSettingsVue.vue'
   import Backtester from 'src/components/Jse/Backtester.vue'
+
   export default {
     components: {
       Backtester
     },
-    data () {
+    data() {
       return {
         quotes: [],
         botId: 1,
@@ -66,7 +70,7 @@
         //axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
       },
-      HistoryBarsLoad (botId) {
+      HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
             this.chart.series[0].setData(response.data.candles, true);
@@ -86,15 +90,15 @@
             //alert("Chart.vue can not get history bars. " + err);
           })
       },
-      ChartBarsUpdate (payload, botId) {
+      ChartBarsUpdate(payload, botId) {
         let last = this.chart.series[0].data[this.chart.series[0].data.length - 1];
         // Update the chart only when the series is loaded. WS events can start coming earlier than the chart is loaded.
         if (last != null) {
           last.update({
-             //'open': is created when new bar is added to the chart
-             'high': payload.payload.tradeBarHigh, // if tradeBarHigh > open
-             'low': payload.payload.tradeBarLow, // if tradeBarLow < open of the current bar
-             'close': payload.payload.tradePrice
+            //'open': is created when new bar is added to the chart
+            'high': payload.payload.tradeBarHigh, // if tradeBarHigh > open
+            'low': payload.payload.tradeBarLow, // if tradeBarLow < open of the current bar
+            'close': payload.payload.tradePrice
           }, true);
         }
         // New bar is issued. Flag sent from CandleMaker.php
@@ -111,7 +115,7 @@
           this.HistoryBarsLoad(botId);
         }
       },
-      ListenWebSocket () {
+      ListenWebSocket() {
         var key = require('../../../config/bot.js').default.PUSHER_KEY;
         this.pusher = new Pusher(key, {
           encrypted: true,
