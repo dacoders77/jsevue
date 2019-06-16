@@ -23,16 +23,16 @@
 
                         <b-form-group label="Bars to load:"
                                       label-for="bars_to_load"
-                                      description="If you put about 300-500 - the request is may take up to 20 seconds or even more. "
-                                      class="account-row card-backtasted__form-group card-backtasted__form-group--baseline">
+                                      class="account-row card-backtasted__form-group">
                             <b-form-input
                                     id="bars_to_load"
                                     v-model="priceChannel.bars_to_load"
                                     :state="this.validationErrors.has('bars_to_load') ? 'invalid' : 'valid'"
                                     required
-                                    placeholder="bars_to_load">
+                                    placeholder="bars_to_load"
+                                    v-tooltip="'If you put about 300-500 - the request is may take up to 20 seconds or even more.'">
                             </b-form-input>
-                            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>
+                            <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>
                         </b-form-group>
 
                         <b-form-group label="Bar time frame:" label-for="bar_time_frame" class="account-row card-backtasted__form-group">
@@ -95,14 +95,14 @@
                     <b-form-group
                       label="Bars to load:"
                       label-for="macd_bars_to_load"
-                      description="If you put about 300-500 - the request is may take up to 20 seconds or even more. "
-                      class="account-row card-backtasted__form-group card-backtasted__form-group--baseline">
+                      class="account-row card-backtasted__form-group">
                       <b-form-input
                         id="macd_bars_to_load"
                         v-model="priceChannel.bars_to_load"
                         :state="this.validationErrors.has('bars_to_load') ? 'invalid' : 'valid'"
                         required
-                        placeholder="Bars to load">
+                        placeholder="Bars to load"
+                        v-tooltip="'If you put about 300-500 - the request is may take up to 20 seconds or even more.'">
                       </b-form-input>
                       <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>
                     </b-form-group>

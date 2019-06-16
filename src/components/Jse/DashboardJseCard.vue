@@ -13,7 +13,6 @@
         </div>
       </div>
       <div class="card-dashboard__bar">
-
         <h5> <!-- account.bots_id == bot.id -->
           <!-- Now go through all exchanges -->
           <span>{{ exchange.name }}</span>

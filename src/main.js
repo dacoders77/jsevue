@@ -18,12 +18,11 @@ import App from './App.vue'
 // mapInit(Highcharts)
 // Vue.use(HighchartsVue)
 
-
+import Popper from 'popper.js/dist/umd/popper.js'
+window.Popper = Popper
 import { initialize } from './helpers/general' // Import function
 import Vuex from 'vuex' // Vue store plugin link
 import StoreData from './store.js' // Vue store settings (getters, muations, etc.)
-
-
 
 // Plugins
 import GlobalComponents from './gloablComponents'
@@ -73,10 +72,15 @@ initialize(store, router);
 export const bus = new Vue();
 
 // Bootstrap-vue
-import BootstrapVue from 'bootstrap-vue'
+
+import BootstrapVue from 'bootstrap-vue';
 //import 'bootstrap/dist/css/bootstrap.css' //// Need to disable them. Otherwise the menu is broken.
 //import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
+
+//v-tooltip
+import VTooltip from 'v-tooltip'
+Vue.use(VTooltip)
 
 // Vform. https://github.com/cretueusebiu/vform
 import { Form, HasError, AlertError } from 'vform'

@@ -49,7 +49,7 @@
 
                                 <td>
                                     <input type="text" value="2" class="form-control" v-if="bot" :disabled="bot.status == 'running'"
-                                           v-model="bot.name" style="width: 100px" @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                           v-model="bot.name" style="width: 100px" @keyup.enter="() =>{ updateBotNew(['updateBotName', bot]); validateBots(); }">
                                 </td>
 
                                 <td v-if="bot">{{ bot.status }}</td>
@@ -92,28 +92,27 @@
 
                                 <!-- Time frame -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.time_frame" style="width: 70px" :disabled="bot.status == 'running'"
-                                           @keyup.enter="updateBotNew(['updateTimeFrame', bot])">
+                                    <input type="text" class="form-control form-control--xs" maxlength="1" v-model="bot.time_frame" :disabled="bot.status == 'running'"
+                                           @keyup.enter="() => { updateBotNew(['updateTimeFrame', bot]); validateBots(); }">
                                 </td>
                                 <!-- Volume -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.volume" style="width: 70px" :disabled="bot.status == 'running'"
-                                           @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                    <input type="text" class="form-control form-control--sm"  maxlength="5" v-model="bot.volume" :disabled="bot.status == 'running'"
+                                           @keyup.enter="() => { updateBotNew(['updateBotName', bot]); validateBots(); }">
                                 </td>
                                 <!-- Bars to load -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.bars_to_load" style="width: 70px" :disabled="bot.status == 'running'"
-                                           @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                    <input type="text" class="form-control form-control--xs" v-model="bot.bars_to_load" :disabled="bot.status == 'running'"
+                                           @keyup.enter="() => { updateBotNew(['updateBotName', bot]); validateBots(); }">
                                 </td>
                                 <!-- Rate limit -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.rate_limit" style="width: 70px" :disabled="bot.status == 'running'"
-                                           @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                    <input type="text" class="form-control form-control--xs"  maxlength="1" v-model="bot.rate_limit" :disabled="bot.status == 'running'"
+                                           @keyup.enter="() => { updateBotNew(['updateBotName', bot]);  validateBots(); }">
                                 </td>
                                 <!-- Memo -->
                                 <td>
-                                    <input type="text" class="form-control" v-model="bot.memo" style="width: 150px" :disabled="bot.status == 'running'"
-                                           @keyup.enter="updateBotNew(['updateBotName', bot])">
+                                  <a href="#"  id = "show-btn" class="btn btn-icon btn-icon--info" @click="editMemoBots(bot)"><i class="ti-dot"></i></a>
                                 </td>
 
                             </tr>
@@ -125,27 +124,28 @@
             </div>
         </div>
     <div class="card-bots__buttons col-sm-12">
-      <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
+      <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify" @click.prevent="validateBtnBots">
                 <span class="btn-label">
                     <i class="ti-control-play"></i>
                 </span> All
       </button>
 
-      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
+      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click.prevent="validateBtnBots">
                 <span class="btn-label">
                     <i class="ti-control-stop"></i>
                 </span> All
       </button>
     </div>
-
-
-  </div>
+   </div>
 
 </template>
 <script>
   import Vue from 'vue'
   import {Table, TableColumn} from 'element-ui'
+  import { BFormTextarea } from 'bootstrap-vue'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
+  import swal from 'sweetalert2'
+  Vue.component('b-form-textarea', BFormTextarea)
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
@@ -251,6 +251,7 @@
             'memo': 'memo'
           }
         ],
+
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -261,38 +262,73 @@
       // First created then mounted
       // Event listener
       Fire.$on('AfterCreate', () => {
-        this.loadResources();
+        this.loadBots();
       });
     },
     mounted() {
       this.loadResources();
+      this.loadBots();
     },
     methods: {
-      loadResources() {
+      loadBots() {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
+      },
+
+      loadResources() {
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
       },
-      editExchange(exchange) {
-        this.form.reset();
-        this.form.fill(exchange);
-        this.$refs['my-modal'].show();
+
+      validateBots() {
+        swal({
+          title: `Name was successfully updated!`,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill',
+          type: 'success'
+        })
       },
-      showNotification (verticalAlign, horizontalAlign, notificationText) {
-        var color = Math.floor((Math.random() * 4) + 1)
-        this.$notify(
-          {
-            component: {
-              template: "<span>" + notificationText + "</span>"
-            },
-            icon: 'ti-info-alt',
-            horizontalAlign: horizontalAlign,
-            verticalAlign: verticalAlign,
-            type: this.type[color]
-          })
+
+      editMemoBots(bot) {
+        // Adding an input method from SweetAlert 2 automatically binds an input form.
+        swal({
+          title: 'Edit memo',
+          input: 'text',
+          inputValue: bot.memo,
+          inputPlaceholder: 'Enter your memo here',
+          showCloseButton: true,
+        }).then((result) => {
+          bot.memo = result;
+          this.form.memo = bot.memo;
+          this.form.fill(bot);
+          this.form.put('/bot/' + bot.id)
+            .then((response) => {
+              Fire.$emit('AfterCreate');
+            })
+        })
       },
+      validateBtnBots() {
+        swal({
+          title: `This event is reserved. <br>No action has been performed`,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill',
+          type: 'success'
+        })
+      },
+      // showNotification (verticalAlign, horizontalAlign, notificationText) {
+      //   var color = Math.floor((Math.random() * 4) + 1)
+      //   this.$notify(
+      //     {
+      //       component: {
+      //         template: "<span>" + notificationText + "</span>"
+      //       },
+      //       icon: 'ti-info-alt',
+      //       horizontalAlign: horizontalAlign,
+      //       verticalAlign: verticalAlign,
+      //       type: this.type[color]
+      //     })
+      // },
       updateBotNew(params) { // updateTimeFrame
         // Receives two params: bot instance and action (updateBotName)
         let bot = params[1];
@@ -328,11 +364,11 @@
         this.form.put('/bot/' + bot.id)
           .then((response) => {
             Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
-            this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + bot.id)
+            // this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + bot.id)
           })
           .catch(error => {
             //this.validationErrors.record(error.data.errors)
-            this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
+            // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
           })
       },
       unlinkButtonClick(params){
@@ -345,11 +381,11 @@
         this.unlink.post('/bot')
           .then((response) => {
             Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
-            this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + params[0].id)
+            // this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + params[0].id)
           })
           .catch(error => {
             //this.validationErrors.record(error.data.errors)
-            this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + params[0].id)
+            // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + params[0].id)
           })
       }
     }

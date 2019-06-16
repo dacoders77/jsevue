@@ -979,7 +979,6 @@
     }
   }
 
-
 @media (max-width: 991px) {
   .card {
     .card-content {
@@ -1018,13 +1017,21 @@
 
   & .table  {
     background-color: $white-color;
+
+    & .form-control--xs {
+      width: 45px;
+    }
+
+    & .form-control--sm {
+      width: 72px;
+    }
   }
 
   &__dropdown {
 
     & .dropdown-menu {
       max-height: 170px;
-      overflow: scroll;
+      overflow: auto;
     }
   }
 }
