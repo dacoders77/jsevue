@@ -278,13 +278,15 @@
       },
 
       validateBots(name, value) {
-        swal({
-          title: `Name was successfully updated!`,
-          text: name + ': ' + value,
-          buttonsStyling: false,
-          confirmButtonClass: 'btn btn-success btn-fill',
-          type: 'success'
-        })
+        if (value) {
+          swal({
+            title: `Name was successfully updated!`,
+            text: name + ': ' + value,
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success btn-fill',
+            type: 'success'
+          })
+        }
       },
 
       editMemoBots(bot) {
