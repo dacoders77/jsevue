@@ -112,7 +112,7 @@
                                 </td>
                                 <!-- Memo -->
                                 <td>
-                                  <a href="#"  id = "show-btn" class="btn btn-icon btn-icon--info" @click="editMemoBots(bot)"><i class="ti-dot"></i></a>
+                                  <a href="#"  id = "show-btn" class="btn btn-icon btn-icon--info" @click="editMemoBots(bot)"><i class="ti-pencil"></i></a>
                                 </td>
 
                             </tr>
