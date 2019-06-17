@@ -124,20 +124,23 @@
             </div>
         </div>
     <div class="card-bots__buttons col-sm-12">
+        <button type="button" class="btn btn-default btn-fill btn-magnify" @click.prevent="loadBots">
+            <span class="btn-label">
+                <i class="ti-reload"></i>
+            </span> Reload
+        </button>
       <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify" @click.prevent="validateBtnBots">
-                <span class="btn-label">
-                    <i class="ti-control-play"></i>
-                </span> All
+            <span class="btn-label">
+                <i class="ti-control-play"></i>
+            </span> All
       </button>
-
       <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click.prevent="validateBtnBots">
-                <span class="btn-label">
-                    <i class="ti-control-stop"></i>
-                </span> All
+            <span class="btn-label">
+                <i class="ti-control-stop"></i>
+            </span> All
       </button>
     </div>
    </div>
-
 </template>
 <script>
   import Vue from 'vue'
@@ -251,7 +254,6 @@
             'memo': 'memo'
           }
         ],
-
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -273,14 +275,12 @@
       loadBots() {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
       },
-
       loadResources() {
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
       },
-
       validateBots() {
         swal({
           title: `Name was successfully updated!`,
@@ -316,19 +316,6 @@
           type: 'success'
         })
       },
-      // showNotification (verticalAlign, horizontalAlign, notificationText) {
-      //   var color = Math.floor((Math.random() * 4) + 1)
-      //   this.$notify(
-      //     {
-      //       component: {
-      //         template: "<span>" + notificationText + "</span>"
-      //       },
-      //       icon: 'ti-info-alt',
-      //       horizontalAlign: horizontalAlign,
-      //       verticalAlign: verticalAlign,
-      //       type: this.type[color]
-      //     })
-      // },
       updateBotNew(params) { // updateTimeFrame
         // Receives two params: bot instance and action (updateBotName)
         let bot = params[1];
