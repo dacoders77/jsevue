@@ -93,22 +93,22 @@
                                 <!-- Time frame -->
                                 <td>
                                     <input type="text" class="form-control form-control--xs" maxlength="1" v-model="bot.time_frame" :disabled="bot.status == 'running'"
-                                           @keyup.enter="() => { updateBotNew(['updateTimeFrame', bot]); validateBots(); }">
+                                           @input="() => { updateBotNew(['updateTimeFrame', bot]); validateBots('Time frame', bot.time_frame ); }">
                                 </td>
                                 <!-- Volume -->
                                 <td>
                                     <input type="text" class="form-control form-control--sm"  maxlength="5" v-model="bot.volume" :disabled="bot.status == 'running'"
-                                           @keyup.enter="() => { updateBotNew(['updateBotName', bot]); validateBots(); }">
+                                           @input="() => { updateBotNew(['updateBotName', bot]); validateBots('Volume', bot.volume); }">
                                 </td>
                                 <!-- Bars to load -->
                                 <td>
                                     <input type="text" class="form-control form-control--xs" v-model="bot.bars_to_load" :disabled="bot.status == 'running'"
-                                           @keyup.enter="() => { updateBotNew(['updateBotName', bot]); validateBots(); }">
+                                           @input="() => { updateBotNew(['updateBotName', bot]); validateBots('Bars to load', bot.bars_to_load); }">
                                 </td>
                                 <!-- Rate limit -->
                                 <td>
                                     <input type="text" class="form-control form-control--xs"  maxlength="1" v-model="bot.rate_limit" :disabled="bot.status == 'running'"
-                                           @keyup.enter="() => { updateBotNew(['updateBotName', bot]);  validateBots(); }">
+                                           @input="() => { updateBotNew(['updateBotName', bot]);  validateBots('Rate limit', bot.rate_limit ); }">
                                 </td>
                                 <!-- Memo -->
                                 <td>
@@ -125,15 +125,11 @@
         </div>
     <div class="card-bots__buttons col-sm-12">
       <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify" @click.prevent="validateBtnBots">
-                <span class="btn-label">
-                    <i class="ti-control-play"></i>
-                </span> All
+        <i class="ti-control-play"></i>All
       </button>
 
       <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click.prevent="validateBtnBots">
-                <span class="btn-label">
-                    <i class="ti-control-stop"></i>
-                </span> All
+        <i class="ti-control-stop"></i>All
       </button>
     </div>
    </div>
@@ -281,9 +277,10 @@
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
       },
 
-      validateBots() {
+      validateBots(name, value) {
         swal({
           title: `Name was successfully updated!`,
+          text: name + ': ' + value,
           buttonsStyling: false,
           confirmButtonClass: 'btn btn-success btn-fill',
           type: 'success'

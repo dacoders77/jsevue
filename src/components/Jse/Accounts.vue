@@ -111,9 +111,9 @@
                             id="memo_a"
                             v-model="form.memo"
                             :state="this.validationErrors.has('memo_a') ? 'invalid' : 'valid'"
-                            placeholder="Memo">
-                        rows="3"
-                        max-rows="6"
+                            placeholder="Memo"
+                            rows="3"
+                            max-rows="6">
                     </b-form-textarea>
                     <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}</b-form-invalid-feedback>
                 </b-form-group>

@@ -1018,6 +1018,7 @@
         color: $white-color;
         //padding-top: 20px;
         transform: translateY(-10px);
+        outline: none;
       }
 
     }
@@ -1078,6 +1079,15 @@
     z-index: 51;
     bottom: $padding-bottom-bots - 20px;
     padding-top: 20px;
+
+    button {
+      line-height: 1.4;
+    }
+    i {
+      line-height: 1.4;
+      padding-bottom: 1px;
+      padding-right: 5px;
+    }
   }
 
   & .table  {
@@ -1095,8 +1105,10 @@
   &__dropdown {
 
     & .dropdown-menu {
-      max-height: 170px;
+      max-height: 165px;
       overflow: auto;
+
+
     }
   }
 }
