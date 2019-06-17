@@ -1,17 +1,27 @@
 /*eslint-disable*/
 <template>
   <div id="app" style="border: 0px solid red;">
-    <div>
-      <div style="float: left">
-                <span v-for="(bot, index) in bots">
-                <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]"
-                        @click="botTabClick(bot)">
-                    {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}
-                </button>&nbsp
-            </span>
-      </div>
+    <div class="card-chart-header">
+      <!--      <div style="float: left">-->
+      <!--                <span v-for="(bot, index) in bots">-->
+      <!--                <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]"-->
+      <!--                        @click="botTabClick(bot)">-->
+      <!--                    {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}-->
+      <!--                </button>&nbsp-->
+      <!--            </span>-->
+      <!--      </div>-->
+      <b-tabs class="card-chart-header__tab-list">
+        <b-tab v-for="bot in bots"
+               :key="bot.id"
+               :title="bot.name"
+               v-if="symbols[bot.symbol_id - 1]"
+               @click="botTabClick(bot)">
 
-      <div style="float: right">
+        </b-tab>
+      </b-tabs>
+
+
+      <div>
         <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify" @click="backtesterButtonClick()">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
@@ -35,9 +45,12 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
   import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
   import Opt from 'src/components/Jse/ChartSettingsVue.vue'
   import Backtester from 'src/components/Jse/Backtester.vue'
+  import { TabsPlugin } from 'bootstrap-vue'
+  Vue.use(TabsPlugin)
 
   export default {
     components: {
