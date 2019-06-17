@@ -42,5 +42,20 @@ export default [
         path: '/strategies'
      }
    ]
+  },
+  {
+    name: 'System',
+    icon: 'ti-power-off',
+    collapsed: true,
+    children: [
+      {
+        name: 'Logs',
+        path: '/log'
+      },
+      {
+        name: 'Que',
+        path: '/que'
+      }
+    ]
   }
 ]
