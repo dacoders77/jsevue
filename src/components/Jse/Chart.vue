@@ -22,7 +22,7 @@
 
 
       <div>
-        <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify" @click="backtesterButtonClick()">
+        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="backtesterButtonClick()">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
                 </span>
