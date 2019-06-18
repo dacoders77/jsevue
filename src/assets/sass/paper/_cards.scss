@@ -1007,7 +1007,7 @@
       &:focus,
       &:active {
         border: 1px solid $info-bg;
-        background-color: $bg-nude;
+        background-color: $white-color;
         color: lighten($black-color, 20%);
         border-bottom: none;
       }
@@ -1019,6 +1019,7 @@
   }
   ~ #container {
     border-top: 1px solid $info-bg;
+    padding-top: 0!important;
   }
 }
 

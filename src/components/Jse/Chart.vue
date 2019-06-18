@@ -15,14 +15,15 @@
                :key="bot.id"
                :title="bot.name"
                v-if="symbols[bot.symbol_id - 1]"
-               @click="botTabClick(bot)">
+               @click="botTabClick(bot)"
+               v-tooltip="'111111'">
 
         </b-tab>
       </b-tabs>
 
 
       <div>
-        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="backtesterButtonClick()">
+        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="backtesterButtonClick()" v-tooltip="'111111'">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
                 </span>
@@ -65,6 +66,7 @@
         accounts: [],
         symbols: [],
         backtesterOpen: false,
+        tabIndex: 1
       }
     },
     created() {
