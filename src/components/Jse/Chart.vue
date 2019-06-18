@@ -2,28 +2,20 @@
 <template>
   <div id="app" style="border: 0px solid red;">
     <div class="card-chart-header">
-      <!--      <div style="float: left">-->
-      <!--                <span v-for="(bot, index) in bots">-->
-      <!--                <button class="btn btn-warning btn-fill btn-wd" v-if="symbols[bot.symbol_id - 1]"-->
-      <!--                        @click="botTabClick(bot)">-->
-      <!--                    {{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame }}-->
-      <!--                </button>&nbsp-->
-      <!--            </span>-->
-      <!--      </div>-->
-      <b-tabs class="card-chart-header__tab-list">
+      <b-tabs class="card-chart-header__tab-list" v-model = "tabIndex">
         <b-tab v-for="bot in bots"
                :key="bot.id"
                :title="bot.name"
                v-if="symbols[bot.symbol_id - 1]"
                @click="botTabClick(bot)"
-               v-tooltip="'111111'">
-
+               v-tooltip="bot.memo">
+          <template slot="title"> <span v-tooltip="bot.memo">{{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame}} </span></template>
         </b-tab>
       </b-tabs>
 
 
       <div>
-        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="backtesterButtonClick()" v-tooltip="'111111'">
+        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="backtesterButtonClick()">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
                 </span>
@@ -39,7 +31,7 @@
 
     <!-- Backtester -->
     <div v-if="backtesterOpen"
-         style="width:25%; padding-top: 10px; padding-left: 10px; border: 0px solid red; float: right">
+         style="width:25%; padding-left: 10px; border: 0px solid red; float: right">
       <backtester></backtester>
     </div>
 
@@ -66,7 +58,7 @@
         accounts: [],
         symbols: [],
         backtesterOpen: false,
-        tabIndex: 1
+        tabIndex: 0
       }
     },
     created() {

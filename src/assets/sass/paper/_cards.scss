@@ -915,7 +915,6 @@
 .card-backtasted {
   .card-header {
     padding: 10px;
-    padding-top: 15px;
     padding-bottom: 0;
   }
     .card-content {
@@ -1005,7 +1004,8 @@
 
       &:hover,
       &:focus,
-      &:active {
+      &:active,
+      &.active {
         border: 1px solid $info-bg;
         background-color: $white-color;
         color: lighten($black-color, 20%);
