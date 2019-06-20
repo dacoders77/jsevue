@@ -43,20 +43,17 @@
       </div>
 
     </div>
-    <div class="row">
-      <div class="col-12 h-100">
-        <iframe
-          src="http://45.76.210.96:9596/log-viewer"
-          name="Log_viewer"
-          align="left"
-          frameborder="0"
-          width="100%"
-          height="600"
-          scrolling="auto"
-        >
+    <div class="que-iframe">
+      <iframe
+        src="http://45.76.210.96:9596/log-viewer"
+        name="Log_viewer"
+        align="left"
+        frameborder="0"
+        width="100%"
+        height="600"
+        scrolling="auto">
 
-        </iframe>
-      </div>
+      </iframe>
     </div>
   </div>
 </template>
