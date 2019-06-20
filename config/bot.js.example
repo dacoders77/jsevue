@@ -1,3 +1,4 @@
 module.exports = {
-  PUSHER_KEY: '12345' // Pusher key
+  PUSHER_KEY: '12345',
+  LOG_VIEWER_URL: 'http://jse.kk/log-viewer'
 }

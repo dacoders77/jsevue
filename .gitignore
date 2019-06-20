@@ -7,3 +7,6 @@ config/
 
 storybook-static/
 test/unit/coverage/
+
+bot.js
+config/bot.js

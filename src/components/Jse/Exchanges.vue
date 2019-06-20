@@ -136,7 +136,7 @@
 
 </template>
 <script>
-  import Vue from 'vue'
+  import    Vue from 'vue'
   import {Table, TableColumn, Tag} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import swal from 'sweetalert2'

@@ -133,7 +133,6 @@
       </button>
     </div>
    </div>
-
 </template>
 <script>
   import Vue from 'vue'
@@ -247,7 +246,6 @@
             'memo': 'memo'
           }
         ],
-
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -269,7 +267,6 @@
       loadBots() {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
       },
-
       loadResources() {
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
@@ -315,19 +312,6 @@
           type: 'success'
         })
       },
-      // showNotification (verticalAlign, horizontalAlign, notificationText) {
-      //   var color = Math.floor((Math.random() * 4) + 1)
-      //   this.$notify(
-      //     {
-      //       component: {
-      //         template: "<span>" + notificationText + "</span>"
-      //       },
-      //       icon: 'ti-info-alt',
-      //       horizontalAlign: horizontalAlign,
-      //       verticalAlign: verticalAlign,
-      //       type: this.type[color]
-      //     })
-      // },
       updateBotNew(params) { // updateTimeFrame
         // Receives two params: bot instance and action (updateBotName)
         let bot = params[1];
