@@ -64,7 +64,7 @@
                                             <li v-if="bot.status == 'idle'" v-for="(account, index) in accounts" ><a href="javascript:void(0)" @click="updateBotNew(['updateAccount', bot, index])">{{ account.name }}</a> </li>
                                     </drop-down>
                                 </td>
-                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'account_id']) : '')" class="btn btn-icon btn-simple btn-icon--danger"><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'account_id']) : '')" class="btn btn-icon btn-simple btn-icon--danger" :disabled="bot.status == 'running'"><i class="ti-trash"></i></a></td>
 
                                 <!-- Symbol -->
                                 <td>
@@ -76,7 +76,7 @@
                                         <li v-if="bot.status == 'idle'" v-for="(symbol, index) in symbols"><a href="javascript:void(0)" @click="updateBotNew(['updateSymbol', bot, index])">{{ symbol.execution_symbol_name }}</a> </li>
                                     </drop-down>
                                 </td>
-                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'symbol_id']) : '')" class="btn btn-icon btn-simple btn-icon--danger"><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'symbol_id']) : '')" class="btn btn-icon btn-simple btn-icon--danger" :disabled="bot.status == 'running'"><i class="ti-trash"></i></a></td>
 
                                 <!-- Strategy -->
                                 <td>
@@ -88,7 +88,7 @@
                                         <li v-if="strategies && bot.status == 'idle'" v-for="(strategy, index) in strategies"><a href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">ID:{{ strategy.id }} {{ strategy.name }}</a> </li>
                                     </drop-down>
                                 </td>
-                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'strategy_id']): '')" class="btn btn-icon btn-simple btn-icon--danger"><i class="ti-trash"></i></a></td>
+                                <td><a href="#" style="color: red;" @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'strategy_id']): '')" class="btn btn-icon btn-simple btn-icon--danger" :disabled="bot.status == 'running'"><i class="ti-trash"></i></a></td>
 
                                 <!-- Time frame -->
                                 <td>
@@ -112,7 +112,7 @@
                                 </td>
                                 <!-- Memo -->
                                 <td>
-                                  <a href="#"  id = "show-btn" class="btn btn-icon btn-icon--info" @click="editMemoBots(bot)"><i class="ti-pencil"></i></a>
+                                  <a href="#"  id = "show-btn" class="btn btn-icon btn-icon--info" @click="editMemoBots(bot)" :disabled="bot.status == 'running'"><i class="ti-pencil"></i></a>
                                 </td>
 
                             </tr>
