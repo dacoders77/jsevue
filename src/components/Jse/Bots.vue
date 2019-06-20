@@ -124,7 +124,7 @@
             </div>
         </div>
     <div class="card-bots__buttons col-sm-12">
-      <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify" @click.prevent="validateBtnBots">
+      <button type="button"  class="btn btn-wd btn-success btn-fill btn-magnify" @click.prevent="validateBtnBots">
         <i class="ti-control-play"></i>All
       </button>
 

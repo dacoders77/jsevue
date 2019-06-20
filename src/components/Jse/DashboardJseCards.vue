@@ -44,9 +44,11 @@
         try {
           const resp = await axios.get('/account')
           this.accounts = resp.data.data
+          console.log(this.accounts)
 
           const respE = await axios.get('/exchange')
           this.exchanges = respE.data.data
+          console.log(this.exchanges)
 
           const respS = await axios.get('/symbol')
           this.symbols = respS.data.data
@@ -56,6 +58,7 @@
 
           const respB = await axios.get('/bot')
           this.bots = respB.data.data
+          console.log(this.bots)
         } catch (e) {
 
         }
@@ -68,10 +71,12 @@
         return this.strategies.find(s => s.id == bot.strategy_id)
       },
       findAccount(bot) {
-        return this.accounts.find(a => a.id == bot.id)
+        return this.accounts.find(a => a.id == bot.account_id)
       },
       findExchange(bot) {
         return this.exchanges.find(e => e.id == this.findAccount(bot).exchange_id)
+        // console.log( this.findAccount(1))
+        // v-if="account.exchange_id == exchange.id">{{ exchange.name }}
       }
     }
   }

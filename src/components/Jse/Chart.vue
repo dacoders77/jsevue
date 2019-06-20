@@ -9,19 +9,19 @@
                v-if="symbols[bot.symbol_id - 1]"
                @click="botTabClick(bot)"
                v-tooltip="bot.memo">
-          <template slot="title"> <span v-tooltip="bot.memo">{{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }}/{{ bot.time_frame}} </span></template>
+          <template slot="title"> <span v-tooltip="bot.memo">{{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }} </span></template>
         </b-tab>
       </b-tabs>
 
 
       <div>
-        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="backtesterButtonClick()">
+        <a href="#" class="card-chart-header__backtester" @click="backtesterButtonClick()">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
                 </span>
           <span v-if="backtesterOpen">Close</span>
           <span v-if="!backtesterOpen">Backtester</span>
-        </button>
+        </a>
       </div>
     </div>
 
