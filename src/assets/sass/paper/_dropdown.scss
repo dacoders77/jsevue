@@ -5,6 +5,10 @@
   margin-top: 5px;
   padding: 0px;
   @include box-shadow($dropdown-shadow);
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; /* IE 11 */
+  scrollbar-width: none; /* Firefox 64 */
 
   .dropdown &,
   &.bootstrap-datetimepicker-widget,
