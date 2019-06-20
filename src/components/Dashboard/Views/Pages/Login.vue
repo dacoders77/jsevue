@@ -30,12 +30,10 @@
                 <form @submit.prevent="authenticate">
                   <div class="card" data-background="color" data-color="blue">
                     <div class="card-header">
-                      <h3 class="card-title">Login</h3>
+                      <h3 class="card-title mb-10">Login</h3>
                     </div>
                     <div class="card-content">
                       <div class="form-group">
-                        <label>Email address</label>
-
                         <input type="email"
                                name="email"
                                v-validate="modelValidations.email"
@@ -48,7 +46,6 @@
 
                       </div>
                       <div class="form-group">
-                        <label>Password</label>
                         <input type="password"
                                name="password"
                                v-validate="modelValidations.password"
