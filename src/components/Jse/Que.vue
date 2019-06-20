@@ -1,47 +1,64 @@
 <template>
-    <div class="row">
-        <div class="col-md-12">
+  <div>
+    <div class="row mb-30">
+      <div class="col-md-12">
 
-            <div class="card">
-                <div class="card-header" style="border: 0px solid red; padding: 0px">
-                    <!--<h4 class="title">Trades log</h4>-->
-                </div>
-                <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover table-info">
-                            <tbody>
-                            <tr>
-                                <th><i class="ti-info-alt"></i></th>
-                                <th>Queue</th>
-                                <th>Payload</th>
-                                <th>Attempts</th>
-                                <th>Reserverd at</th>
-                                <th>Available at</th>
-                                <th>Created at</th>
-                            </tr>
-                            <tr v-for="job in jobs" :key="job.id">
-                                <td>{{ job.id }}</td>
-                                <td>{{ job.queue }}</td>
-                                <td>{{ job.payload }}</td>
-                                <td>{{ job.attempts }}</td>
-                                <td>{{ job.reserved_at }}</td>
-                                <td>{{ job.available_at }}</td>
-                                <td>{{ job.created_at }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="card">
+          <div class="card-header" style="border: 0px solid red; padding: 0px">
+            <!--<h4 class="title">Trades log</h4>-->
+          </div>
+          <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover table-info">
+                <tbody>
+                <tr>
+                  <th><i class="ti-info-alt"></i></th>
+                  <th>Queue</th>
+                  <th>Payload</th>
+                  <th>Attempts</th>
+                  <th>Reserverd at</th>
+                  <th>Available at</th>
+                  <th>Created at</th>
+                </tr>
+                <tr v-for="job in jobs" :key="job.id">
+                  <td>{{ job.id }}</td>
+                  <td>{{ job.queue }}</td>
+                  <td>{{ job.payload }}</td>
+                  <td>{{ job.attempts }}</td>
+                  <td>{{ job.reserved_at }}</td>
+                  <td>{{ job.available_at }}</td>
+                  <td>{{ job.created_at }}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
+        </div>
 
-            <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="truncateQue()">
+        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="truncateQue()">
                 <span class="btn-label">
                     <i class="ti-search"></i>
                 </span>Truncate que
-            </button>
-        </div>
+        </button>
+      </div>
 
     </div>
+    <div class="row">
+      <div class="col-12 h-100">
+        <iframe
+          src="http://45.76.210.96:9596/log-viewer"
+          name="Log_viewer"
+          align="left"
+          frameborder="0"
+          width="100%"
+          height="600"
+          scrolling="auto"
+        >
+
+        </iframe>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
     export default {
