@@ -124,11 +124,11 @@
             </div>
         </div>
     <div class="card-bots__buttons col-sm-12">
-      <button type="button"  class="btn btn-wd btn-success btn-fill btn-magnify" @click.prevent="validateBtnBots">
+      <button type="button"  class="btn btn-wd btn-success btn-fill btn-magnify" @click.prevent="showAlert('Button reserved')">
         <i class="ti-control-play"></i>All
       </button>
 
-      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click.prevent="validateBtnBots">
+      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click.prevent="showAlert('Button reserved')">
         <i class="ti-control-stop"></i>All
       </button>
     </div>
@@ -285,7 +285,6 @@
           })
         }
       },
-
       editMemoBots(bot) {
         // Adding an input method from SweetAlert 2 automatically binds an input form.
         swal({
@@ -304,9 +303,9 @@
             })
         })
       },
-      validateBtnBots() {
+      showAlert(text) {
         swal({
-          title: `This event is reserved. <br>No action has been performed`,
+          title: text,
           buttonsStyling: false,
           confirmButtonClass: 'btn btn-success btn-fill',
           type: 'success'
@@ -350,8 +349,9 @@
             // this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + bot.id)
           })
           .catch(error => {
-            //this.validationErrors.record(error.data.errors)
+            // this.validationErrors.record(error.data.errors)
             // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
+            this.showAlert(error.data);
           })
       },
       unlinkButtonClick(params){
