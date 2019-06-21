@@ -103,7 +103,8 @@
         },
 
         reloadTable() {
-
+          this.form.reset();
+          this.loadResources();
         },
 
         newModalJsonTree(message) {
