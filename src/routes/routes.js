@@ -11,6 +11,7 @@ import Symbols from 'src/components/Jse/Symbols.vue'
 import Bots from 'src/components/Jse/Bots.vue'
 import Strategies from 'src/components/Jse/Trading/Strategies.vue'
 import Que from 'src/components/Jse/Que.vue'
+import Logs from 'src/components/Jse/Logs.vue'
 var logViewerUrl = require('../../config/bot').default.LOG_VIEWER_URL;
 
 export const routes = [
@@ -72,13 +73,19 @@ export const routes = [
       },
       {
         path: 'log',
-        beforeEnter() {location.href = logViewerUrl}
+        beforeEnter() {location.href = logViewerUrl},
       },
       {
         path: 'que',
         name: 'Que',
         component: Que
       },
+      {
+
+        path: 'logs',
+        name: Logs,
+        component: Logs
+      }
 
     ]
   },

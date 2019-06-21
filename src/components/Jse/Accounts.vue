@@ -14,7 +14,7 @@
                             <tbody>
                             <tr>
                                 <th><i class="ti-info-alt"></i></th>
-                                <th>Action</th>
+                                <th style="min-width: 147px">Action</th>
                                 <th>Name</th>
                                 <th>Exchnage</th>
                                 <th>Added</th>

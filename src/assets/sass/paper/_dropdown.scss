@@ -1,3 +1,5 @@
+
+
 .dropdown-menu{
   background-color: $white-color;
   border: 0 none;
@@ -5,10 +7,22 @@
   margin-top: 5px;
   padding: 0px;
   @include box-shadow($dropdown-shadow);
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none; /* IE 11 */
-  scrollbar-width: none; /* Firefox 64 */
+  //overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  //-ms-overflow-style: scrollbar;
+  //overflow-style: scrollbar;
+  //scrollbar-width: thin;
+  -webkit-overflow-scrolling: auto;
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  }
 
   .dropdown &,
   &.bootstrap-datetimepicker-widget,

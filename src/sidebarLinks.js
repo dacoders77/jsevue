@@ -50,7 +50,7 @@ export default [
     children: [
       {
         name: 'Logs',
-        path: '/log'
+        path: '/logs'
       },
       {
         name: 'Que',
