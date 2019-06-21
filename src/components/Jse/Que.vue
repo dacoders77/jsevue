@@ -1,5 +1,19 @@
 <template>
   <div>
+    <div class="row">
+      <div class="col-md-12 pb-10">
+        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="truncateQue()">
+                <span class="btn-label">
+                    <i class="ti-search pr-5"></i>
+                </span>Truncate que
+        </button>
+        <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify" @click="reloadTable()">
+                <span class="btn-label">
+                    <i class="ti-reload pr-5"></i>
+                </span>Reload table
+        </button>
+          </div>
+        </div>
     <div class="row mb-30">
       <div class="col-md-12">
 
@@ -23,7 +37,13 @@
                 <tr v-for="job in jobs" :key="job.id">
                   <td>{{ job.id }}</td>
                   <td>{{ job.queue }}</td>
-                  <td>{{ job.payload }}</td>
+                  <td>
+                    <button type="button" class="btn btn-fill btn-warning btn-circle" @click="newModalJsonTree(job.payload)">
+                      <i class="ti-server"></i>
+                    </button>
+                    <QueModal :jsonModalMessage="jsonModalMessage"  :job="job"/>
+
+                  </td>
                   <td>{{ job.attempts }}</td>
                   <td>{{ job.reserved_at }}</td>
                   <td>{{ job.available_at }}</td>
@@ -34,26 +54,29 @@
             </div>
           </div>
         </div>
-
-        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="truncateQue()">
-                <span class="btn-label">
-                    <i class="ti-search"></i>
-                </span>Truncate que
-        </button>
       </div>
-
     </div>
+
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import {ModalPlugin} from 'bootstrap-vue'
+  Vue.use (ModalPlugin)
+  import QueModal from './QueModal'
+
     export default {
+      components: {
+        QueModal
+      },
       data() {
         return {
             form: new Form(),
             jobs: [],
             type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
             notifications: {
-            topCenter: false
+            topCenter: false,
+            jsonModalMessage: []
           },
         }
       },
@@ -78,6 +101,19 @@
               this.showNotification('bottom', 'right', 'Que truncate error! <br>' + '&nbsp')
             })
         },
+
+        reloadTable() {
+
+        },
+
+        newModalJsonTree(message) {
+          this.jsonModalMessage = JSON.parse(message);
+          console.log(this.jsonModalMessage);
+          console.log(message);
+          this.$bvModal.show('modal-json')
+
+        },
+
         showNotification (verticalAlign, horizontalAlign, notificationText) {
           var color = Math.floor((Math.random() * 4) + 1)
           this.$notify(
