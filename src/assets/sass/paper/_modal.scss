@@ -88,3 +88,10 @@
 .modal-backdrop.in {
     opacity: 0.25;
 }
+
+#modal-json {
+
+  ~ .modal-backdrop {
+    background-color: rgba($black-color, 0.3);
+  }
+}

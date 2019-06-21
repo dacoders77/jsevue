@@ -82,6 +82,10 @@ Vue.use(BootstrapVue)
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip)
 
+//Json-Tree
+import TreeView from "vue-json-tree-view"
+Vue.use(TreeView)
+
 // Vform. https://github.com/cretueusebiu/vform
 import { Form, HasError, AlertError } from 'vform'
 window.Form = Form;
