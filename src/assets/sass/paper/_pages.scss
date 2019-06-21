@@ -230,3 +230,14 @@
   position: relative;
 }
 
+.que-iframe {
+  height: 75vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  iframe {
+    height: 100%;
+  }
+}
+
