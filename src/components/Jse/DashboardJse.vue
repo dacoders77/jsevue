@@ -115,10 +115,8 @@
   </div>
 </template>
 <script>
-
   import DashboardJseCards from './DashboardJseCards'
   import DashboardChart from './DashboardChart.vue'
-
   export default {
     components: {
       DashboardJseCards,
@@ -151,7 +149,6 @@
         ],
         botId: 1,
         trades: null,
-
         accounts: [
           {
             id: '1',
@@ -160,7 +157,6 @@
             status: 'Online'
           }
         ],
-
         exchanges: [
           {
             id: '1',
@@ -201,11 +197,9 @@
     methods: {
       async load() {
         try {
-
           let responseBots = await axios.get('/bot');
           this.name = responseBots.data.data.name;
           this.bots = responseBots.data.data;
-          //console.log(this.bots);
 
           let responseStrategy = await axios.get('/strategy');
           this.strategy_name = responseStrategy.data.data.name;
@@ -214,7 +208,6 @@
           let responseExchange = await axios.get('/exchange');
           this.exchange_name = responseExchange.data.data.name;
           this.exchanges = responseExchange.data.data;
-          //console.log(responseExchange.data.data);
 
           let responseSymbol = await axios.get('/symbol');
           this.symbol_name = responseSymbol.data.data.name;
@@ -223,9 +216,7 @@
           let responseAccount = await axios.get('/account');
           this.account_name = responseAccount.data.data.name;
           this.accounts = responseAccount.data.data;
-
-        } catch (e) {
-        }
+        } catch (e) {}
       },
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
@@ -233,12 +224,11 @@
             this.trades = response.data.rawTable;
           })
           .catch((err) => {
-            //alert("Chart.vue can not get history bars. " + err);
+            alert("Chart.vue can not get history bars. DashboardJse.vue line 227" + err);
           })
       },
     }
   }
 </script>
 <style>
-
 </style>

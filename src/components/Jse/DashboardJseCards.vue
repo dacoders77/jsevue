@@ -9,13 +9,10 @@
                         :strategy="findStrategy(bot)"
                         class="h-100"/>
     </div>
-
   </div>
 </template>
-
 <script>
   import DashboardJseCard from './DashboardJseCard'
-
   export default {
     components: {
       DashboardJseCard
@@ -35,20 +32,16 @@
       this.loadBots()
     },
     methods: {
-      async loadBots() {
-
-      },
+      async loadBots() {},
       async loadResources() {
 
         this.loading = true
         try {
           const resp = await axios.get('/account')
           this.accounts = resp.data.data
-          console.log(this.accounts)
 
           const respE = await axios.get('/exchange')
           this.exchanges = respE.data.data
-          console.log(this.exchanges)
 
           const respS = await axios.get('/symbol')
           this.symbols = respS.data.data
@@ -58,10 +51,7 @@
 
           const respB = await axios.get('/bot')
           this.bots = respB.data.data
-          console.log(this.bots)
-        } catch (e) {
-
-        }
+        } catch (e) {}
         this.loading = false
       },
       findSymbol(bot) {
@@ -75,8 +65,6 @@
       },
       findExchange(bot) {
         return this.exchanges.find(e => e.id == this.findAccount(bot).exchange_id)
-        // console.log( this.findAccount(1))
-        // v-if="account.exchange_id == exchange.id">{{ exchange.name }}
       }
     }
   }
