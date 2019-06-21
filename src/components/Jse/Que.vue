@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-md-12 pb-10">
-        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click="truncateQue()">
+        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-15" @click="truncateQue()">
                 <span class="btn-label">
                     <i class="ti-search pr-5"></i>
                 </span>Truncate que
@@ -17,13 +17,13 @@
     <div class="row mb-30">
       <div class="col-md-12">
 
-        <div class="card">
+        <div class="card card-que">
           <div class="card-header" style="border: 0px solid red; padding: 0px">
             <!--<h4 class="title">Trades log</h4>-->
           </div>
           <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
             <div class="card-body table-responsive p-0">
-              <table class="table table-hover table-info">
+              <table class="table table-hover table-info" id="table-que">
                 <tbody>
                 <tr>
                   <th><i class="ti-info-alt"></i></th>
@@ -41,7 +41,7 @@
                     <button type="button" class="btn btn-fill btn-warning btn-circle" @click="newModalJsonTree(job.payload)">
                       <i class="ti-server"></i>
                     </button>
-                    <QueModal :jsonModalMessage="jsonModalMessage"  :job="job"/>
+                    <QueModal  :job="job"/>
 
                   </td>
                   <td>{{ job.attempts }}</td>
@@ -53,6 +53,13 @@
               </table>
             </div>
           </div>
+<!--          <b-pagination-->
+<!--            v-model="currentPage"-->
+<!--            :total-rows="rows"-->
+<!--            :per-page="perPage"-->
+<!--            aria-controls="table-que">-->
+
+<!--          </b-pagination>-->
         </div>
       </div>
     </div>
@@ -62,8 +69,10 @@
 <script>
   import Vue from 'vue'
   import {ModalPlugin} from 'bootstrap-vue'
-  Vue.use (ModalPlugin)
+  import { PaginationPlugin } from 'bootstrap-vue'
   import QueModal from './QueModal'
+  Vue.use(PaginationPlugin)
+  Vue.use (ModalPlugin)
 
     export default {
       components: {
@@ -76,7 +85,9 @@
             type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
             notifications: {
             topCenter: false,
-            jsonModalMessage: []
+            jsonModalMessage: [],
+              perPage: 3,
+              currentPage: 1,
           },
         }
       },
@@ -85,6 +96,12 @@
       },
       mounted() {
         this.loadResources();
+      },
+
+      computed: {
+        rows() {
+          return this.jobs.length
+        }
       },
       methods: {
         loadResources() {
@@ -108,8 +125,8 @@
         },
 
         newModalJsonTree(message) {
-          this.jsonModalMessage = JSON.parse(message);
-          console.log(this.jsonModalMessage);
+          //this.jsonModalMessage = JSON.parse(message);
+          //console.log(this.jsonModalMessage);
           console.log(message);
           this.$bvModal.show('modal-json')
 
