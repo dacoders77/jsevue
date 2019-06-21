@@ -73,7 +73,7 @@ export const routes = [
       },
       {
         path: 'log',
-        beforeEnter() {location.href = logViewerUrl},
+        beforeEnter() {location.href = logViewerUrl}
       },
       {
         path: 'que',
@@ -81,9 +81,8 @@ export const routes = [
         component: Que
       },
       {
-
         path: 'logs',
-        name: Logs,
+        name: 'Log-viewer',
         component: Logs
       }
 
