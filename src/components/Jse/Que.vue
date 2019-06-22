@@ -23,7 +23,7 @@
           </div>
           <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
             <div class="card-body table-responsive p-0">
-              <table class="table table-hover table-info" :current-page="currentPage" :per-page="perPage" id="table-que">
+              <table class="table table-hover table-info" id="table-que">
                 <tbody>
                 <tr>
                   <th><i class="ti-info-alt"></i></th>
@@ -34,7 +34,7 @@
                   <th>Available at</th>
                   <th>Created at</th>
                 </tr>
-                <tr v-for="job in jobs" :key="job.id" >
+                <tr v-for="job in jobs" :key="job.id">
                   <td>{{ job.id }}</td>
                   <td>{{ job.queue }}</td>
                   <td>
@@ -42,6 +42,7 @@
                             @click="newModalJsonTree(job.payload)">
                       <i class="ti-server"></i>
                     </button>
+                    {{job.payload}}
 
                   </td>
                   <td>{{ job.attempts }}</td>
@@ -51,45 +52,18 @@
                 </tr>
                 </tbody>
               </table>
-              <b-pagination
-                v-modal="currentPage"
-                :total-rows="rows"
-                :per-page="perPage"
-                aria-controls="table-que">
-
-              </b-pagination>
             </div>
           </div>
-
         </div>
       </div>
     </div>
     <QueModal :jsonModalMessage="jsonModalMessage"/>
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="my-table"
-      ></b-pagination>
-
-      <p class="mt-3">Current Page: {{ currentPage }}</p>
-
-      <b-table
-        id="my-table"
-        :items="items"
-        :per-page="perPage"
-        :current-page="currentPage"
-        small
-      ></b-table>
   </div>
 </template>
 <script>
   import Vue from 'vue'
   import {ModalPlugin} from 'bootstrap-vue'
-  import {PaginationPlugin} from 'bootstrap-vue'
   import QueModal from './QueModal'
-
-  Vue.use(PaginationPlugin)
   Vue.use(ModalPlugin)
 
   export default {
@@ -102,18 +76,7 @@
         jobs: [],
         jsonModalMessage: null,
         perPage: 3,
-        currentPage: 1,
-        items: [
-          { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
-        ]
+        currentPage: 1
       }
     },
     created() {
@@ -121,13 +84,6 @@
     },
     mounted() {
       this.loadResources();
-    },
-
-    computed: {
-      rows() {
-        console.log(this.jobs.length);
-        return this.jobs.length
-      }
     },
     methods: {
       loadResources() {
