@@ -4,7 +4,8 @@
              no-fade
              data-backdrop="static"
              keyboard="false"
-             size="lg">
+             size="lg"
+             ok-only>
       <!--      <p class="my-4"> {{job.payload}} </p>-->
       <tree-view
         :data="jsonModalMessage"

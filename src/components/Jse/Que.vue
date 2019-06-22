@@ -39,10 +39,9 @@
                   <td>{{ job.queue }}</td>
                   <td>
                     <button type="button" class="btn btn-fill btn-warning btn-circle"
-                            @click="newModalJsonTree(job.payload)">
+                            @click="newModalJsonTree(job)">
                       <i class="ti-server"></i>
                     </button>
-                    {{job.payload}}
 
                   </td>
                   <td>{{ job.attempts }}</td>
@@ -86,8 +85,16 @@
       this.loadResources();
     },
     methods: {
-      loadResources() {
-        axios.get('/job').then(({data}) => (this.jobs = data.data)); //
+      async loadResources() {
+
+        this.loading = true
+        try {
+          const resp = await axios.get('/job');
+          console.log(resp.data);
+          this.jobs = resp.data
+
+        } catch (e) {}
+        this.loading = false
       },
       truncateQue() {
         this.form.delete('/job/1') // /job/1, 1 - is not need. Otherwise delete method is not accepted
@@ -102,15 +109,12 @@
       },
 
       reloadTable() {
-        console.log(this.form);
-        this.form.reset();
-        console.log(this.form);
         this.loadResources();
       },
 
       newModalJsonTree(message) {
         console.log(message);
-        this.jsonModalMessage = JSON.parse(message);
+        this.jsonModalMessage = message;
         this.$bvModal.show('modal-json')
 
       },
