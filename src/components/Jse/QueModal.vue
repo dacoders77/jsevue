@@ -5,9 +5,9 @@
              data-backdrop="static"
              keyboard="false"
              size="lg">
-<!--      <p class="my-4"> {{job.payload}} </p>-->
+      <!--      <p class="my-4"> {{job.payload}} </p>-->
       <tree-view
-        :data="jsonModalParse"
+        :data="jsonModalMessage"
         max-depth="7"
         :options="{
         modifiable: false,
@@ -20,18 +20,20 @@
   export default {
     props: {
       job: Object,
+      jsonModalMessage: Object
     },
     data() {
       return {
-        jsonModal: []
+        jsonModal: [],
+        visible: false
       }
     },
     computed: {
       jsonModalParse() {
+        console.log(this.job);
         return this.jsonModal = JSON.parse(this.job.payload);
       }
     }
-
   }
 </script>
 <style>
