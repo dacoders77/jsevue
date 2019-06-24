@@ -39,31 +39,31 @@ import './assets/sass/demo.scss'
 
 import sidebarLinks from './sidebarLinks'
 // plugin setup
-Vue.use(VueRouter)
-Vue.use(GlobalDirectives)
-Vue.use(GlobalComponents)
-Vue.use(VueNotify)
-Vue.use(SideBar, {sidebarLinks: sidebarLinks})
-Vue.use(VeeValidate)
-Vue.use(Vuex) // Vuex use link
-locale.use(lang)
+Vue.use(VueRouter);
+Vue.use(GlobalDirectives);
+Vue.use(GlobalComponents);
+Vue.use(VueNotify);
+Vue.use(SideBar, {sidebarLinks: sidebarLinks});
+Vue.use(VeeValidate);
+Vue.use(Vuex); // Vuex use link
+locale.use(lang);
 
 // Axios
 window.axios = require('axios');
 //window.axios.defaults.headers.common = {'X-Requested-With': 'XMLHttpRequest'}
-window.axios.defaults.headers.common = {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest',}
+window.axios.defaults.headers.common = {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest',};
 //window.axios.defaults.baseURL = 'http://vue-spa' // jwt. works good
-window.axios.defaults.baseURL = process.env.ROOT_API // Pulled from dev.env.js 'http://gedosinboiler'
+window.axios.defaults.baseURL = process.env.ROOT_API; // Pulled from dev.env.js 'http://gedosinboiler'
 
 // Configure router
 const router = new VueRouter({
   routes, // short for routes: routes
   mode: 'history',
   linkActiveClass: 'active'
-})
+});
 
 // Configure vuex store
-const store = new Vuex.Store(StoreData)
+const store = new Vuex.Store(StoreData);
 
 // Init store and router in a separate file - general.js
 initialize(store, router);
@@ -76,26 +76,30 @@ export const bus = new Vue();
 import BootstrapVue from 'bootstrap-vue';
 //import 'bootstrap/dist/css/bootstrap.css' //// Need to disable them. Otherwise the menu is broken.
 //import 'bootstrap-vue/dist/bootstrap-vue.css'
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
 
 //v-tooltip
 import VTooltip from 'v-tooltip'
-Vue.use(VTooltip)
+Vue.use(VTooltip);
 
 //Json-Tree
 import TreeView from "vue-json-tree-view"
-Vue.use(TreeView)
+Vue.use(TreeView);
 
 // Vform. https://github.com/cretueusebiu/vform
 import { Form, HasError, AlertError } from 'vform'
 window.Form = Form;
-Vue.component(HasError.name, HasError)
-Vue.component(AlertError.name, AlertError)
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
 
 // Pretty date formatting
 import moment from 'moment';
 Vue.filter('myDate', function(created_at){
-  return moment(created_at).format('MM.DD h:mm'); // MMMM Do YYYY, h:mm:ss a
+  return moment(created_at).format('MM.DD h:mm'); // MMMM Do YYYY, h:mm a
+});
+
+Vue.filter('fullDate', function(created_at){
+  return moment(created_at).format('DD.MM.YY hh:mm:ss'); // DD MMMM Do YYYY, h:mm:ss a
 });
 
 // Global event components even listener object
@@ -105,4 +109,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

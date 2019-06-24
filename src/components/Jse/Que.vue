@@ -28,6 +28,7 @@
                 <tr>
                   <th><i class="ti-info-alt"></i></th>
                   <th>Queue</th>
+                  <th>Bot ID/Symbol</th>
                   <th>Payload</th>
                   <th>Attempts</th>
                   <th>Reserverd at</th>
@@ -36,6 +37,7 @@
                 </tr>
                 <tr v-for="job in jobs" :key="job.id">
                   <td>{{ job.id }}</td>
+                  <td> {{ job.id }}</td>
                   <td>{{ job.queue }}</td>
                   <td>
                     <button type="button" class="btn btn-fill btn-warning btn-circle"
@@ -45,9 +47,9 @@
 
                   </td>
                   <td>{{ job.attempts }}</td>
-                  <td>{{ job.reserved_at }}</td>
-                  <td>{{ job.available_at }}</td>
-                  <td>{{ job.created_at }}</td>
+                  <td>{{ job.reserved_at | fullDate }}</td>
+                  <td>{{ job.available_at | fullDate  }}</td>
+                  <td>{{ job.created_at | fullDate  }}</td>
                 </tr>
                 </tbody>
               </table>
@@ -109,6 +111,7 @@
       },
 
       reloadTable() {
+        this.jobs = [];
         this.loadResources();
       },
 
