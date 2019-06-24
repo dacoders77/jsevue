@@ -1085,10 +1085,8 @@
   }
 
   &__buttons {
-    position: absolute;
-    z-index: 51;
-    bottom: $padding-bottom-bots - 20px;
-    padding-top: 20px;
+    margin-top: -13px;
+    padding-bottom: 17px;
 
     button {
       line-height: 1.4;
