@@ -99,7 +99,7 @@ Vue.filter('myDate', function(created_at){
 });
 
 Vue.filter('fullDate', function(created_at){
-  return moment(created_at).format('DD.MM.YY hh:mm:ss'); // DD MMMM Do YYYY, h:mm:ss a
+  return moment.unix(created_at).format('DD.MM.YY hh:mm:ss'); // DD MMMM Do YYYY, h:mm:ss a
 });
 
 // Global event components even listener object

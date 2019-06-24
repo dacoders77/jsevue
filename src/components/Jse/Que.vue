@@ -46,10 +46,17 @@
                     </button>
 
                   </td>
-                  <td>{{ job.attempts }}</td>
-                  <td>{{ job.reserved_at | fullDate }}</td>
-                  <td>{{ job.available_at | fullDate  }}</td>
-                  <td>{{ job.created_at | fullDate  }}</td>
+                  <td >{{ job.attempts }}</td>
+                  <td >
+                    <span v-if="job.reserved_at"> {{ job.reserved_at | fullDate }}</span>
+                    <span v-else></span>
+                  </td>
+                  <td><span v-if="job.available_at">{{ job.available_at | fullDate  }}</span>
+                    <span v-else></span>
+                  </td>
+                  <td><span v-if="job.created_at">{{ job.created_at | fullDate  }}</span>
+                    <span v-else></span>
+                  </td>
                 </tr>
                 </tbody>
               </table>
