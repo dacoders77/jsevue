@@ -36,9 +36,9 @@
                   <th>Created at</th>
                 </tr>
                 <tr v-for="job in jobs" :key="job.id">
-                  <td>{{ job.id }}</td>
                   <td> {{ job.id }}</td>
                   <td>{{ job.queue }}</td>
+                  <td>{{ job.data.botSettings.botTitle }} / {{ job.data.botSettings.historySymbolName }}</td>
                   <td>
                     <button type="button" class="btn btn-fill btn-warning btn-circle"
                             @click="newModalJsonTree(job)">

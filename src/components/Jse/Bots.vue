@@ -1,5 +1,14 @@
 <template>
-
+<div>
+  <div class="row">
+    <div class="col-md-12 pb-10">
+      <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify" @click="reloadTableBots()">
+                <span class="btn-label">
+                    <i class="ti-reload pr-5"></i>
+                </span>Reload table
+      </button>
+    </div>
+  </div>
   <div class="row position-relative">
         <div class="col-md-12">
 
@@ -116,8 +125,8 @@
                                 </td>
 
                             </tr>
-                            </tbody></table>
-
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>
@@ -133,6 +142,7 @@
       </button>
     </div>
    </div>
+</div>
 </template>
 <script>
   import Vue from 'vue'
@@ -353,6 +363,14 @@
             // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
             this.showAlert(error.data);
           })
+      },
+      reloadTableBots() {
+        let obj = this.form;
+        this.form.reset();
+        Object.getOwnPropertyNames(obj).forEach(function (prop) {
+          console.log(Object.getOwnPropertyNames(obj));
+          delete obj[prop];
+        });
       },
       unlinkButtonClick(params){
         // params[0] - bot
