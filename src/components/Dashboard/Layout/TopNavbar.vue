@@ -23,6 +23,7 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
+          <li><span>Connected to:  </span></li>
           <li class="open">
             <router-link to="/admin/stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
               <i class="ti-panel"></i>
@@ -50,7 +51,13 @@
   export default {
     data () {
       return {
-        activeNotifications: false
+        activeNotifications: false,
+        dev_api: ""
+      }
+    },
+    computed: {
+      dev_api_url(){
+        // return  dev_api = require('../../config/dev.env').ROOT_API;
       }
     },
     methods: {

@@ -4,15 +4,15 @@
              no-fade
              data-backdrop="static"
              keyboard="false"
-             size="lg">
-      <p class="my-4"> {{job.payload}} </p>
+             size="lg"
+             ok-only>
+      <!--      <p class="my-4"> {{job.payload}} </p>-->
       <tree-view
         :data="jsonModalMessage"
+        max-depth="7"
         :options="{
-        maxDepth: 5,
         modifiable: false,
         link: false}">
-
       </tree-view>
     </b-modal>
   </div>
@@ -24,7 +24,16 @@
       jsonModalMessage: Object
     },
     data() {
-      return {}
+      return {
+        jsonModal: [],
+        visible: false
+      }
+    },
+    computed: {
+      jsonModalParse() {
+        console.log(this.job);
+        return this.jsonModal = JSON.parse(this.job.payload);
+      }
     }
   }
 </script>
