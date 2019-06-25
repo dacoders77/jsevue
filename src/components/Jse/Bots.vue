@@ -316,7 +316,7 @@
       validateBots(name, value) {
         if (value) {
           swal({
-            title: name + 'was successfully updated!',
+            title: name + ' was successfully updated!',
             text: name + ': ' + value,
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-success btn-fill',
