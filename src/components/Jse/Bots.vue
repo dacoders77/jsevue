@@ -408,7 +408,6 @@
             // this.validationErrors.record(error.data.errors)
             // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
             this.showAlertRun(error.data);
-            console.log(error.data);
           })
       },
       reloadTableBots() {

@@ -31,7 +31,6 @@
     },
     computed: {
       jsonModalParse() {
-        console.log(this.job);
         return this.jsonModal = JSON.parse(this.job.payload);
       }
     }

@@ -23,7 +23,9 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li class="navbar-brand navbar-api">Connected to: {{devRootApi}} </span></li>
+          <li class="navbar-brand navbar-api"> <i class="ti-rss"></i>
+            <span>{{devApiUrl}} </span>
+          </li>
           <li class="open">
             <router-link to="/admin/stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
               <i class="ti-panel"></i>
@@ -52,12 +54,12 @@
     data () {
       return {
         activeNotifications: false,
-        devRootApi: require('../../../../config/dev.env').ROOT_API
+        // devRootApi: require('../../../../config/dev.env').ROOT_API.replace(/^"(.+(?="$))"$/, '$1')
       }
     },
     computed: {
-      dev_api_url(){
-        // return  dev_api = require('../../config/dev.env').ROOT_API;
+      devApiUrl(){
+        return  require('../../../../config/dev.env').ROOT_API.replace(/^"(.+(?="$))"$/, '$1');
       }
     },
     methods: {
