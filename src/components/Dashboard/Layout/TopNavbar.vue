@@ -23,7 +23,7 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><span>Connected to:  </span></li>
+          <li class="navbar-brand navbar-api">Connected to: {{devRootApi}} </span></li>
           <li class="open">
             <router-link to="/admin/stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
               <i class="ti-panel"></i>
@@ -52,7 +52,7 @@
     data () {
       return {
         activeNotifications: false,
-        dev_api: ""
+        devRootApi: require('../../../../config/dev.env').ROOT_API
       }
     },
     computed: {
