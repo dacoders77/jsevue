@@ -84,7 +84,8 @@
         jobs: [],
         jsonModalMessage: null,
         perPage: 3,
-        currentPage: 1
+        currentPage: 1,
+        type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
       }
     },
     created() {

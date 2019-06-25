@@ -23,8 +23,10 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li class="navbar-brand navbar-api"> <i class="ti-rss"></i>
+          <li class="">
+            <p class="navbar-api"><i class="ti-rss"></i>
             <span>{{devApiUrl}} </span>
+            </p>
           </li>
           <li class="open">
             <router-link to="/admin/stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">

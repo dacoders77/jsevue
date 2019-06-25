@@ -414,7 +414,6 @@
         let obj = this.form;
         this.form.reset();
         Object.getOwnPropertyNames(obj).forEach(function (prop) {
-          console.log(Object.getOwnPropertyNames(obj));
           delete obj[prop];
         });
       },

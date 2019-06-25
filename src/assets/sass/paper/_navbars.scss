@@ -37,7 +37,8 @@
     font-size: $font-size-large-navbar;
   }
   .navbar-nav{
-    > li > a {
+    > li > a ,
+    > li > p {
       line-height: 1.42857;
       margin: $navbar-margin-a;
       padding: $navbar-padding-a;
@@ -306,5 +307,6 @@
   padding: 10px 15px;
   margin: 16px 0;
   color: $dark-gray;
+  vertical-align: middle;
 
 }
