@@ -2,14 +2,14 @@
   <div>
     <div class="row">
       <div class="col-md-12 pb-10">
-        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-15" @click="truncateQue()">
+        <button type="button" class="btn btn-wd btn-danger btn-fill btn-magnify mr-15" @click="truncateQue()">
                 <span class="btn-label">
-                    <i class="ti-search pr-5"></i>
+                    <i class="ti-trash pr-5" style="line-height: inherit"></i>
                 </span>Truncate que
         </button>
         <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify" @click="reloadTable()">
                 <span class="btn-label">
-                    <i class="ti-reload pr-5"></i>
+                    <i class="ti-reload pr-5" style="line-height: inherit"></i>
                 </span>Reload table
         </button>
       </div>

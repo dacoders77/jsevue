@@ -8,7 +8,8 @@
                :title="bot.name"
                v-if="symbols[bot.symbol_id - 1]"
                @click="botTabClick(bot)"
-               v-tooltip="bot.memo">
+               v-tooltip="bot.memo"
+               :class="{active: activeItem === bot.id}">
           <template slot="title"> <span v-tooltip="bot.memo">{{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }} </span></template>
         </b-tab>
       </b-tabs>
@@ -60,6 +61,9 @@
         backtesterOpen: false,
         tabIndex: 0
       }
+    },
+    props: {
+      activeItem: Number
     },
     created() {
     },

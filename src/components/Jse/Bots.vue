@@ -2,11 +2,11 @@
   <div>
     <div class="row">
       <div class=" col-md-12 card-bots__buttons">
-          <button type="button"  class="btn btn-wd btn-success btn-fill btn-magnify" @click.prevent="showAlert('Button reserved')">
+          <button type="button"  class="btn btn-wd btn-success btn-fill btn-magnify mr-10" @click.prevent="showAlert('Button reserved')">
             <i class="ti-control-play"></i>All
           </button>
 
-          <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" @click.prevent="showAlert('Button reserved')">
+          <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-10" @click.prevent="showAlert('Button reserved')">
             <i class="ti-control-stop"></i>All
           </button>
         <button type="button" class="btn btn-wd btn-repost btn-fill btn-magnify" @click="reloadTableBots()">
@@ -71,14 +71,16 @@
                            @keyup.enter="() =>{ updateBotNew(['updateBotName', bot]); validateBots(); }">
                   </td>
 
-                  <td v-if="bot" style="min-width: 72px;">{{ bot.status }}</td>
+                  <td v-if="bot" style="min-width: 72px;">
+                    <router-link to="/chart" class="text-success"  :click.prevent="activeItem = bot.id">
+                  {{ bot.status }} </router-link></td>
 
                   <!-- Account -->
                   <td>
                     <drop-down class="dropdown-menu--left card-bots__dropdown">
                       <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
                               data-toggle="dropdown" style="width: 120px;" :disabled="bot.status == 'running'">
-                        <span v-for="account in accounts" v-if="account.id == bot.account_id">{{ account.name }}</span>
+                        <span v-for="account in accounts" v-if="account.id == bot.account_id" v-tooltip="account.name">{{ account.name }}</span>
                         <b class="caret"></b>
                       </button>
                       <li v-if="bot.status == 'idle'" v-for="(account, index) in accounts"><a href="javascript:void(0)"
@@ -116,7 +118,7 @@
                               class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
                               data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
                         <span v-for="strategy in strategies"
-                              v-if="strategy.id == bot.strategy_id">{{ strategy.name }}</span>
+                              v-if="strategy.id == bot.strategy_id" v-tooltip="strategy.name">{{ strategy.name }}</span>
                         <b class="caret"></b>
                       </button>
                       <li v-if="strategies && bot.status == 'idle'" v-for="(strategy, index) in strategies"><a
@@ -285,7 +287,8 @@
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
-        }
+        },
+        activeItem: null
       }
     },
     created() {
@@ -347,6 +350,14 @@
           type: 'success'
         })
       },
+      showAlertRun(text) {
+        swal({
+          html: text + '<br><a href="/que">Go to que</a>',
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill',
+          type: 'success'
+        })
+      },
       updateBotNew(params) { // updateTimeFrame
         // Receives two params: bot instance and action (updateBotName)
         let bot = params[1];
@@ -396,7 +407,8 @@
           .catch(error => {
             // this.validationErrors.record(error.data.errors)
             // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
-            this.showAlert(error.data);
+            this.showAlertRun(error.data);
+            console.log(error.data);
           })
       },
       reloadTableBots() {
