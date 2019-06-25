@@ -135,25 +135,25 @@
                   <td>
                     <input type="text" class="form-control form-control--xs" maxlength="1" v-model="bot.time_frame"
                            :disabled="bot.status == 'running'"
-                           @input="() => { updateBotNew(['updateTimeFrame', bot]); validateBots('Time frame', bot.time_frame ); }">
+                           @change="() => { updateBotNew(['updateTimeFrame', bot]); validateBots('Time frame', bot.time_frame ); }">
                   </td>
                   <!-- Volume -->
                   <td>
                     <input type="text" class="form-control form-control--sm" maxlength="5" v-model="bot.volume"
                            :disabled="bot.status == 'running'"
-                           @input="() => { updateBotNew(['updateBotName', bot]); validateBots('Volume', bot.volume); }">
+                           @change="() => { updateBotNew(['updateBotName', bot]); validateBots('Volume', bot.volume); }">
                   </td>
                   <!-- Bars to load -->
                   <td>
                     <input type="text" class="form-control form-control--xs" v-model="bot.bars_to_load"
                            :disabled="bot.status == 'running'"
-                           @input="() => { updateBotNew(['updateBotName', bot]); validateBots('Bars to load', bot.bars_to_load); }">
+                           @change="() => { updateBotNew(['updateBotName', bot]); validateBots('Bars to load', bot.bars_to_load); }">
                   </td>
                   <!-- Rate limit -->
                   <td>
                     <input type="text" class="form-control form-control--xs" maxlength="1" v-model="bot.rate_limit"
                            :disabled="bot.status == 'running'"
-                           @input="() => { updateBotNew(['updateBotName', bot]);  validateBots('Rate limit', bot.rate_limit ); }">
+                           @change="() => { updateBotNew(['updateBotName', bot]);  validateBots('Rate limit', bot.rate_limit ); }">
                   </td>
                   <!-- Memo -->
                   <td>
