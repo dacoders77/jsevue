@@ -96,7 +96,7 @@
                     <drop-down class="dropdown-menu--left card-bots__dropdown">
                       <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
                               data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
-                        <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
+                        <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id" v-tooltip="symbol.execution_symbol_name">{{ symbol.execution_symbol_name }}</span>
                         <b class="caret"></b>
                       </button>
                       <li v-if="bot.status == 'idle'" v-for="(symbol, index) in symbols"><a href="javascript:void(0)"

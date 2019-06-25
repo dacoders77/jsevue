@@ -45,12 +45,14 @@
 
           const respS = await axios.get('/symbol')
           this.symbols = respS.data.data
+          console.log(this.symbols)
 
           const respSt = await axios.get('/strategy')
           this.strategies = respSt.data.data
 
           const respB = await axios.get('/bot')
           this.bots = respB.data.data
+          console.log(this.bots)
         } catch (e) {}
         this.loading = false
       },
