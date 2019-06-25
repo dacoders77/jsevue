@@ -72,7 +72,7 @@
                   </td>
 
                   <td v-if="bot" style="min-width: 72px;">
-                    <router-link to="/chart" class="text-success"  :click.prevent="activeItem = bot.id">
+                    <router-link to="/chart" class="text-success">
                   {{ bot.status }} </router-link></td>
 
                   <!-- Account -->
@@ -151,7 +151,7 @@
                   </td>
                   <!-- Rate limit -->
                   <td>
-                    <input type="text" class="form-control form-control--xs" maxlength="1" v-model="bot.rate_limit"
+                    <input type="text" class="form-control form-control--sm" maxlength="5" v-model="bot.rate_limit"
                            :disabled="bot.status == 'running'"
                            @change="() => { updateBotNew(['updateBotName', bot]);  validateBots('Rate limit', bot.rate_limit ); }">
                   </td>
@@ -288,7 +288,6 @@
         notifications: {
           topCenter: false
         },
-        activeItem: null
       }
     },
     created() {
@@ -305,6 +304,7 @@
     methods: {
       loadBots() {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
+        console.log(this.bots );
       },
       loadResources() {
         axios.get('/account').then(({data}) => (this.accounts = data.data));
@@ -316,7 +316,7 @@
       validateBots(name, value) {
         if (value) {
           swal({
-            title: `Name was successfully updated!`,
+            title: name + 'was successfully updated!',
             text: name + ': ' + value,
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-success btn-fill',
@@ -344,15 +344,15 @@
       },
       showAlert(text) {
         swal({
-          title: text,
+          text: text + ' was successfully updated',
           buttonsStyling: false,
           confirmButtonClass: 'btn btn-success btn-fill',
           type: 'success'
         })
       },
-      showAlertRun(text) {
+      showAlertRun() {
         swal({
-          html: text + '<br><a href="/que">Go to que</a>',
+          html: '<h5>Back end error, check inspector</h5> <br><a href="/que">Go to que</a>',
           buttonsStyling: false,
           confirmButtonClass: 'btn btn-success btn-fill',
           type: 'success'
@@ -370,7 +370,8 @@
         let accountId = bot.account_id;
         if (params[0] === 'updateAccount') {
           accountId = this.accounts[params[2]].id; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
-          this.showNotification('bottom', 'right', 'Account successfully updated!')
+          // this.showNotification('bottom', 'right', 'Account successfully updated!')
+          this.showAlert('Account ');
         }
 
         // Update symbol drop down
@@ -378,14 +379,16 @@
         /*if (params[0] === 'updateSymbol') symbolId = params[2] + 1;*/
         if (params[0] === 'updateSymbol') {
           symbolId = this.symbols[params[2]].id;
-          this.showNotification('bottom', 'right', 'Symbol successfully updated!')
+          // this.showNotification('bottom', 'right', 'Symbol successfully updated!')
+          this.showAlert('Symbol ');
         }
 
         // Update strategy drop down
         let strategyId = bot.strategy_id;
         if (params[0] === 'updateStrategy') {
           strategyId = this.strategies[params[2]].id;
-          this.showNotification('bottom', 'right', 'Strategy successfully updated!');
+          // this.showNotification('bottom', 'right', 'Strategy successfully updated!');
+          this.showAlert('Strategy ');
         }
 
         this.form.reset();
@@ -399,6 +402,7 @@
         this.form.bars_to_load = bot.bars_to_load;
         this.form.rate_limit = bot.rate_limit;
         this.form.memo = bot.memo;
+        console.log(this.form);
         this.form.put('/bot/' + bot.id)
           .then((response) => {
             Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
@@ -407,15 +411,22 @@
           .catch(error => {
             // this.validationErrors.record(error.data.errors)
             // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
-            this.showAlertRun(error.data);
+            this.showAlertRun();
           })
       },
       reloadTableBots() {
-        let obj = this.form;
         this.form.reset();
-        Object.getOwnPropertyNames(obj).forEach(function (prop) {
-          delete obj[prop];
-        });
+        this.bots = [];
+        this.accounts = [];
+        this.strategies = [];
+        this.exchanges =[];
+        // let obj = this.form;
+        // Object.getOwnPropertyNames(obj).forEach(function (prop) {
+        //   delete obj[prop];
+        // });
+        this.loadBots();
+        this.loadResources();
+        this.showAlert('Bots');
       },
       unlinkButtonClick(params){
         // params[0] - bot
@@ -428,10 +439,13 @@
           .then((response) => {
             Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
             // this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + params[0].id)
+            this.showAlert('Dropdown');
           })
           .catch(error => {
             //this.validationErrors.record(error.data.errors)
             // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + params[0].id)
+            this.showAlertRun();
+
           })
       },
       showNotification (verticalAlign, horizontalAlign, notificationText) {

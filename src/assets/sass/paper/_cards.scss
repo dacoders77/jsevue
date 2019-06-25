@@ -668,14 +668,14 @@
   box-sizing: border-box;
   background-color: rgba($card-background-blue, 0.4);
   overflow-y: hidden;
-  max-height: 230px;
+  max-height: 240px;
 
   &--green {
     background-color: $card-background-green;
   }
 
   &--big {
-    max-height: 312px;
+    max-height: 330px;
   }
 
   &__table {
@@ -758,22 +758,6 @@
       white-space: nowrap;
       display: inline-block;
       width: 50%;
-    }
-  }
-  &__api {
-    //max-width: 50px!important;
-    //width: 10%!important;
-    //border: 0;
-    //overflow: scroll!important;
-    //height: 15px;
-    //max-height: 15px;
-
-    span {
-      //display: inline-block;
-      //white-space: nowrap;
-      //position: relative;
-      //top: 6.5px;
-
     }
   }
 }
@@ -1106,7 +1090,7 @@
     }
 
     & .form-control--sm {
-      width: 72px;
+      width: 74px;
     }
   }
 

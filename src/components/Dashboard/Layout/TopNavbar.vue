@@ -23,7 +23,7 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li class="">
+          <li>
             <p class="navbar-api"><i class="ti-rss"></i>
             <span>{{devApiUrl}} </span>
             </p>
