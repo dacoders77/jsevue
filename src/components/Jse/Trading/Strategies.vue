@@ -269,6 +269,7 @@
     methods: {
       loadResources(){
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+        console.log(this.strategies);
         axios.get('/strategy/1').then(({data}) => (this.strategiesSettings = data)); // ExchangeController.php@show
       },
       editExchange(exchange) {

@@ -48,9 +48,11 @@
 
           const respSt = await axios.get('/strategy')
           this.strategies = respSt.data.data
+          console.log(this.strategies)
 
           const respB = await axios.get('/bot')
           this.bots = respB.data.data
+          console.log(this.bots)
 
         } catch (e) {}
         this.loading = false
@@ -59,7 +61,7 @@
         return this.symbols.find(s => s.id == bot.symbol_id)
       },
       findStrategy(bot) {
-        return this.strategies.find(s => s.id == bot.strategy_id)
+        return console.log(this.strategies.find(s => s.id == bot.strategy_id))
       },
       findAccount(bot) {
         return this.accounts.find(a => a.id == bot.account_id)
