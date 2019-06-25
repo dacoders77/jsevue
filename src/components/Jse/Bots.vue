@@ -312,7 +312,6 @@
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
       },
-
       validateBots(name, value) {
         if (value) {
           swal({
