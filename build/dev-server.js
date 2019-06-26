@@ -1,4 +1,5 @@
 require('./check-versions')()
+require('dotenv').config()
 
 var config = require('../config')
 if (!process.env.NODE_ENV) {

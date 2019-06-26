@@ -4,6 +4,7 @@ dist/
 .idea/
 npm-debug.log
 config/
+.env
 
 storybook-static/
 test/unit/coverage/

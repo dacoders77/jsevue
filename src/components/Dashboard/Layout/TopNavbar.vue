@@ -25,7 +25,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li>
             <p class="navbar-api"><i class="ti-rss"></i>
-            <span>{{devApiUrl}} </span>
+            <span>{{devRootApi}} </span>
             </p>
           </li>
           <li class="open">
@@ -56,12 +56,7 @@
     data () {
       return {
         activeNotifications: false,
-        // devRootApi: require('../../../../config/dev.env').ROOT_API.replace(/^"(.+(?="$))"$/, '$1')
-      }
-    },
-    computed: {
-      devApiUrl(){
-        return  require('../../../../config/dev.env').ROOT_API.replace(/^"(.+(?="$))"$/, '$1');
+        devRootApi: process.env.ROOT_API
       }
     },
     methods: {
