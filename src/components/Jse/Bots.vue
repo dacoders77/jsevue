@@ -304,7 +304,6 @@
     methods: {
       loadBots() {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
-        console.log(this.bots );
       },
       loadResources() {
         axios.get('/account').then(({data}) => (this.accounts = data.data));

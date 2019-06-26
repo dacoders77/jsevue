@@ -276,11 +276,9 @@
           try {
             let responseSt = await axios.get('/strategy/1');
             this.strategiesSettings = responseSt.data;
-            console.log(this.strategiesSettings);
 
             let responseStrategy = await axios.get('/strategy');
             this.strategies = responseStrategy.data.data;
-            console.log(this.strategies);
           }catch (e) {}
       },
       editExchange(exchange) {

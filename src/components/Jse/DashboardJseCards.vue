@@ -48,11 +48,9 @@
 
           const respSt = await axios.get('/strategy')
           this.strategies = respSt.data.data
-          console.log(this.strategies)
 
           const respB = await axios.get('/bot')
           this.bots = respB.data.data
-          console.log(this.bots)
 
         } catch (e) {}
         this.loading = false
