@@ -95,7 +95,7 @@
                 <!-- Price channel div -->
                 <div style="border: 0px solid red" v-if="(strategyId == 'Price Channel' ? true : false)">
                     <span>Price channel settings:</span>
-                    <b-form-group label="Time frame:" label-for="time_frame" class="account-row">
+                    <b-form-group label="Time frame(bars):" label-for="time_frame" class="account-row">
                         <b-form-input
                                 id="time_frame"
                                 v-model="form.time_frame"
@@ -106,7 +106,7 @@
                         <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('time_frame') }}</b-form-invalid-feedback>
                     </b-form-group>
 
-                    <b-form-group label="Sma filter period:" label-for="sma_filter_period" class="account-row">
+                    <b-form-group label="Sma filter period (bars):" label-for="sma_filter_period" class="account-row">
                         <b-form-input
                                 id="sma_filter_period"
                                 v-model="form.sma_filter_period"
@@ -122,7 +122,7 @@
 
                 <div style="border: 0px solid blue" v-if="(strategyId == 'MACD' ? true : false)">
                     <span>MACD settings:</span>
-                    <b-form-group label="ema period:" label-for="ema_period" class="account-row">
+                    <b-form-group label="ema period(bars):" label-for="ema_period" class="account-row">
                         <b-form-input
                                 id="ema_period"
                                 v-model="form.ema_period"
@@ -133,7 +133,7 @@
                         <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('ema_period') }}</b-form-invalid-feedback>
                     </b-form-group>
 
-                    <b-form-group label="Line period:" label-for="macd_line_period" class="account-row">
+                    <b-form-group label="Line period(bars):" label-for="macd_line_period" class="account-row">
                         <b-form-input
                                 id="macd_line_period"
                                 v-model="form.macd_line_period"
@@ -144,7 +144,7 @@
                         <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_line_period') }}</b-form-invalid-feedback>
                     </b-form-group>
 
-                    <b-form-group label="Signal line period:" label-for="macd_signalline_period" class="account-row">
+                    <b-form-group label="Signal line period(bars):" label-for="macd_signalline_period" class="account-row">
                         <b-form-input
                                 id="macd_signalline_period"
                                 v-model="form.macd_signalline_period"
@@ -179,6 +179,7 @@
   import Vue from 'vue'
   import {Table, TableColumn, Tag} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
+  import swal from 'sweetalert2'
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
@@ -263,8 +264,6 @@
       });
     },
     mounted() {
-      //this.loadExchanges();
-      //this.loadExchangesList(); // Exchanges for dropdown
       this.loadResources();
     },
     methods: {
@@ -272,7 +271,6 @@
         axios.get('/strategy').then(({data}) => (this.strategies = data.data));
         console.log(this.strategies);
         axios.get('/strategy/1').then(({data}) => (this.strategiesSettings = data)); // ExchangeController.php@show
-        //axios.get('/exchange/1').then(({data}) => (this.allExchanges = data));
       },
       editExchange(exchange) {
         this.modalMode = 'edit';
@@ -300,7 +298,7 @@
             this.showNotification('bottom', 'right', 'Strategy successfully removed! <br>' + '&nbsp')
           })
           .catch(error => {
-            console.log(error.data.message);
+            if (error.status === 500) this.showAlert(error.data.message);
             this.showNotification('bottom', 'right', 'Strategy delete error! <br>' + '&nbsp' + error.data.message)
           })
       },
@@ -330,9 +328,10 @@
               this.showNotification('bottom', 'right', 'Strategy successfully added! <br> id: ' + this.form.id)
             })
             .catch(error => {
-              console.log(error);
+              //console.log(error.data.message);
               this.validationErrors.record(error.data.errors)
               this.showNotification('bottom', 'right', 'Strategy add error! <br> id: ' + this.form.id)
+
             })
         }
         if(this.modalMode == 'edit') {
@@ -346,20 +345,10 @@
               console.log(error);
               this.validationErrors.record(error.data.errors)
               this.showNotification('bottom', 'right', 'Strategy edit error! <br> id: ' + this.form.id)
+              if (error.status === 500) this.showAlert(error.data.message);
             })
         }
       },
-      /*addStrategy() {
-        this.form.name = 'jopa';
-        this.form.post('/strategy')
-          .then((response) => {
-            Fire.$emit('AfterCreate');
-            this.showNotification('bottom', 'right', 'Strategy successfully added! <br>' + '&nbsp')
-          })
-          .catch(error => {
-            this.showNotification('bottom', 'right', 'Add strategy error! <br>' + '&nbsp')
-          })
-      },*/
       showNotification (verticalAlign, horizontalAlign, notificationText) {
         var color = Math.floor((Math.random() * 4) + 1)
         this.$notify(
@@ -372,6 +361,14 @@
             verticalAlign: verticalAlign,
             type: this.type[color]
           })
+      },
+      showAlert(text) {
+        swal({
+          title: text,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill',
+          type: 'error'
+        })
       }
     }
   }
