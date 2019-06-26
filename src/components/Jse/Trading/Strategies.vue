@@ -206,7 +206,7 @@
           memo: ''
         }),
         strategyId: [], // Price channel or macd. Shown in drop down in modal
-        strategies: [],
+        strategies: null,
         strategies2: [
           {
             'id': '1',
@@ -267,10 +267,21 @@
       this.loadResources();
     },
     methods: {
-      loadResources(){
-        axios.get('/strategy').then(({data}) => (this.strategies = data.data));
-        console.log(this.strategies);
-        axios.get('/strategy/1').then(({data}) => (this.strategiesSettings = data)); // ExchangeController.php@show
+      // loadResources(){
+        // axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+        // console.log(this.strategies);
+        // axios.get('/strategy/1').then(({data}) => (this.strategiesSettings = data)); // ExchangeController.php@show
+        // console.log(this.strategiesSettings);
+        async  loadResources() {
+          try {
+            let responseSt = await axios.get('/strategy/1');
+            this.strategiesSettings = responseSt.data;
+            console.log(this.strategiesSettings);
+
+            let responseStrategy = await axios.get('/strategy');
+            this.strategies = responseStrategy.data.data;
+            console.log(this.strategies);
+          }catch (e) {}
       },
       editExchange(exchange) {
         this.modalMode = 'edit';

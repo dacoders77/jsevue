@@ -61,7 +61,7 @@
         return this.symbols.find(s => s.id == bot.symbol_id)
       },
       findStrategy(bot) {
-        return console.log(this.strategies.find(s => s.id == bot.strategy_id))
+        return this.strategies.find(s => s.id == bot.strategy_id)
       },
       findAccount(bot) {
         return this.accounts.find(a => a.id == bot.account_id)
