@@ -198,8 +198,6 @@
       }
     },
     created() {
-      // First created then mounted
-      // Event listener
       Fire.$on('AfterCreate', () => {
         this.loadExchanges();
         this.loadSymbols();
@@ -229,6 +227,7 @@
           })
           .catch(error => {
             this.showNotification('bottom', 'right', 'Symbol delete error! <br>' + '&nbsp')
+            if (error.status === 500) this.showAlert(error.data.message);
           })
       },
       handleOkModalButton(bvModalEvt) {
@@ -282,6 +281,14 @@
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-success btn-fill'
           })
+      },
+      showAlert(text) {
+        swal({
+          title: text,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill',
+          type: 'error'
+        })
       }
     }
   }

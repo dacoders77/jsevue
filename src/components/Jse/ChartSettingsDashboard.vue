@@ -6,6 +6,25 @@
     data () {
       return {
         options: {
+          xAxis: [
+            {
+              categories: [],
+              visible: false,
+              //crosshair: true
+            },
+            {
+              categories: [],
+              visible: false,
+            },
+            {
+              categories: [],
+              visible: false,
+            },
+            {
+              categories: [],
+              visible: false,
+            }
+          ],
           yAxis: [{ // Primary yAxis
             title: {
               text: 'Net profit',
@@ -55,11 +74,18 @@
                 visibility: 'hidden'
               }
             },
+          navigator: {
+            enabled: false
+          },
+          scrollbar: {
+            enabled: false
+          },
           title: {
             //text: 'AAPL Stock Price'
           },
           series: [{
             name: 'Bot1',
+            xAxis: 0,
             yAxis: 0, // To which of two y axis this series should be linked
             type: 'line',
             // step: true,
@@ -73,6 +99,7 @@
             },
             {
               name: 'Bot2',
+              xAxis: 1,
               yAxis: 1,
               type: 'line',
               // step: true,
@@ -85,27 +112,30 @@
             },
             {
               name: 'Bot3',
+              xAxis: 2,
               yAxis: 2,
               type: 'line',
               // step: true,
               visible: true,
               //enableMouseTracking: true,
-              color: 'green',
+              color: 'purple',
               negativeColor: 'red',
               // threshold: 2,
-              lineWidth: 1
+              lineWidth: 2
             },
             {
               name: 'Bot4',
+              xAxis: 3,
               yAxis: 3,
               type: 'line',
               // step: true,
               visible: true,
               //enableMouseTracking: true,
-              color: 'green',
+              dashStyle: 'Dash',
+              color: 'orange',
               negativeColor: 'red',
               // threshold: 2,
-              lineWidth: 1
+              lineWidth: 2
             }
           ]
         }

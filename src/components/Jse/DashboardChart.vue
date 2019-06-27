@@ -7,8 +7,8 @@
     export default {
       data() {
         return {
-          var1: '',
-          var2: ''
+          //var1: '',
+          //var2: ''
         }
       },
       created() {
@@ -25,10 +25,29 @@
           //
         },
         HistoryBarsLoad () {
-          axios.get('trading/history/1').then((response) => this.chart.series[0].setData(response.data.netProfit, true)).catch((err) => alert("DashboardChart.vue can not get history bars. 1" + err));
-          axios.get('trading/history/2').then((response) => this.chart.series[1].setData(response.data.netProfit, true)).catch((err) => alert("DashboardChart.vue can not get history bars. 2" + err));
-          //axios.get('trading/history/3').then((response) => this.chart.series[2].setData(response.data.netProfit, true)).catch((err) => alert("DashboardChart.vue can not get history bars. 2" + err));
-          //axios.get('trading/history/4').then((response) => this.chart.series[3].setData(response.data.netProfit, true)).catch((err) => alert("DashboardChart.vue can not get history bars. 2" + err));
+          axios.get('trading/history/1')
+            .then((response) => {
+              this.chart.series[0].setData(response.data.netProfit, true);
+              //console.log(response);
+            })
+            .catch((err) => alert("DashboardChart.vue can not get history bars. 1" + err));
+          axios.get('trading/history/2')
+            .then((response) => {
+              this.chart.series[1].setData(response.data.netProfit, true);
+              //console.log(response);
+            })
+          axios.get('trading/history/3')
+            .then((response) => {
+              this.chart.series[2].setData(response.data.netProfit, true);
+              //console.log(response);
+            })
+            .catch((err) => alert("DashboardChart.vue can not get history bars. 2" + err));
+          axios.get('trading/history/4')
+            .then((response) => {
+              this.chart.series[3].setData(response.data.netProfit, true);
+              //console.log(response);
+            })
+
         }
       }
 

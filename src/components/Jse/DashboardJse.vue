@@ -175,7 +175,6 @@
         ],
       }
     },
-
     computed: {
       lastAccounts: function () {
         return this.accounts.slice(-3).reverse();
@@ -221,7 +220,7 @@
             this.trades = response.data.rawTable;
           })
           .catch((err) => {
-            alert("Chart.vue can not get history bars. DashboardJse.vue line 227" + err);
+            alert("Chart.vue can not get history bars. DashboardJse.vue line 223" + err);
           })
       },
     }
