@@ -25,7 +25,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li>
             <p class="navbar-api"><i class="ti-rss"></i>
-            <span>{{devRootApi}} </span>
+              <span>{{devRootApi}} </span>
             </p>
           </li>
           <li class="open">
@@ -34,13 +34,13 @@
               <p>Stats</p>
             </router-link>
           </li>
-          <drop-down tag="li" title="5" icon="ti-bell">
-            <li><a href="#">Notification 1</a></li>
-            <li><a href="#">Notification 2</a></li>
-            <li><a href="#">Notification 3</a></li>
-            <li><a href="#">Notification 4</a></li>
-            <li><a href="#">Another notification</a></li>
-          </drop-down>
+          <li>
+            <a href="#" @click.prevent="openServerModal()" class="btn-rotate">
+              <i class="ti-bell"></i>
+              <b-badge variant="danger">9 </b-badge>
+            </a>
+            <ServerModal/>
+          </li>
           <li>
             <router-link to="/admin/overview" class="btn-rotate">
               <i class="ti-settings"></i>
@@ -52,32 +52,47 @@
   </nav>
 </template>
 <script>
+  import Vue from 'vue'
+  import {ModalPlugin} from 'bootstrap-vue'
+  import ServerModal from '../../Jse/ServerModal'
+  import { BBadge } from 'bootstrap-vue'
+  Vue.component('b-badge', BBadge)
+
+  Vue.use(ModalPlugin)
+
   export default {
-    data () {
+    components: {
+      ServerModal
+    },
+    data() {
       return {
         activeNotifications: false,
         devRootApi: process.env.ROOT_API
       }
     },
     methods: {
-      capitalizeFirstLetter (string) {
+      capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },
-      toggleNotificationDropDown () {
+      toggleNotificationDropDown() {
         this.activeNotifications = !this.activeNotifications
       },
-      closeDropDown () {
+      closeDropDown() {
         this.activeNotifications = false
       },
-      toggleSidebar () {
+      toggleSidebar() {
         this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
       },
-      hideSidebar () {
+      hideSidebar() {
         this.$sidebar.displaySidebar(false)
       },
-      minimizeSidebar () {
+      minimizeSidebar() {
         this.$sidebar.toggleMinimize()
+      },
+      openServerModal(){
+        this.$bvModal.show('modal-server')
       }
+
     }
   }
 

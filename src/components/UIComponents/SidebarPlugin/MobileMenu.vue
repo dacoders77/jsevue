@@ -6,21 +6,16 @@
         <p>Stats</p>
       </a>
     </li>
-    <drop-down tag="li" title="5 Notificaitons" icon="ti-bell">
-      <a slot="title" href="javascript:void(0)" class="dropdown-toggle btn-rotate" data-toggle="dropdown">
+   <li>
+      <a slot="title" href="javascript:void(0)" class="btn-rotate" v-b-modal = "'modal-server'" >
         <i class="ti-bell"></i>
-        <span class="notification">5</span>
+        <span>9</span>
         <p class="hidden-md hidden-lg">
           Notifications
-          <b class="caret"></b>
         </p>
       </a>
-      <li><a href="javascript:void(0)">Notification 1</a></li>
-      <li><a href="javascript:void(0)">Notification 2</a></li>
-      <li><a href="javascript:void(0)">Notification 3</a></li>
-      <li><a href="javascript:void(0)">Notification 4</a></li>
-      <li><a href="javascript:void(0)">Another notification</a></li>
-    </drop-down>
+    </li>
+
     <li>
       <a href="javascript:void(0)" class="btn-rotate">
         <i class="ti-settings"></i>
@@ -32,7 +27,22 @@
   </ul>
 </template>
 <script>
-  export default {}
+  import Vue from 'vue'
+  import {ModalPlugin} from 'bootstrap-vue'
+  Vue.use(ModalPlugin)
+
+  export default {
+    data(){
+      return {}
+
+    },
+    methods: {
+      openServerModal1(){
+        this.$bvModal.show('modal-server')
+      }
+    }
+  }
 </script>
 <style>
+
 </style>

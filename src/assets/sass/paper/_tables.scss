@@ -332,3 +332,9 @@
     background-color: transparent;
   }
 }
+
+.read {
+  background-color: $gray-input-bg!important;
+  text-decoration:  line-through!important;
+  color: $color-grey-arrow!important;
+}

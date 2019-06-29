@@ -6,7 +6,6 @@
              keyboard="false"
              size="lg"
              ok-only>
-      <!--      <p class="my-4"> {{job.payload}} </p>-->
       <tree-view
         :data="jsonModalMessage"
         max-depth="7"
