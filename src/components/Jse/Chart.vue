@@ -12,17 +12,60 @@
           <template slot="title"> <span v-tooltip="bot.memo">{{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }} </span></template>
         </b-tab>
       </b-tabs>
-
-
-      <div>
-        <a href="#" class="card-chart-header__backtester" @click="backtesterButtonClick()">
+      <div class="mr-10">
+        <a href="#" class="card-chart-header__link card-chart-header__link--execution" @click.prevent="isShowExecution=!isShowExecution"><i class="ti-widget-alt"></i> Execution</a>
+        <div class="card-chart-header__modal-execution" v-if="isShowExecution">
+          <b-form-group label="">
+            <b-form-checkbox-group
+              v-model="selectedExecution"
+              :options="optionsExecution"
+              class="card-chart-header__checkbox-execution"
+            checked="true">
+            </b-form-checkbox-group>
+          </b-form-group>
+          <div class="card-chart-header__table-wrapper">
+          <table class="table table-hover table-info card-chart-header__table-execution">
+            <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Exchange</th>
+              <th>Status</th>
+              <th>Name</th>
+              <th>Exchange</th>
+              <th>Status</th>
+              <th>Name</th>
+              <th>Exchange</th>
+              <th>Status</th>
+              <th>Name</th>
+              <th>Exchange</th>
+              <th>Status</th>
+            </tr>
+            <tr >
+              <td>1</td>
+              <td>2 </td>
+              <td >3</td>
+              <td>1</td>
+              <td>2 </td>
+              <td >3</td>
+              <td>1</td>
+              <td>2 </td>
+              <td >3</td>
+              <td>1</td>
+              <td>2 </td>
+              <td >3</td>
+            </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+        <a href="#" class="card-chart-header__link card-chart-header__link--backtester" @click="backtesterButtonClick()">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
                 </span>
           <span v-if="backtesterOpen">Close</span>
           <span v-if="!backtesterOpen">Backtester</span>
         </a>
-      </div>
     </div>
 
     <!-- Chart width:100%; height:75vh; padding-top: 10px; float: left -->
@@ -43,6 +86,8 @@
   import Opt from 'src/components/Jse/ChartSettingsVue.vue'
   import Backtester from 'src/components/Jse/Backtester.vue'
   import { TabsPlugin } from 'bootstrap-vue'
+  import { FormCheckboxPlugin } from 'bootstrap-vue'
+  Vue.use(FormCheckboxPlugin)
   Vue.use(TabsPlugin)
 
   export default {
@@ -58,7 +103,15 @@
         accounts: [],
         symbols: [],
         backtesterOpen: false,
-        tabIndex: 0
+        tabIndex: 0,
+        isShowExecution: false,
+        selectedExecution: [],
+        optionsExecution: [
+          { text: 'Profit', value: 'profit' },
+          { text: 'Net profit', value: 'net profit' },
+          { text: 'Indicators', value: 'indicators' },
+          { text: 'Trades', value: 'trades' }
+        ]
       }
     },
 

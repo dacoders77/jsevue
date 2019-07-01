@@ -949,15 +949,16 @@
 }
 
 .card-chart-header {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    align-items: flex-end;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  width: 100%;
+  position: relative;
 
 
   &__tab-list {
-    width: 75%;
+    width: 70%;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
@@ -971,7 +972,7 @@
     }
 
     .nav-item {
-      margin-bottom: -2px!important;
+      margin-bottom: -2px !important;
     }
 
     .nav-link {
@@ -1002,28 +1003,114 @@
       background-color: $warning-bg;
     }
   }
+
   ~ #container {
     border-top: 1px solid $info-bg;
-    padding-top: 0!important;
+    padding-top: 0 !important;
   }
 
-  &__backtester {
+  &__link {
     display: inline-block;
-    color: $warning-color;
     font-size: 16px;
     padding-bottom: 10px;
     font-weight: bold;
 
+    &--execution {
+      color: $danger-color;
+
+      i {
+        padding-right: 5px;
+      }
+
+      &:focus,
+      &:hover {
+        color: darken($danger-color, 20%);
+      }
+
+
+    }
+
+    &--backtester {
+      color: $warning-color;
       &:focus,
       &:hover {
         color: darken($warning-color, 20%);
       }
+    }
+  }
+
+  &__modal-execution {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    width: 50%;
+    background-color: $warning-color;
+    z-index: 1030;
+    padding: 10px 15px;
+  }
+
+  &__table-wrapper {
+    width: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: auto;
+    border-top-right-radius: $border-radius-extreme;
+
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: $gray-input-bg;
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    }
+  }
+
+  &__checkbox-execution {
+    padding-top: 5px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    .custom-checkbox {
+      margin-right: 25px;
+      display: inline-flex;
+      align-items: center;
+
+      & input[type=checkbox] {
+        border: 1px solid $danger-color;
+        background-color: $white-color;
+        color: $danger-color;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        margin-bottom: 5px;
+      }
+
+      .custom-control-label {
+        span {
+          margin-left: 7px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+
+  &__table-execution {
+    width: 100%;
+    height: 100px;
+    background-color: $white-color;
   }
 }
 
 .card-que {
   overflow: auto;
 }
+
 @media (max-width: 1500px) {
   .card-backtasted {
 
@@ -1031,12 +1118,12 @@
       flex-wrap: wrap;
 
       label,
-      >div {
+      > div {
         width: 100%;
 
       }
     }
-    }
+  }
   }
 
 @media (max-width: 991px) {
