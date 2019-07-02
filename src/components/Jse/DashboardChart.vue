@@ -20,14 +20,9 @@
         this.chart = Highchart.stockChart('container', Opt.data().options);
         this.HistoryBarsLoad(1);
         this.loadResources();
-        // this.hideOptions=this.chart.xAxis;
-        // console.log(this.hideOptions);
-        this.hideOptions();
-
       },
       methods: {
         loadResources() {
-          //
         },
         HistoryBarsLoad () {
           axios.get('trading/history/1')
@@ -51,33 +46,7 @@
             .then((response) => {
               this.chart.series[3].setData(response.data.netProfit, true);
             })
-         this.hideOptions0=this.chart.series[3].xAxis;
-
         },
-        hideOptions(){
-          this.hideOptions0= this.chart.series[0];
-          this.hideOptions1=this.chart.series[1];
-          this.hideOptions2=this.chart.series[2];
-          this.hideOptions3=this.chart.series[3];
-          this.hideOptions0.visible=false;
-          this.hideOptions1.visible=false;
-          this.hideOptions2.visible=false;
-          this.hideOptions3.visible=false;
-          console.log(this.hideOptions0);
-          console.log(this.hideOptions1);
-          console.log(this.hideOptions2);
-          console.log(this.hideOptions3);
-
-        },
-        // hideOptions1(){
-        //   // for (var prop in this.hideOptions0) {
-        //   //   if ( this.hideOptions0.hasOwnProperty(prop) ) {
-        //   //    this.hideOptions0[prop].visible= true;
-        //   console.log(this.hideOptions0.visible);
-        //     }
-        //   }
-        // }
-
       }
 
     }

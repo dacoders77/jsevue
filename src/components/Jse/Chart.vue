@@ -2,80 +2,74 @@
 <template>
   <div id="app" style="border: 0px solid red;">
     <div class="card-chart-header">
-      <b-tabs class="card-chart-header__tab-list" v-model = "tabIndex">
+      <b-tabs class="card-chart-header__tab-list" v-model="tabIndex">
         <b-tab v-for="bot in bots"
                :key="bot.id"
                :title="bot.name"
                v-if="symbols[bot.symbol_id - 1]"
                @click="botTabClick(bot)"
                v-tooltip="bot.memo">
-          <template slot="title"> <span v-tooltip="bot.memo">{{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }} </span></template>
+          <template slot="title"><span v-tooltip="bot.memo">{{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }} </span>
+          </template>
         </b-tab>
       </b-tabs>
       <div class=" ml-auto mr-15">
-        <a href="#" class="card-chart-header__link card-chart-header__link--execution" @click.prevent="isShowExecution=!isShowExecution"><i class="ti-widget-alt"></i> Execution</a>
+        <a href="#" class="card-chart-header__link card-chart-header__link--execution"
+           @click.prevent="isShowExecution=!isShowExecution"><i class="ti-widget-alt"></i> Execution</a>
         <div class="card-chart-header__modal-execution" v-if="isShowExecution">
-<!--          <b-form-group label="">-->
-<!--            <b-form-checkbox-group-->
-<!--              v-model="optionsExecution.checked"-->
-<!--              :options="optionsExecutions"-->
-<!--              class="card-chart-header__checkbox-execution"-->
-<!--              -->
-<!--            >-->
-<!--            </b-form-checkbox-group>-->
-<!--            <span>Отмеченные имена: {{ selectedExecutions }}</span>-->
-<!--          </b-form-group>-->
-          <b-form-group label="" class="card-chart-header__checkbox-execution">
-          <div v-for="optionsExecution in optionsExecutions" class="custom-checkbox">
-            <input type="checkbox" v-bind:value="optionsExecution.value" v-model="optionsExecution.checked" v-on:input="$emit('input', $event.target.value)">
-            <label>{{optionsExecution.text}}</label><br>
-<!--            <span>Отмеченные имена: {{optionsExecution.checked }}</span>-->
-          </div>
+          <b-form-group label="">
+            <b-form-checkbox-group
+              v-model="selectedExecutions"
+              :options="optionsExecutions"
+              class="card-chart-header__checkbox-execution"
+              @input="hideOpt">
+            </b-form-checkbox-group>
+            <span>Selected options: {{ selectedExecutions }}</span>
           </b-form-group>
 
           <div class="card-chart-header__table-wrapper">
-          <table class="table table-hover table-info card-chart-header__table-execution">
-            <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Exchange</th>
-              <th>Status</th>
-              <th>Name</th>
-              <th>Exchange</th>
-              <th>Status</th>
-              <th>Name</th>
-              <th>Exchange</th>
-              <th>Status</th>
-              <th>Name</th>
-              <th>Exchange</th>
-              <th>Status</th>
-            </tr>
-            <tr >
-              <td>1</td>
-              <td>2 </td>
-              <td >3</td>
-              <td>1</td>
-              <td>2 </td>
-              <td >3</td>
-              <td>1</td>
-              <td>2 </td>
-              <td >3</td>
-              <td>1</td>
-              <td>2 </td>
-              <td >3</td>
-            </tr>
-            </tbody>
-          </table>
+            <table class="table table-hover table-info card-chart-header__table-execution">
+              <tbody>
+              <tr>
+                <th>Name</th>
+                <th>Exchange</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Exchange</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Exchange</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Exchange</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-        <a href="#" class="card-chart-header__link" @click="backtesterButtonClick()">
+      <a href="#" class="card-chart-header__link" @click="backtesterButtonClick()">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
                 </span>
-          <span v-if="backtesterOpen">Close</span>
-          <span v-if="!backtesterOpen">Backtester</span>
-        </a>
+        <span v-if="backtesterOpen">Close</span>
+        <span v-if="!backtesterOpen">Backtester</span>
+      </a>
     </div>
 
     <!-- Chart width:100%; height:75vh; padding-top: 10px; float: left -->
@@ -95,8 +89,9 @@
   import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
   import Opt from 'src/components/Jse/ChartSettingsVue.vue'
   import Backtester from 'src/components/Jse/Backtester.vue'
-  import { TabsPlugin } from 'bootstrap-vue'
-  import { FormCheckboxPlugin } from 'bootstrap-vue'
+  import {TabsPlugin} from 'bootstrap-vue'
+  import {FormCheckboxPlugin} from 'bootstrap-vue'
+
   Vue.use(FormCheckboxPlugin)
   Vue.use(TabsPlugin)
 
@@ -115,12 +110,13 @@
         backtesterOpen: false,
         tabIndex: 0,
         isShowExecution: false,
-        selectedExecutions: [],
+        selectedExecutions: ['profit', 'net profit', 'macd', 'pricechannel', 'trades'],
         optionsExecutions: [
-          { text: 'Profit', value: 'profit' , checked: true},
-          { text: 'Net profit', value: 'net profit' , checked: true},
-          { text: 'Indicators', value: 'indicators',checked: true },
-          { text: 'Trades', value: 'trades',checked: true }
+          {text: 'Profit', value: 'profit'},
+          {text: 'Net profit', value: 'net profit'},
+          {text: 'MACD', value: 'macd'},
+          {text: 'Price channel', value: 'pricechannel'},
+          {text: 'Trades', value: 'trades'}
         ],
       }
 
@@ -146,24 +142,77 @@
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
             this.chart.series[0].setData(response.data.candles, true);
-            this.chart.series[1].setData(response.data.priceChannelHighValues, true);
-            this.chart.series[2].setData(response.data.priceChannelLowValues, true);
-            this.chart.series[3].setData(response.data.sma1, true);
-            this.chart.series[4].setData(response.data.longTradeMarkers, true);
-            this.chart.series[5].setData(response.data.shortTradeMarkers, true);
-            this.chart.series[6].setData(response.data.macdLine, true);
-            this.chart.series[7].setData(response.data.macdSignalLine, true);
-            this.chart.series[8].setData(response.data.accumulatedProfit, true);
-            this.chart.series[9].setData(response.data.netProfit, true);
-            this.hideOptions=this.chart.series[9];
-            this.hideOptions.visible=false
-            console.log(this.hideOptions.visible);
+            this.chart.series[1].setData(response.data.priceChannelHighValues, true);//pricechannel
+            this.chart.series[2].setData(response.data.priceChannelLowValues, true);//pricechannel
+            this.chart.series[3].setData(response.data.sma1, true);//macd
+            this.chart.series[4].setData(response.data.longTradeMarkers, true);//trades
+            this.chart.series[5].setData(response.data.shortTradeMarkers, true);//trades
+            this.chart.series[6].setData(response.data.macdLine, true);//macd
+            this.chart.series[7].setData(response.data.macdSignalLine, true);//macd
+            this.chart.series[8].setData(response.data.accumulatedProfit, true);//profit
+            this.chart.series[9].setData(response.data.netProfit, true);//net profit
             // this.chart.setTitle({text: response.data.symbol});
             this.botSymbol = response.data.symbol;
           })
           .catch((err) => {
             //alert("Chart.vue can not get history bars. " + err);
           })
+      },
+      hideOpt() {
+        if (this.selectedExecutions.includes('profit')) {
+          this.chart.series[8].visible = true;
+        } else {
+          this.chart.series[8].visible = false
+        }
+        console.log(this.selectedExecutions.includes('profit'));
+        console.log(this.chart.series[8]);
+
+        if (this.selectedExecutions.includes('net profit')) {
+          this.chart.series[9].visible = true;
+        } else {
+          this.chart.series[9].visible = false
+        }
+        console.log(this.selectedExecutions.includes('net profit'));
+        console.log(this.chart.series[9]);
+
+        if (this.selectedExecutions.includes('macd')) {
+          this.chart.series[6].visible = true;
+          this.chart.series[7].visible = true;
+          this.chart.series[3].visible = true;
+        } else {
+          this.chart.series[6].visible = false;
+          this.chart.series[7].visible = false;
+          this.chart.series[3].visible = false;
+        }
+        console.log(this.selectedExecutions.includes('macd'));
+        console.log(this.chart.series[6]);
+        console.log(this.chart.series[7]);
+        console.log(this.chart.series[3]);
+
+        if (this.selectedExecutions.includes('pricechannel')) {
+          this.chart.series[1].visible=true;
+          this.chart.series[2].visible=true;
+        }
+        else {
+          this.chart.series[1].visible=false;
+          this.chart.series[2].visible=false;
+        }
+        console.log(this.selectedExecutions.includes('pricechannel'));
+        console.log(this.chart.series[1]);
+        console.log(this.chart.series[2]);
+
+        if (this.selectedExecutions.includes('trades')) {
+          this.chart.series[4].visible=true;
+          this.chart.series[5].visible=true;
+        }
+        else {
+          this.chart.series[4].visible=false;
+          this.chart.series[5].visible=false;
+        }
+        console.log(this.selectedExecutions.includes('trades'));
+        console.log(this.chart.series[4]);
+        console.log(this.chart.series[5]);
+
       },
 
       ChartBarsUpdate(payload, botId) {
