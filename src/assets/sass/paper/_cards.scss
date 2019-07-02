@@ -1069,32 +1069,32 @@
   }
 
   &__checkbox-execution {
-    padding-top: 5px;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-
-    .custom-checkbox {
-      margin-right: 25px;
-      display: inline-flex;
+    > div {
+      padding-top: 5px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
       align-items: center;
 
-      & input[type=checkbox] {
-        border: 1px solid $danger-color;
-        background-color: $white-color;
-        color: $danger-color;
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        margin-bottom: 5px;
-      }
+      .custom-checkbox {
+        margin-right: 25px;
+        display: inline-flex;
+        align-items: center;
 
-      .custom-control-label {
-        span {
-          margin-left: 7px;
+        & input[type=checkbox] {
+          border: 1px solid $danger-color;
+          background-color: $white-color;
+          color: $danger-color;
+          width: 20px;
+          height: 20px;
           line-height: 20px;
+          margin-bottom: 5px;
+        }
+
+        label {
+            margin-left: 7px;
+            line-height: 20px;
         }
       }
     }

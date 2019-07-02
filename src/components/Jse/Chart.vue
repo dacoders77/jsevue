@@ -15,14 +15,24 @@
       <div class="mr-10">
         <a href="#" class="card-chart-header__link card-chart-header__link--execution" @click.prevent="isShowExecution=!isShowExecution"><i class="ti-widget-alt"></i> Execution</a>
         <div class="card-chart-header__modal-execution" v-if="isShowExecution">
-          <b-form-group label="">
-            <b-form-checkbox-group
-              v-model="selectedExecution"
-              :options="optionsExecution"
-              class="card-chart-header__checkbox-execution"
-            checked="true">
-            </b-form-checkbox-group>
+<!--          <b-form-group label="">-->
+<!--            <b-form-checkbox-group-->
+<!--              v-model="optionsExecution.checked"-->
+<!--              :options="optionsExecutions"-->
+<!--              class="card-chart-header__checkbox-execution"-->
+<!--              -->
+<!--            >-->
+<!--            </b-form-checkbox-group>-->
+<!--            <span>Отмеченные имена: {{ selectedExecutions }}</span>-->
+<!--          </b-form-group>-->
+          <b-form-group label="" class="card-chart-header__checkbox-execution">
+          <div v-for="optionsExecution in optionsExecutions" class="custom-checkbox">
+            <input type="checkbox" v-bind:value="optionsExecution.value" v-model="optionsExecution.checked" v-on:input="$emit('input', $event.target.value)">
+            <label>{{optionsExecution.text}}</label><br>
+<!--            <span>Отмеченные имена: {{optionsExecution.checked }}</span>-->
+          </div>
           </b-form-group>
+
           <div class="card-chart-header__table-wrapper">
           <table class="table table-hover table-info card-chart-header__table-execution">
             <tbody>
@@ -105,14 +115,17 @@
         backtesterOpen: false,
         tabIndex: 0,
         isShowExecution: false,
-        selectedExecution: [],
-        optionsExecution: [
-          { text: 'Profit', value: 'profit' },
-          { text: 'Net profit', value: 'net profit' },
-          { text: 'Indicators', value: 'indicators' },
-          { text: 'Trades', value: 'trades' }
-        ]
+        selectedExecutions: [],
+        optionsExecutions: [
+          { text: 'Profit', value: 'profit' , checked: true},
+          { text: 'Net profit', value: 'net profit' , checked: true},
+          { text: 'Indicators', value: 'indicators',checked: true },
+          { text: 'Trades', value: 'trades',checked: true }
+        ],
+    booleanValue: true
+
       }
+
     },
 
     created() {
