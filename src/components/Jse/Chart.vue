@@ -12,7 +12,7 @@
           <template slot="title"> <span v-tooltip="bot.memo">{{ bot.name }}/{{ symbols[bot.symbol_id - 1].execution_symbol_name }} </span></template>
         </b-tab>
       </b-tabs>
-      <div class="mr-10">
+      <div class=" ml-auto mr-15">
         <a href="#" class="card-chart-header__link card-chart-header__link--execution" @click.prevent="isShowExecution=!isShowExecution"><i class="ti-widget-alt"></i> Execution</a>
         <div class="card-chart-header__modal-execution" v-if="isShowExecution">
 <!--          <b-form-group label="">-->
@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-        <a href="#" class="card-chart-header__link card-chart-header__link--backtester" @click="backtesterButtonClick()">
+        <a href="#" class="card-chart-header__link" @click="backtesterButtonClick()">
                 <span class="btn-label">
                     <i class="ti-stats-up"></i>&nbsp
                 </span>
@@ -122,8 +122,6 @@
           { text: 'Indicators', value: 'indicators',checked: true },
           { text: 'Trades', value: 'trades',checked: true }
         ],
-    booleanValue: true
-
       }
 
     },
@@ -157,6 +155,9 @@
             this.chart.series[7].setData(response.data.macdSignalLine, true);
             this.chart.series[8].setData(response.data.accumulatedProfit, true);
             this.chart.series[9].setData(response.data.netProfit, true);
+            this.hideOptions=this.chart.series[9];
+            this.hideOptions.visible=false
+            console.log(this.hideOptions.visible);
             // this.chart.setTitle({text: response.data.symbol});
             this.botSymbol = response.data.symbol;
           })
@@ -164,6 +165,7 @@
             //alert("Chart.vue can not get history bars. " + err);
           })
       },
+
       ChartBarsUpdate(payload, botId) {
         let last = this.chart.series[0].data[this.chart.series[0].data.length - 1];
         // Update the chart only when the series is loaded. WS events can start coming earlier than the chart is loaded.
@@ -191,12 +193,15 @@
       },
       ListenWebSocket() {
         var key = require('../../../config/bot.js').default.PUSHER_KEY;
+        console.log(key);
         this.pusher = new Pusher(key, {
           encrypted: true,
           cluster: 'mt1'
         });
+        console.log(this.pusher);
         var self = this;
         this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
+        console.log(this.channel);
         this.channel.bind("App\\Events\\jseevent", function (data) { // Full event name as shown at pusher debug console
           if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instanse must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
@@ -208,6 +213,7 @@
             }
           }
         })
+
       },
       botTabClick(bot) {
         this.botId = bot.id;

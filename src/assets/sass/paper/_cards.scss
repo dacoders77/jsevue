@@ -1014,29 +1014,21 @@
     font-size: 16px;
     padding-bottom: 10px;
     font-weight: bold;
+    color: $warning-color;
+
+    &:focus,
+    &:hover {
+      color: darken($warning-color, 20%);
+    }
 
     &--execution {
-      color: $danger-color;
+
 
       i {
         padding-right: 5px;
       }
-
-      &:focus,
-      &:hover {
-        color: darken($danger-color, 20%);
-      }
-
-
     }
 
-    &--backtester {
-      color: $warning-color;
-      &:focus,
-      &:hover {
-        color: darken($warning-color, 20%);
-      }
-    }
   }
 
   &__modal-execution {
@@ -1044,7 +1036,7 @@
     top: 120%;
     left: 0;
     width: 50%;
-    background-color: $warning-color;
+    background-color: lighten($info-bg, 32%);
     z-index: 1030;
     padding: 10px 15px;
   }
@@ -1064,7 +1056,7 @@
     &::-webkit-scrollbar-thumb {
       border-radius: 4px;
       background-color: $gray-input-bg;
-      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+      -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .5);
     }
   }
 
@@ -1089,7 +1081,7 @@
           width: 20px;
           height: 20px;
           line-height: 20px;
-          margin-bottom: 5px;
+          margin-bottom: 7px;
         }
 
         label {
