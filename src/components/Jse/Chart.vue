@@ -22,9 +22,8 @@
               v-model="selectedExecutions"
               :options="optionsExecutions"
               class="card-chart-header__checkbox-execution"
-              @input="hideOpt">
+              @input="hideOptions">
             </b-form-checkbox-group>
-            <span>Selected options: {{ selectedExecutions }}</span>
           </b-form-group>
 
           <div class="card-chart-header__table-wrapper">
@@ -158,22 +157,18 @@
             //alert("Chart.vue can not get history bars. " + err);
           })
       },
-      hideOpt() {
+      hideOptions() {
         if (this.selectedExecutions.includes('profit')) {
           this.chart.series[8].visible = true;
         } else {
-          this.chart.series[8].visible = false
+          this.chart.series[8].visible = false;
         }
-        console.log(this.selectedExecutions.includes('profit'));
-        console.log(this.chart.series[8]);
 
         if (this.selectedExecutions.includes('net profit')) {
           this.chart.series[9].visible = true;
         } else {
           this.chart.series[9].visible = false
         }
-        console.log(this.selectedExecutions.includes('net profit'));
-        console.log(this.chart.series[9]);
 
         if (this.selectedExecutions.includes('macd')) {
           this.chart.series[6].visible = true;
@@ -184,10 +179,6 @@
           this.chart.series[7].visible = false;
           this.chart.series[3].visible = false;
         }
-        console.log(this.selectedExecutions.includes('macd'));
-        console.log(this.chart.series[6]);
-        console.log(this.chart.series[7]);
-        console.log(this.chart.series[3]);
 
         if (this.selectedExecutions.includes('pricechannel')) {
           this.chart.series[1].visible=true;
@@ -197,9 +188,6 @@
           this.chart.series[1].visible=false;
           this.chart.series[2].visible=false;
         }
-        console.log(this.selectedExecutions.includes('pricechannel'));
-        console.log(this.chart.series[1]);
-        console.log(this.chart.series[2]);
 
         if (this.selectedExecutions.includes('trades')) {
           this.chart.series[4].visible=true;
@@ -209,11 +197,17 @@
           this.chart.series[4].visible=false;
           this.chart.series[5].visible=false;
         }
-        console.log(this.selectedExecutions.includes('trades'));
-        console.log(this.chart.series[4]);
-        console.log(this.chart.series[5]);
 
-      },
+        this.chart.series[1].redraw();
+        this.chart.series[2].redraw();
+        this.chart.series[3].redraw();
+        this.chart.series[4].redraw();
+        this.chart.series[5].redraw();
+        this.chart.series[6].redraw();
+        this.chart.series[7].redraw();
+        this.chart.series[8].redraw();
+        this.chart.series[9].redraw();
+        },
 
       ChartBarsUpdate(payload, botId) {
         let last = this.chart.series[0].data[this.chart.series[0].data.length - 1];
