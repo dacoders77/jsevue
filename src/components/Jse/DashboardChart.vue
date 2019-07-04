@@ -13,6 +13,7 @@
       },
       created() {
         // First created then mounted
+
       },
       mounted() {
         var Highchart = require('highcharts/highstock');
@@ -22,7 +23,6 @@
       },
       methods: {
         loadResources() {
-          //
         },
         HistoryBarsLoad () {
           axios.get('trading/history/1')
@@ -45,10 +45,8 @@
           axios.get('trading/history/4')
             .then((response) => {
               this.chart.series[3].setData(response.data.netProfit, true);
-              //console.log(response);
             })
-
-        }
+        },
       }
 
     }
