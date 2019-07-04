@@ -108,6 +108,7 @@
         symbols: [],
         backtesterOpen: false,
         tabIndex: 0,
+        app: [],
         isShowExecution: false,
         selectedExecutions: ['profit', 'net profit', 'macd', 'pricechannel', 'trades'],
         optionsExecutions: [
@@ -116,7 +117,7 @@
           {text: 'MACD', value: 'macd'},
           {text: 'Price channel', value: 'pricechannel'},
           {text: 'Trades', value: 'trades'}
-        ],
+        ]
       }
 
     },
@@ -242,10 +243,9 @@
           cluster: 'mt1'
         });
         console.log(this.pusher);
-        var self = this;
         this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
-        console.log(this.channel);
-        this.channel.bind("App\\Events\\jseevent", function (data) { // Full event name as shown at pusher debug console
+        this.channel.bind("App\\Events\\jseevent", function (data) {
+          // Full event name as shown at pusher debug console
           if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instanse must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
             // if (data.payload.messageType === 'error') swal("Failed!", "Error: " + e.update['payload'], "warning");

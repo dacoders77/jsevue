@@ -6,6 +6,7 @@ import VueNotify from 'vue-notifyjs'
 import VeeValidate from 'vee-validate'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
+import Echo from "laravel-echo"
 import App from './App.vue'
 
 // https://github.com/highcharts/highcharts-vue/blob/master/demo/src/main.js
