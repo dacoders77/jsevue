@@ -70,6 +70,17 @@
         devRootApi: process.env.ROOT_API
       }
     },
+   created() {
+       this.$echo.channel('jseprod')
+         .listen('jseevent', (e) => {
+           console.log(e.user);
+         });
+       console.log(this.$echo.channel('jseprod')
+         .listen('JseEvent', (e) => {
+           console.log(e.user);
+         }))
+     console.log(this.$echo);
+     },
     methods: {
       capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
@@ -91,7 +102,16 @@
       },
       openServerModal(){
         this.$bvModal.show('modal-server')
+      },
+      getServerNotification() {
+        this.$echo.channel('jseprod')
+          .listen('*', (e) => {
+            console.log(e);
+          });
+        console.log(this.$echo);
+
       }
+
 
     }
   }

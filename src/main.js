@@ -6,6 +6,7 @@ import VueNotify from 'vue-notifyjs'
 import VeeValidate from 'vee-validate'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
+import Echo from "laravel-echo"
 import App from './App.vue'
 
 // https://github.com/highcharts/highcharts-vue/blob/master/demo/src/main.js
@@ -17,6 +18,14 @@ import App from './App.vue'
 // stockInit(Highcharts)
 // mapInit(Highcharts)
 // Vue.use(HighchartsVue)
+
+const keyPusher = require('../config/bot.js').default.PUSHER_KEY;
+Vue.prototype.$echo = new Echo({
+  broadcaster: 'pusher',
+  key: keyPusher,
+  cluster: 'eu',
+  forceTLS: true,
+});
 
 import Popper from 'popper.js/dist/umd/popper.js'
 window.Popper = Popper
@@ -110,3 +119,14 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
+
+// window.Echo.channel('jseprod')
+//   .listen('*', (e) => {
+//     console.log(e);
+//
+//   });
+//
+// window.Echo.private('jseprod')
+//   .notification((notification) => {
+//     console.log(notification.type);
+//   });

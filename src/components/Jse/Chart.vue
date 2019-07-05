@@ -236,15 +236,12 @@
       },
       ListenWebSocket() {
         var key = require('../../../config/bot.js').default.PUSHER_KEY;
-        console.log(key);
         this.pusher = new Pusher(key, {
           encrypted: true,
           cluster: 'mt1'
         });
-        console.log(this.pusher);
         var self = this;
         this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
-        console.log(this.channel);
         this.channel.bind("App\\Events\\jseevent", function (data) { // Full event name as shown at pusher debug console
           if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instanse must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
@@ -256,7 +253,6 @@
             }
           }
         })
-
       },
       botTabClick(bot) {
         this.botId = bot.id;
