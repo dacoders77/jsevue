@@ -239,7 +239,6 @@
         symbolDropDownClick(index) {
           this.executionSymbolName = this.symbols[index].execution_symbol_name;
           this.historySymbolName = this.symbols[index].history_symbol_name;
-          //
         }
       }
     }
