@@ -121,7 +121,6 @@
       }
 
     },
-
     created() {
     },
     mounted() {
@@ -255,7 +254,7 @@
 
             if (data.payload.messageType === 'reloadChartAfterHistoryLoaded') {
               //Vue.toasted.show("Chart is reloaded!", { type: 'success' });
-              
+
               self.HistoryBarsLoad(self.botId)
             }
           }
