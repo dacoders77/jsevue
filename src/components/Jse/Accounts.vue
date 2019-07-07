@@ -60,8 +60,7 @@
                 ref="my-modal"
                 size="lg"
                 :title="(modalMode == 'add' ? 'Add account' : 'Edit account')"
-                @ok="handleOkModalButton"
-        >
+                @ok="handleOkModalButton">
 
             <form ref="form" @submit.stop.prevent="" class="form-account">
 
