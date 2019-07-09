@@ -7,98 +7,23 @@
              size="xl"
              ok-only
              style="z-index: 10000">
-        <section id="Claims Page">
-          <div class="row">
-            <div class="col-sm-4">
-              <div>
-                <!-- Contract ID, claim id -->
-                <div class="card-content text-center">
-                  <div>
-                    <label class="col-sm-2 control-label">Contract_ID</label>
-                    <div class="form-group">
-                      <input type="number" class="form-control" v-model="contractId">
-                    </div>
-                  </div>
-                  <div class="card-content text-center">
-                    <label class="col-sm-2 control-label">Claim_ID</label>
-                    <div class="form-group">
-                      <input type="number" class="form-control" v-model="claimId">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div>
-                <!-- From, to -->
-                <div class="card-content text-center">
-                  <div>
-                    <label>From</label>
-                    <div class="form-group">
-                      <el-date-picker v-model="dateFrom" type="date" placeholder="Pick a day"
-                                      :picker-options="pickerOptions1" style="width: 100%">
-                        <!--style="width: 22em"-->
-                      </el-date-picker>
-                    </div>
-                  </div>
-                  <div class="card-content text-center">
-                    <label>To</label>
-                    <div class="form-group">
-                      <el-date-picker v-model="dateTo" type="date" placeholder="Pick a day"
-                                      :picker-options="pickerOptions1" style="width: 100%">
-                      </el-date-picker>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div>
-                <!-- Damage type, search -->
-                <div>
-                  <div class="card-content text-center">
-                    <label>Damage</label>
-                    <div class="form-group">
-                      <el-select class="select-primary"
-                                 size="large"
-                                 placeholder=""
-                                 v-model="damageType"
-                                 style="width: 100%">
-                        <el-option v-for="option in damageTypes"
-                                   class="select-primary"
-                                   :value="option"
-                                   :label="option"
-                                   :key="option.label">
-                        </el-option>
-                      </el-select>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="card-content text-center">
-                    <label>Search</label>
-                    <div class="form-group">
-                      <button @click.prevent="searchButtonClick" type="button"
-                              class="btn btn-dark btn-outline-dark btn-magnify" style="width: 100%">
-                        <span class="btn-label"><i class="ti-search"></i>&nbsp</span></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- AG grid row -->
+      <button type="button" class="btn btn-warning btn-sm table-notification__btn">
+       <span class="btn-label"> <i class="ti-email"></i></span>
+        Show unread
+      </button>
+      <button @click.prevent="deleteAllRow" type="button" class="btn btn-sm btn-danger table-notification__btn">
+        <span class="btn-label"><i class="ti-trash"></i> Delete all</span>
+      </button>
           <div class="row">
             <div class="col-xs-12">
-              <table class="table table-hover table-success">
+              <table class="table table-hover table-notification">
                 <tbody>
                 <tr>
                   <th>id</th>
                   <th class="">Status</th>
-                  <th class="">Time</th>
                   <th class="">Subject</th>
-                  <th class="">Text</th>
+                  <th class="table-notification_col-scroll ">Text</th>
+                  <th class="">Time</th>
                   <th class="">Action</th>
                 </tr>
                 <tr v-for="item in items" :key="item.id" :class="{read: item.id===curentIndex}">
@@ -106,22 +31,22 @@
                   <td class="">
                    {{item.status}}
                   </td>
-                  <td class="">{{item.date}}
                   </td>
                   <td class="">{{item.subject}}
                   </td>
-                  <td class="text-success"><a href="#" @click.prevent="itemRead(item)">{{item.text}}</a></td>
+                  <td class="text-success table-notification_col-scroll"><a href="#" @click.prevent="itemRead(item)">{{item.text}}</a></td>
+                  <td class="">{{item.date}}
                   <td class="text-align-center" style="width: 50px">
-                    <button type="button" class="btn btn-fill btn-danger btn-circle" @click="removeRow(item)">
+                    <button type="button" class="btn btn-fill btn-danger btn-circle btn-sm" @click="removeRow(item)">
                       <i class="ti-trash"></i>
                     </button>
                   </td>
                 </tr>
                 </tbody>
               </table>
-              <span>Showing {{items.length}}records</span>
+              <span>Showing {{items.length}} records</span>
 
-              <p-pagination class="pull-right"
+              <p-pagination class="pull-right table-notification__pagination"
                             v-model="pagination.currentPage"
                             :per-page="pagination.perPage"
                             :total="pagination.total">
@@ -232,14 +157,6 @@
         recordFrom: 0,
         recordTo: 0,
         last_page: 0,
-        selects: { // Drop down DELETE
-          countries: [{value: 'Bahasa Indonesia', label: 'Bahasa Indonesia'},
-            {value: 'storm', label: 'Storm'},
-            {value: 'hail', label: 'Hail'},
-            {value: 'sand', label: 'Sand'}
-          ],
-          multiple: 'ARS'
-        },
         pagination: {
           perPage: 5,
           currentPage: 2,
@@ -303,10 +220,14 @@
     },
     removeRow(item) {
       this.items.splice(this.items.indexOf(item), 1);
-      console.log(it);
     },
+
     itemRead(item) {
       item.status = 'read';
+    }
+    ,
+    deleteAllRow() {
+      this.items=[]
     }
   }
   }

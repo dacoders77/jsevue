@@ -338,3 +338,46 @@
   text-decoration:  line-through!important;
   color: $color-grey-arrow!important;
 }
+
+.table-notification {
+  margin: 10px 0;
+  border-radius: 0;
+  border-top: 1px solid $black-color;
+  border-bottom: 1px solid $black-color;
+
+  > tbody > tr > td {
+    padding: 5px 10px;
+  }
+
+  .table-notification_col-scroll {
+    width: 33%;
+    max-width: 33%;
+    font-size: 12px;
+    padding: 5px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .btn-circle {
+    padding: 3px;
+    font-size: 12px;
+  }
+
+  &__pagination {
+
+    > li > a {
+      height: 30px!important;
+      margin: 0 2px!important;
+      min-width: 30px!important;
+      padding: 4px!important;
+      line-height: 18px!important;
+    }
+  }
+
+  &__btn {
+    i {
+      display: inline-block;
+      padding-bottom: 3px;
+    }
+  }
+}

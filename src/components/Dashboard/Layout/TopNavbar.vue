@@ -49,6 +49,7 @@
         </ul>
       </div>
     </div>
+    <a href="#" @click="showServerAllert()">Try</a>
   </nav>
 </template>
 <script>
@@ -56,6 +57,11 @@
   import {ModalPlugin} from 'bootstrap-vue'
   import ServerModal from '../../Jse/ServerModal'
   import { BBadge } from 'bootstrap-vue'
+  import VueNotify from 'vue-notifyjs'
+  Vue.use(VueNotify)
+
+  import swal from 'sweetalert2'
+
   Vue.component('b-badge', BBadge)
 
   Vue.use(ModalPlugin)
@@ -79,7 +85,8 @@
          .listen('JseEvent', (e) => {
            console.log(e.user);
          }))
-     console.log(this.$echo);
+       console.log(this.$echo);
+       this.showNotification('Server message')
      },
     methods: {
       capitalizeFirstLetter(string) {
@@ -110,7 +117,30 @@
           });
         console.log(this.$echo);
 
-      }
+      },
+      showNotification (notificationText) {
+        this.$notify(
+          {
+            component: {
+              template: "<span>" + notificationText + "</span>"
+            },
+            icon: 'ti-info-alt',
+            type: 'warning'
+          })
+      },
+      showServerAllert() {
+        swal({
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          type: 'error',
+          title: 'Oops...',
+          confirmButtonText: 'Look more',
+          onClose: () => {
+            this.openServerModal()
+          },
+           //html: '<p>Something went wrong!</p><br><a href @click.prevent="openServerModal()">Look more</a>'
+        })
+      },
 
 
     }
