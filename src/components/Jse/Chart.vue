@@ -140,17 +140,19 @@
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
-            this.chart.series[0].setData(response.data.candles, true);
-            this.chart.series[1].setData(response.data.priceChannelHighValues, true);//pricechannel
-            this.chart.series[2].setData(response.data.priceChannelLowValues, true);//pricechannel
-            this.chart.series[3].setData(response.data.sma1, true);//macd
-            this.chart.series[4].setData(response.data.longTradeMarkers, true);//trades
-            this.chart.series[5].setData(response.data.shortTradeMarkers, true);//trades
-            this.chart.series[6].setData(response.data.macdLine, true);//macd
-            this.chart.series[7].setData(response.data.macdSignalLine, true);//macd
-            this.chart.series[8].setData(response.data.accumulatedProfit, true);//profit
-            this.chart.series[9].setData(response.data.netProfit, true);//net profit
             // this.chart.setTitle({text: response.data.symbol});
+            this.chart.series[0].setData(response.data.candles, true);
+            this.chart.series[1].setData(response.data.priceChannelHighValues, true); // pricechannel
+            this.chart.series[2].setData(response.data.priceChannelLowValues, true); // pricechannel
+            this.chart.series[3].setData(response.data.sma1, true); // macd
+            this.chart.series[4].setData(response.data.longTradeMarkers, true); // trades
+            this.chart.series[5].setData(response.data.shortTradeMarkers, true); // trades
+            this.chart.series[6].setData(response.data.macdLine, true); // macd
+            this.chart.series[7].setData(response.data.macdSignalLine, true); // macd
+            this.chart.series[8].setData(response.data.accumulatedProfit, true); // profit
+            this.chart.series[9].setData(response.data.netProfit, true); // net profit
+            this.chart.series[10].setData(response.data.executionLongMarkers, true); // Execution long markers
+            this.chart.series[11].setData(response.data.executionShortMarkers, true); // Execution short markers
             this.botSymbol = response.data.symbol;
           })
           .catch((err) => {
@@ -197,7 +199,6 @@
           this.chart.series[4].visible=false;
           this.chart.series[5].visible=false;
         }
-
         this.chart.series[1].redraw();
         this.chart.series[2].redraw();
         this.chart.series[3].redraw();
@@ -246,7 +247,6 @@
 
           // Full event name as shown at pusher debug console
 
-
           if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instanse must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
             // if (data.payload.messageType === 'error') swal("Failed!", "Error: " + e.update['payload'], "warning");
@@ -254,7 +254,6 @@
 
             if (data.payload.messageType === 'reloadChartAfterHistoryLoaded') {
               //Vue.toasted.show("Chart is reloaded!", { type: 'success' });
-
               self.HistoryBarsLoad(self.botId)
             }
           }
