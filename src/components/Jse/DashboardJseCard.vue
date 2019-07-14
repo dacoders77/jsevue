@@ -17,7 +17,6 @@
           <!-- Now go through all exchanges -->
           <span>{{ exchange.name }}</span>
         </h5>
-
         <p class="card-dashboard__status" v-if="bot.status == 'idle'">
           {{bot.status}}
           <i class="card-dashboard__status-icon"></i>
@@ -38,9 +37,7 @@
           <span class="pr-15 card-dashboard__trades" v-else>Trades:</span>
           <span class="card-dashboard__symbol" v-if="bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
           <span class="card-dashboard__symbol" v-else></span>
-
         </p>
-
         <p>{{ strategy.name }}</p>
       </div>
     </div>

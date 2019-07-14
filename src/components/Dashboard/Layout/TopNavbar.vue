@@ -35,11 +35,11 @@
             </router-link>
           </li>
           <li>
+            <ServerModal v-on:listenerChild="listenerChild"/>
             <a href="#" @click.prevent="openServerModal()" class="btn-rotate">
               <i class="ti-bell"></i>
-              <b-badge variant="danger">9 </b-badge>
+              <b-badge variant="danger">{{message}}</b-badge>
             </a>
-            <ServerModal/>
           </li>
           <li>
             <router-link to="/admin/overview" class="btn-rotate">
@@ -49,7 +49,6 @@
         </ul>
       </div>
     </div>
-    <a href="#" @click="showServerAllert()">Try</a>
   </nav>
 </template>
 <script>
@@ -73,20 +72,24 @@
     data() {
       return {
         activeNotifications: false,
-        devRootApi: process.env.ROOT_API
+        devRootApi: process.env.ROOT_API,
+        message: 7
       }
     },
    created() {
-       this.$echo.channel('jseprod')
-         .listen('jseevent', (e) => {
-           console.log(e.user);
-         });
-       console.log(this.$echo.channel('jseprod')
-         .listen('JseEvent', (e) => {
-           console.log(e.user);
-         }))
-       console.log(this.$echo);
-       this.showNotification('Server message')
+       // this.$echo.channel('jseprod')
+       //   .listen('jseevent', (e) => {
+       //     console.log(e.user);
+       //   });
+       // console.log(this.$echo.channel('jseprod')
+       //   .listen('JseEvent', (e) => {
+       //     console.log(e.user);
+       //   }))
+       // console.log(this.$echo);
+        //this.showServerAllert(),
+        this.showNotification ('Server notification'),
+        this.showServerAllertBlocked()
+
      },
     methods: {
       capitalizeFirstLetter(string) {
@@ -128,12 +131,12 @@
             type: 'warning'
           })
       },
-      showServerAllert() {
+      showServerAllertBlocked() {
         swal({
           allowOutsideClick: false,
           allowEscapeKey: false,
           type: 'error',
-          title: 'Oops...',
+          title: 'Oops...<br>The actions are blocked.',
           confirmButtonText: 'Look more',
           onClose: () => {
             this.openServerModal()
@@ -141,8 +144,21 @@
            //html: '<p>Something went wrong!</p><br><a href @click.prevent="openServerModal()">Look more</a>'
         })
       },
-
-
+      showServerAllert(){
+        swal({
+          type: 'warning',
+          width: '250px',
+          height: '200px',
+          position: 'top-right',
+          title: '<p>Server notification</p>',
+          confirmButtonText: 'Look more',
+          timer: 2500,
+          //html: '<p>Something went wrong!</p><br><a href @click.prevent="openServerModal()">Look more</a>'
+        })
+      },
+      listenerChild(reply) {
+        this.message = reply;
+      }
     }
   }
 

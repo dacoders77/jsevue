@@ -156,8 +156,6 @@
                     </b-form-group>
                 </div>
 
-
-
                 <b-form-group label="Memo:" label-for="Memo" class="account-row">
                     <b-form-textarea
                             id="memo"
