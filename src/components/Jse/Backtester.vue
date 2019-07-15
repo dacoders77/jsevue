@@ -233,7 +233,6 @@
             })
         },
         priceChannelBacktestClick() {
-
           this.priceChannel.execution_symbol_name = this.executionSymbolName;
           this.priceChannel.history_symbol_name = this.historySymbolName;
           this.priceChannel.post('/backtest')
@@ -250,7 +249,6 @@
         },
 
         macdBacktestClick() {
-
           this.macd.execution_symbol_name = this.executionSymbolName;
           this.macd.history_symbol_name = this.historySymbolName;
           this.macd.post('/backtest')
