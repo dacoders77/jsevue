@@ -34,6 +34,20 @@
                             <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('volume') }}</b-form-invalid-feedback>
                         </b-form-group>
 
+                        <b-form-group label="Commission:"
+                                      label-for="Commission"
+                                      class="account-row card-backtasted__form-group">
+                            <b-form-input
+                                    id="Commission"
+                                    v-model="priceChannel.commission"
+                                    :state="this.validationErrors.has('Commission') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="Commission"
+                                    v-tooltip="'Negative commission means - rebate'">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}</b-form-invalid-feedback>
+                        </b-form-group>
+
                         <b-form-group label="Bars to load:"
                                       label-for="bars_to_load"
                                       class="account-row card-backtasted__form-group">
@@ -105,6 +119,34 @@
                       </button>
                       <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
                     </drop-down>
+
+                      <b-form-group label="Volume:"
+                                    label-for="volume"
+                                    class="account-row card-backtasted__form-group">
+                          <b-form-input
+                                  id="volume"
+                                  v-model="macd.volume"
+                                  :state="this.validationErrors.has('volume') ? 'invalid' : 'valid'"
+                                  required
+                                  placeholder="volume"
+                                  v-tooltip="'Volume in contracts'">
+                          </b-form-input>
+                          <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('volume') }}</b-form-invalid-feedback>
+                      </b-form-group>
+
+                      <b-form-group label="Commission:"
+                                    label-for="Commission"
+                                    class="account-row card-backtasted__form-group">
+                          <b-form-input
+                                  id="Commission"
+                                  v-model="macd.commission"
+                                  :state="this.validationErrors.has('Commission') ? 'invalid' : 'valid'"
+                                  required
+                                  placeholder="Commission"
+                                  v-tooltip="'Negative commission means - rebate'">
+                          </b-form-input>
+                          <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}</b-form-invalid-feedback>
+                      </b-form-group>
 
                     <b-form-group
                       label="Bars to load:"
@@ -196,6 +238,7 @@
             execution_symbol_name: '',
             history_symbol_name: '',
             volume: 1000,
+            commission: -0.025,
             bars_to_load: 50,
             bar_time_frame: 1,
             time_frame: 1,
@@ -206,6 +249,7 @@
             execution_symbol_name: '',
             history_symbol_name: '',
             volume: 1,
+            commission: -0.025,
             bars_to_load: 55,
             bar_time_frame: 5,
             ema_period: 2,
