@@ -20,6 +20,19 @@
                                 <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
                             </drop-down>
 
+                        <b-form-group label="Volume:"
+                                      label-for="volume"
+                                      class="account-row card-backtasted__form-group">
+                            <b-form-input
+                                    id="volume"
+                                    v-model="priceChannel.volume"
+                                    :state="this.validationErrors.has('volume') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="volume"
+                                    v-tooltip="'Volume in contracts'">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('volume') }}</b-form-invalid-feedback>
+                        </b-form-group>
 
                         <b-form-group label="Bars to load:"
                                       label-for="bars_to_load"
@@ -182,6 +195,7 @@
             strategy: 'pc',
             execution_symbol_name: '',
             history_symbol_name: '',
+            volume: 1000,
             bars_to_load: 50,
             bar_time_frame: 1,
             time_frame: 1,
@@ -191,6 +205,7 @@
             strategy: 'macd',
             execution_symbol_name: '',
             history_symbol_name: '',
+            volume: 1,
             bars_to_load: 55,
             bar_time_frame: 5,
             ema_period: 2,
@@ -214,7 +229,12 @@
       },
       methods: {
         loadResources() {
-          axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+          axios.get('/symbol').then(({data}) => {
+            this.symbols = data.data;
+            console.log(data.data);
+            this.executionSymbolName = data.data[0].execution_symbol_name;
+            this.historySymbolName = data.data[0].history_symbol_name;
+          });
         },
         updateSymbol() {
           alert('update symbol btn click');
@@ -237,8 +257,6 @@
           this.priceChannel.history_symbol_name = this.historySymbolName;
           this.priceChannel.post('/backtest')
             .then((response) => {
-              //this.$refs['my-modal'].hide();
-              //Fire.$emit('AfterCreate');
               this.showNotification('bottom', 'right', 'Backtester-pc executed successfully! <br>');
             })
             .catch(error => {
