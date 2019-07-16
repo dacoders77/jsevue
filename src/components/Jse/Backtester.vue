@@ -275,7 +275,6 @@
         loadResources() {
           axios.get('/symbol').then(({data}) => {
             this.symbols = data.data;
-            console.log(data.data);
             this.executionSymbolName = data.data[0].execution_symbol_name;
             this.historySymbolName = data.data[0].history_symbol_name;
           });

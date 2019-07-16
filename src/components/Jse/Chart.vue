@@ -90,10 +90,9 @@
   import Backtester from 'src/components/Jse/Backtester.vue'
   import {TabsPlugin} from 'bootstrap-vue'
   import {FormCheckboxPlugin} from 'bootstrap-vue'
-
+  import swal from 'sweetalert2'
   Vue.use(FormCheckboxPlugin)
   Vue.use(TabsPlugin)
-
   export default {
     components: {
       Backtester
@@ -251,10 +250,22 @@
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
             // if (data.payload.messageType === 'error') swal("Failed!", "Error: " + e.update['payload'], "warning");
             // if (data.payload.messageType === 'info') toast({type: 'success', title: e.update['payload']});
-
             if (data.payload.messageType === 'reloadChartAfterHistoryLoaded') {
               //Vue.toasted.show("Chart is reloaded!", { type: 'success' });
               self.HistoryBarsLoad(self.botId)
+            }
+            if (data.payload.messageType === 'backTestingResult') {
+
+              swal({
+                html:
+                '<h5>Net Profit(BTC): ' + data.payload.payload.netProfit + '</h5>' +
+                '<h5>Trades quantity: ' + data.payload.payload.trades + '</h5>' +
+                '<h5>Accumulated commission(BTC): ' + data.payload.payload.accumulatedCommission + '</h5>',
+                //html: data.payload.payload.netProfit,
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-success btn-fill',
+                type: 'success'
+              })
             }
           }
         })
