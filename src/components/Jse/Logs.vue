@@ -1,7 +1,7 @@
 <template>
   <div class="que-iframe">
     <iframe
-      src="http://45.76.210.96:9596/log-viewer"
+      :src="logViewerUrl"
       name="Log_viewer"
       align="left"
       frameborder="0"
@@ -16,7 +16,7 @@
   export default {
     data() {
       return {
-
+        logViewerUrl: process.env.LOG_VIEWER_URL
       }
     }
   }
