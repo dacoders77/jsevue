@@ -69,51 +69,53 @@
       PPagination,
       bus
     },
-    data () {
+    data() {
       return {
-        items: [{
-          id: '1',
-          status: 'unread',
-          date: '2016-05-03',
-          subject: 'Tom',
-          text: 'Notifications from server'
-        }, {
-          id: '2',
-          status: 'unread',
-          date: '2016-05-03',
-          subject: 'Tom',
-          text: 'Notifications from server'
-        }, {
-          id: '3',
-          status: 'unread',
-          date: '2016-05-03',
-          subject: 'Tom',
-          text: 'Notifications from server'
-        }, {
-          id: '4',
-          status: 'unread',
-          date: '2016-05-03',
-          subject: 'Tom',
-          text: 'Notifications from server'
-        }, {
-          id: '5',
-          status: 'unread',
-          date: '2016-05-03',
-          subject: 'Tom',
-          text: 'Notifications from server'
-        }, {
-          id: '6',
-          status: 'unread',
-          date: '2016-05-03',
-          subject: 'Tom',
-          text: 'Notifications from server'
-        }, {
-          id: '7',
-          status: 'unread',
-          date: '2016-05-07',
-          name: 'Tom',
-          address: 'Notifications from server'
-        }],
+        items: [
+          {
+            id: '1',
+            status: 'unread',
+            date: '2016-05-03',
+            subject: 'Tom',
+            text: 'Notifications from server'
+          }, {
+            id: '2',
+            status: 'unread',
+            date: '2016-05-03',
+            subject: 'Tom',
+            text: 'Notifications from server'
+          }, {
+            id: '3',
+            status: 'unread',
+            date: '2016-05-03',
+            subject: 'Tom',
+            text: 'Notifications from server'
+          }, {
+            id: '4',
+            status: 'unread',
+            date: '2016-05-03',
+            subject: 'Tom',
+            text: 'Notifications from server'
+          }, {
+            id: '5',
+            status: 'unread',
+            date: '2016-05-03',
+            subject: 'Tom',
+            text: 'Notifications from server'
+          }, {
+            id: '6',
+            status: 'unread',
+            date: '2016-05-03',
+            subject: 'Tom',
+            text: 'Notifications from server'
+          }, {
+            id: '7',
+            status: 'unread',
+            date: '2016-05-07',
+            name: 'Tom',
+            address: 'Notifications from server'
+          }
+        ],
         isRead: false,
         curentIndex: "",
         pagination: {
@@ -124,41 +126,44 @@
         },
       }
     },
-  created () {
+    created() {
       this.unreadItems,
-      this.allItems =  this.items.slice(),
-      console.log(this.allItems)
-  },
-  computed:{
+        this.allItems = this.items.slice(),
+        console.log(this.allItems)
+    },
+    computed: {
       unreadItems() {
         return this.items.filter(item => {
           return item.status === 'unread'
         })
       },
-  },
-  methods: {
-    removeRow(item) {
-      this.items.splice(this.items.indexOf(item), 1);
-      this.$emit("listenerChild", this.unreadItems.length);
-    },
 
-    itemRead(item) {
-      item.status = 'read';
-      this.$emit("listenerChild", this.unreadItems.length);
     },
-    deleteAllRow() {
-      this.items=[]
-      this.$emit("listenerChild", this.unreadItems.length);
-    },
-    showUnreadItems() {
-      this.items = this.unreadItems;
-      console.log(this.allItems)
-    },
-    showAllItems() {
-      this.items = this.allItems;
-      console.log(this.items);
+    methods: {
+      removeRow(item) {
+        this.items.splice(this.items.indexOf(item), 1);
+        this.$emit("listenerChild", this.unreadItems.length);
+      },
+
+      itemRead(item) {
+        item.status = 'read';
+        this.$emit("listenerChild", this.unreadItems.length);
+      },
+      deleteAllRow() {
+        this.items.splice(0,this.items.length);
+        this.$emit("listenerChild", this.unreadItems.length);
+      },
+      showUnreadItems() {
+        this.items = this.unreadItems;
+        console.log(this.items)
+      },
+      showAllItems() {
+        if (this.unreadItems.length > 0) {
+          this.items = this.allItems;
+          this.$emit("listenerChild", this.unreadItems.length);
+        }
+      }
     }
-  }
   }
 </script>
 
