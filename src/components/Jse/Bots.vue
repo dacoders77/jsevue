@@ -39,6 +39,9 @@
                   <th></th>
                   <th>Strategy</th>
                   <th></th>
+                  <th>Offset</th>
+                  <th>Exec-time</th>
+                  <th>Time-range</th>
                   <th>T/Frame</th>
                   <th>Vol</th>
                   <th>L/Bars</th>
@@ -131,6 +134,33 @@
                          class="btn btn-icon btn-simple btn-icon--danger" :disabled="bot.status == 'running'"><i
                     class="ti-trash"></i></a></td>
 
+
+
+                  <!-- Offset -->
+                  <td>
+                    <input type="text" class="form-control form-control--sm" maxlength="1" v-model="bot.offset"
+                           :disabled="bot.status == 'running'"
+                           @change="() => { updateBotNew(['updateOffser', bot]); validateBots('Offset', bot.offset ); }">
+                  </td>
+
+                  <!-- Exec time -->
+                  <td>
+                    <input type="text" class="form-control form-control--sm" maxlength="1" v-model="bot.execution_time"
+                           :disabled="bot.status == 'running'"
+                           @change="() => { updateBotNew(['updateExecutionTime', bot]); validateBots('execution time', bot.execution_time ); }">
+                  </td>
+
+                  <!-- Time range -->
+                  <td>
+                    <input type="text" class="form-control form-control--sm" maxlength="1" v-model="bot.time_range"
+                           :disabled="bot.status == 'running'"
+                           @change="() => { updateBotNew(['updateTimeRange', bot]); validateBots('Time range', bot.time_range ); }">
+                  </td>
+
+
+
+
+
                   <!-- Time frame -->
                   <td>
                     <input type="text" class="form-control form-control--xs" maxlength="1" v-model="bot.time_frame"
@@ -145,7 +175,7 @@
                   </td>
                   <!-- Bars to load -->
                   <td>
-                    <input type="text" class="form-control form-control--xs" v-model="bot.bars_to_load"
+                    <input type="text" class="form-control form-control--sm" v-model="bot.bars_to_load"
                            :disabled="bot.status == 'running'"
                            @change="() => { updateBotNew(['updateBotName', bot]); validateBots('Bars to load', bot.bars_to_load); }">
                   </td>
@@ -198,9 +228,12 @@
           time_frame: '',
           rate_limit: '',
           status: '',
-          memo: ''
+          memo: '',
+          offset: '',
+          execution_time: '',
+          time_range: ''
         }),
-        // Object which sets Account, Symbol or Strategy feild to null
+        // Object which sets Account, Symbol or Strategy field to null
         unlink: new Form({
           id: '',
           botId: '',
@@ -395,12 +428,16 @@
         this.form.symbol_id = symbolId; // Symbol drop down
         this.form.strategy_id = strategyId; // Strategy drop down
         this.form.name = bot.name;
+
+        this.form.offset = bot.offset;
+        this.form.execution_time = bot.execution_time;
+        this.form.time_range = bot.time_range;
+
         this.form.time_frame = bot.time_frame;
         this.form.volume = bot.volume;
         this.form.bars_to_load = bot.bars_to_load;
         this.form.rate_limit = bot.rate_limit;
         this.form.memo = bot.memo;
-        console.log(this.form);
         this.form.put('/bot/' + bot.id)
           .then((response) => {
             Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
