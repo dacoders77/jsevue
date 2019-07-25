@@ -138,7 +138,7 @@
 
                   <!-- Offset -->
                   <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="2" v-model="bot.offset"
+                    <input type="text" class="form-control form-control--sm" maxlength="3" v-model="bot.offset"
                            :disabled="bot.status == 'running'"
                            @change="() => { updateBotNew(['updateOffser', bot]); validateBots('Offset', bot.offset ); }">
                   </td>
