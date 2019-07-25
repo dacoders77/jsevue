@@ -138,21 +138,21 @@
 
                   <!-- Offset -->
                   <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="1" v-model="bot.offset"
+                    <input type="text" class="form-control form-control--sm" maxlength="2" v-model="bot.offset"
                            :disabled="bot.status == 'running'"
                            @change="() => { updateBotNew(['updateOffser', bot]); validateBots('Offset', bot.offset ); }">
                   </td>
 
                   <!-- Exec time -->
                   <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="1" v-model="bot.execution_time"
+                    <input type="text" class="form-control form-control--sm" maxlength="2" v-model="bot.execution_time"
                            :disabled="bot.status == 'running'"
                            @change="() => { updateBotNew(['updateExecutionTime', bot]); validateBots('execution time', bot.execution_time ); }">
                   </td>
 
                   <!-- Time range -->
                   <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="1" v-model="bot.time_range"
+                    <input type="text" class="form-control form-control--sm" maxlength="3" v-model="bot.time_range"
                            :disabled="bot.status == 'running'"
                            @change="() => { updateBotNew(['updateTimeRange', bot]); validateBots('Time range', bot.time_range ); }">
                   </td>
