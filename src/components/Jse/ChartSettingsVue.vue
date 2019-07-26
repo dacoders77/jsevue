@@ -127,7 +127,6 @@
                   symbol: 'triangle-down'
                 }
               },
-              ///
               {
                 name: 'MACD line',
                 yAxis: 2, // To which of two y axis this series should be linked
@@ -166,6 +165,40 @@
                 negativeColor: 'red',
                 // threshold: 2,
                 lineWidth: 1
+              },
+              {
+                name: 'Long execution markers',
+                visible: true,
+                enableMouseTracking: true,
+                type: 'scatter',
+                color: 'purple',
+                dataGrouping: {
+                  enabled: false
+                },
+                marker: {
+                  fillColor: 'lime',
+                  lineColor: 'green',
+                  lineWidth: 1,
+                  radius: 3,
+                  symbol: 'circle'
+                }
+              },
+              {
+                name: 'Long execution markers',
+                visible: true,
+                enableMouseTracking: true,
+                type: 'scatter',
+                color: 'purple',
+                dataGrouping: {
+                  enabled: false
+                },
+                marker: {
+                  fillColor: 'red',
+                  lineColor: 'red',
+                  lineWidth: 1,
+                  radius: 3,
+                  symbol: 'circle'
+                }
               }
             ]
           }

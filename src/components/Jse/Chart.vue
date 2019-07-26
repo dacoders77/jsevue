@@ -13,7 +13,7 @@
           </template>
         </b-tab>
       </b-tabs>
-      <div class=" ml-auto mr-15">
+      <div class="ml-auto mr-15">
         <a href="#" class="card-chart-header__link card-chart-header__link--execution"
            @click.prevent="isShowExecution=!isShowExecution"><i class="ti-widget-alt"></i> Execution</a>
         <div class="card-chart-header__modal-execution" v-if="isShowExecution">
@@ -25,41 +25,7 @@
               @input="hideOptions">
             </b-form-checkbox-group>
           </b-form-group>
-
-          <div class="card-chart-header__table-wrapper">
-            <table class="table table-hover table-info card-chart-header__table-execution">
-              <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Exchange</th>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Exchange</th>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Exchange</th>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Exchange</th>
-                <th>Status</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+          <ChartSignalsTable v-bind:botId="botId"></ChartSignalsTable>
         </div>
       </div>
       <a href="#" class="card-chart-header__link" @click="backtesterButtonClick()">
@@ -88,15 +54,16 @@
   import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
   import Opt from 'src/components/Jse/ChartSettingsVue.vue'
   import Backtester from 'src/components/Jse/Backtester.vue'
+  import ChartSignalsTable from 'src/components/Jse/ChartSignalsTable.vue'
   import {TabsPlugin} from 'bootstrap-vue'
   import {FormCheckboxPlugin} from 'bootstrap-vue'
-
+  import swal from 'sweetalert2'
   Vue.use(FormCheckboxPlugin)
   Vue.use(TabsPlugin)
-
   export default {
     components: {
-      Backtester
+      Backtester,
+      ChartSignalsTable
     },
     data() {
       return {
@@ -108,6 +75,7 @@
         symbols: [],
         backtesterOpen: false,
         tabIndex: 0,
+        app: [],
         isShowExecution: false,
         selectedExecutions: ['profit', 'net profit', 'macd', 'pricechannel', 'trades'],
         optionsExecutions: [
@@ -117,16 +85,15 @@
           {text: 'Price channel', value: 'pricechannel'},
           {text: 'Trades', value: 'trades'}
         ],
+        isBackTest: false
       }
-
     },
-
     created() {
     },
     mounted() {
       var Highchart = require('highcharts/highstock');
       this.chart = Highchart.stockChart('container', Opt.data().options);
-      this.HistoryBarsLoad(this.botId);
+      this.HistoryBarsLoad(this.botId, false);
       this.ListenWebSocket(this.clientId);
       this.loadResources();
     },
@@ -140,18 +107,34 @@
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
-            this.chart.series[0].setData(response.data.candles, true);
-            this.chart.series[1].setData(response.data.priceChannelHighValues, true);//pricechannel
-            this.chart.series[2].setData(response.data.priceChannelLowValues, true);//pricechannel
-            this.chart.series[3].setData(response.data.sma1, true);//macd
-            this.chart.series[4].setData(response.data.longTradeMarkers, true);//trades
-            this.chart.series[5].setData(response.data.shortTradeMarkers, true);//trades
-            this.chart.series[6].setData(response.data.macdLine, true);//macd
-            this.chart.series[7].setData(response.data.macdSignalLine, true);//macd
-            this.chart.series[8].setData(response.data.accumulatedProfit, true);//profit
-            this.chart.series[9].setData(response.data.netProfit, true);//net profit
             // this.chart.setTitle({text: response.data.symbol});
+            this.chart.series[0].setData(response.data.candles, true);
+            this.chart.series[1].setData(response.data.priceChannelHighValues, true);
+            this.chart.series[2].setData(response.data.priceChannelLowValues, true);
+            this.chart.series[3].setData(response.data.sma1, true); // macd
+            this.chart.series[4].setData(response.data.longTradeMarkers, true);
+            this.chart.series[5].setData(response.data.shortTradeMarkers, true);
+            this.chart.series[6].setData(response.data.macdLine, true);
+            this.chart.series[7].setData(response.data.macdSignalLine, true);
+
+            if (!this.isBackTest){
+              //alert(this.isBackTest);
+              this.chart.series[8].setData(response.data.accumulatedProfit, true);
+              this.chart.series[9].setData(response.data.netProfit, true);
+            }
+
+            if (this.isBackTest){
+              //alert(this.isBackTest);
+              this.chart.series[8].setData(response.data.accumulatedProfitBackTest, true);
+              this.chart.series[9].setData(response.data.netProfitBackTest, true);
+            }
+
+            this.chart.series[10].setData(response.data.executionLongMarkers, true);
+            this.chart.series[11].setData(response.data.executionShortMarkers, true);
             this.botSymbol = response.data.symbol;
+
+            console.log(response.data);
+
           })
           .catch((err) => {
             //alert("Chart.vue can not get history bars. " + err);
@@ -197,7 +180,6 @@
           this.chart.series[4].visible=false;
           this.chart.series[5].visible=false;
         }
-
         this.chart.series[1].redraw();
         this.chart.series[2].redraw();
         this.chart.series[3].redraw();
@@ -235,21 +217,33 @@
         }
       },
       ListenWebSocket() {
+        self = this;
         var key = require('../../../config/bot.js').default.PUSHER_KEY;
         this.pusher = new Pusher(key, {
           encrypted: true,
           cluster: 'mt1'
         });
-        var self = this;
         this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
-        this.channel.bind("App\\Events\\jseevent", function (data) { // Full event name as shown at pusher debug console
-          if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instanse must han a unique number
+        this.channel.bind("App\\Events\\jseevent", function (data) {
+          // Full event name as shown at pusher debug console
+          if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instance must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
             // if (data.payload.messageType === 'error') swal("Failed!", "Error: " + e.update['payload'], "warning");
             // if (data.payload.messageType === 'info') toast({type: 'success', title: e.update['payload']});
             if (data.payload.messageType === 'reloadChartAfterHistoryLoaded') {
-              // Vue.toasted.show("Chart is reloaded!", { type: 'success' });
+              //Vue.toasted.show("Chart is reloaded!", { type: 'success' });
               self.HistoryBarsLoad(self.botId)
+            }
+            if (data.payload.messageType === 'backTestingResult') {
+              swal({
+                html:
+                '<h5>Net Profit(BTC): ' + data.payload.payload.netProfit + '</h5>' +
+                '<h5>Trades quantity: ' + data.payload.payload.trades + '</h5>' +
+                '<h5>Accumulated commission(BTC): ' + data.payload.payload.accumulatedCommission + '</h5>',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-success btn-fill',
+                type: 'success'
+              })
             }
           }
         })
@@ -258,6 +252,7 @@
         this.botId = bot.id;
         this.clientId = bot.front_end_id;
         this.HistoryBarsLoad(this.botId);
+        this.isBackTest = false; // Don't load back testing profit diagrams
       },
       backtesterButtonClick() {
         if (this.backtesterOpen) {
@@ -267,6 +262,7 @@
           this.botId = 5;
           this.clientId = 12350;
           this.HistoryBarsLoad(5);
+          this.isBackTest = true; // Load back testing profit diagrams
         }
       }
     }

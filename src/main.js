@@ -81,17 +81,16 @@ initialize(store, router);
 export const bus = new Vue();
 
 // Bootstrap-vue
-
 import BootstrapVue from 'bootstrap-vue';
-//import 'bootstrap/dist/css/bootstrap.css' //// Need to disable them. Otherwise the menu is broken.
-//import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap/dist/css/bootstrap.css' //// Need to disable them. Otherwise the menu is broken.
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
 
-//v-tooltip
+// v-tooltip
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip);
 
-//Json-Tree
+// Json-Tree
 import TreeView from "vue-json-tree-view"
 Vue.use(TreeView);
 

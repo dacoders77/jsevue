@@ -17,6 +17,7 @@
     data() {
       return {
         logViewerUrl: process.env.LOG_VIEWER_URL
+
       }
     }
   }

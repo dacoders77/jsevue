@@ -13,7 +13,6 @@
       },
       created() {
         // First created then mounted
-
       },
       mounted() {
         var Highchart = require('highcharts/highstock');

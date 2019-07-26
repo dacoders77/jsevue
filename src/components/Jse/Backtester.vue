@@ -20,6 +20,33 @@
                                 <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
                             </drop-down>
 
+                        <b-form-group label="Volume:"
+                                      label-for="volume"
+                                      class="account-row card-backtasted__form-group">
+                            <b-form-input
+                                    id="volume"
+                                    v-model="priceChannel.volume"
+                                    :state="this.validationErrors.has('volume') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="volume"
+                                    v-tooltip="'Volume in contracts'">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('volume') }}</b-form-invalid-feedback>
+                        </b-form-group>
+
+                        <b-form-group label="Commission:"
+                                      label-for="Commission"
+                                      class="account-row card-backtasted__form-group">
+                            <b-form-input
+                                    id="Commission"
+                                    v-model="priceChannel.commission"
+                                    :state="this.validationErrors.has('Commission') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="Commission"
+                                    v-tooltip="'Negative commission means - rebate'">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}</b-form-invalid-feedback>
+                        </b-form-group>
 
                         <b-form-group label="Bars to load:"
                                       label-for="bars_to_load"
@@ -77,11 +104,13 @@
                   </div>
 
                 </el-collapse-item>
+
+
+
+
                 <el-collapse-item title="MACD" name="2">
                   <div>
-
                     <!-- Symbol drop down -->
-
                     <drop-down class="card-backtasted__dropdown">
                       <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin mb-10" data-toggle="dropdown" style="width: 100%;">
                         <!--<span v-for="symbol in symbols" >{{ symbol.execution_symbol_name }}</span>-->
@@ -91,6 +120,33 @@
                       <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
                     </drop-down>
 
+                      <b-form-group label="Volume:"
+                                    label-for="volume"
+                                    class="account-row card-backtasted__form-group">
+                          <b-form-input
+                                  id="volume"
+                                  v-model="macd.volume"
+                                  :state="this.validationErrors.has('volume') ? 'invalid' : 'valid'"
+                                  required
+                                  placeholder="volume"
+                                  v-tooltip="'Volume in contracts'">
+                          </b-form-input>
+                          <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('volume') }}</b-form-invalid-feedback>
+                      </b-form-group>
+
+                      <b-form-group label="Commission:"
+                                    label-for="Commission"
+                                    class="account-row card-backtasted__form-group">
+                          <b-form-input
+                                  id="Commission"
+                                  v-model="macd.commission"
+                                  :state="this.validationErrors.has('Commission') ? 'invalid' : 'valid'"
+                                  required
+                                  placeholder="Commission"
+                                  v-tooltip="'Negative commission means - rebate'">
+                          </b-form-input>
+                          <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}</b-form-invalid-feedback>
+                      </b-form-group>
 
                     <b-form-group
                       label="Bars to load:"
@@ -98,67 +154,69 @@
                       class="account-row card-backtasted__form-group">
                       <b-form-input
                         id="macd_bars_to_load"
-                        v-model="priceChannel.bars_to_load"
+                        v-model="macd.bars_to_load"
                         :state="this.validationErrors.has('bars_to_load') ? 'invalid' : 'valid'"
                         required
                         placeholder="Bars to load"
                         v-tooltip="'If you put about 300-500 - the request is may take up to 20 seconds or even more.'">
                       </b-form-input>
-                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>
+                      <!--<b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>-->
                     </b-form-group>
 
                     <b-form-group label="Bar time frame:" label-for="macd_bar_time_frame" class="account-row card-backtasted__form-group">
                       <b-form-input
                         id="macd_bar_time_frame"
-                        v-model="priceChannel.bar_time_frame"
+                        v-model="macd.bar_time_frame"
                         :state="this.validationErrors.has('bar_time_frame') ? 'invalid' : 'valid'"
                         required
                         placeholder="bar_time_frame">
                       </b-form-input>
-                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bar_time_frame') }}</b-form-invalid-feedback>
+                      <!--<b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bar_time_frame') }}</b-form-invalid-feedback>-->
                     </b-form-group>
 
                     <b-form-group label="Ema period:" label-for="time_frame" class="account-row card-backtasted__form-group">
                       <b-form-input
                         id="ema_period"
-                        v-model="priceChannel.ema_period"
+                        v-model="macd.ema_period"
                         :state="this.validationErrors.has('ema_period') ? 'invalid' : 'valid'"
                         required
                         placeholder="ema_period">
                       </b-form-input>
-                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('ema_period') }}</b-form-invalid-feedback>
+                      <!--<b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('ema_period') }}</b-form-invalid-feedback>-->
                     </b-form-group>
 
                     <b-form-group label="MACD period:" label-for="macd_period" class="account-row card-backtasted__form-group">
                       <b-form-input
                         id="macd_period"
-                        v-model="priceChannel.macd_period"
+                        v-model="macd.macd_line_period"
                         :state="this.validationErrors.has('macd_period') ? 'invalid' : 'valid'"
                         required
-                        placeholder="macd_period">
+                        placeholder="macd_line_period">
                       </b-form-input>
-                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_period') }}</b-form-invalid-feedback>
+                      <!--<b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_period') }}</b-form-invalid-feedback>-->
                     </b-form-group>
 
                     <b-form-group label="MACD signal period:" label-for="macd_signal_period" class="account-row card-backtasted__form-group">
                       <b-form-input
-                        id="macd_signal_period"
-                        v-model="priceChannel.macd_signal_period"
+                        id="macd_signalline_period"
+                        v-model="macd.macd_signalline_period"
                         :state="this.validationErrors.has('macd_signal_period') ? 'invalid' : 'valid'"
                         required
                         placeholder="macd_signal_period">
                       </b-form-input>
-                      <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_signal_period') }}</b-form-invalid-feedback>
+                      <!--<b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_signal_period') }}</b-form-invalid-feedback>-->
                     </b-form-group>
 
                   </div>
 
                   <div style="float: right" class="w-100">
 
-                    <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="priceChannelBacktestClick()">
+                    <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="macdBacktestClick()">
                       Go
                     </button>
+
                   </div>
+
                 </el-collapse-item>
             </el-collapse>
         </div>
@@ -176,15 +234,27 @@
         return{
           validationErrors: new ValidationErrors(),
           priceChannel: new Form({
+            strategy: 'pc',
             execution_symbol_name: '',
             history_symbol_name: '',
+            volume: 1000,
+            commission: -0.025,
             bars_to_load: 50,
             bar_time_frame: 1,
             time_frame: 1,
             sma_filer_period: 2
           }),
           macd: new Form({
-            time_frame: 1,
+            strategy: 'macd',
+            execution_symbol_name: '',
+            history_symbol_name: '',
+            volume: 1,
+            commission: -0.025,
+            bars_to_load: 55,
+            bar_time_frame: 5,
+            ema_period: 2,
+            macd_line_period: 2,
+            macd_signalline_period: 5,
           }),
           symbols: [],
           executionSymbolName: 'Symbol', // Execution symbol name
@@ -203,7 +273,11 @@
       },
       methods: {
         loadResources() {
-          axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+          axios.get('/symbol').then(({data}) => {
+            this.symbols = data.data;
+            this.executionSymbolName = data.data[0].execution_symbol_name;
+            this.historySymbolName = data.data[0].history_symbol_name;
+          });
         },
         updateSymbol() {
           alert('update symbol btn click');
@@ -226,20 +300,32 @@
           this.priceChannel.history_symbol_name = this.historySymbolName;
           this.priceChannel.post('/backtest')
             .then((response) => {
-              //this.$refs['my-modal'].hide();
-              //Fire.$emit('AfterCreate');
-              this.showNotification('bottom', 'right', 'Backtester executed successfully! <br>');
+              this.showNotification('bottom', 'right', 'Backtester-pc executed successfully! <br>');
             })
             .catch(error => {
               console.log(error);
               this.validationErrors.record(error.data.errors)
-              this.showNotification('bottom', 'right', 'Backtester execution error! <br>')
+              this.showNotification('bottom', 'right', 'Backtester-pc execution error! <br>')
             })
         },
+
+        macdBacktestClick() {
+          this.macd.execution_symbol_name = this.executionSymbolName;
+          this.macd.history_symbol_name = this.historySymbolName;
+          this.macd.post('/backtest')
+            .then((response) => {
+              this.showNotification('bottom', 'right', 'Backtester-macd executed successfully! <br>');
+            })
+            .catch(error => {
+              console.log(error);
+              this.validationErrors.record(error.data.errors)
+              this.showNotification('bottom', 'right', 'Backtester-macd execution error! <br>')
+            })
+        },
+
         symbolDropDownClick(index) {
           this.executionSymbolName = this.symbols[index].execution_symbol_name;
           this.historySymbolName = this.symbols[index].history_symbol_name;
-          //
         }
       }
     }

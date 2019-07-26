@@ -73,7 +73,6 @@
   import {ModalPlugin} from 'bootstrap-vue'
   import QueModal from './QueModal'
   Vue.use(ModalPlugin)
-
   export default {
     components: {
       QueModal
