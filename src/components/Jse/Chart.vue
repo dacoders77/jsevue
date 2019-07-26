@@ -13,7 +13,7 @@
           </template>
         </b-tab>
       </b-tabs>
-      <div class=" ml-auto mr-15">
+      <div class="ml-auto mr-15">
         <a href="#" class="card-chart-header__link card-chart-header__link--execution"
            @click.prevent="isShowExecution=!isShowExecution"><i class="ti-widget-alt"></i> Execution</a>
         <div class="card-chart-header__modal-execution" v-if="isShowExecution">
@@ -25,41 +25,7 @@
               @input="hideOptions">
             </b-form-checkbox-group>
           </b-form-group>
-
-          <div class="card-chart-header__table-wrapper">
-            <table class="table table-hover table-info card-chart-header__table-execution">
-              <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Exchange</th>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Exchange</th>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Exchange</th>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Exchange</th>
-                <th>Status</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+          <ChartSignalsTable v-bind:botId="botId"></ChartSignalsTable>
         </div>
       </div>
       <a href="#" class="card-chart-header__link" @click="backtesterButtonClick()">
@@ -88,6 +54,7 @@
   import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
   import Opt from 'src/components/Jse/ChartSettingsVue.vue'
   import Backtester from 'src/components/Jse/Backtester.vue'
+  import ChartSignalsTable from 'src/components/Jse/ChartSignalsTable.vue'
   import {TabsPlugin} from 'bootstrap-vue'
   import {FormCheckboxPlugin} from 'bootstrap-vue'
   import swal from 'sweetalert2'
@@ -95,7 +62,8 @@
   Vue.use(TabsPlugin)
   export default {
     components: {
-      Backtester
+      Backtester,
+      ChartSignalsTable
     },
     data() {
       return {

@@ -134,8 +134,6 @@
                          class="btn btn-icon btn-simple btn-icon--danger" :disabled="bot.status == 'running'"><i
                     class="ti-trash"></i></a></td>
 
-
-
                   <!-- Offset -->
                   <td>
                     <input type="text" class="form-control form-control--sm" maxlength="3" v-model="bot.offset"
@@ -156,11 +154,7 @@
                            :disabled="bot.status == 'running'"
                            @change="() => { updateBotNew(['updateTimeRange', bot]); validateBots('Time range', bot.time_range ); }">
                   </td>
-
-
-
-
-
+                  
                   <!-- Time frame -->
                   <td>
                     <input type="text" class="form-control form-control--xs" maxlength="1" v-model="bot.time_frame"
