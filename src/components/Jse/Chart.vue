@@ -118,13 +118,13 @@
             this.chart.series[7].setData(response.data.macdSignalLine, true);
 
             if (!this.isBackTest){
-              alert(this.isBackTest);
+              //alert(this.isBackTest);
               this.chart.series[8].setData(response.data.accumulatedProfit, true);
               this.chart.series[9].setData(response.data.netProfit, true);
             }
 
             if (this.isBackTest){
-              alert(this.isBackTest);
+              //alert(this.isBackTest);
               this.chart.series[8].setData(response.data.accumulatedProfitBackTest, true);
               this.chart.series[9].setData(response.data.netProfitBackTest, true);
             }
