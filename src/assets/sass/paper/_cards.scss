@@ -675,7 +675,7 @@
   }
 
   &--big {
-    max-height: 330px;
+    max-height: 310px;
   }
 
   &__table {
@@ -1172,6 +1172,7 @@
   }
 
   &__dropdown {
+    min-height: 40px;
 
     & .dropdown-menu {
       max-height: 165px;

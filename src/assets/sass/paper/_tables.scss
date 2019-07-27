@@ -165,7 +165,9 @@
 
 .table-info {
 
-  > tbody > tr > th {
+  > tbody > tr > th,
+  > thead > tr > th,
+  > thead > tr > td {
     background-color: $info-color;
     border-bottom: 1px solid $info-color;
     color: $white-color;
@@ -358,7 +360,90 @@
     white-space: nowrap;
   }
 
-  .btn-circle {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -circle {
     padding: 3px;
     font-size: 12px;
   }
@@ -381,3 +466,38 @@
     }
   }
 }
+
+.table-double-row {
+  > thead > tr > td {
+    font-size: 1.25em;
+    font-weight: 300;
+
+    border-top: 1px solid $white-color;
+
+    &:first-child {
+      border-top-left-radius: 0;
+    }
+
+    &:last-child {
+      border-top-right-radius: 0;
+    }
+  }
+
+  > tbody > tr > td {
+      vertical-align: top;
+      padding: 0 11px;
+
+      > div {
+        min-height: 40px;
+        height: 50%;
+        padding: 12px 0;
+        //border-bottom: 1px solid #e8e7e3;
+      }
+
+      &#idBot {
+        border-right: 1px solid #e8e7e3;
+        vertical-align: middle;
+      }
+    }
+  }
+
