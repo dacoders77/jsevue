@@ -29,7 +29,7 @@
               <table class="table table-hover table-info table-i table-double-row">
                 <thead>
                 <tr>
-                  <th rowspan="2" style="border-right: 1px solid #ffffff;"><i class="ti-info-alt"></i></th>
+                  <th rowspan="2" style="border-right: 1px solid #e8e7e3;"><i class="ti-info-alt"></i></th>
                   <th id="runBot">Run</th>
                   <th id="nameBot">Name</th>
                   <th id="statusBot">Status</th>
@@ -42,12 +42,12 @@
                   <th id="offsetBot">Offset</th>
                 </tr>
                 <tr>
-                  <td id="execTimeBot">Exec-time</td>
-                  <td id="timeRangeBot">Time-range</td>
-                  <td id="timeFrameBot">T/Frame</td>
-                  <td id="volBot" colspan="2">Vol</td>
-                  <td id="barsBot" colspan="2">L/Bars</td>
-                  <td id="limitBot" colspan="2">R/Limit</td>
+                  <td id="execTimeBot">Execution time</td>
+                  <td id="timeRangeBot">Time range</td>
+                  <td id="timeFrameBot">Time frame</td>
+                  <td id="volBot" colspan="2">Volume</td>
+                  <td id="barsBot" colspan="2">Load bars</td>
+                  <td id="limitBot" colspan="2">Rate limit</td>
                   <td id="memoBot">Memo</td>
                 </tr>
                 </thead>

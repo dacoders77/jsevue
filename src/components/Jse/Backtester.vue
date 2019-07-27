@@ -99,7 +99,8 @@
                   <div style="float: right" class="w-100">
 
                     <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="priceChannelBacktestClick()">
-                      Go
+                      <b-spinner v-if="isBacktesterLoading" class="text-info"></b-spinner>
+                       {{backtester_btn}}
                     </button>
                   </div>
 
@@ -212,7 +213,8 @@
                   <div style="float: right" class="w-100">
 
                     <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="macdBacktestClick()">
-                      Go
+                      <b-spinner class="text-success" v-if="isBacktesterMacdLoading"></b-spinner>
+                      {{backtester_macd_btn}}
                     </button>
 
                   </div>
@@ -226,12 +228,18 @@
   import Vue from 'vue'
   import {Collapse, CollapseItem} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
+  import { SpinnerPlugin } from 'bootstrap-vue'
   import swal from 'sweetalert2'
+  Vue.use(SpinnerPlugin)
   Vue.use(Collapse)
   Vue.use(CollapseItem)
     export default {
       data() {
         return{
+          backtester_btn: "Go",
+          backtester_macd_btn: "Go",
+          isBacktesterLoading: false,
+          isBacktesterMacdLoading: false,
           validationErrors: new ValidationErrors(),
           priceChannel: new Form({
             strategy: 'pc',
@@ -296,30 +304,42 @@
             })
         },
         priceChannelBacktestClick() {
+          this.isBacktesterLoading = true;
+          this.backtester_btn = 'Loading...';
           this.priceChannel.execution_symbol_name = this.executionSymbolName;
           this.priceChannel.history_symbol_name = this.historySymbolName;
           this.priceChannel.post('/backtest')
             .then((response) => {
               this.showNotification('bottom', 'right', 'Backtester-pc executed successfully! <br>');
+              this.isBacktesterLoading = false;
+              this.backtester_btn = 'Go';
             })
             .catch(error => {
               console.log(error);
               this.validationErrors.record(error.data.errors)
               this.showNotification('bottom', 'right', 'Backtester-pc execution error! <br>')
+              this.isBacktesterLoading = false;
+              this.backtester_btn = 'Go';
             })
         },
 
         macdBacktestClick() {
+          this.isBacktesterMacdLoading = true;
+          this.backtester_macd_btn = 'Loading...';
           this.macd.execution_symbol_name = this.executionSymbolName;
           this.macd.history_symbol_name = this.historySymbolName;
           this.macd.post('/backtest')
             .then((response) => {
               this.showNotification('bottom', 'right', 'Backtester-macd executed successfully! <br>');
+              this.isBacktesterMacdLoading = false;
+              this.backtester_macd_btn = 'Go';
             })
             .catch(error => {
               console.log(error);
               this.validationErrors.record(error.data.errors)
               this.showNotification('bottom', 'right', 'Backtester-macd execution error! <br>')
+              this.isBacktesterMacdLoading = false;
+              this.backtester_macd_btn = 'Go';
             })
         },
 
