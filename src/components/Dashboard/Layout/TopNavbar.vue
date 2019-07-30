@@ -128,7 +128,7 @@
           allowEscapeKey: false,
           type: 'error',
           title: 'Oops...<br>The actions are blocked.',
-          confirmButtonText: 'Look more',
+          confirmButtonText: 'See more',
           onClose: () => {
             this.openServerModal()
           }
