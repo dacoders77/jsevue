@@ -199,6 +199,91 @@
         </div>
       </div>
     </div>
+    <div class="row position-relative">
+      <div class="col-md-12">
+
+        <div class="card card-bots">
+          <div class="card-header" style="border: 0px solid red; padding: 0px">
+            <!--<h4 class="title">Trades log</h4>-->
+          </div>
+          <div class="card-content table-full-width" style="border: 0px solid blue">
+
+            <div class="card-body p-0">
+
+              <el-table
+                :data="bots"
+                style="width: 100%">
+                <el-table-column type="expand">
+                  <template slot-scope="props">
+                  <div>
+                    <div>
+                      <p>Offset: <span>{{props.row.offset}}</span></p>
+                      <p>Execution time: <span> {{props.row.execution_time}}</span></p>
+                      <p>Time range: <span>{{ props.row.time_range }}</span></p>
+                      <p>Time frame: <span>{{ props.row.time_frame }}</span></p>
+                      <p>Volume: {{ props.row.volume }}</p>
+                    </div>
+                    <div>
+                      <p>Load bars: {{ props.row.bars_to_load }}</p>
+                      <p>Rate limit: <span>{{props.row.rate_limit}}</span></p>
+                      <p>Front worker status: <span class="text-success">on-line</span></p>
+                      <p>Execution worker status: <span class="text-success">on-line</span></p>
+                      <p>Que worker status: <span class="text-success">on-line</span></p>
+                    </div>
+                    <div>
+                      <p>Market/Limit (swith): <span> 1</span></p>
+                      <p>Memo     </p>
+                      <textarea v-model="props.row.memo"></textarea>
+                    </div>
+                  </div>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="i"
+                  prop="id">
+                </el-table-column>
+                <el-table-column
+                  label="Run">
+                  <template slot-scope="scope">
+                    <div v-if="scope.row.status == 'idle'">
+                      <button type="button" class="btn btn-fill btn-success btn-circle"
+                              @click="updateBotNew(['runBot', scope.row])">
+                        <span class="btn-label"><i class="ti-control-play"></i></span>
+                      </button>
+                    </div>
+                    <div v-if="scope.row.status == 'running'">
+                      <button type="button" class="btn btn-fill btn-warning btn-circle"
+                              @click="updateBotNew(['stopBot', scope.row])">
+                        <span class="btn-label"><i class="ti-control-stop"></i></span>
+                      </button>
+                    </div>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="Name"
+                  prop="name">
+                </el-table-column>
+                <el-table-column
+                  label="Status">
+                  <template slot-scope="scope">
+                    <router-link to="/chart" class="text-success">
+                      {{ scope.row.status }}
+                    </router-link>
+                  </template>
+
+                </el-table-column>
+                <el-table-column
+                  label="Worker">
+                  <template slot-scope="scope">
+                    <a href="" @click.prevent="getWorkerStatus(scope.row.id)">state</a>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
