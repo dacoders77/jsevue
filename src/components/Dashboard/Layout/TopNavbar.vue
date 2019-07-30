@@ -85,7 +85,7 @@
           this.message = this.items.length;
         });
       //this.showServerAllert(),
-      //this.showNotification('Server notification');
+      //this.showNotification('Server notifications');
       //this.showServerAllertBlocked();
     },
 
