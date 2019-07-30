@@ -33,6 +33,7 @@
                   <th>Run</th>
                   <th>Name</th>
                   <th>Status</th>
+                  <th>Worker</th>
                   <th>Account</th>
                   <th></th>
                   <th>Symbol</th>
@@ -76,7 +77,10 @@
 
                   <td v-if="bot" style="min-width: 72px;">
                     <router-link to="/chart" class="text-success">
-                  {{ bot.status }} </router-link></td>
+                  {{ bot.status }} </router-link>
+                  </td>
+
+                  <td><a href="" @click.prevent="getWorkerStatus(bot.id)">state</a> </td>
 
                   <!-- Account -->
                   <td>
@@ -375,9 +379,9 @@
           type: 'success'
         })
       },
-      showAlertRun() {
+      showAlertRun(errorText) {
         swal({
-          html: '<h5>Back end error, check inspector</h5> <br><a href="/que">Go to que</a>',
+          html: "<h5>" + errorText + '</h5> <br><a href="/que">Go to que</a>',
           buttonsStyling: false,
           confirmButtonClass: 'btn btn-success btn-fill',
           type: 'success'
@@ -434,13 +438,12 @@
         this.form.memo = bot.memo;
         this.form.put('/bot/' + bot.id)
           .then((response) => {
-            Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
-            // this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + bot.id)
+            Fire.$emit('AfterCreate');
           })
           .catch(error => {
             // this.validationErrors.record(error.data.errors)
             // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
-            this.showAlertRun();
+            this.showAlertRun(error.data);
           })
       },
       reloadTableBots() {
@@ -473,8 +476,7 @@
           .catch(error => {
             //this.validationErrors.record(error.data.errors)
             // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + params[0].id)
-            this.showAlertRun();
-
+            this.showAlertRun(error.data);
           })
       },
       showNotification (verticalAlign, horizontalAlign, notificationText) {
@@ -489,6 +491,11 @@
             verticalAlign: verticalAlign,
             type: this.type[color]
           })
+      },
+      getWorkerStatus(id){
+        axios.get('/workerstatus/' + id).then(({data}) => {
+          this.showAlertRun(data);
+        });
       }
     }
   }
