@@ -26,7 +26,7 @@
           <div class="card-content table-full-width" style="border: 0px solid blue">
 
             <div class="card-body p-0">
-              <table class="table table-hover table-info table-i table-double-row">
+              <table class="table table-hover table-info table-i">
                 <thead>
                 <tr>
                   <th><i class="ti-info-alt"></i></th>
