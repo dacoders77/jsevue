@@ -35,7 +35,7 @@
             </router-link>
           </li>
           <li>
-            <ServerModal v-on:listenerChild="listenerChild"/>
+            <ServerModal v-on:listenerChild="listenerChild" :items="items"/>
             <a href="#" @click.prevent="openServerModal()" class="btn-rotate">
               <i class="ti-bell"></i>
               <b-badge variant="danger">{{message}}</b-badge>
@@ -74,22 +74,28 @@
       return {
         activeNotifications: false,
         devRootApi: process.env.ROOT_API,
-        message: ''
-
+        message: '',
+        items: []
       }
     },
-   created() {
-
-     //
-     // console.log(this.$echo.channel('jseprod')
-     //     .listen('App\\Events\\jseevent', (e) => {
-     //       console.log(e.payload);
-     //     }));
-        //this.showServerAllert(),
-        this.showNotification ('Server notification'),
-        this.showServerAllertBlocked()
-
-     },
+    created() {
+      this.$echo.channel('jseprod')
+        .listen('.App\\Events\\jseevent', (e) => {
+          this.items.push(e.payload.payload)
+          this.message = this.items.length;
+        });
+      //
+      console.log(this.items);
+      //this.showServerAllert(),
+      this.showNotification('Server notification');
+      this.showServerAllertBlocked();
+      // this.message;
+    },
+    // computed: {
+    //   message() {
+    //     return this.items.length;
+    //   }
+    // },
     methods: {
       capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
@@ -112,14 +118,7 @@
       openServerModal(){
         this.$bvModal.show('modal-server')
       },
-      getServerNotification() {
-        this.$echo.channel('jseprod')
-          .listen('*', (e) => {
-            console.log(e);
-          });
-        console.log(this.$echo);
 
-      },
       showNotification (notificationText) {
         this.$notify(
           {
@@ -157,6 +156,7 @@
       },
       listenerChild(reply) {
         this.message = reply;
+        console.log(reply);
       }
     }
   }
