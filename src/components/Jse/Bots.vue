@@ -27,7 +27,7 @@
 
             <div class="card-body p-0">
               <table class="table table-hover table-info table-i">
-                <thead>
+                <tbody>
                 <tr>
                   <th><i class="ti-info-alt"></i></th>
                   <th>Run</th>
@@ -41,17 +41,14 @@
                   <th>Strategy</th>
                   <th></th>
                   <th>Offset</th>
-                  <th>Exec-time</th>
-                  <th>Time-range</th>
-                  <th>T/Frame</th>
-                  <th>Vol</th>
-                  <th>L/Bars</th>
-                  <th>R/Limit</th>
+                  <th>Execution time</th>
+                  <th>Time range</th>
+                  <th>Time frame</th>
+                  <th>Volume</th>
+                  <th>Load bars</th>
+                  <th>Rate limit</th>
                   <th>Memo</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr v-for="bot in bots" :key="bot.id" v-if="bot">
                 <tr v-for="bot in bots" :key="bot.id" v-if="bot">
                   <td>{{ bot.id }}</td>
                   <td>
@@ -79,10 +76,11 @@
 
                   <td v-if="bot" style="min-width: 72px;">
                     <router-link to="/chart" class="text-success">
-                      {{ bot.status }} </router-link>
+                      {{ bot.status }}
+                    </router-link>
                   </td>
 
-                  <td><a href="" @click.prevent="getWorkerStatus(bot.id)">state</a> </td>
+                  <td><a href="" @click.prevent="getWorkerStatus(bot.id)">state</a></td>
 
                   <!-- Account -->
                   <td>
@@ -107,7 +105,8 @@
                     <drop-down class="dropdown-menu--left card-bots__dropdown">
                       <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
                               data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
-                        <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id" v-tooltip="symbol.execution_symbol_name">{{ symbol.execution_symbol_name }}</span>
+                        <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id"
+                              v-tooltip="symbol.execution_symbol_name">{{ symbol.execution_symbol_name }}</span>
                         <b class="caret"></b>
                       </button>
                       <li v-if="bot.status == 'idle'" v-for="(symbol, index) in symbols"><a href="javascript:void(0)"

@@ -84,18 +84,11 @@
           this.items.push(e.payload.payload)
           this.message = this.items.length;
         });
-      //
-      console.log(this.items);
       //this.showServerAllert(),
-      this.showNotification('Server notification');
-      this.showServerAllertBlocked();
-      // this.message;
+      //this.showNotification('Server notification');
+      //this.showServerAllertBlocked();
     },
-    // computed: {
-    //   message() {
-    //     return this.items.length;
-    //   }
-    // },
+
     methods: {
       capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
@@ -138,8 +131,7 @@
           confirmButtonText: 'Look more',
           onClose: () => {
             this.openServerModal()
-          },
-           //html: '<p>Something went wrong!</p><br><a href @click.prevent="openServerModal()">Look more</a>'
+          }
         })
       },
       showServerAllert(){
