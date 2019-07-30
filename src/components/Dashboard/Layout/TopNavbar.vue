@@ -57,6 +57,7 @@
   import ServerModal from '../../Jse/ServerModal'
   import { BBadge } from 'bootstrap-vue'
   import VueNotify from 'vue-notifyjs'
+
   Vue.use(VueNotify)
 
   import swal from 'sweetalert2'
@@ -73,19 +74,17 @@
       return {
         activeNotifications: false,
         devRootApi: process.env.ROOT_API,
-        message: 7
+        message: ''
+
       }
     },
    created() {
-       // this.$echo.channel('jseprod')
-       //   .listen('jseevent', (e) => {
-       //     console.log(e.user);
-       //   });
-       // console.log(this.$echo.channel('jseprod')
-       //   .listen('JseEvent', (e) => {
-       //     console.log(e.user);
-       //   }))
-       // console.log(this.$echo);
+
+     //
+     // console.log(this.$echo.channel('jseprod')
+     //     .listen('App\\Events\\jseevent', (e) => {
+     //       console.log(e.payload);
+     //     }));
         //this.showServerAllert(),
         this.showNotification ('Server notification'),
         this.showServerAllertBlocked()

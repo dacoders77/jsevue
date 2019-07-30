@@ -63,6 +63,7 @@
   import PPagination from 'src/components/UIComponents/Pagination.vue'
   var moment = require('moment')
   import {bus} from '../../main.js' // Event bus
+  import Pusher from 'pusher-js'
   export default {
     name: 'Claims',
     components: {
@@ -71,51 +72,55 @@
     },
     data() {
       return {
-        items: [
-          {
-            id: '1',
-            status: 'unread',
-            date: '2016-05-03',
-            subject: 'Tom',
-            text: 'Notifications from server'
-          }, {
-            id: '2',
-            status: 'unread',
-            date: '2016-05-03',
-            subject: 'Tom',
-            text: 'Notifications from server'
-          }, {
-            id: '3',
-            status: 'unread',
-            date: '2016-05-03',
-            subject: 'Tom',
-            text: 'Notifications from server'
-          }, {
-            id: '4',
-            status: 'unread',
-            date: '2016-05-03',
-            subject: 'Tom',
-            text: 'Notifications from server'
-          }, {
-            id: '5',
-            status: 'unread',
-            date: '2016-05-03',
-            subject: 'Tom',
-            text: 'Notifications from server'
-          }, {
-            id: '6',
-            status: 'unread',
-            date: '2016-05-03',
-            subject: 'Tom',
-            text: 'Notifications from server'
-          }, {
-            id: '7',
-            status: 'unread',
-            date: '2016-05-07',
-            name: 'Tom',
-            address: 'Notifications from server'
-          }
-        ],
+        key1: '957f41d7acfeba2194c8',
+        channel1: '',
+        items: [],
+        payload: {},
+        // items: [
+        //   {
+        //     id: '1',
+        //     status: 'unread',
+        //     date: '2016-05-03',
+        //     subject: 'Tom',
+        //     text: 'Notifications from server'
+        //   }, {
+        //     id: '2',
+        //     status: 'unread',
+        //     date: '2016-05-03',
+        //     subject: 'Tom',
+        //     text: 'Notifications from server'
+        //   }, {
+        //     id: '3',
+        //     status: 'unread',
+        //     date: '2016-05-03',
+        //     subject: 'Tom',
+        //     text: 'Notifications from server'
+        //   }, {
+        //     id: '4',
+        //     status: 'unread',
+        //     date: '2016-05-03',
+        //     subject: 'Tom',
+        //     text: 'Notifications from server'
+        //   }, {
+        //     id: '5',
+        //     status: 'unread',
+        //     date: '2016-05-03',
+        //     subject: 'Tom',
+        //     text: 'Notifications from server'
+        //   }, {
+        //     id: '6',
+        //     status: 'unread',
+        //     date: '2016-05-03',
+        //     subject: 'Tom',
+        //     text: 'Notifications from server'
+        //   }, {
+        //     id: '7',
+        //     status: 'unread',
+        //     date: '2016-05-07',
+        //     name: 'Tom',
+        //     address: 'Notifications from server'
+        //   }
+        // ],
         isRead: false,
         curentIndex: "",
         pagination: {
@@ -127,9 +132,25 @@
       }
     },
     created() {
-      this.unreadItems,
-        this.allItems = this.items.slice(),
-        console.log(this.allItems)
+      this.pusher = new Pusher(this.key1, {
+        app_id : "817886",
+        secret : "736f3e27b75344777d3b",
+        cluster : "ap1"
+      });
+      this.channel1 = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
+      this.channel1.bind("App\\Events\\jseevent", (e) => {
+        this.items.push(e.payload.payload);
+        // this.items = Object.keys(e.payload.payload).map(function(key) {
+        //   return [String(key), e.payload.payload[key]]
+        // });
+        // console.log(_this.items);
+        console.log(this.items);
+      });
+      console.log(this.items);
+      this.unreadItems;
+      this.allItems1;
+      // this.allItems = this.items.slice();
+      // console.log(this.allItems);
     },
     computed: {
       unreadItems() {
@@ -137,6 +158,9 @@
           return item.status === 'unread'
         })
       },
+      allItems1() {
+        return this.items.slice();
+      }
 
     },
     methods: {
@@ -159,7 +183,7 @@
       },
       showAllItems() {
         if (this.unreadItems.length > 0) {
-          this.items = this.allItems;
+          this.items = this.allItems1;
           this.$emit("listenerChild", this.unreadItems.length);
         }
       }

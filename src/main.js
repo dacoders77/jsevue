@@ -22,9 +22,10 @@ import App from './App.vue'
 const keyPusher = require('../config/bot.js').default.PUSHER_KEY;
 Vue.prototype.$echo = new Echo({
   broadcaster: 'pusher',
-  key: keyPusher,
-  cluster: 'eu',
-  forceTLS: true,
+  app_id : "817886",
+  key : "957f41d7acfeba2194c8",
+  secret : "736f3e27b75344777d3b",
+  cluster : "ap1"
 });
 
 import Popper from 'popper.js/dist/umd/popper.js'
@@ -119,13 +120,3 @@ new Vue({
   render: h => h(App)
 }).$mount('#app');
 
-// window.Echo.channel('jseprod')
-//   .listen('*', (e) => {
-//     console.log(e);
-//
-//   });
-//
-// window.Echo.private('jseprod')
-//   .notification((notification) => {
-//     console.log(notification.type);
-//   });
