@@ -231,8 +231,10 @@
                         <p class="card-bots__expand-prop"><b>Execution worker status:</b> <span class="text-success">on-line</span></p>
                         <p class="card-bots__expand-prop"><b>Que worker status:</b> <span class="text-success">on-line</span></p>
                       </div>
-                      <div class="card-bots__expand-col">
-                        <p class="card-bots__expand-prop"><b>Market/Limit (swith): </b> <span> 1</span></p>
+                      <div class="card-bots__expand-col card-bots__expand-col--xl">
+                        <p class="card-bots__expand-prop"><b>Market/Limit (swith): </b>
+                          <p-switch  color="black"></p-switch>
+                        </p>
                         <div class="card-bots__expand-prop"><label for="id_bots_memo">Memo:</label>
                           <textarea v-model="props.row.memo" id="id_bots_memo" name="memo" rows="4" :disabled="props.row.status == 'running'" @change="editMemoBots(props.row)"></textarea>
                         </div>
@@ -389,6 +391,7 @@
 <script>
   import Vue from 'vue'
   import {Table, TableColumn} from 'element-ui'
+  import PSwitch from 'src/components/UIComponents/Switch.vue'
   import { BFormTextarea } from 'bootstrap-vue'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import swal from 'sweetalert2'
@@ -397,6 +400,7 @@
   Vue.use(TableColumn)
   export default {
     components: {
+      PSwitch
     },
     data () {
       return {
