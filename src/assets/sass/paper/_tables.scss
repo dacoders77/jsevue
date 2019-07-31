@@ -167,7 +167,7 @@
 
   > tbody > tr > th,
   > thead > tr > th,
-  > thead > tr > td {
+  thead > tr > th {
     background-color: $info-color;
     border-bottom: 1px solid $info-color;
     color: $white-color;
@@ -384,38 +384,194 @@
   }
 }
 
-//.table-double-row {
-//  > thead > tr > td {
-//    font-size: 1.25em;
-//    font-weight: 300;
-//
-//    border-top: 1px solid #97bec9;
-//
-//    &:first-child {
-//      border-top-left-radius: 0;
-//    }
-//
-//    &:last-child {
-//      border-top-right-radius: 0;
-//    }
-//  }
-//
-//  > tbody > tr > td {
-//    vertical-align: top;
-//    padding: 0 11px;
-//
-//    > div {
-//      min-height: 40px;
-//      height: 50%;
-//      padding: 12px 0;
-//      //border-bottom: 1px solid #e8e7e3;
-//    }
-//
-//    &#idBot {
-//      border-right: 1px solid #e8e7e3;
-//      vertical-align: middle;
-//    }
-//  }
+//.el-table,.el-table__append-wrapper
+//{
+//  //overflow: hidden;
 //}
+//.el-table td.is-hidden>*,.el-table th.is-hidden>*,.el-table--hidden
+//{
+//  visibility: hidden;
+//}
+//
+//
+//.el-table
+//{
+//  box-sizing: border-box;
+//  color: #606266;
+//  flex: 1;
+//  font-size: 14px;
+//  max-width: 100%;
+//  ms-flex: 1;
+//  position: relative;
+//  webkit-box-flex: 1;
+//  width: 100%;
+//}
+//
+//.el-table--scrollable-x .el-table__body-wrapper
+//{
+//  //overflow-x: auto;
+//}
+//.el-table--scrollable-y .el-table__body-wrapper
+//{
+//  //overflow-y: auto;
+//}
+//
+//.el-table .cell,.el-table th div
+//{
+//  overflow: hidden;
+//  padding-right: 10px;
+//  text-overflow: ellipsis;
+//}
+//.el-table th
+//{
+//  overflow: hidden;
+//  user-select: none;
+//}
+//
+//.el-table__fixed,.el-table__fixed-right
+//{
+//  box-shadow: 0 0 10px rgba(0,0,0,.12);
+//  left: 0;
+//  overflow-x: hidden;
+//  overflow-y: hidden;
+//  position: absolute;
+//  top: 0;
+//  webkit-box-shadow: 0 0 10px rgba(0,0,0,.12);
+//}
+//
+//.el-table__fixed-body-wrapper
+//{
+//  left: 0;
+//  overflow: hidden;
+//  position: absolute;
+//  top: 37px;
+//  z-index: 3;
+//}
+//
+//.el-table__footer-wrapper,.el-table__header-wrapper
+//{
+//  //overflow: hidden;
+//}
+//
+//.el-table__body-wrapper
+//{
+//  //overflow: hidden;
+//  position: relative;
+//}
+//.el-table__body-wrapper.is-scrolling-left~.el-table__fixed,.el-table__body-wrapper.is-scrolling-none~.el-table__fixed,.el-table__body-wrapper.is-scrolling-none~.el-table__fixed-right,.el-table__body-wrapper.is-scrolling-right~.el-table__fixed-right
+//{
+//  box-shadow: none;
+//  webkit-box-shadow: none;
+//}
+//.el-table__body-wrapper .el-table--border.is-scrolling-right~.el-table__fixed-right
+//{
+//  border-left: 1px solid #EBEEF5;
+//}
+//.el-table .caret-wrapper
+//{
+//  align-items: center;
+//  cursor: pointer;
+//  display: inline-flex;
+//  display: -ms-inline-flexbox;
+//  display: -webkit-inline-box;
+//  flex-direction: column;
+//  height: 34px;
+//  ms-flex-align: center;
+//  ms-flex-direction: column;
+//  overflow: initial;
+//  position: relative;
+//  vertical-align: middle;
+//  webkit-box-align: center;
+//  webkit-box-direction: normal;
+//  webkit-box-orient: vertical;
+//  width: 24px;
+//}
+//.el-table .sort-caret
+//{
+//  border: 5px solid transparent;
+//  height: 0;
+//  left: 7px;
+//  position: absolute;
+//  width: 0;
+//}
+//.el-table .sort-caret.ascending
+//{
+//  border-bottom-color: #C0C4CC;
+//  top: 5px;
+//}
+//.el-table .sort-caret.descending
+//{
+//  border-top-color: #C0C4CC;
+//  bottom: 7px;
+//}
+//.el-table .ascending .sort-caret.ascending
+//{
+//  border-bottom-color: #409EFF;
+//}
+//.el-table .descending .sort-caret.descending
+//{
+//  border-top-color: #409EFF;
+//}
+//.el-table .hidden-columns
+//{
+//  position: absolute;
+//  visibility: hidden;
+//  z-index: -1;
+//}
+//.el-table--striped .el-table__body tr.el-table__row--striped td
+//{
+//  background: #FAFAFA;
+//}
+//.el-table--striped .el-table__body tr.el-table__row--striped.current-row td
+//{
+//  background-color: #ecf5ff;
+//}
+//.el-table__body tr.hover-row.current-row>td,.el-table__body tr.hover-row.el-table__row--striped.current-row>td,.el-table__body tr.hover-row.el-table__row--striped>td,.el-table__body tr.hover-row>td
+//{
+//  background-color: #F5F7FA;
+//}
+//.el-table__body tr.current-row>td
+//{
+//  background-color: #ecf5ff;
+//}
+//.el-table__column-resize-proxy
+//{
+//  border-left: 1px solid #EBEEF5;
+//  bottom: 0;
+//  left: 200px;
+//  position: absolute;
+//  top: 0;
+//  width: 0;
+//  z-index: 10;
+//}
+//.el-table__column-filter-trigger
+//{
+//  cursor: pointer;
+//  display: inline-block;
+//  line-height: 34px;
+//}
+//.el-table__column-filter-trigger i
+//{
+//  color: #909399;
+//  font-size: 12px;
+//  transform: scale(.75);
+//  webkit-transform: scale(.75);
+//}
+//.el-table--enable-row-transition .el-table__body td
+//{
+//  transition: background-color .25s ease;
+//  webkit-transition: background-color .25s ease;
+//}
+//.el-table--enable-row-hover .el-table__body tr:hover>td
+//{
+//  background-color: #F5F7FA;
+//}
+//.el-table--fluid-height .el-table__fixed,.el-table--fluid-height .el-table__fixed-right
+//{
+//  bottom: 0;
+//  overflow: hidden;
+//}
+
+
 
 

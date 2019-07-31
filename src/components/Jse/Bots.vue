@@ -16,189 +16,189 @@
         </button>
       </div>
     </div>
-    <div class="row position-relative">
-      <div class="col-md-12">
+<!--    <div class="row position-relative">-->
+<!--      <div class="col-md-12">-->
 
-        <div class="card card-bots">
-          <div class="card-header" style="border: 0px solid red; padding: 0px">
-            <!--<h4 class="title">Trades log</h4>-->
-          </div>
-          <div class="card-content table-full-width" style="border: 0px solid blue">
+<!--        <div class="card card-bots">-->
+<!--          <div class="card-header" style="border: 0px solid red; padding: 0px">-->
+<!--            &lt;!&ndash;<h4 class="title">Trades log</h4>&ndash;&gt;-->
+<!--          </div>-->
+<!--          <div class="card-content table-full-width" style="border: 0px solid blue">-->
 
-            <div class="card-body p-0">
-              <table class="table table-hover table-info table-i">
-                <tbody>
-                <tr>
-                  <th><i class="ti-info-alt"></i></th>
-                  <th>Run</th>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th>Worker</th>
-                  <th>Account</th>
-                  <th></th>
-                  <th>Symbol</th>
-                  <th></th>
-                  <th>Strategy</th>
-                  <th></th>
-                  <th>Offset</th>
-                  <th>Execution time</th>
-                  <th>Time range</th>
-                  <th>Time frame</th>
-                  <th>Volume</th>
-                  <th>Load bars</th>
-                  <th>Rate limit</th>
-                  <th>Memo</th>
-                </tr>
-                <tr v-for="bot in bots" :key="bot.id" v-if="bot">
-                  <td>{{ bot.id }}</td>
-                  <td>
-                    <div v-if="bot">
-                      <div v-if="bot.status == 'idle'">
-                        <button type="button" class="btn btn-fill btn-success btn-circle"
-                                @click="updateBotNew(['runBot', bot])">
-                          <span class="btn-label"><i class="ti-control-play"></i></span>
-                        </button>
-                      </div>
-                      <div v-if="bot.status == 'running'">
-                        <button type="button" class="btn btn-fill btn-warning btn-circle"
-                                @click="updateBotNew(['stopBot', bot])">
-                          <span class="btn-label"><i class="ti-control-stop"></i></span>
-                        </button>
-                      </div>
-                    </div>
-                  </td>
+<!--            <div class="card-body p-0">-->
+<!--              <table class="table table-hover table-info table-i">-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                  <th><i class="ti-info-alt"></i></th>-->
+<!--                  <th>Run</th>-->
+<!--                  <th>Name</th>-->
+<!--                  <th>Status</th>-->
+<!--                  <th>Worker</th>-->
+<!--                  <th>Account</th>-->
+<!--                  <th></th>-->
+<!--                  <th>Symbol</th>-->
+<!--                  <th></th>-->
+<!--                  <th>Strategy</th>-->
+<!--                  <th></th>-->
+<!--                  <th>Offset</th>-->
+<!--                  <th>Execution time</th>-->
+<!--                  <th>Time range</th>-->
+<!--                  <th>Time frame</th>-->
+<!--                  <th>Volume</th>-->
+<!--                  <th>Load bars</th>-->
+<!--                  <th>Rate limit</th>-->
+<!--                  <th>Memo</th>-->
+<!--                </tr>-->
+<!--                <tr v-for="bot in bots" :key="bot.id" v-if="bot">-->
+<!--                  <td>{{ bot.id }}</td>-->
+<!--                  <td>-->
+<!--                    <div v-if="bot">-->
+<!--                      <div v-if="bot.status == 'idle'">-->
+<!--                        <button type="button" class="btn btn-fill btn-success btn-circle"-->
+<!--                                @click="updateBotNew(['runBot', bot])">-->
+<!--                          <span class="btn-label"><i class="ti-control-play"></i></span>-->
+<!--                        </button>-->
+<!--                      </div>-->
+<!--                      <div v-if="bot.status == 'running'">-->
+<!--                        <button type="button" class="btn btn-fill btn-warning btn-circle"-->
+<!--                                @click="updateBotNew(['stopBot', bot])">-->
+<!--                          <span class="btn-label"><i class="ti-control-stop"></i></span>-->
+<!--                        </button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </td>-->
 
-                  <td>
-                    <input type="text" value="2" class="form-control" v-if="bot" :disabled="bot.status == 'running'"
-                           v-model="bot.name" style="width: 100px"
-                           @keyup.enter="() =>{ updateBotNew(['updateBotName', bot]); validateBots(); }">
-                  </td>
+<!--                  <td>-->
+<!--                    <input type="text" value="2" class="form-control" v-if="bot" :disabled="bot.status == 'running'"-->
+<!--                           v-model="bot.name" style="width: 100px"-->
+<!--                           @keyup.enter="() =>{ updateBotNew(['updateBotName', bot]); validateBots(); }">-->
+<!--                  </td>-->
 
-                  <td v-if="bot" style="min-width: 72px;">
-                    <router-link to="/chart" class="text-success">
-                      {{ bot.status }}
-                    </router-link>
-                  </td>
+<!--                  <td v-if="bot" style="min-width: 72px;">-->
+<!--                    <router-link to="/chart" class="text-success">-->
+<!--                      {{ bot.status }}-->
+<!--                    </router-link>-->
+<!--                  </td>-->
 
-                  <td><a href="" @click.prevent="getWorkerStatus(bot.id)">state</a></td>
+<!--                  <td><a href="" @click.prevent="getWorkerStatus(bot.id)">state</a></td>-->
 
-                  <!-- Account -->
-                  <td>
-                    <drop-down class="dropdown-menu--left card-bots__dropdown">
-                      <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
-                              data-toggle="dropdown" style="width: 120px;" :disabled="bot.status == 'running'">
-                        <span v-for="account in accounts" v-if="account.id == bot.account_id" v-tooltip="account.name">{{ account.name }}</span>
-                        <b class="caret"></b>
-                      </button>
-                      <li v-if="bot.status == 'idle'" v-for="(account, index) in accounts"><a href="javascript:void(0)"
-                                                                                              @click="updateBotNew(['updateAccount', bot, index])">{{
-                        account.name }}</a></li>
-                    </drop-down>
-                  </td>
-                  <td><a href="#" style="color: red;"
-                         @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'account_id']) : '')"
-                         class="btn btn-icon btn-simple btn-icon--danger" :disabled="bot.status == 'running'"><i
-                    class="ti-trash"></i></a></td>
+<!--                  &lt;!&ndash; Account &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <drop-down class="dropdown-menu&#45;&#45;left card-bots__dropdown">-->
+<!--                      <button slot="title" class="btn dropdown-toggle dropdown-toggle&#45;&#45;thin dropdown-toggle&#45;&#45;fix-width"-->
+<!--                              data-toggle="dropdown" style="width: 120px;" :disabled="bot.status == 'running'">-->
+<!--                        <span v-for="account in accounts" v-if="account.id == bot.account_id" v-tooltip="account.name">{{ account.name }}</span>-->
+<!--                        <b class="caret"></b>-->
+<!--                      </button>-->
+<!--                      <li v-if="bot.status == 'idle'" v-for="(account, index) in accounts"><a href="javascript:void(0)"-->
+<!--                                                                                              @click="updateBotNew(['updateAccount', bot, index])">{{-->
+<!--                        account.name }}</a></li>-->
+<!--                    </drop-down>-->
+<!--                  </td>-->
+<!--                  <td><a href="#" style="color: red;"-->
+<!--                         @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'account_id']) : '')"-->
+<!--                         class="btn btn-icon btn-simple btn-icon&#45;&#45;danger" :disabled="bot.status == 'running'"><i-->
+<!--                    class="ti-trash"></i></a></td>-->
 
-                  <!-- Symbol -->
-                  <td>
-                    <drop-down class="dropdown-menu--left card-bots__dropdown">
-                      <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
-                              data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
-                        <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id"
-                              v-tooltip="symbol.execution_symbol_name">{{ symbol.execution_symbol_name }}</span>
-                        <b class="caret"></b>
-                      </button>
-                      <li v-if="bot.status == 'idle'" v-for="(symbol, index) in symbols"><a href="javascript:void(0)"
-                                                                                            @click="updateBotNew(['updateSymbol', bot, index])">{{
-                        symbol.execution_symbol_name }}</a></li>
-                    </drop-down>
-                  </td>
-                  <td><a href="#" style="color: red;"
-                         @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'symbol_id']) : '')"
-                         class="btn btn-icon btn-simple btn-icon--danger" :disabled="bot.status == 'running'"><i
-                    class="ti-trash"></i></a></td>
+<!--                  &lt;!&ndash; Symbol &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <drop-down class="dropdown-menu&#45;&#45;left card-bots__dropdown">-->
+<!--                      <button slot="title" class="btn dropdown-toggle dropdown-toggle&#45;&#45;thin dropdown-toggle&#45;&#45;fix-width"-->
+<!--                              data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">-->
+<!--                        <span v-for="symbol in symbols" v-if="symbol.id == bot.symbol_id"-->
+<!--                              v-tooltip="symbol.execution_symbol_name">{{ symbol.execution_symbol_name }}</span>-->
+<!--                        <b class="caret"></b>-->
+<!--                      </button>-->
+<!--                      <li v-if="bot.status == 'idle'" v-for="(symbol, index) in symbols"><a href="javascript:void(0)"-->
+<!--                                                                                            @click="updateBotNew(['updateSymbol', bot, index])">{{-->
+<!--                        symbol.execution_symbol_name }}</a></li>-->
+<!--                    </drop-down>-->
+<!--                  </td>-->
+<!--                  <td><a href="#" style="color: red;"-->
+<!--                         @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'symbol_id']) : '')"-->
+<!--                         class="btn btn-icon btn-simple btn-icon&#45;&#45;danger" :disabled="bot.status == 'running'"><i-->
+<!--                    class="ti-trash"></i></a></td>-->
 
-                  <!-- Strategy -->
-                  <td>
-                    <drop-down class="dropdown-menu--left card-bots__dropdown">
-                      <button v-if="strategies" slot="title"
-                              class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
-                              data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">
-                        <span v-for="strategy in strategies"
-                              v-if="strategy.id == bot.strategy_id" v-tooltip="strategy.name">{{ strategy.name }}</span>
-                        <b class="caret"></b>
-                      </button>
-                      <li v-if="strategies && bot.status == 'idle'" v-for="(strategy, index) in strategies"><a
-                        href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">ID:{{
-                        strategy.id }} {{ strategy.name }}</a></li>
-                    </drop-down>
-                  </td>
-                  <td><a href="#" style="color: red;"
-                         @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'strategy_id']): '')"
-                         class="btn btn-icon btn-simple btn-icon--danger" :disabled="bot.status == 'running'"><i
-                    class="ti-trash"></i></a></td>
+<!--                  &lt;!&ndash; Strategy &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <drop-down class="dropdown-menu&#45;&#45;left card-bots__dropdown">-->
+<!--                      <button v-if="strategies" slot="title"-->
+<!--                              class="btn dropdown-toggle dropdown-toggle&#45;&#45;thin dropdown-toggle&#45;&#45;fix-width"-->
+<!--                              data-toggle="dropdown" style="width: 100px;" :disabled="bot.status == 'running'">-->
+<!--                        <span v-for="strategy in strategies"-->
+<!--                              v-if="strategy.id == bot.strategy_id" v-tooltip="strategy.name">{{ strategy.name }}</span>-->
+<!--                        <b class="caret"></b>-->
+<!--                      </button>-->
+<!--                      <li v-if="strategies && bot.status == 'idle'" v-for="(strategy, index) in strategies"><a-->
+<!--                        href="javascript:void(0)" @click="updateBotNew(['updateStrategy', bot, index])">ID:{{-->
+<!--                        strategy.id }} {{ strategy.name }}</a></li>-->
+<!--                    </drop-down>-->
+<!--                  </td>-->
+<!--                  <td><a href="#" style="color: red;"-->
+<!--                         @click="(bot.status == 'idle' ? unlinkButtonClick([bot, 'strategy_id']): '')"-->
+<!--                         class="btn btn-icon btn-simple btn-icon&#45;&#45;danger" :disabled="bot.status == 'running'"><i-->
+<!--                    class="ti-trash"></i></a></td>-->
 
-                  <!-- Offset -->
-                  <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="3" v-model="bot.offset"
-                           :disabled="bot.status == 'running'"
-                           @change="() => { updateBotNew(['updateOffser', bot]); validateBots('Offset', bot.offset ); }">
-                  </td>
+<!--                  &lt;!&ndash; Offset &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <input type="text" class="form-control form-control&#45;&#45;sm" maxlength="3" v-model="bot.offset"-->
+<!--                           :disabled="bot.status == 'running'"-->
+<!--                           @change="() => { updateBotNew(['updateOffser', bot]); validateBots('Offset', bot.offset ); }">-->
+<!--                  </td>-->
 
-                  <!-- Exec time -->
-                  <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="2" v-model="bot.execution_time"
-                           :disabled="bot.status == 'running'"
-                           @change="() => { updateBotNew(['updateExecutionTime', bot]); validateBots('execution time', bot.execution_time ); }">
-                  </td>
+<!--                  &lt;!&ndash; Exec time &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <input type="text" class="form-control form-control&#45;&#45;sm" maxlength="2" v-model="bot.execution_time"-->
+<!--                           :disabled="bot.status == 'running'"-->
+<!--                           @change="() => { updateBotNew(['updateExecutionTime', bot]); validateBots('execution time', bot.execution_time ); }">-->
+<!--                  </td>-->
 
-                  <!-- Time range -->
-                  <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="3" v-model="bot.time_range"
-                           :disabled="bot.status == 'running'"
-                           @change="() => { updateBotNew(['updateTimeRange', bot]); validateBots('Time range', bot.time_range ); }">
-                  </td>
+<!--                  &lt;!&ndash; Time range &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <input type="text" class="form-control form-control&#45;&#45;sm" maxlength="3" v-model="bot.time_range"-->
+<!--                           :disabled="bot.status == 'running'"-->
+<!--                           @change="() => { updateBotNew(['updateTimeRange', bot]); validateBots('Time range', bot.time_range ); }">-->
+<!--                  </td>-->
 
-                  <!-- Time frame -->
-                  <td>
-                    <input type="text" class="form-control form-control--xs" maxlength="1" v-model="bot.time_frame"
-                           :disabled="bot.status == 'running'"
-                           @change="() => { updateBotNew(['updateTimeFrame', bot]); validateBots('Time frame', bot.time_frame ); }">
-                  </td>
-                  <!-- Volume -->
-                  <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="5" v-model="bot.volume"
-                           :disabled="bot.status == 'running'"
-                           @change="() => { updateBotNew(['updateBotName', bot]); validateBots('Volume', bot.volume); }">
-                  </td>
-                  <!-- Bars to load -->
-                  <td>
-                    <input type="text" class="form-control form-control--sm" v-model="bot.bars_to_load"
-                           :disabled="bot.status == 'running'"
-                           @change="() => { updateBotNew(['updateBotName', bot]); validateBots('Bars to load', bot.bars_to_load); }">
-                  </td>
-                  <!-- Rate limit -->
-                  <td>
-                    <input type="text" class="form-control form-control--sm" maxlength="5" v-model="bot.rate_limit"
-                           :disabled="bot.status == 'running'"
-                           @change="() => { updateBotNew(['updateBotName', bot]);  validateBots('Rate limit', bot.rate_limit ); }">
-                  </td>
-                  <!-- Memo -->
-                  <td>
-                    <a href="#" id="show-btn" class="btn btn-icon btn-icon--info" @click="editMemoBots(bot)"
-                       :disabled="bot.status == 'running'"><i class="ti-pencil"></i></a>
-                  </td>
+<!--                  &lt;!&ndash; Time frame &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <input type="text" class="form-control form-control&#45;&#45;xs" maxlength="1" v-model="bot.time_frame"-->
+<!--                           :disabled="bot.status == 'running'"-->
+<!--                           @change="() => { updateBotNew(['updateTimeFrame', bot]); validateBots('Time frame', bot.time_frame ); }">-->
+<!--                  </td>-->
+<!--                  &lt;!&ndash; Volume &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <input type="text" class="form-control form-control&#45;&#45;sm" maxlength="5" v-model="bot.volume"-->
+<!--                           :disabled="bot.status == 'running'"-->
+<!--                           @change="() => { updateBotNew(['updateBotName', bot]); validateBots('Volume', bot.volume); }">-->
+<!--                  </td>-->
+<!--                  &lt;!&ndash; Bars to load &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <input type="text" class="form-control form-control&#45;&#45;sm" v-model="bot.bars_to_load"-->
+<!--                           :disabled="bot.status == 'running'"-->
+<!--                           @change="() => { updateBotNew(['updateBotName', bot]); validateBots('Bars to load', bot.bars_to_load); }">-->
+<!--                  </td>-->
+<!--                  &lt;!&ndash; Rate limit &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <input type="text" class="form-control form-control&#45;&#45;sm" maxlength="5" v-model="bot.rate_limit"-->
+<!--                           :disabled="bot.status == 'running'"-->
+<!--                           @change="() => { updateBotNew(['updateBotName', bot]);  validateBots('Rate limit', bot.rate_limit ); }">-->
+<!--                  </td>-->
+<!--                  &lt;!&ndash; Memo &ndash;&gt;-->
+<!--                  <td>-->
+<!--                    <a href="#" id="show-btn" class="btn btn-icon btn-icon&#45;&#45;info" @click="editMemoBots(bot)"-->
+<!--                       :disabled="bot.status == 'running'"><i class="ti-pencil"></i></a>-->
+<!--                  </td>-->
 
-                </tr>
-                </tbody>
-              </table>
-            </div>
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--              </table>-->
+<!--            </div>-->
 
-          </div>
-        </div>
-      </div>
-    </div>
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="row position-relative">
       <div class="col-md-12">
 
@@ -212,38 +212,42 @@
 
               <el-table
                 :data="bots"
-                style="width: 100%">
+                style="width: 100%"
+                class="card-bots__table table-info">
                 <el-table-column type="expand">
                   <template slot-scope="props">
-                  <div>
-                    <div>
-                      <p>Offset: <span>{{props.row.offset}}</span></p>
-                      <p>Execution time: <span> {{props.row.execution_time}}</span></p>
-                      <p>Time range: <span>{{ props.row.time_range }}</span></p>
-                      <p>Time frame: <span>{{ props.row.time_frame }}</span></p>
-                      <p>Volume: {{ props.row.volume }}</p>
+                    <div class="card-bots__expand-row">
+                      <div class="card-bots__expand-col">
+                        <p class="card-bots__expand-prop"><b>Offset:</b> <span>{{props.row.offset}}</span></p>
+                        <p class="card-bots__expand-prop"><b>Execution time:</b> <span> {{props.row.execution_time}}</span></p>
+                        <p class="card-bots__expand-prop"><b>Time range:</b> <span>{{ props.row.time_range }}</span></p>
+                        <p class="card-bots__expand-prop"><b>Time frame:</b> <span>{{ props.row.time_frame }}</span></p>
+                        <p class="card-bots__expand-prop"><b>Volume:</b> {{ props.row.volume }}</p>
+                      </div>
+                      <div class="card-bots__expand-col">
+                        <p class="card-bots__expand-prop"><b>Load bars:</b> <span>{{ props.row.bars_to_load }}</span></p>
+                        <p class="card-bots__expand-prop"><b>Rate limit:</b> <span>{{props.row.rate_limit}}</span></p>
+                        <p class="card-bots__expand-prop"><b>Front worker status:</b> <span class="text-success">on-line</span></p>
+                        <p class="card-bots__expand-prop"><b>Execution worker status:</b> <span class="text-success">on-line</span></p>
+                        <p class="card-bots__expand-prop"><b>Que worker status:</b> <span class="text-success">on-line</span></p>
+                      </div>
+                      <div class="card-bots__expand-col">
+                        <p class="card-bots__expand-prop"><b>Market/Limit (swith): </b> <span> 1</span></p>
+                        <div class="card-bots__expand-prop"><label for="id_bots_memo">Memo:</label>
+                          <textarea v-model="props.row.memo" id="id_bots_memo" name="memo" rows="4" :disabled="props.row.status == 'running'" @change="editMemoBots(props.row)"></textarea>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p>Load bars: {{ props.row.bars_to_load }}</p>
-                      <p>Rate limit: <span>{{props.row.rate_limit}}</span></p>
-                      <p>Front worker status: <span class="text-success">on-line</span></p>
-                      <p>Execution worker status: <span class="text-success">on-line</span></p>
-                      <p>Que worker status: <span class="text-success">on-line</span></p>
-                    </div>
-                    <div>
-                      <p>Market/Limit (swith): <span> 1</span></p>
-                      <p>Memo     </p>
-                      <textarea v-model="props.row.memo"></textarea>
-                    </div>
-                  </div>
                   </template>
                 </el-table-column>
                 <el-table-column
-                  label="i"
-                  prop="id">
+                  prop="id"
+                  width="60"
+                  label-class-name="card-bots__table-id">
                 </el-table-column>
                 <el-table-column
-                  label="Run">
+                  label="Run"
+                  width="60px">
                   <template slot-scope="scope">
                     <div v-if="scope.row.status == 'idle'">
                       <button type="button" class="btn btn-fill btn-success btn-circle"
@@ -261,10 +265,12 @@
                 </el-table-column>
                 <el-table-column
                   label="Name"
-                  prop="name">
+                  prop="name"
+                  min-width="122px">
                 </el-table-column>
                 <el-table-column
-                  label="Status">
+                  label="Status"
+                  min-width="72px">
                   <template slot-scope="scope">
                     <router-link to="/chart" class="text-success">
                       {{ scope.row.status }}
@@ -278,6 +284,100 @@
                     <a href="" @click.prevent="getWorkerStatus(scope.row.id)">state</a>
                   </template>
                 </el-table-column>
+
+                <!-- Account-->
+                <el-table-column
+                  label="Account"
+                  min-width="172px">
+                  <template slot-scope="scope">
+
+                    <drop-down class="dropdown-menu--left card-bots__dropdown">
+                      <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
+                              data-toggle="dropdown" style="width: 150px;" :disabled="scope.row.status == 'running'">
+                        <span v-for="account in accounts" v-if="account.id == scope.row.account_id"
+                              v-tooltip="account.name">{{ account.name }}</span>
+                        <b class="caret"></b>
+                      </button>
+                      <li v-if="scope.row.status == 'idle'" v-for="(account, index) in accounts"><a
+                        href="javascript:void(0)"
+                        @click="updateBotNew(['updateAccount', scope.row, index])">{{
+                        account.name }}</a></li>
+                    </drop-down>
+                  </template>
+                </el-table-column>
+
+                <el-table-column
+                  label=""
+                  width="60px">
+                  <template slot-scope="scope">
+                    <a href="#" style="color: red;"
+                       @click="(scope.row.status == 'idle' ? unlinkButtonClick([scope.row, 'account_id']) : '')"
+                       class="btn btn-icon btn-simple btn-icon--danger" :disabled="scope.row.status == 'running'"><i
+                      class="ti-trash"></i></a>
+                  </template>
+                </el-table-column>
+
+                <!--Symbol-->
+                <el-table-column
+                  label="Symbol"
+                  min-width="172px">
+                  <template slot-scope="scope">
+                    <drop-down class="dropdown-menu--left card-bots__dropdown">
+                      <button slot="title"
+                              class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
+                              data-toggle="dropdown" style="width: 150px;" :disabled="scope.row.status == 'running'">
+                        <span v-for="symbol in symbols" v-if="symbol.id == scope.row.symbol_id"
+                              v-tooltip="symbol.execution_symbol_name">{{ symbol.execution_symbol_name }}</span>
+                        <b class="caret"></b>
+                      </button>
+                      <li v-if="scope.row.status == 'idle'" v-for="(symbol, index) in symbols"><a
+                        href="javascript:void(0)"
+                        @click="updateBotNew(['updateSymbol', scope.row, index])">{{
+                        symbol.execution_symbol_name }}</a></li>
+                    </drop-down>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label=""
+                  width="60px">
+                  <template slot-scope="scope">
+                    <a href="#" style="color: red;"
+                       @click="(scope.row.status == 'idle' ? unlinkButtonClick([scope.row, 'symbol_id']) : '')"
+                       class="btn btn-icon btn-simple btn-icon--danger" :disabled="scope.row.status == 'running'"><i
+                      class="ti-trash"></i></a>
+                  </template>
+                </el-table-column>
+
+                <!-- Strategy -->
+                <el-table-column
+                  label="Strategy"
+                  min-width="172px">
+                  <template slot-scope="scope">
+                    <drop-down class="dropdown-menu--left card-bots__dropdown">
+                      <button v-if="strategies" slot="title"
+                              class="btn dropdown-toggle dropdown-toggle--thin dropdown-toggle--fix-width"
+                              data-toggle="dropdown" style="width: 150px;" :disabled="scope.row.status == 'running'">
+                        <span v-for="strategy in strategies"
+                              v-if="strategy.id == scope.row.strategy_id" v-tooltip="strategy.name">{{ strategy.name }}</span>
+                        <b class="caret"></b>
+                      </button>
+                      <li v-if="strategies && scope.row.status == 'idle'" v-for="(strategy, index) in strategies"><a
+                        href="javascript:void(0)" @click="updateBotNew(['updateStrategy', scope.row, index])">ID:{{
+                        strategy.id }} {{ strategy.name }}</a></li>
+                    </drop-down>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label=""
+                  width="60px">
+                  <template slot-scope="scope">
+                    <a href="#" style="color: red;"
+                       @click="(scope.row.status == 'idle' ? unlinkButtonClick([scope.row, 'strategy_id']): '')"
+                       class="btn btn-icon btn-simple btn-icon--danger" :disabled="scope.row.status == 'running'"><i
+                      class="ti-trash"></i></a>
+                  </template>
+                </el-table-column>
+
               </el-table>
             </div>
           </div>
@@ -405,6 +505,7 @@
         notifications: {
           topCenter: false
         },
+        label_id: '<i class="ti-info-alt"></i>'
       }
     },
     created() {
