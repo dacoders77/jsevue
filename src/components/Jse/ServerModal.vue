@@ -18,7 +18,7 @@
         <span class="btn-label"><i class="ti-trash"></i> Delete all</span>
       </button>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 overflow-scroll">
           <table class="table table-hover table-notification">
             <tbody>
             <tr>

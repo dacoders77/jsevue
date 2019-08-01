@@ -57,7 +57,7 @@
   import ServerModal from '../../Jse/ServerModal'
   import { BBadge } from 'bootstrap-vue'
   import VueNotify from 'vue-notifyjs'
-
+  import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
   Vue.use(VueNotify)
 
   import swal from 'sweetalert2'
@@ -79,14 +79,11 @@
       }
     },
     created() {
-      this.$echo.channel('jseprod')
-        .listen('.App\\Events\\jseevent', (e) => {
-          this.items.push(e.payload.payload)
-          this.message = this.items.length;
-        });
-      //this.showServerAllert(),
-      //this.showNotification('Server notifications');
-      //this.showServerAllertBlocked();
+      this.channel = this.$pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
+      this.channel.bind("App\\Events\\jseevent", (e) => {
+        this.items.push(e.payload.payload)
+        this.message = this.items.length;
+      });
     },
 
     methods: {

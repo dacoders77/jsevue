@@ -1112,10 +1112,10 @@
 
   &__buttons {
     margin-top: -13px;
-    padding-bottom: 17px;
 
     button {
       line-height: 1.4;
+      margin-bottom: 17px;
     }
 
     i {
@@ -1149,6 +1149,9 @@
   &__table {
     overflow: initial !important;
 
+    input {
+      background-color: $white-color;
+    }
     thead > tr > th {
       font-size: 14px;
       line-height: 20px;
@@ -1208,17 +1211,23 @@
        min-width: 180px;
        text-align: right;
        margin-right: 20px;
+       padding: 8px 0;
+
      }
-    span {
+    span{
       display: block;
       width: 80px;
       text-align: left;
     }
+    input{
+      background-color: $white-color;
+      width: 80px;
+    }
     textarea {
       font-size: 16px;
-      line-height: 1.7em;
+      line-height: 1.5em;
       min-width: 230px;
-
+      border-radius: $border-radius-extreme;
 
     }
   }

@@ -8,6 +8,7 @@ import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 import Echo from "laravel-echo"
 import App from './App.vue'
+import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
 
 // https://github.com/highcharts/highcharts-vue/blob/master/demo/src/main.js
 // Used a component - remove is used via NMP (more likely)
@@ -19,13 +20,20 @@ import App from './App.vue'
 // mapInit(Highcharts)
 // Vue.use(HighchartsVue)
 
-const keyPusherNotification = require('../config/bot.js').default.PUSHER_KEY_NOTIFICATION;
-Vue.prototype.$echo = new Echo({
-  broadcaster: 'pusher',
-  app_id : "817886",
-  key : keyPusherNotification,
-  secret : "736f3e27b75344777d3b",
-  cluster : "ap1"
+//Pusher
+
+const keyPusher = require('../config/bot.js').default.PUSHER_KEY;
+const clusterPusher = require('../config/bot.js').default.PUSHER_CLUSTER;
+// Vue.prototype.$echo = new Echo({
+//   broadcaster: 'pusher',
+//   key : keyPusher,
+//   // cluster : "ap1"
+// });
+
+//
+ Vue.prototype.$pusher = new Pusher(keyPusher, {
+   encrypted: true,
+   cluster: clusterPusher
 });
 
 import Popper from 'popper.js/dist/umd/popper.js'

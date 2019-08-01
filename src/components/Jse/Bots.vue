@@ -218,22 +218,57 @@
                   <template slot-scope="props">
                     <div class="card-bots__expand-row">
                       <div class="card-bots__expand-col">
-                        <p class="card-bots__expand-prop"><b>Offset:</b> <span>{{props.row.offset}}</span></p>
-                        <p class="card-bots__expand-prop"><b>Execution time:</b> <span> {{props.row.execution_time}}</span></p>
-                        <p class="card-bots__expand-prop"><b>Time range:</b> <span>{{ props.row.time_range }}</span></p>
-                        <p class="card-bots__expand-prop"><b>Time frame:</b> <span>{{ props.row.time_frame }}</span></p>
-                        <p class="card-bots__expand-prop"><b>Volume:</b> {{ props.row.volume }}</p>
+                        <p class="card-bots__expand-prop">
+                          <label for="id_bots_offset">Offset:</label>
+                          <input id ="id_bots_offset" type="text" class="form-control form-control--sm" maxlength="3" v-model="props.row.offset"
+                            :disabled="props.row.status == 'running' || switches.defaultOff == true"
+                            @change="() => { updateBotNew(['updateOffset', props.row]); validateBots('Offset', props.row.offset ); }">
+                        </p>
+                        <p class="card-bots__expand-prop">
+                          <label for="id_bots_exec_time">Execution time:</label>
+                          <input id ="id_bots_exec_time" type="text" class="form-control form-control--sm" maxlength="2" v-model="props.row.execution_time"
+                                 :disabled="props.row.status == 'running'"
+                                 @change="() => { updateBotNew(['updateExecutionTime', props.row]); validateBots('Execution time', props.row.execution_time ); }">
+                        </p>
+                        <p class="card-bots__expand-prop">
+                          <label for="id_bots_time_range">Time range:</label>
+                          <input  id="id_bots_time_range" type="text" class="form-control form-control--sm" maxlength="3" v-model="props.row.time_range"
+                                 :disabled="props.row.status == 'running'"
+                                 @change="() => { updateBotNew(['updateTimeRange', props.row]); validateBots('Time range', props.row.time_range ); }">
+                        </p>
+                        <p class="card-bots__expand-prop">
+                          <label for="id_bots_time_frame">Time frame:</label>
+                          <input id="id_bots_time_frame" type="text" class="form-control form-control--xs" maxlength="1" v-model="props.row.time_frame"
+                                 :disabled="props.row.status == 'running'"
+                                 @change="() => { updateBotNew(['updateTimeFrame', props.row]); validateBots('Time frame', props.row.time_frame ); }">
+                        </p>
+                        <p class="card-bots__expand-prop">
+                          <label for="id_bots_volume">Volume:</label>
+                          <input id="id_bots_volume" type="text" class="form-control form-control--sm" maxlength="5" v-model="props.row.volume"
+                                 :disabled="props.row.status == 'running'"
+                                 @change="() => { updateBotNew(['updateBotName', props.row]); validateBots('Volume', props.row.volume); }">
+                        </p>
                       </div>
                       <div class="card-bots__expand-col">
-                        <p class="card-bots__expand-prop"><b>Load bars:</b> <span>{{ props.row.bars_to_load }}</span></p>
-                        <p class="card-bots__expand-prop"><b>Rate limit:</b> <span>{{props.row.rate_limit}}</span></p>
+                        <p class="card-bots__expand-prop">
+                          <label for="id_bots_load">Load bars:</label>
+                          <input id="id_bots_load" type="text" class="form-control form-control--sm" v-model="props.row.bars_to_load"
+                                 :disabled="props.row.status == 'running'"
+                                 @change="() => { updateBotNew(['updateBotName', props.row]); validateBots('Bars to load', props.row.bars_to_load); }">
+                        </p>
+                        <p class="card-bots__expand-prop">
+                          <label for="id_bots_limit">Rate limit:</label>
+                            <input id="id_bots_limit" type="text" class="form-control form-control--sm" maxlength="5" v-model="props.row.rate_limit"
+                                   :disabled="props.row.status == 'running'"
+                                   @change="() => { updateBotNew(['updateBotName', props.row]);  validateBots('Rate limit', props.row.rate_limit ); }">
+                        </p>
                         <p class="card-bots__expand-prop"><b>Front worker status:</b> <span class="text-success">on-line</span></p>
                         <p class="card-bots__expand-prop"><b>Execution worker status:</b> <span class="text-success">on-line</span></p>
                         <p class="card-bots__expand-prop"><b>Que worker status:</b> <span class="text-success">on-line</span></p>
                       </div>
                       <div class="card-bots__expand-col card-bots__expand-col--xl">
-                        <p class="card-bots__expand-prop"><b>Market/Limit (swith): </b>
-                          <p-switch  color="black"></p-switch>
+                        <p class="card-bots__expand-prop"><b>Market/Limit: </b>
+                          <p-switch  color="black" v-model="switches.defaultOff"></p-switch>
                         </p>
                         <div class="card-bots__expand-prop"><label for="id_bots_memo">Memo:</label>
                           <textarea v-model="props.row.memo" id="id_bots_memo" name="memo" rows="4" :disabled="props.row.status == 'running'" @change="editMemoBots(props.row)"></textarea>
@@ -249,7 +284,7 @@
                 </el-table-column>
                 <el-table-column
                   label="Run"
-                  width="60px">
+                  min-width="60px">
                   <template slot-scope="scope">
                     <div v-if="scope.row.status == 'idle'">
                       <button type="button" class="btn btn-fill btn-success btn-circle"
@@ -267,8 +302,12 @@
                 </el-table-column>
                 <el-table-column
                   label="Name"
-                  prop="name"
                   min-width="122px">
+                  <template slot-scope="scope">
+                    <input type="text" value="2" class="form-control" v-if="scope.row" :disabled="scope.row.status == 'running'"
+                      v-model="scope.row.name" style="width: 100px"
+                      @keyup.enter="() =>{ updateBotNew(['updateBotName', scope.row]); validateBots(); }">
+                  </template>
                 </el-table-column>
                 <el-table-column
                   label="Status"
@@ -310,7 +349,7 @@
 
                 <el-table-column
                   label=""
-                  width="60px">
+                  min-width="60px">
                   <template slot-scope="scope">
                     <a href="#" style="color: red;"
                        @click="(scope.row.status == 'idle' ? unlinkButtonClick([scope.row, 'account_id']) : '')"
@@ -341,7 +380,7 @@
                 </el-table-column>
                 <el-table-column
                   label=""
-                  width="60px">
+                  min-width="60px">
                   <template slot-scope="scope">
                     <a href="#" style="color: red;"
                        @click="(scope.row.status == 'idle' ? unlinkButtonClick([scope.row, 'symbol_id']) : '')"
@@ -371,7 +410,7 @@
                 </el-table-column>
                 <el-table-column
                   label=""
-                  width="60px">
+                  min-width="60px">
                   <template slot-scope="scope">
                     <a href="#" style="color: red;"
                        @click="(scope.row.status == 'idle' ? unlinkButtonClick([scope.row, 'strategy_id']): '')"
@@ -509,7 +548,10 @@
         notifications: {
           topCenter: false
         },
-        label_id: '<i class="ti-info-alt"></i>'
+        label_id: '<i class="ti-info-alt"></i>',
+        switches: {
+          defaultOff: false
+        }
       }
     },
     created() {
@@ -687,7 +729,7 @@
         axios.get('/workerstatus/' + id).then(({data}) => {
           this.showAlertRun(data);
         });
-      }
+      },
     }
   }
 </script>

@@ -51,7 +51,6 @@
 </template>
 <script>
   import Vue from 'vue'
-  import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
   import Opt from 'src/components/Jse/ChartSettingsVue.vue'
   import Backtester from 'src/components/Jse/Backtester.vue'
   import ChartSignalsTable from 'src/components/Jse/ChartSignalsTable.vue'
@@ -218,13 +217,9 @@
       },
       ListenWebSocket() {
         self = this;
-        var key = require('../../../config/bot.js').default.PUSHER_KEY;
-        this.pusher = new Pusher(key, {
-          encrypted: true,
-          cluster: 'mt1'
-        });
-        this.channel = this.pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
+        this.channel = this.$pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
         this.channel.bind("App\\Events\\jseevent", function (data) {
+
           // Full event name as shown at pusher debug console
           if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instance must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
