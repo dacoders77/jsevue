@@ -290,7 +290,7 @@
                 <!-- Account-->
                 <el-table-column
                   label="Account"
-                  min-width="172px">
+                  width="172px">
                   <template slot-scope="scope">
 
                     <drop-down class="dropdown-menu--left card-bots__dropdown">
@@ -322,7 +322,7 @@
                 <!--Symbol-->
                 <el-table-column
                   label="Symbol"
-                  min-width="172px">
+                  width="172px">
                   <template slot-scope="scope">
                     <drop-down class="dropdown-menu--left card-bots__dropdown">
                       <button slot="title"
@@ -353,7 +353,7 @@
                 <!-- Strategy -->
                 <el-table-column
                   label="Strategy"
-                  min-width="172px">
+                  width="172px">
                   <template slot-scope="scope">
                     <drop-down class="dropdown-menu--left card-bots__dropdown">
                       <button v-if="strategies" slot="title"
