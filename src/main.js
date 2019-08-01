@@ -19,11 +19,11 @@ import App from './App.vue'
 // mapInit(Highcharts)
 // Vue.use(HighchartsVue)
 
-const keyPusher = require('../config/bot.js').default.PUSHER_KEY;
+const keyPusherNotification = require('../config/bot.js').default.PUSHER_KEY_NOTIFICATION;
 Vue.prototype.$echo = new Echo({
   broadcaster: 'pusher',
   app_id : "817886",
-  key : "957f41d7acfeba2194c8",
+  key : keyPusherNotification,
   secret : "736f3e27b75344777d3b",
   cluster : "ap1"
 });
