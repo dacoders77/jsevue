@@ -79,11 +79,7 @@
       }
     },
     created() {
-      this.channel = this.$pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
-      this.channel.bind("App\\Events\\jseevent", (e) => {
-        this.items.push(e.payload.payload)
-        this.message = this.items.length;
-      });
+      this.listenerServerNotification();
     },
 
     methods: {
@@ -145,7 +141,15 @@
       },
       listenerChild(reply) {
         this.message = reply;
-        console.log(reply);
+      },
+      listenerServerNotification(){
+        this.channel = this.$pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
+        this.channel.bind("App\\Events\\jseevent", (e) => {
+          if (e.payload.messageType === 'nastyaEvent') {
+            this.items.push(e.payload.payload);
+            this.message = this.items.length;
+          }
+        });
       }
     }
   }
