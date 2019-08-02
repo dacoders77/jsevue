@@ -1171,6 +1171,19 @@
     .el-table--scrollable-x .el-table__body-wrapper {
       overflow: initial !important;
     }
+
+    .el-table__expand-icon {
+      transition: all 100ms ease-in;
+      [class^="el-icon-arrow-right"], [class*="el-icon-arrow-right"] {
+        font-family: 'themify'!important;
+
+        &::before {
+          font-family: 'themify'!important;
+          content: "\e649";
+        }
+      }
+    }
+
   }
 
   & div.card-bots__table-id {
@@ -1197,8 +1210,11 @@
 
   &__expand-col {
     width: 30%;
+    margin-right: 10px;
+
     &--xl {
       flex-grow: 1;
+      margin-right: 0;
     }
   }
 

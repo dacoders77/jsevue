@@ -125,16 +125,16 @@
                       @keyup.enter="() =>{ updateBotNew(['updateBotName', scope.row]); validateBots(); }">
                   </template>
                 </el-table-column>
-                <el-table-column
-                  label="Status"
-                  min-width="72px">
-                  <template slot-scope="scope">
-                    <router-link to="/chart" class="text-success">
-                      {{ scope.row.status }}
-                    </router-link>
-                  </template>
+<!--                <el-table-column-->
+<!--                  label="Status"-->
+<!--                  min-width="72px">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <router-link to="/chart" class="text-success">-->
+<!--                      {{ scope.row.status }}-->
+<!--                    </router-link>-->
+<!--                  </template>-->
 
-                </el-table-column>
+<!--                </el-table-column>-->
                 <el-table-column
                   label="Worker">
                   <template slot-scope="scope">
