@@ -142,6 +142,7 @@
       listenerChild(reply) {
         this.message = reply;
       },
+
       listenerServerNotification(){
         this.channel = this.$pusher.subscribe('jseprod'); // Channel name. The name of the pusher created app
         this.channel.bind("App\\Events\\jseevent", (e) => {

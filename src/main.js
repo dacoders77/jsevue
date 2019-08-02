@@ -6,7 +6,6 @@ import VueNotify from 'vue-notifyjs'
 import VeeValidate from 'vee-validate'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
-import Echo from "laravel-echo"
 import App from './App.vue'
 import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
 
@@ -24,13 +23,7 @@ import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
 
 const keyPusher = require('../config/bot.js').default.PUSHER_KEY;
 const clusterPusher = require('../config/bot.js').default.PUSHER_CLUSTER;
-// Vue.prototype.$echo = new Echo({
-//   broadcaster: 'pusher',
-//   key : keyPusher,
-//   // cluster : "ap1"
-// });
 
-//
  Vue.prototype.$pusher = new Pusher(keyPusher, {
    encrypted: true,
    cluster: clusterPusher
