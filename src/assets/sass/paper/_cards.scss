@@ -1174,6 +1174,8 @@
 
     .el-table__expand-icon {
       transition: all 100ms ease-in;
+      cursor: inherit;
+
       [class^="el-icon-arrow-right"], [class*="el-icon-arrow-right"] {
         font-family: 'themify'!important;
 

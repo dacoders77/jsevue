@@ -81,7 +81,7 @@
                         </p>
                         <p class="card-bots__expand-prop"><b>Front worker status:</b>
                           <span v-if="!workerstatus.isFrontWorkerRunning" class="text-danger">off-line</span>
-                          <span v-else class="text-success">workerStatusText</span>
+                          <span v-else class="text-success">online</span>
                         </p>
                         <p class="card-bots__expand-prop"><b>Execution worker status:</b>
                           <span v-if="!workerstatus.isExecutionWorkerRunning" class="text-danger">off-line</span>
@@ -260,12 +260,15 @@
   import { BFormTextarea } from 'bootstrap-vue'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import swal from 'sweetalert2'
+  import WorkerStatus from './WorkerStatus'
+
   Vue.component('b-form-textarea', BFormTextarea)
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
     components: {
-      PSwitch
+      PSwitch,
+      WorkerStatus
     },
     data () {
       return {
