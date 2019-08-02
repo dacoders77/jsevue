@@ -79,9 +79,18 @@
                                    :disabled="props.row.status == 'running'"
                                    @change="() => { updateBotNew(['updateBotName', props.row]);  validateBots('Rate limit', props.row.rate_limit ); }">
                         </p>
-                        <p class="card-bots__expand-prop"><b>Front worker status:</b> <span class="text-success">{{workerstatus.isFrontWorkerRunning}}</span></p>
-                        <p class="card-bots__expand-prop"><b>Execution worker status:</b> <span class="text-success">{{workerstatus.isExecutionWorkerRunning}}</span></p>
-                        <p class="card-bots__expand-prop"><b>Que worker status:</b> <span class="text-success">{{workerstatus.isQueWorkerRunning}}</span></p>
+                        <p class="card-bots__expand-prop"><b>Front worker status:</b>
+                          <span v-if="workerstatus.isFrontWorkerRunning" class="text-success">on-line</span>
+                          <span else class="text-danger">off-line</span>
+                        </p>
+                        <p class="card-bots__expand-prop"><b>Execution worker status:</b>
+                          <span v-if="workerstatus.isExecutionWorkerRunning" class="text-success">on-line</span>
+                          <span else class="text-danger">off-line</span>
+                        </p>
+                        <p class="card-bots__expand-prop"><b>Que worker status:</b>
+                          <span v-if="workerstatus.isQueWorkerRunning"class="text-success">on-line</span>
+                          <span else class="text-danger">off-line</span>
+                        </p>
                       </div>
                       <div class="card-bots__expand-col card-bots__expand-col--xl">
                         <p class="card-bots__expand-prop"><b>Market/Limit: </b>
