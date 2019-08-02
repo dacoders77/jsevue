@@ -29,7 +29,8 @@
               <el-table
                 :data="bots"
                 style="width: 100%"
-                class="card-bots__table table-info">
+                class="card-bots__table table-info"
+                @expand-change="getWorkerStatus">
                 <el-table-column type="expand">
                   <template slot-scope="props">
                     <div class="card-bots__expand-row">
@@ -78,9 +79,9 @@
                                    :disabled="props.row.status == 'running'"
                                    @change="() => { updateBotNew(['updateBotName', props.row]);  validateBots('Rate limit', props.row.rate_limit ); }">
                         </p>
-                        <p class="card-bots__expand-prop"><b>Front worker status:</b> <span class="text-success">on-line</span></p>
-                        <p class="card-bots__expand-prop"><b>Execution worker status:</b> <span class="text-success">on-line</span></p>
-                        <p class="card-bots__expand-prop"><b>Que worker status:</b> <span class="text-success">on-line</span></p>
+                        <p class="card-bots__expand-prop"><b>Front worker status:</b> <span class="text-success">{{workerstatus.isFrontWorkerRunning}}</span></p>
+                        <p class="card-bots__expand-prop"><b>Execution worker status:</b> <span class="text-success">{{workerstatus.isExecutionWorkerRunning}}</span></p>
+                        <p class="card-bots__expand-prop"><b>Que worker status:</b> <span class="text-success">{{workerstatus.isQueWorkerRunning}}</span></p>
                       </div>
                       <div class="card-bots__expand-col card-bots__expand-col--xl">
                         <p class="card-bots__expand-prop"><b>Market/Limit: </b>
@@ -125,16 +126,16 @@
                       @keyup.enter="() =>{ updateBotNew(['updateBotName', scope.row]); validateBots(); }">
                   </template>
                 </el-table-column>
-<!--                <el-table-column-->
-<!--                  label="Status"-->
-<!--                  min-width="72px">-->
-<!--                  <template slot-scope="scope">-->
-<!--                    <router-link to="/chart" class="text-success">-->
-<!--                      {{ scope.row.status }}-->
-<!--                    </router-link>-->
-<!--                  </template>-->
+                <el-table-column
+                  label="Status"
+                  min-width="72px">
+                  <template slot-scope="scope">
+                    <router-link to="/chart" class="text-success">
+                      {{ scope.row.status }}
+                    </router-link>
+                  </template>
 
-<!--                </el-table-column>-->
+                </el-table-column>
                 <el-table-column
                   label="Worker">
                   <template slot-scope="scope">
@@ -282,6 +283,7 @@
           botId: '',
           unlinkField: ''
         }),
+        workerstatus: {},
         bots: [
           {
             'id':1,
@@ -541,9 +543,9 @@
             type: this.type[color]
           })
       },
-      getWorkerStatus(id){
-        axios.get('http://45.76.210.96:9602/api/workerstatus/' + id).then(({data}) => {
-          console.log(data);
+      getWorkerStatus(row){
+        axios.get('/workerstatus/' + row.id).then(({data}) => {
+          this.workerstatus=data
         });
       },
     }
