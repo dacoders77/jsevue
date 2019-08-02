@@ -146,9 +146,10 @@
 
                 </el-table-column>
                 <el-table-column
-                  label="Worker">
+                  label="Worker"
+                  min-width="128px">
                   <template slot-scope="scope">
-                    <a href="" @click.prevent="getWorkerStatus(scope.row.id)">state</a>
+                    <WorkerStatus :id="scope.row.id"/>
                   </template>
                 </el-table-column>
 
