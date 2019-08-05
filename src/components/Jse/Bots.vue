@@ -25,7 +25,6 @@
           <div class="card-content table-full-width" style="border: 0px solid blue">
 
             <div class="card-body p-0">
-
               <el-table
                 :data="bots"
                 style="width: 100%"
@@ -94,7 +93,10 @@
                       </div>
                       <div class="card-bots__expand-col card-bots__expand-col--xl">
                         <p class="card-bots__expand-prop"><b>Market/Limit: </b>
-                          <p-switch  color="black" v-model="switches.defaultOff"></p-switch>
+                          <b-form-checkbox v-model="props.row.place_as_market" name="check-button" switch
+                                           :disabled="props.row.status == 'running'"
+                                           @input="updateBotNew(['updatePlaceAsMarket', props.row])">
+                          </b-form-checkbox>
                         </p>
                         <div class="card-bots__expand-prop"><label for="id_bots_memo">Memo:</label>
                           <textarea v-model="props.row.memo" id="id_bots_memo" name="memo" rows="4" :disabled="props.row.status == 'running'" @change="editMemoBots(props.row)"></textarea>
@@ -273,6 +275,7 @@
     },
     data () {
       return {
+        isPlaceAsMarket: false, // Market/limit switch
         validationErrors: new ValidationErrors(),
         form: new Form({
           id: '',
@@ -288,7 +291,8 @@
           memo: '',
           offset: '',
           execution_time: '',
-          time_range: ''
+          time_range: '',
+          place_as_market: ''
         }),
         // Object which sets Account, Symbol or Strategy field to null
         unlink: new Form({
@@ -313,7 +317,8 @@
             'symbol_id': 1,
             'time_frame': 1,
             'updated_at': '2019-06-10 01:13:39',
-            'volume': 1
+            'volume': 1,
+            'place_as_market': false
           },
         ],
         accounts: [
@@ -386,7 +391,6 @@
       }
     },
     created() {
-      // First created then mounted
       // Event listener
       Fire.$on('AfterCreate', () => {
         this.loadBots();
@@ -451,9 +455,11 @@
           type: 'success'
         })
       },
-      updateBotNew(params) { // updateTimeFrame
+      updateBotNew(params) {
         // Receives two params: bot instance and action (updateBotName)
+        // Get the second element withh all bot's settings from the passed array
         let bot = params[1];
+
         // Run/Stop bot
         let botStatus = bot.status;
         if (params[0] === 'runBot') botStatus = 'running';
@@ -463,16 +469,13 @@
         let accountId = bot.account_id;
         if (params[0] === 'updateAccount') {
           accountId = this.accounts[params[2]].id; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
-          // this.showNotification('bottom', 'right', 'Account successfully updated!')
           this.showAlert('Account ');
         }
 
         // Update symbol drop down
         let symbolId = bot.symbol_id;
-        /*if (params[0] === 'updateSymbol') symbolId = params[2] + 1;*/
         if (params[0] === 'updateSymbol') {
           symbolId = this.symbols[params[2]].id;
-          // this.showNotification('bottom', 'right', 'Symbol successfully updated!')
           this.showAlert('Symbol ');
         }
 
@@ -480,7 +483,6 @@
         let strategyId = bot.strategy_id;
         if (params[0] === 'updateStrategy') {
           strategyId = this.strategies[params[2]].id;
-          // this.showNotification('bottom', 'right', 'Strategy successfully updated!');
           this.showAlert('Strategy ');
         }
 
@@ -495,18 +497,21 @@
         this.form.execution_time = bot.execution_time;
         this.form.time_range = bot.time_range;
 
+        this.form.place_as_market = bot.place_as_market;
+
         this.form.time_frame = bot.time_frame;
         this.form.volume = bot.volume;
         this.form.bars_to_load = bot.bars_to_load;
         this.form.rate_limit = bot.rate_limit;
         this.form.memo = bot.memo;
+
+        console.log(this.form);
+
         this.form.put('/bot/' + bot.id)
           .then((response) => {
             Fire.$emit('AfterCreate');
           })
           .catch(error => {
-            // this.validationErrors.record(error.data.errors)
-            // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + bot.id)
             this.showAlertRun(error.data);
           })
       },
@@ -516,10 +521,6 @@
         this.accounts = [];
         this.strategies = [];
         this.exchanges =[];
-        // let obj = this.form;
-        // Object.getOwnPropertyNames(obj).forEach(function (prop) {
-        //   delete obj[prop];
-        // });
         this.loadBots();
         this.loadResources();
         this.showAlert('Bots');
@@ -538,8 +539,6 @@
             this.showAlert('Dropdown');
           })
           .catch(error => {
-            //this.validationErrors.record(error.data.errors)
-            // this.showNotification('bottom', 'right', 'Bot edit error! <br> id: ' + params[0].id)
             this.showAlertRun(error.data);
           })
       },
@@ -557,6 +556,8 @@
           })
       },
       getWorkerStatus(row){
+        // Set place as market flag to fals/true. Otherwise switch does not accept it.
+        row.place_as_market = (row.place_as_market == 1 ? true : false);
         axios.get('/workerstatus/' + row.id).then(({data}) => {
           this.workerstatus=data;
         });

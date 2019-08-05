@@ -118,7 +118,7 @@
                 </b-form-group>
 
 
-                <b-form-group label="Testnet account:" label-for="memo" class="account-row">
+                <b-form-group label="xTestnet account:" label-for="memo" class="account-row">
                     <p-switch v-model="isTestnet" type="primary" on-text="Yes" off-text="No"></p-switch>
                 </b-form-group>
 
