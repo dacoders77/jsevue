@@ -6,19 +6,84 @@
         </div>
         <div class="card-content">
             <el-collapse>
-                <el-collapse-item title="Price channel" name="1">
+
+
+
+                <el-collapse-item title="History data" name="1">
                     <div>
-
                         <!-- Symbol drop down -->
+                        <drop-down class="card-backtasted__dropdown">
+                            <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin mb-10" data-toggle="dropdown" style="width: 100%;">
+                                <span>{{ executionSymbolName }}</span>
+                                <b class="caret"></b>
+                            </button>
+                            <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
+                        </drop-down>
 
-                            <drop-down class="card-backtasted__dropdown">
-                                <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin mb-10" data-toggle="dropdown" style="width: 100%;">
-                                    <!--<span v-for="symbol in symbols" >{{ symbol.execution_symbol_name }}</span>-->
+                        <b-form-group label="Start date:"
+                                      label-for="volume"
+                                      class="account-row card-backtasted__form-group">
+                            <span>{{ this.startDate }}</span>
+                        </b-form-group>
+
+                        <b-form-group label="End date:"
+                                      label-for="volume"
+                                      class="account-row card-backtasted__form-group">
+                            <span>{{ this.endDate }}</span>
+                        </b-form-group>
+
+                        <b-form-group label="Bars loaded:"
+                                      label-for="volume"
+                                      class="account-row card-backtasted__form-group">
+                            <span>{{ this.barsLoaded }}</span>
+                        </b-form-group>
+
+
+
+                        <b-form-group label="Timeframe (1m/5m/1h/1d):"
+                                      label-for="timeframe"
+                                      class="account-row card-backtasted__form-group">
+                            <b-form-input
+                                    id="timeframe"
+                                    v-model="historyStep.bar_time_frame"
+                                    :state="this.validationErrors.has('commission') ? 'invalid' : 'valid'"
+                                    required
+                                    placeholder="TimeFrame"
+                                    v-tooltip="'Time frame of loaded bars'">
+                            </b-form-input>
+                            <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}</b-form-invalid-feedback>
+                        </b-form-group>
+
+
+                    </div>
+                    <div style="float: right" class="w-100">
+                        <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="historyStepClick('historyStep')">
+                            (Load 500 bars)
+                            <b-spinner v-if="isHistoryStepLoading" class="text-info"></b-spinner>
+                            {{backtester_btn}}
+                        </button>
+
+                        <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="historyStepClick('truncate')">
+                            (Truncate table)
+                            {{backtester_btn}}
+                        </button>
+                    </div>
+
+                </el-collapse-item>
+
+
+
+
+                <el-collapse-item title="Price channel" name="2">
+                    <div>
+                        <!-- Symbol drop down -->
+                            <!--<drop-down class="card-backtasted__dropdown">
+                                <button slot="title" class="btn dropdown-toggle dropdown-toggle&#45;&#45;thin mb-10" data-toggle="dropdown" style="width: 100%;">
                                     <span>{{ executionSymbolName }}</span>
                                     <b class="caret"></b>
                                 </button>
                                 <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
-                            </drop-down>
+                            </drop-down>-->
 
                         <b-form-group label="Volume:"
                                       label-for="volume"
@@ -107,19 +172,17 @@
                 </el-collapse-item>
 
 
-
-
-                <el-collapse-item title="MACD" name="2">
+                <el-collapse-item title="MACD" name="3">
                   <div>
                     <!-- Symbol drop down -->
-                    <drop-down class="card-backtasted__dropdown">
-                      <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin mb-10" data-toggle="dropdown" style="width: 100%;">
-                        <!--<span v-for="symbol in symbols" >{{ symbol.execution_symbol_name }}</span>-->
+                    <!--<drop-down class="card-backtasted__dropdown">
+                      <button slot="title" class="btn dropdown-toggle dropdown-toggle&#45;&#45;thin mb-10" data-toggle="dropdown" style="width: 100%;">
+                        &lt;!&ndash;<span v-for="symbol in symbols" >{{ symbol.execution_symbol_name }}</span>&ndash;&gt;
                         <span>{{ executionSymbolName }}</span>
                         <b class="caret"></b>
                       </button>
                       <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
-                    </drop-down>
+                    </drop-down>-->
 
                       <b-form-group label="Volume:"
                                     label-for="volume"
@@ -220,6 +283,8 @@
                   </div>
 
                 </el-collapse-item>
+
+
             </el-collapse>
         </div>
     </div>
@@ -238,8 +303,18 @@
         return{
           backtester_btn: "Go",
           backtester_macd_btn: "Go",
+          historystep_btn: "Go",
+          historytruncate_btn: "Go",
+
           isBacktesterLoading: false,
           isBacktesterMacdLoading: false,
+          isHistoryStepLoading: false,
+          // loader truncate?
+
+          startDate: '',
+          endDate: '',
+          barsLoaded: '',
+
           validationErrors: new ValidationErrors(),
           priceChannel: new Form({
             strategy: 'pc',
@@ -263,6 +338,12 @@
             ema_period: 2,
             macd_line_period: 2,
             macd_signalline_period: 5,
+          }),
+          historyStep: new Form({
+            strategy: '',
+            execution_symbol_name: '',
+            history_symbol_name: '',
+            bar_time_frame: '1m',
           }),
           symbols: [],
           executionSymbolName: 'Symbol', // Execution symbol name
@@ -335,11 +416,34 @@
               this.backtester_macd_btn = 'Go';
             })
             .catch(error => {
-              console.log(error);
               this.validationErrors.record(error.data.errors)
               this.showNotification('bottom', 'right', 'Backtester-macd execution error! <br>')
               this.isBacktesterMacdLoading = false;
               this.backtester_macd_btn = 'Go';
+            })
+        },
+        historyStepClick(strategy) {
+          this.isHistoryStepLoading = true;
+          this.historystep_btn = 'Getting bars...';
+
+          this.historyStep.strategy = strategy;
+          this.historyStep.execution_symbol_name = this.executionSymbolName;
+          this.historyStep.history_symbol_name = this.historySymbolName;
+
+          this.historyStep.post('/backtest')
+            .then((response) => {
+              this.barsLoaded = response.data.barsLoaded;
+              this.startDate = response.data.startDate;
+              this.endDate = response.data.endDate;
+              this.showNotification('bottom', 'right', 'Backtester-macd executed successfully! <br>');
+              this.isHistoryStepLoading = false;
+              this.historystep_btn = 'Go';
+            })
+            .catch(error => {
+              //this.validationErrors.record(error.data.errors)
+              this.showNotification('bottom', 'right', 'Backtester-macd execution error! <br>')
+              this.isHistoryStepLoading = false;
+              this.historystep_btn = 'Go';
             })
         },
 
