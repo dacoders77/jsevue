@@ -570,11 +570,10 @@
               type: this.type[color]
             })
         },
-
-        getWorkerStatus(row,expandedRows) {
+        getWorkerStatus(row) {
           // Set place as market flag to fals/true. Otherwise switch does not accept it.
           row.place_as_market = (row.place_as_market == 1 ? true : false);
-
+          return;
           axios.get('/workerstatus/' + row.id).then(({data}) => {
             this.workerstatus = data;
           });

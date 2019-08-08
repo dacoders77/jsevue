@@ -9,18 +9,7 @@ import locale from 'element-ui/lib/locale'
 import App from './App.vue'
 import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
 
-// https://github.com/highcharts/highcharts-vue/blob/master/demo/src/main.js
-// Used a component - remove is used via NMP (more likely)
-// import HighchartsVue from 'highcharts-vue'
-// import Highcharts from 'highcharts'
-// import stockInit from 'highcharts/modules/stock'
-// import mapInit from 'highcharts/modules/map'
-// stockInit(Highcharts)
-// mapInit(Highcharts)
-// Vue.use(HighchartsVue)
-
 //Pusher
-
 const keyPusher = require('../config/bot.js').default.PUSHER_KEY;
 const clusterPusher = require('../config/bot.js').default.PUSHER_CLUSTER;
 
@@ -61,10 +50,8 @@ locale.use(lang);
 
 // Axios
 window.axios = require('axios');
-//window.axios.defaults.headers.common = {'X-Requested-With': 'XMLHttpRequest'}
 window.axios.defaults.headers.common = {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest',};
-//window.axios.defaults.baseURL = 'http://vue-spa' // jwt. works good
-window.axios.defaults.baseURL = process.env.ROOT_API; // Pulled from dev.env.js 'http://gedosinboiler'
+window.axios.defaults.baseURL = process.env.ROOT_API;
 
 // Configure router
 const router = new VueRouter({

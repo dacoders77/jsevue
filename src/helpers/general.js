@@ -30,21 +30,18 @@ export function initialize (store, router) {
   }, function (error) {
     // Do something with response error
     if (error.response && error.response.status === 401) {
-      console.log('unauthorized, logging out ...');
+      alert('general.js. unauthorized, logging out.');
       auth.logout();
       router.replace('/auth/login');
     }
     return Promise.reject(error.response);
   });
 
-
-
   if (store.getters.currentUser) {
     //alert('currentUser || general.js');
     setAuthorization(store.getters.currentUser.token)
   }
   else {
-    //alert('NO currentUser || general.js');
     router.push('/login')
   }
 }
