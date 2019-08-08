@@ -32,7 +32,7 @@
                 class="card-bots__table table-info"
                 row-key="id"
                 :expand-row-keys="expands"
-                @expand-change="getWorkerStatus">
+                @expand-change="expandChange">
                 <el-table-column type="expand">
                   <template slot-scope="props">
                     <div class="card-bots__expand-row">
@@ -85,7 +85,6 @@
 
                               <span v-if="!workerstatus.isFrontWorkerRunning" class="text-danger">off-line</span>
                               <span v-else class="text-success">online</span>
-
                         </p>
 
                         <p class="card-bots__expand-prop"><b>Execution worker status:</b>
@@ -100,10 +99,7 @@
                       </div>
                       <div class="card-bots__expand-col card-bots__expand-col--xl">
                         <p class="card-bots__expand-prop"><b>Market/Limit: </b>
-                          <b-form-checkbox v-model="props.row.place_as_market" name="check-button" switch
-                                           :disabled="props.row.status == 'running'"
-                                           @input="updateBotNew(['updatePlaceAsMarket', props.row])">
-                          </b-form-checkbox>
+                          <p-switch  color="black" v-model="switches.defaultOff" :disabled="props.row.status == 'running'" @input="updateBotNew(['updatePlaceAsMarket', props.row])"></p-switch>
                         </p>
                         <div class="card-bots__expand-prop"><label for="id_bots_memo">Memo:</label>
                           <textarea v-model="props.row.memo" id="id_bots_memo" name="memo" rows="4" :disabled="props.row.status == 'running'" @change="editMemoBots(props.row)"></textarea>
@@ -570,17 +566,15 @@
               type: this.type[color]
             })
         },
-        getWorkerStatus(row) {
+        expandChange(row,expandedRows) {
           // Set place as market flag to fals/true. Otherwise switch does not accept it.
-          row.place_as_market = (row.place_as_market == 1 ? true : false);
-          return;
+          // row.place_as_market = (row.place_as_market == 1 ? true : false);
           axios.get('/workerstatus/' + row.id).then(({data}) => {
             this.workerstatus = data;
           });
           this.expands = expandedRows.map((row) => row.id);
           const parsed = JSON.stringify(this.expands);
           localStorage.setItem('id', parsed);
-          console.log(this.expands)
         }
       }
   }

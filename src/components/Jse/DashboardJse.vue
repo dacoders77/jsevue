@@ -6,7 +6,6 @@
         <div class="card h-100"><!---->
           <div class="card-header">
             <h4 class="card-title">Portfolio dynamics, 4 instance chart</h4>
-            <!--<p class="card-category">Sourse: thesolarfoundation.com</p>-->
           </div>
           <div class="card-body">
             <div>
@@ -114,6 +113,7 @@
 <script>
   import DashboardJseCards from './DashboardJseCards'
   import DashboardChart from './DashboardChart.vue'
+
   export default {
     components: {
       DashboardJseCards,
@@ -212,7 +212,8 @@
           let responseAccount = await axios.get('/account');
           this.account_name = responseAccount.data.data.name;
           this.accounts = responseAccount.data.data;
-        } catch (e) {}
+        } catch (e) {
+        }
       },
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id

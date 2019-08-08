@@ -48,6 +48,15 @@ Vue.use(VeeValidate);
 Vue.use(Vuex); // Vuex use link
 locale.use(lang);
 
+import VueLocalStorage from 'vue-localstorage'
+
+Vue.use(VueLocalStorage)
+// Or you can specify any other name and use it via this.$ls, this.$whatEverYouWant
+Vue.use(VueLocalStorage, {
+  name: 'ls',
+  bind: true //created computed members from your variable declarations
+})
+
 // Axios
 window.axios = require('axios');
 window.axios.defaults.headers.common = {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest',};
@@ -71,8 +80,6 @@ export const bus = new Vue();
 
 // Bootstrap-vue
 import BootstrapVue from 'bootstrap-vue';
-// import 'bootstrap/dist/css/bootstrap.css' //// Need to disable them. Otherwise the menu is broken.
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
 
 // v-tooltip

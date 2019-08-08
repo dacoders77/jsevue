@@ -101,17 +101,15 @@
         this.$emit("listenerChild", this.unreadItems.length);
       },
       deleteAllRow() {
-        this.items.splice(0,this.items.length);
+        this.items.splice(0, this.items.length);
         this.$emit("listenerChild", this.unreadItems.length);
       },
       showUnreadItems() {
         this.allItems = this.unreadItems;
       },
       showAllItems() {
-        // if (this.unreadItems.length > 0) {
-          this.allItems = this.items;
-          this.$emit("listenerChild", this.unreadItems.length);
-        // }
+        this.allItems = this.items;
+        this.$emit("listenerChild", this.unreadItems.length);
       }
     }
   }

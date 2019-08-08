@@ -19,7 +19,6 @@
 
         <div class="card card-que">
           <div class="card-header" style="border: 0px solid red; padding: 0px">
-            <!--<h4 class="title">Trades log</h4>-->
           </div>
           <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
             <div class="card-body table-responsive p-0">
@@ -46,8 +45,8 @@
                     </button>
 
                   </td>
-                  <td >{{ job.attempts }}</td>
-                  <td >
+                  <td>{{ job.attempts }}</td>
+                  <td>
                     <span v-if="job.reserved_at"> {{ job.reserved_at | fullDate }}</span>
                     <span v-else></span>
                   </td>
@@ -72,6 +71,7 @@
   import Vue from 'vue'
   import {ModalPlugin} from 'bootstrap-vue'
   import QueModal from './QueModal'
+
   Vue.use(ModalPlugin)
   export default {
     components: {
@@ -99,7 +99,8 @@
           const resp = await axios.get('/job');
           this.jobs = resp.data
 
-        } catch (e) {}
+        } catch (e) {
+        }
         this.loading = false
       },
       truncateQue() {

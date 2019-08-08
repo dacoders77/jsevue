@@ -1,134 +1,140 @@
 <template>
-    <div class="row">
-        <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12">
 
-            <div class="card">
-                <div class="card-header" style="border: 0px solid red; padding: 0px">
-                    <!--<h4 class="title">Trades log</h4>-->
-                </div>
-                <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
+      <div class="card">
+        <div class="card-header" style="border: 0px solid red; padding: 0px">
+          <!--<h4 class="title">Trades log</h4>-->
+        </div>
+        <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover table-info">
-                            <tbody>
-                            <tr>
-                                <th><i class="ti-info-alt"></i></th>
-                                <th>Action</th>
-                                <th>Exchange</th>
-                                <th>Symbols</th>
-                            </tr>
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover table-info">
+              <tbody>
+              <tr>
+                <th><i class="ti-info-alt"></i></th>
+                <th>Action</th>
+                <th>Exchange</th>
+                <th>Symbols</th>
+              </tr>
 
-                            <tr v-for="exchange in exchanges" :key="exchange.id">
-                                <td>{{ exchange.id }}</td>
-                                <td>
-                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="addSymbol(exchange)"><i class="ti-plus"></i></button>
-                                </td>
-                                <td>{{ exchange.name }}</td>
-                                <td>
-                                    <el-tag
-                                            v-for="(symbol, index) in symbols"
-                                            :key="symbol.id"
-                                            v-if="symbol.exchange_id == exchange.id"
-                                            type="primary"
-                                            :closable="true"
-                                            :close-transition="false"
-                                            @close="deleteSymbol(symbol)"
-                                    >
-                                        <a href="#" style="color:white" @click="onSymbolClick(index)">{{symbol.execution_symbol_name}}</a>
-                                    </el-tag>
-                                </td>
+              <tr v-for="exchange in exchanges" :key="exchange.id">
+                <td>{{ exchange.id }}</td>
+                <td>
+                  <button class="btn btn-icon btn-simple btn-icon--success" @click="addSymbol(exchange)"><i
+                    class="ti-plus"></i></button>
+                </td>
+                <td>{{ exchange.name }}</td>
+                <td>
+                  <el-tag
+                    v-for="(symbol, index) in symbols"
+                    :key="symbol.id"
+                    v-if="symbol.exchange_id == exchange.id"
+                    type="primary"
+                    :closable="true"
+                    :close-transition="false"
+                    @close="deleteSymbol(symbol)"
+                  >
+                    <a href="#" style="color:white" @click="onSymbolClick(index)">{{symbol.execution_symbol_name}}</a>
+                  </el-tag>
+                </td>
 
-                            </tr>
-                            </tbody></table>
+              </tr>
+              </tbody>
+            </table>
 
-                    </div>
+          </div>
 
-                </div>
-            </div>
+        </div>
+      </div>
 
-            <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
+      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-search"></i>
                 </span>Validate symbols
-            </button>
+      </button>
 
-            <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify">
+      <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-search"></i>
                 </span>Delete unvalidated
-            </button>
+      </button>
 
-            <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
+      <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-search"></i>
                 </span>Delete inactive
-            </button>
-
-        </div>
-
-        <b-modal
-                no-fade
-                data-backdrop="static"
-                keyboard="false"
-                id="modal-scoped"
-                ref="my-modal"
-                size="sm"
-                title="Add symbol"
-                @ok="handleOkModalButton"
-        >
-
-            <form ref="form" @submit.stop.prevent="handleSubmit">
-                <b-form-group label="" label-for="execution_symbol_name">
-                    <b-form-input
-                            id="execution_symbol_name"
-                            v-model="form.execution_symbol_name"
-                            :state="this.validationErrors.has('execution_symbol_name') ? 'invalid' : 'valid'"
-                            required
-                            placeholder="Execution symbol name">
-                    </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('execution_symbol_name') }}</b-form-invalid-feedback>
-                </b-form-group>
-
-                <b-form-group label="" label-for="history_symbol_name">
-                    <b-form-input
-                            id="history_symbol_name"
-                            v-model="form.history_symbol_name"
-                            :state="this.validationErrors.has('history_symbol_name') ? 'invalid' : 'valid'"
-                            required
-                            placeholder="History symbol name">
-                    </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('history_symbol_name') }}</b-form-invalid-feedback>
-                </b-form-group>
-
-                <b-form-group label="" label-for="commission">
-                    <b-form-input
-                            id="commission"
-                            v-model="form.commission"
-                            :state="this.validationErrors.has('commission') ? 'invalid' : 'valid'"
-                            required
-                            placeholder="Commission %">
-                    </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('commission') }}</b-form-invalid-feedback>
-                </b-form-group>
-
-                <b-form-group label="" label-for="memo">
-                    <b-form-textarea
-                            id="memo"
-                            v-model="form.memo"
-                            :state="this.validationErrors.has('memo') ? 'invalid' : 'valid'"
-                            placeholder="Memo">
-                        rows="3"
-                        max-rows="6"
-                    </b-form-textarea>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}</b-form-invalid-feedback>
-                </b-form-group>
-
-                <p-switch v-model="isSymbolActive" type="primary" on-text="Active" off-text="Not"></p-switch>
-
-            </form>
-        </b-modal>
+      </button>
 
     </div>
+
+    <b-modal
+      no-fade
+      data-backdrop="static"
+      keyboard="false"
+      id="modal-scoped"
+      ref="my-modal"
+      size="sm"
+      title="Add symbol"
+      @ok="handleOkModalButton"
+    >
+
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group label="" label-for="execution_symbol_name">
+          <b-form-input
+            id="execution_symbol_name"
+            v-model="form.execution_symbol_name"
+            :state="this.validationErrors.has('execution_symbol_name') ? 'invalid' : 'valid'"
+            required
+            placeholder="Execution symbol name">
+          </b-form-input>
+          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('execution_symbol_name') }}
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <b-form-group label="" label-for="history_symbol_name">
+          <b-form-input
+            id="history_symbol_name"
+            v-model="form.history_symbol_name"
+            :state="this.validationErrors.has('history_symbol_name') ? 'invalid' : 'valid'"
+            required
+            placeholder="History symbol name">
+          </b-form-input>
+          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('history_symbol_name') }}
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <b-form-group label="" label-for="commission">
+          <b-form-input
+            id="commission"
+            v-model="form.commission"
+            :state="this.validationErrors.has('commission') ? 'invalid' : 'valid'"
+            required
+            placeholder="Commission %">
+          </b-form-input>
+          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('commission') }}
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <b-form-group label="" label-for="memo">
+          <b-form-textarea
+            id="memo"
+            v-model="form.memo"
+            :state="this.validationErrors.has('memo') ? 'invalid' : 'valid'"
+            placeholder="Memo">
+            rows="3"
+            max-rows="6"
+          </b-form-textarea>
+          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <p-switch v-model="isSymbolActive" type="primary" on-text="Active" off-text="Not"></p-switch>
+
+      </form>
+    </b-modal>
+
+  </div>
 </template>
 <script>
   import Vue from 'vue'
@@ -136,6 +142,7 @@
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import PSwitch from 'src/components/UIComponents/Switch.vue'
   import swal from 'sweetalert2'
+
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
@@ -143,7 +150,7 @@
       [Tag.name]: Tag,
       PSwitch
     },
-    data () {
+    data() {
       return {
         validationErrors: new ValidationErrors(),
         form: new Form({
@@ -243,7 +250,7 @@
             this.showNotification('bottom', 'right', 'Add symbol error! <br>' + '&nbsp')
           })
       },
-      showNotification (verticalAlign, horizontalAlign, notificationText) {
+      showNotification(verticalAlign, horizontalAlign, notificationText) {
         var color = Math.floor((Math.random() * 4) + 1)
         this.$notify(
           {
@@ -257,7 +264,7 @@
           })
       },
       // Add tag
-      handleInputConfirm () {
+      handleInputConfirm() {
         let inputValue = this.tags.inputValue
         if (inputValue) {
           this.tags.dynamicTags.push(inputValue)
@@ -266,21 +273,21 @@
         this.tags.inputValue = ''
       },
       // Remove tag
-      handleClose (tag) {
+      handleClose(tag) {
         this.tags.dynamicTags.splice(this.tags.dynamicTags.indexOf(tag), 1)
       },
       onSymbolClick(index) {
-          swal({
-            title: 'Symbol details: ',
-            html:
+        swal({
+          title: 'Symbol details: ',
+          html:
             "Execution name: " + this.symbols[index]['execution_symbol_name'] +
             "<br>History name: " + "<br>" + this.symbols[index]['history_symbol_name'] +
             "<br>Commission: " + this.symbols[index]['commission'] + "%" +
             "<br> Active: " + this.symbols[index]['is_active'] +
             "<br> Memo: <br>" + this.symbols[index]['memo'],
-            buttonsStyling: false,
-            confirmButtonClass: 'btn btn-success btn-fill'
-          })
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success btn-fill'
+        })
       },
       showAlert(text) {
         swal({
@@ -295,52 +302,54 @@
 </script>
 <style>
 
-    .el-table .cell {
-        white-space: nowrap;
-    }
-    .modal-backdrop {
-        opacity: 0.5;
+  .el-table .cell {
+    white-space: nowrap;
+  }
 
-    }
-    .close {
-        display: none; /*Remove X button from modal*/
-    }
+  .modal-backdrop {
+    opacity: 0.5;
 
-    .invalid-feedback {
-        display: none;
-        width: 100%;
-        margin-top: 0.25rem;
-        font-size: 80%;
-        color: #dc3545;
-    }
+  }
 
-    .was-validated .form-control:invalid ~ .invalid-feedback,
-    .was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.is-invalid ~ .invalid-feedback,
-    .form-control.is-invalid ~ .invalid-tooltip {
-        display: block;
-    }
+  .close {
+    display: none; /*Remove X button from modal*/
+  }
 
-    .was-validated .custom-select:invalid ~ .invalid-feedback,
-    .was-validated .custom-select:invalid ~ .invalid-tooltip, .custom-select.is-invalid ~ .invalid-feedback,
-    .custom-select.is-invalid ~ .invalid-tooltip {
-        display: block;
-    }
+  .invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
 
-    .was-validated .form-control-file:invalid ~ .invalid-feedback,
-    .was-validated .form-control-file:invalid ~ .invalid-tooltip, .form-control-file.is-invalid ~ .invalid-feedback,
-    .form-control-file.is-invalid ~ .invalid-tooltip {
-        display: block;
-    }
+  .was-validated .form-control:invalid ~ .invalid-feedback,
+  .was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.is-invalid ~ .invalid-feedback,
+  .form-control.is-invalid ~ .invalid-tooltip {
+    display: block;
+  }
 
-    .was-validated .form-check-input:invalid ~ .invalid-feedback,
-    .was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.is-invalid ~ .invalid-feedback,
-    .form-check-input.is-invalid ~ .invalid-tooltip {
-        display: block;
-    }
+  .was-validated .custom-select:invalid ~ .invalid-feedback,
+  .was-validated .custom-select:invalid ~ .invalid-tooltip, .custom-select.is-invalid ~ .invalid-feedback,
+  .custom-select.is-invalid ~ .invalid-tooltip {
+    display: block;
+  }
 
-    .was-validated .custom-range:invalid ~ .invalid-feedback,
-    .was-validated .custom-range:invalid ~ .invalid-tooltip, .custom-range.is-invalid ~ .invalid-feedback,
-    .custom-range.is-invalid ~ .invalid-tooltip {
-        display: block;
-    }
+  .was-validated .form-control-file:invalid ~ .invalid-feedback,
+  .was-validated .form-control-file:invalid ~ .invalid-tooltip, .form-control-file.is-invalid ~ .invalid-feedback,
+  .form-control-file.is-invalid ~ .invalid-tooltip {
+    display: block;
+  }
+
+  .was-validated .form-check-input:invalid ~ .invalid-feedback,
+  .was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.is-invalid ~ .invalid-feedback,
+  .form-check-input.is-invalid ~ .invalid-tooltip {
+    display: block;
+  }
+
+  .was-validated .custom-range:invalid ~ .invalid-feedback,
+  .was-validated .custom-range:invalid ~ .invalid-tooltip, .custom-range.is-invalid ~ .invalid-feedback,
+  .custom-range.is-invalid ~ .invalid-tooltip {
+    display: block;
+  }
 </style>

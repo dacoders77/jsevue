@@ -87,7 +87,6 @@
             this.trades = response.data.rawTable;
           })
           .catch((err) => {
-            //alert('trading/history load error');
             console.log('trading/history load error. DashboardJseCard.vue');
           })
       }

@@ -1,8 +1,8 @@
 <template>
  <ul class="card-bots__indicators">
-   <li class="card-bots__indicators-item" :class="{green: workerstatusIndicators.isFrontWorkerRunning}"></li>
-   <li class="card-bots__indicators-item" :class="{green: workerstatusIndicators.isExecutionWorkerRunning}"></li>
-   <li class="card-bots__indicators-item" :class="{green: workerstatusIndicators.isQueWorkerRunning}"></li>
+     <li class="card-bots__indicators-item" :class="{green: workerstatusIndicators.isFrontWorkerRunning}"></li>
+     <li class="card-bots__indicators-item" :class="{green: workerstatusIndicators.isExecutionWorkerRunning}"></li>
+     <li class="card-bots__indicators-item" :class="{green: workerstatusIndicators.isQueWorkerRunning}"></li>
  </ul>
 </template>
 <script>

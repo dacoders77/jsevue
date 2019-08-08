@@ -1,190 +1,205 @@
 <template>
-    <div class="row exchange">
-        <div class="col-md-12">
+  <div class="row exchange">
+    <div class="col-md-12">
 
-            <div class="card">
+      <div class="card">
 
-                <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
+        <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
 
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover table-info">
-                            <tbody>
-                            <tr>
-                                <th><i class="ti-info-alt"></i></th>
-                                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
-                                <th>Name</th>
-                                <th>Strategy</th>
-                                <th>Settings</th>
-                                <th>Memo</th>
-                            </tr>
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover table-info">
+              <tbody>
+              <tr>
+                <th><i class="ti-info-alt"></i></th>
+                <th>Action&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                <th>Name</th>
+                <th>Strategy</th>
+                <th>Settings</th>
+                <th>Memo</th>
+              </tr>
 
-                            <tr v-for="item in strategies" :key="item.id">
-                                <td>{{ item.id }}</td>
-                                <td>
-                                    <button class="btn btn-icon btn-simple btn-icon--success" @click="editExchange(item)"><i class="ti-marker-alt"></i></button>
-                                    <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteExchange(item)"><i class="ti-trash"></i></button>
-                                </td>
-                                <td>{{ item.name }}</td>
-                                <td>{{ (item.strategy_type_id == 1 ? 'Price channel' : 'MACD') }}</td>
+              <tr v-for="item in strategies" :key="item.id">
+                <td>{{ item.id }}</td>
+                <td>
+                  <button class="btn btn-icon btn-simple btn-icon--success" @click="editExchange(item)"><i
+                    class="ti-marker-alt"></i></button>
+                  <button class="btn btn-icon btn-simple btn-icon--danger" @click="deleteExchange(item)"><i
+                    class="ti-trash"></i></button>
+                </td>
+                <td>{{ item.name }}</td>
+                <td>{{ (item.strategy_type_id == 1 ? 'Price channel' : 'MACD') }}</td>
 
-                                <!-- Price channel -->
-                                <td v-if="(item.strategy_type_id == '1' ? true : false)"><span class="text-success">
+                <!-- Price channel -->
+                <td v-if="(item.strategy_type_id == '1' ? true : false)"><span class="text-success">
                                     <!-- TypeError: Cannot read property. Handling -->
-                                    <div v-if="strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1] && strategiesSettings && item">
+                                    <div
+                                      v-if="strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1] && strategiesSettings && item">
                                         PC time frame: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['time_frame'] }}<br>
                                         SMA filter period: {{ strategiesSettings.pricechannel_settings[item.pricechannel_settings_id - 1]['sma_filter_period'] }}<br>
                                     </div>
                                 </span></td>
 
-                                <!-- Macd -->
-                                <td v-if="(item.strategy_type_id == '2' ? true : false)"><span class="text-success">
-                                    <div v-if="strategiesSettings.macd_settings[item.macd_settings_id - 1] && strategiesSettings && item">
+                <!-- Macd -->
+                <td v-if="(item.strategy_type_id == '2' ? true : false)"><span class="text-success">
+                                    <div
+                                      v-if="strategiesSettings.macd_settings[item.macd_settings_id - 1] && strategiesSettings && item">
                                         Ema period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['ema_period'] }} <br>
                                         Macd line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_line_period'] }} <br>
                                         Macd signal line period: {{ strategiesSettings.macd_settings[item.macd_settings_id - 1]['macd_signalline_period'] }}
                                     </div>
                                 </span></td>
 
-                                <td>{{ item.memo }}</td>
-                            </tr>
-                            </tbody></table>
+                <td>{{ item.memo }}</td>
+              </tr>
+              </tbody>
+            </table>
 
-                    </div>
-
-                </div>
-            </div>
-
-            <button slot="title" class="btn dropdown-toggle btn-wd" @click="addStrategy()">Add strategy</button>
+          </div>
 
         </div>
+      </div>
 
-        <b-modal
-                no-fade
-                data-backdrop="static"
-                keyboard="false"
-                id="modal-scoped"
-                ref="my-modal"
-                size="lg"
-                :title="(modalMode == 'add' ? 'Add strategy' : 'Edit strategy')"
-                @ok="handleOkModalButton"
-        >
-
-            <form ref="form" @submit.stop.prevent="" class="form-account">
-
-                <drop-down style="padding-bottom: 30px" class="account-dropdown">
-                    <button slot="title" class="btn dropdown-toggle btn-exchange" data-toggle="dropdown" type="button" style="width: 100%">
-                        {{ strategyId }}
-                        <b class="caret"></b>
-                    </button>
-                    <li v-for="(item, index) in strategyTypes"><a href="javascript:void(0)" @click="selectStrategy(item.id)">{{ item.name }}</a> </li>
-                </drop-down>
-
-                <b-form-group label="Name:" label-for="Name" class="account-row">
-                    <b-form-input
-                            id="Name"
-                            v-model="form.name"
-                            :state="this.validationErrors.has('Name') ? 'invalid' : 'valid'"
-                            required
-                            placeholder="Name">
-                    </b-form-input>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('Name') }}</b-form-invalid-feedback>
-                </b-form-group>
-
-
-
-                <!-- Price channel div -->
-                <div style="border: 0px solid red" v-if="(strategyId == 'Price Channel' ? true : false)">
-                    <span>Price channel settings:</span>
-                    <b-form-group label="Time frame(bars):" label-for="time_frame" class="account-row">
-                        <b-form-input
-                                id="time_frame"
-                                v-model="form.time_frame"
-                                :state="this.validationErrors.has('time_frame') ? 'invalid' : 'valid'"
-                                required
-                                placeholder="time_frame">
-                        </b-form-input>
-                        <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('time_frame') }}</b-form-invalid-feedback>
-                    </b-form-group>
-
-                    <b-form-group label="Sma filter period (bars):" label-for="sma_filter_period" class="account-row">
-                        <b-form-input
-                                id="sma_filter_period"
-                                v-model="form.sma_filter_period"
-                                :state="this.validationErrors.has('sma_filter_period') ? 'invalid' : 'valid'"
-                                required
-                                placeholder="sma_filter_period">
-                        </b-form-input>
-                        <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('sma_filter_period') }}</b-form-invalid-feedback>
-                    </b-form-group>
-                </div>
-
-                <!-- MACD div -->
-
-                <div style="border: 0px solid blue" v-if="(strategyId == 'MACD' ? true : false)">
-                    <span>MACD settings:</span>
-                    <b-form-group label="ema period(bars):" label-for="ema_period" class="account-row">
-                        <b-form-input
-                                id="ema_period"
-                                v-model="form.ema_period"
-                                :state="this.validationErrors.has('ema_period') ? 'invalid' : 'valid'"
-                                required
-                                placeholder="ema_period">
-                        </b-form-input>
-                        <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('ema_period') }}</b-form-invalid-feedback>
-                    </b-form-group>
-
-                    <b-form-group label="Line period(bars):" label-for="macd_line_period" class="account-row">
-                        <b-form-input
-                                id="macd_line_period"
-                                v-model="form.macd_line_period"
-                                :state="this.validationErrors.has('macd_line_period') ? 'invalid' : 'valid'"
-                                required
-                                placeholder="macd_line_period">
-                        </b-form-input>
-                        <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_line_period') }}</b-form-invalid-feedback>
-                    </b-form-group>
-
-                    <b-form-group label="Signal line period(bars):" label-for="macd_signalline_period" class="account-row">
-                        <b-form-input
-                                id="macd_signalline_period"
-                                v-model="form.macd_signalline_period"
-                                :state="this.validationErrors.has('macd_signalline_period') ? 'invalid' : 'valid'"
-                                required
-                                placeholder="macd_signalline_period">
-                        </b-form-input>
-                        <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_signalline_period') }}</b-form-invalid-feedback>
-                    </b-form-group>
-                </div>
-
-                <b-form-group label="Memo:" label-for="Memo" class="account-row">
-                    <b-form-textarea
-                            id="memo"
-                            v-model="form.memo"
-                            :state="this.validationErrors.has('memo') ? 'invalid' : 'valid'"
-                            placeholder="Memo">
-                        rows="3"
-                        max-rows="6"
-                    </b-form-textarea>
-                    <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}</b-form-invalid-feedback>
-                </b-form-group>
-            </form>
-        </b-modal>
-
+      <button slot="title" class="btn dropdown-toggle btn-wd" @click="addStrategy()">Add strategy</button>
 
     </div>
+
+    <b-modal
+      no-fade
+      data-backdrop="static"
+      keyboard="false"
+      id="modal-scoped"
+      ref="my-modal"
+      size="lg"
+      :title="(modalMode == 'add' ? 'Add strategy' : 'Edit strategy')"
+      @ok="handleOkModalButton"
+    >
+
+      <form ref="form" @submit.stop.prevent="" class="form-account">
+
+        <drop-down style="padding-bottom: 30px" class="account-dropdown">
+          <button slot="title" class="btn dropdown-toggle btn-exchange" data-toggle="dropdown" type="button"
+                  style="width: 100%">
+            {{ strategyId }}
+            <b class="caret"></b>
+          </button>
+          <li v-for="(item, index) in strategyTypes"><a href="javascript:void(0)" @click="selectStrategy(item.id)">{{
+            item.name }}</a></li>
+        </drop-down>
+
+        <b-form-group label="Name:" label-for="Name" class="account-row">
+          <b-form-input
+            id="Name"
+            v-model="form.name"
+            :state="this.validationErrors.has('Name') ? 'invalid' : 'valid'"
+            required
+            placeholder="Name">
+          </b-form-input>
+          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('Name') }}
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+
+        <!-- Price channel div -->
+        <div style="border: 0px solid red" v-if="(strategyId == 'Price Channel' ? true : false)">
+          <span>Price channel settings:</span>
+          <b-form-group label="Time frame(bars):" label-for="time_frame" class="account-row">
+            <b-form-input
+              id="time_frame"
+              v-model="form.time_frame"
+              :state="this.validationErrors.has('time_frame') ? 'invalid' : 'valid'"
+              required
+              placeholder="time_frame">
+            </b-form-input>
+            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('time_frame') }}
+            </b-form-invalid-feedback>
+          </b-form-group>
+
+          <b-form-group label="Sma filter period (bars):" label-for="sma_filter_period" class="account-row">
+            <b-form-input
+              id="sma_filter_period"
+              v-model="form.sma_filter_period"
+              :state="this.validationErrors.has('sma_filter_period') ? 'invalid' : 'valid'"
+              required
+              placeholder="sma_filter_period">
+            </b-form-input>
+            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('sma_filter_period') }}
+            </b-form-invalid-feedback>
+          </b-form-group>
+        </div>
+
+        <!-- MACD div -->
+
+        <div style="border: 0px solid blue" v-if="(strategyId == 'MACD' ? true : false)">
+          <span>MACD settings:</span>
+          <b-form-group label="ema period(bars):" label-for="ema_period" class="account-row">
+            <b-form-input
+              id="ema_period"
+              v-model="form.ema_period"
+              :state="this.validationErrors.has('ema_period') ? 'invalid' : 'valid'"
+              required
+              placeholder="ema_period">
+            </b-form-input>
+            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('ema_period') }}
+            </b-form-invalid-feedback>
+          </b-form-group>
+
+          <b-form-group label="Line period(bars):" label-for="macd_line_period" class="account-row">
+            <b-form-input
+              id="macd_line_period"
+              v-model="form.macd_line_period"
+              :state="this.validationErrors.has('macd_line_period') ? 'invalid' : 'valid'"
+              required
+              placeholder="macd_line_period">
+            </b-form-input>
+            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_line_period') }}
+            </b-form-invalid-feedback>
+          </b-form-group>
+
+          <b-form-group label="Signal line period(bars):" label-for="macd_signalline_period" class="account-row">
+            <b-form-input
+              id="macd_signalline_period"
+              v-model="form.macd_signalline_period"
+              :state="this.validationErrors.has('macd_signalline_period') ? 'invalid' : 'valid'"
+              required
+              placeholder="macd_signalline_period">
+            </b-form-input>
+            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('macd_signalline_period')
+              }}
+            </b-form-invalid-feedback>
+          </b-form-group>
+        </div>
+
+        <b-form-group label="Memo:" label-for="Memo" class="account-row">
+          <b-form-textarea
+            id="memo"
+            v-model="form.memo"
+            :state="this.validationErrors.has('memo') ? 'invalid' : 'valid'"
+            placeholder="Memo">
+            rows="3"
+            max-rows="6"
+          </b-form-textarea>
+          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}
+          </b-form-invalid-feedback>
+        </b-form-group>
+      </form>
+    </b-modal>
+
+
+  </div>
 </template>
 <script>
   import Vue from 'vue'
   import {Table, TableColumn, Tag} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import swal from 'sweetalert2'
+
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
     components: {
       [Tag.name]: Tag
     },
-    data () {
+    data() {
       return {
         validationErrors: new ValidationErrors(),
         form: new Form({
@@ -246,7 +261,8 @@
         }, // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
         strategyTypes: [
           {'id': 1, 'name': 'Price channel'},
-          {'id': 2, 'name': 'MACD'}], // Strategies for drop down in modal
+          {'id': 2, 'name': 'MACD'}
+        ], // Strategies for drop down in modal
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -265,26 +281,22 @@
       this.loadResources();
     },
     methods: {
-      // loadResources(){
-        // axios.get('/strategy').then(({data}) => (this.strategies = data.data));
-        // console.log(this.strategies);
-        // axios.get('/strategy/1').then(({data}) => (this.strategiesSettings = data)); // ExchangeController.php@show
-        // console.log(this.strategiesSettings);
-        async  loadResources() {
-          try {
-            let responseSt = await axios.get('/strategy/1');
-            this.strategiesSettings = responseSt.data;
+      async loadResources() {
+        try {
+          let responseSt = await axios.get('/strategy/1');
+          this.strategiesSettings = responseSt.data;
 
-            let responseStrategy = await axios.get('/strategy');
-            this.strategies = responseStrategy.data.data;
-          }catch (e) {}
+          let responseStrategy = await axios.get('/strategy');
+          this.strategies = responseStrategy.data.data;
+        } catch (e) {
+        }
       },
       editExchange(exchange) {
         this.modalMode = 'edit';
         this.form.reset();
         this.form.fill(exchange);
         // Get strategy id from the row and show a correspondent div in modal (macd or price channel)
-        if(exchange.strategy_type_id == 1) {
+        if (exchange.strategy_type_id == 1) {
           this.strategyId = 'Price Channel';
           // Price channel load values
           this.form.sma_filter_period = this.strategiesSettings.pricechannel_settings[exchange.pricechannel_settings_id - 1]['sma_filter_period'];
@@ -318,7 +330,7 @@
         this.$refs['my-modal'].show();
       },
       selectStrategy(strategy_id) {
-        if(strategy_id == 1) {
+        if (strategy_id == 1) {
           this.strategyId = 'Price Channel';
         } else {
           this.strategyId = 'MACD';
@@ -327,7 +339,7 @@
       },
       handleOkModalButton(bvModalEvt) {
         bvModalEvt.preventDefault(); // Prevent modal from closing
-        if(this.modalMode == 'add') {
+        if (this.modalMode == 'add') {
           this.form.post('/strategy')
             .then((response) => {
               this.$refs['my-modal'].hide();
@@ -335,13 +347,12 @@
               this.showNotification('bottom', 'right', 'Strategy successfully added! <br> id: ' + this.form.id)
             })
             .catch(error => {
-              //console.log(error.data.message);
               this.validationErrors.record(error.data.errors)
               this.showNotification('bottom', 'right', 'Strategy add error! <br> id: ' + this.form.id)
 
             })
         }
-        if(this.modalMode == 'edit') {
+        if (this.modalMode == 'edit') {
           this.form.put('/strategy/' + this.form.id)
             .then((response) => {
               this.$refs['my-modal'].hide();
@@ -356,7 +367,7 @@
             })
         }
       },
-      showNotification (verticalAlign, horizontalAlign, notificationText) {
+      showNotification(verticalAlign, horizontalAlign, notificationText) {
         var color = Math.floor((Math.random() * 4) + 1)
         this.$notify(
           {

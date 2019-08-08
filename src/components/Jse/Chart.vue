@@ -57,6 +57,7 @@
   import {TabsPlugin} from 'bootstrap-vue'
   import {FormCheckboxPlugin} from 'bootstrap-vue'
   import swal from 'sweetalert2'
+
   Vue.use(FormCheckboxPlugin)
   Vue.use(TabsPlugin)
   export default {
@@ -100,13 +101,11 @@
       loadResources() {
         axios.get('/bot').then(({data}) => (this.bots = data.data));
         axios.get('/account').then(({data}) => (this.accounts = data.data));
-        //axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
       },
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
           .then((response) => {
-            // this.chart.setTitle({text: response.data.symbol});
             this.chart.series[0].setData(response.data.candles, true);
             this.chart.series[1].setData(response.data.priceChannelHighValues, true);
             this.chart.series[2].setData(response.data.priceChannelLowValues, true);
@@ -116,14 +115,12 @@
             this.chart.series[6].setData(response.data.macdLine, true);
             this.chart.series[7].setData(response.data.macdSignalLine, true);
 
-            if (!this.isBackTest){
-              //alert(this.isBackTest);
+            if (!this.isBackTest) {
               this.chart.series[8].setData(response.data.accumulatedProfit, true);
               this.chart.series[9].setData(response.data.netProfit, true);
             }
 
-            if (this.isBackTest){
-              //alert(this.isBackTest);
+            if (this.isBackTest) {
               this.chart.series[8].setData(response.data.accumulatedProfitBackTest, true);
               this.chart.series[9].setData(response.data.netProfitBackTest, true);
             }
@@ -163,21 +160,19 @@
         }
 
         if (this.selectedExecutions.includes('pricechannel')) {
-          this.chart.series[1].visible=true;
-          this.chart.series[2].visible=true;
-        }
-        else {
-          this.chart.series[1].visible=false;
-          this.chart.series[2].visible=false;
+          this.chart.series[1].visible = true;
+          this.chart.series[2].visible = true;
+        } else {
+          this.chart.series[1].visible = false;
+          this.chart.series[2].visible = false;
         }
 
         if (this.selectedExecutions.includes('trades')) {
-          this.chart.series[4].visible=true;
-          this.chart.series[5].visible=true;
-        }
-        else {
-          this.chart.series[4].visible=false;
-          this.chart.series[5].visible=false;
+          this.chart.series[4].visible = true;
+          this.chart.series[5].visible = true;
+        } else {
+          this.chart.series[4].visible = false;
+          this.chart.series[5].visible = false;
         }
         this.chart.series[1].redraw();
         this.chart.series[2].redraw();
@@ -188,7 +183,7 @@
         this.chart.series[7].redraw();
         this.chart.series[8].redraw();
         this.chart.series[9].redraw();
-        },
+      },
 
       ChartBarsUpdate(payload, botId) {
         let last = this.chart.series[0].data[this.chart.series[0].data.length - 1];
@@ -222,8 +217,7 @@
           // Full event name as shown at pusher debug console
           if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instance must han a unique number
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
-            // if (data.payload.messageType === 'error') swal("Failed!", "Error: " + e.update['payload'], "warning");
-            // if (data.payload.messageType === 'info') toast({type: 'success', title: e.update['payload']});
+
             if (data.payload.messageType === 'reloadChartAfterHistoryLoaded') {
               //Vue.toasted.show("Chart is reloaded!", { type: 'success' });
               self.HistoryBarsLoad(self.botId)
@@ -231,9 +225,9 @@
             if (data.payload.messageType === 'backTestingResult') {
               swal({
                 html:
-                '<h5>Net Profit(BTC): ' + data.payload.payload.netProfit + '</h5>' +
-                '<h5>Trades quantity: ' + data.payload.payload.trades + '</h5>' +
-                '<h5>Accumulated commission(BTC): ' + data.payload.payload.accumulatedCommission + '</h5>',
+                  '<h5>Net Profit(BTC): ' + data.payload.payload.netProfit + '</h5>' +
+                  '<h5>Trades quantity: ' + data.payload.payload.trades + '</h5>' +
+                  '<h5>Accumulated commission(BTC): ' + data.payload.payload.accumulatedCommission + '</h5>',
                 buttonsStyling: false,
                 confirmButtonClass: 'btn btn-success btn-fill',
                 type: 'success'
