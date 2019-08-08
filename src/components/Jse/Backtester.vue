@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-backtasted">
+  <div class="card card-backtested">
     <div class="card-header">
       <h4 class="card-title">History backtester</h4>
       <!--<p class="category">Max 500 bars load</p>-->
@@ -11,7 +11,7 @@
         <el-collapse-item title="History data" name="1">
           <div>
             <!-- Symbol drop down -->
-            <drop-down class="card-backtasted__dropdown">
+            <drop-down class="card-backtested__dropdown">
               <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin mb-10" data-toggle="dropdown"
                       style="width: 100%;">
                 <span>{{ executionSymbolName }}</span>
@@ -24,26 +24,26 @@
 
             <b-form-group label="Start date:"
                           label-for="volume"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <span>{{ this.startDate }}</span>
             </b-form-group>
 
             <b-form-group label="End date:"
                           label-for="volume"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <span>{{ this.endDate }}</span>
             </b-form-group>
 
             <b-form-group label="Bars loaded:"
                           label-for="volume"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <span>{{ this.barsLoaded }}</span>
             </b-form-group>
 
 
             <b-form-group label="Timeframe (1m/5m/1h/1d):"
                           label-for="timeframe"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <b-form-input
                 id="timeframe"
                 v-model="historyStep.bar_time_frame"
@@ -78,7 +78,7 @@
           <div>
             <b-form-group label="Volume:"
                           label-for="volume"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <b-form-input
                 id="volume"
                 v-model="priceChannel.volume"
@@ -93,7 +93,7 @@
 
             <b-form-group label="Commission:"
                           label-for="Commission"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <b-form-input
                 id="Commission"
                 v-model="priceChannel.commission"
@@ -106,7 +106,7 @@
               </b-form-invalid-feedback>
             </b-form-group>
 
-            <b-form-group label="Time frame:" label-for="time_frame" class="account-row card-backtasted__form-group">
+            <b-form-group label="Time frame:" label-for="time_frame" class="account-row card-backtested__form-group">
               <b-form-input
                 id="time_frame"
                 v-model="priceChannel.time_frame"
@@ -119,7 +119,7 @@
             </b-form-group>
 
             <b-form-group label="Sma filer period:" label-for="sma_filer_period"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <b-form-input
                 id="sma_filer_period"
                 v-model="priceChannel.sma_filer_period"
@@ -149,7 +149,7 @@
 
             <b-form-group label="Volume:"
                           label-for="volume"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <b-form-input
                 id="volume"
                 v-model="macd.volume"
@@ -164,7 +164,7 @@
 
             <b-form-group label="Commission:"
                           label-for="Commission"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <b-form-input
                 id="Commission"
                 v-model="macd.commission"
@@ -178,7 +178,7 @@
             </b-form-group>
 
 
-            <b-form-group label="Ema period:" label-for="time_frame" class="account-row card-backtasted__form-group">
+            <b-form-group label="Ema period:" label-for="time_frame" class="account-row card-backtested__form-group">
               <b-form-input
                 id="ema_period"
                 v-model="macd.ema_period"
@@ -189,7 +189,7 @@
               <!--<b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('ema_period') }}</b-form-invalid-feedback>-->
             </b-form-group>
 
-            <b-form-group label="MACD period:" label-for="macd_period" class="account-row card-backtasted__form-group">
+            <b-form-group label="MACD period:" label-for="macd_period" class="account-row card-backtested__form-group">
               <b-form-input
                 id="macd_period"
                 v-model="macd.macd_line_period"
@@ -201,7 +201,7 @@
             </b-form-group>
 
             <b-form-group label="MACD signal period:" label-for="macd_signal_period"
-                          class="account-row card-backtasted__form-group">
+                          class="account-row card-backtested__form-group">
               <b-form-input
                 id="macd_signalline_period"
                 v-model="macd.macd_signalline_period"

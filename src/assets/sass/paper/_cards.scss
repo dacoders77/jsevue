@@ -896,7 +896,7 @@
   }
 }
 
-.card-backtasted {
+.card-backtested {
   .card-header {
     padding: 10px;
     padding-bottom: 0;
@@ -944,6 +944,15 @@
     }
     &--baseline {
       align-items: baseline;
+    }
+  }
+  [class^="el-icon-"], [class*=" el-icon-"] {
+    font-family: 'themify'!important;
+
+    &::before,
+    .el-icon-arrow-right:before {
+      font-family: 'themify'!important;
+      content: "\e649"!important;
     }
   }
 }
@@ -1043,7 +1052,7 @@
 
   &__table-wrapper {
     width: 100%;
-    overflow: scroll;
+    overflow: auto;
     -webkit-overflow-scrolling: auto;
     border-top-right-radius: $border-radius-extreme;
 
@@ -1052,12 +1061,12 @@
       -webkit-appearance: none;
       width: 10px;
     }
-
     &::-webkit-scrollbar-thumb {
-      border-radius: 4px;
-      background-color: $gray-input-bg;
-      -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .5);
-    }
+        border-radius: 4px;
+        background-color: $gray-input-bg;
+        -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .5);
+      }
+
   }
 
   &__checkbox-execution {
@@ -1275,7 +1284,7 @@
 }
 
 @media (max-width: 1500px) {
-  .card-backtasted {
+  .card-backtested {
 
     &__form-group {
       flex-wrap: wrap;
@@ -1301,7 +1310,7 @@
     width: 30% !important;
   }
 
-  .card-backtasted {
+  .card-backtested {
     .card-content {
       padding: 10px;
       padding-top: 0;
