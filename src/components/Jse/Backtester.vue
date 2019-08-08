@@ -58,14 +58,12 @@
                     </div>
                     <div style="float: right" class="w-100">
                         <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="historyStepClick('historyStep')">
-                            (Load 500 bars)
                             <b-spinner v-if="isHistoryStepLoading" class="text-info"></b-spinner>
-                            {{backtester_btn}}
+                            {{ historystep_btn }}
                         </button>
 
                         <button type="button" class="btn btn-warning btn-fill btn-wd w-100 mb-10" @click="historyStepClick('truncate')">
-                            (Truncate table)
-                            {{backtester_btn}}
+                            {{ historytruncate_btn }}
                         </button>
                     </div>
 
@@ -76,15 +74,6 @@
 
                 <el-collapse-item title="Price channel" name="2">
                     <div>
-                        <!-- Symbol drop down -->
-                            <!--<drop-down class="card-backtasted__dropdown">
-                                <button slot="title" class="btn dropdown-toggle dropdown-toggle&#45;&#45;thin mb-10" data-toggle="dropdown" style="width: 100%;">
-                                    <span>{{ executionSymbolName }}</span>
-                                    <b class="caret"></b>
-                                </button>
-                                <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
-                            </drop-down>-->
-
                         <b-form-group label="Volume:"
                                       label-for="volume"
                                       class="account-row card-backtasted__form-group">
@@ -111,31 +100,6 @@
                                     v-tooltip="'Negative commission means - rebate'">
                             </b-form-input>
                             <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}</b-form-invalid-feedback>
-                        </b-form-group>
-
-                        <b-form-group label="Bars to load:"
-                                      label-for="bars_to_load"
-                                      class="account-row card-backtasted__form-group">
-                            <b-form-input
-                                    id="bars_to_load"
-                                    v-model="priceChannel.bars_to_load"
-                                    :state="this.validationErrors.has('bars_to_load') ? 'invalid' : 'valid'"
-                                    required
-                                    placeholder="bars_to_load"
-                                    v-tooltip="'If you put about 300-500 - the request is may take up to 20 seconds or even more.'">
-                            </b-form-input>
-                            <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>
-                        </b-form-group>
-
-                        <b-form-group label="Bar time frame:" label-for="bar_time_frame" class="account-row card-backtasted__form-group">
-                            <b-form-input
-                                    id="bar_time_frame"
-                                    v-model="priceChannel.bar_time_frame"
-                                    :state="this.validationErrors.has('bar_time_frame') ? 'invalid' : 'valid'"
-                                    required
-                                    placeholder="bar_time_frame">
-                            </b-form-input>
-                            <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bar_time_frame') }}</b-form-invalid-feedback>
                         </b-form-group>
 
                         <b-form-group label="Time frame:" label-for="time_frame" class="account-row card-backtasted__form-group">
@@ -174,15 +138,6 @@
 
                 <el-collapse-item title="MACD" name="3">
                   <div>
-                    <!-- Symbol drop down -->
-                    <!--<drop-down class="card-backtasted__dropdown">
-                      <button slot="title" class="btn dropdown-toggle dropdown-toggle&#45;&#45;thin mb-10" data-toggle="dropdown" style="width: 100%;">
-                        &lt;!&ndash;<span v-for="symbol in symbols" >{{ symbol.execution_symbol_name }}</span>&ndash;&gt;
-                        <span>{{ executionSymbolName }}</span>
-                        <b class="caret"></b>
-                      </button>
-                      <li v-for="(executionSymbolName, index) in symbols"><a href="javascript:void(0)" @click="symbolDropDownClick(index)">{{ executionSymbolName.execution_symbol_name }}</a> </li>
-                    </drop-down>-->
 
                       <b-form-group label="Volume:"
                                     label-for="volume"
@@ -212,31 +167,6 @@
                           <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}</b-form-invalid-feedback>
                       </b-form-group>
 
-                    <b-form-group
-                      label="Bars to load:"
-                      label-for="macd_bars_to_load"
-                      class="account-row card-backtasted__form-group">
-                      <b-form-input
-                        id="macd_bars_to_load"
-                        v-model="macd.bars_to_load"
-                        :state="this.validationErrors.has('bars_to_load') ? 'invalid' : 'valid'"
-                        required
-                        placeholder="Bars to load"
-                        v-tooltip="'If you put about 300-500 - the request is may take up to 20 seconds or even more.'">
-                      </b-form-input>
-                      <!--<b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bars_to_load') }}</b-form-invalid-feedback>-->
-                    </b-form-group>
-
-                    <b-form-group label="Bar time frame:" label-for="macd_bar_time_frame" class="account-row card-backtasted__form-group">
-                      <b-form-input
-                        id="macd_bar_time_frame"
-                        v-model="macd.bar_time_frame"
-                        :state="this.validationErrors.has('bar_time_frame') ? 'invalid' : 'valid'"
-                        required
-                        placeholder="bar_time_frame">
-                      </b-form-input>
-                      <!--<b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('bar_time_frame') }}</b-form-invalid-feedback>-->
-                    </b-form-group>
 
                     <b-form-group label="Ema period:" label-for="time_frame" class="account-row card-backtasted__form-group">
                       <b-form-input
@@ -303,8 +233,9 @@
         return{
           backtester_btn: "Go",
           backtester_macd_btn: "Go",
-          historystep_btn: "Go",
-          historytruncate_btn: "Go",
+
+          historystep_btn: "Load bars",
+          historytruncate_btn: "Truncate loaded ",
 
           isBacktesterLoading: false,
           isBacktesterMacdLoading: false,
@@ -423,25 +354,25 @@
             })
         },
         historyStepClick(strategy) {
-          this.isHistoryStepLoading = true;
-          this.historystep_btn = 'Getting bars...';
-
+          if (strategy != 'truncate') {
+            this.isHistoryStepLoading = true;
+            this.historystep_btn = 'Getting bars...';
+          }
           this.historyStep.strategy = strategy;
           this.historyStep.execution_symbol_name = this.executionSymbolName;
           this.historyStep.history_symbol_name = this.historySymbolName;
-
           this.historyStep.post('/backtest')
             .then((response) => {
               this.barsLoaded = response.data.barsLoaded;
               this.startDate = response.data.startDate;
               this.endDate = response.data.endDate;
-              this.showNotification('bottom', 'right', 'Backtester-macd executed successfully! <br>');
+              this.showNotification('bottom', 'right', 'Bars/Truncate executed! <br>');
               this.isHistoryStepLoading = false;
               this.historystep_btn = 'Go';
             })
             .catch(error => {
               //this.validationErrors.record(error.data.errors)
-              this.showNotification('bottom', 'right', 'Backtester-macd execution error! <br>')
+              this.showNotification('bottom', 'right', 'Bars/Truncate executed Error! <br>')
               this.isHistoryStepLoading = false;
               this.historystep_btn = 'Go';
             })
