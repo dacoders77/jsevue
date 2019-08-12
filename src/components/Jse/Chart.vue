@@ -245,12 +245,19 @@
       backtesterButtonClick() {
         if (this.backtesterOpen) {
           this.backtesterOpen = false; // Close backtester
+          document.querySelector('.highcharts-container').classList.add('card-chat__w-100');
+
+
         } else {
           this.backtesterOpen = true; // Open backtester
           this.botId = 5;
           this.clientId = 12350;
           this.HistoryBarsLoad(5);
           this.isBackTest = true; // Load back testing profit diagrams
+          if (document.querySelector('.highcharts-container').classList.contains('card-chat__w-100')) {
+            document.querySelector('.highcharts-container').classList.remove('card-chat__w-100');
+            //this.chart.reflow();
+          }
         }
       }
     }
