@@ -254,8 +254,7 @@
           this.HistoryBarsLoad(5);
           this.isBackTest = true; // Load back testing profit diagrams
           if (document.querySelector('.highcharts-container').classList.contains('card-chat__w-100')) {
-           document.querySelector('.highcharts-container').classList.remove('card-chat__w-100');
-            this.chart.reflow();
+              document.querySelector('.highcharts-container').classList.remove('card-chat__w-100');
           }
         }
       }
