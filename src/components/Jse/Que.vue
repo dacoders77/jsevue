@@ -37,13 +37,13 @@
                 <tr v-for="job in jobs" :key="job.id">
                   <td> {{ job.id }}</td>
                   <td>{{ job.queue }}</td>
-                  <td>{{ job.data.botSettings.botTitle }} / {{ job.data.botSettings.historySymbolName }}</td>
+                  <!-- <td>{{ job.data.botSettings.botTitle }} / {{ job.data.botSettings.historySymbolName }}</td>-->
+                  <td>none/none</td>
                   <td>
                     <button type="button" class="btn btn-fill btn-warning btn-circle"
                             @click="newModalJsonTree(job)">
                       <i class="ti-server"></i>
                     </button>
-
                   </td>
                   <td>{{ job.attempts }}</td>
                   <td>
@@ -93,20 +93,20 @@
     },
     methods: {
       async loadResources() {
-
         this.loading = true
-        try {
-          const resp = await axios.get('/job');
-          this.jobs = resp.data
-
-        } catch (e) {
-        }
+        axios.get('/job')
+          .then(({data}) => {
+            this.jobs = data;
+            this.showNotification('bottom', 'right', 'Data loaded successfully! <br>' + '&nbsp')
+        })
+          .catch(({error}) => {
+            this.showNotification('bottom', 'right', 'Data load error! <br>' + '&nbsp')
+          })
         this.loading = false
       },
       truncateQue() {
         this.form.delete('/job/1') // /job/1, 1 - is not need. Otherwise delete method is not accepted
           .then((response) => {
-            //Fire.$emit('AfterCreate');
             this.loadResources();
             this.showNotification('bottom', 'right', 'Que successfully truncated! <br>' + '&nbsp')
           })
@@ -114,17 +114,14 @@
             this.showNotification('bottom', 'right', 'Que truncate error! <br>' + '&nbsp')
           })
       },
-
       reloadTable() {
         this.jobs = [];
         this.loadResources();
       },
-
       newModalJsonTree(message) {
         this.jsonModalMessage = message;
         this.$bvModal.show('modal-json')
       },
-
       showNotification(verticalAlign, horizontalAlign, notificationText) {
         var color = Math.floor((Math.random() * 4) + 1)
         this.$notify(
