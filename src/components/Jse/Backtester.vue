@@ -47,12 +47,13 @@
               <b-form-input
                 id="timeframe"
                 v-model="historyStep.bar_time_frame"
-                :state="this.validationErrors.has('commission') ? 'invalid' : 'valid'"
+                :state="historyStepTimeState"
                 required
-                placeholder="TimeFrame"
-                v-tooltip="'Time frame of loaded bars'">
+                placeholder="Timeframe (1m/5m/1h/1d)"
+                v-tooltip="'Time frame of loaded bars'"
+                aria-describedby="input-live-feedback">
               </b-form-input>
-              <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}
+              <b-form-invalid-feedback id="input-live-feedback" v-if="!historyStepTimeState" class="text-danger"><small>Please, enter "1m" or "5m" or "1h" or "1d"</small>
               </b-form-invalid-feedback>
             </b-form-group>
 
@@ -153,7 +154,7 @@
               <b-form-input
                 id="volume"
                 v-model="macd.volume"
-                :state="this.validationErrors.has('volume') ? 'invalid' : 'valid'"
+                :state= "historyStepTimeState"
                 required
                 placeholder="volume"
                 v-tooltip="'Volume in contracts'">
@@ -240,12 +241,12 @@
   Vue.use(SpinnerPlugin)
   Vue.use(Collapse)
   Vue.use(CollapseItem)
+
   export default {
     data() {
       return {
         backtester_btn: "Go",
         backtester_macd_btn: "Go",
-
         historystep_btn: "Load bars",
         historytruncate_btn: "Truncate loaded ",
 
@@ -294,6 +295,15 @@
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
+        }
+      }
+    },
+    computed: {
+      historyStepTimeState() {
+        if ((this.historyStep.bar_time_frame === '1m') || (this.historyStep.bar_time_frame === '5m') || (this.historyStep.bar_time_frame === '1h') || (this.historyStep.bar_time_frame === '1d')) {
+          return true
+        } else {
+          return false
         }
       }
     },
@@ -388,8 +398,8 @@
             this.isHistoryStepLoading = false;
             this.historystep_btn = 'Go';
           })
+        console.log(this.historyStep.bar_time_frame)
       },
-
       symbolDropDownClick(index) {
         this.executionSymbolName = this.symbols[index].execution_symbol_name;
         this.historySymbolName = this.symbols[index].history_symbol_name;

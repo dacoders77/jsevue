@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="card-chart-header__table-wrapper" style="height: 500px">
+        <div class="card-chart-header__table-wrapper">
             <!--<table class="table table-hover table-info card-chart-header__table-execution">-->
             <table class="table table-hover table-info card-chart-header__table-execution" style="width: 200px">
                 <tbody>

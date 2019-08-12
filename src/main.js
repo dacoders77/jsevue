@@ -97,6 +97,10 @@ Vue.filter('fullDate', function(created_at){
   return moment.unix(created_at).format('DD.MM.YY hh:mm:ss'); // DD MMMM Do YYYY, h:mm:ss a
 });
 
+Vue.filter('backtesterDate', function(created_at){
+  return moment.unix(created_at).format('DD.MM.YY hh:mm:ss'); // DD MMMM Do YYYY, h:mm:ss a
+});
+
 // Global event components even listener object
 window.Fire = new Vue();
 
