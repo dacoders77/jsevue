@@ -244,17 +244,19 @@
         this.isBackTest = false; // Don't load back testing profit diagrams
       },
       backtesterButtonClick() {
+        let highchartsContainer = document.querySelector('.highcharts-container');
+
         if (this.backtesterOpen) {
           this.backtesterOpen = false; // Close backtester
-          document.querySelector('.highcharts-container').classList.add('card-chat__w-100');
+          highchartsContainer.classList.add('card-chat__w-100');
         } else {
           this.backtesterOpen = true; // Open backtester
           this.botId = 5;
           this.clientId = 12350;
           this.HistoryBarsLoad(5);
           this.isBackTest = true; // Load back testing profit diagrams
-          if (document.querySelector('.highcharts-container').classList.contains('card-chat__w-100')) {
-              document.querySelector('.highcharts-container').classList.remove('card-chat__w-100');
+          if (highchartsContainer.classList.contains('card-chat__w-100')) {
+            highchartsContainer.classList.remove('card-chat__w-100');
           }
         }
       }
