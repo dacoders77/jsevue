@@ -27,8 +27,11 @@
             <div class="card-body p-0">
               <el-table
                 :data="bots"
+                ref="table"
                 style="width: 100%"
                 class="card-bots__table table-info"
+                row-key="id"
+                :expand-row-keys="expands"
                 @expand-change="getWorkerStatus">
                 <el-table-column type="expand">
                   <template slot-scope="props">
@@ -79,16 +82,20 @@
                                    @change="() => { updateBotNew(['updateBotName', props.row]);  validateBots('Rate limit', props.row.rate_limit ); }">
                         </p>
                         <p class="card-bots__expand-prop"><b>Front worker status:</b>
-                          <span v-if="!workerstatus.isFrontWorkerRunning" class="text-danger">off-line</span>
-                          <span v-else class="text-success">online</span>
+
+                              <span v-if="!workerstatus.isFrontWorkerRunning" class="text-danger">off-line</span>
+                              <span v-else class="text-success">online</span>
+
                         </p>
+
                         <p class="card-bots__expand-prop"><b>Execution worker status:</b>
                           <span v-if="!workerstatus.isExecutionWorkerRunning" class="text-danger">off-line</span>
                           <span v-else class="text-success">online</span>
                         </p>
                         <p class="card-bots__expand-prop"><b>Que worker status:</b>
-                          <span v-if="!workerstatus.isQueWorkerRunning" class="text-danger">off-line</span>
-                          <span v-else class="text-success">online</span>
+                            <span v-if="!workerstatus.isQueWorkerRunning" class="text-danger">off-line</span>
+                            <span v-else class="text-success">online</span>
+
                         </p>
                       </div>
                       <div class="card-bots__expand-col card-bots__expand-col--xl">
@@ -275,6 +282,9 @@
     },
     data () {
       return {
+        expands: [],
+        workerstatus: [],
+        isExpanded: true,
         isPlaceAsMarket: false, // Market/limit switch
         validationErrors: new ValidationErrors(),
         form: new Form({
@@ -300,7 +310,7 @@
           botId: '',
           unlinkField: ''
         }),
-        workerstatus: {},
+        // workerstatus: {},
         bots: [
           {
             'id':1,
@@ -397,173 +407,182 @@
       });
     },
     mounted() {
+      if (localStorage.getItem('id')) {
+        try {
+          this.expands = JSON.parse(localStorage.getItem('id'));
+        } catch (e) {
+          localStorage.removeItem('id');
+        }
+      }
       this.loadResources();
       this.loadBots();
-    },
-    methods: {
-      loadBots() {
-        axios.get('/bot').then(({data}) => (this.bots = data.data));
-      },
-      loadResources() {
-        axios.get('/account').then(({data}) => (this.accounts = data.data));
-        axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
-        axios.get('/symbol').then(({data}) => (this.symbols = data.data));
-        axios.get('/strategy').then(({data}) => (this.strategies = data.data));
-      },
-      validateBots(name, value) {
-        if (value) {
+     },
+      methods: {
+        loadBots() {
+          axios.get('/bot').then(({data}) => (this.bots = data.data));
+        },
+        loadResources() {
+          axios.get('/account').then(({data}) => (this.accounts = data.data));
+          axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
+          axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+          axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+        },
+        validateBots(name, value) {
+          if (value) {
+            swal({
+              title: name + ' was successfully updated!',
+              text: name + ': ' + value,
+              buttonsStyling: false,
+              confirmButtonClass: 'btn btn-success btn-fill',
+              type: 'success'
+            })
+          }
+        },
+        editMemoBots(bot) {
+          // Adding an input method from SweetAlert 2 automatically binds an input form.
           swal({
-            title: name + ' was successfully updated!',
-            text: name + ': ' + value,
+            title: 'Edit memo',
+            input: 'text',
+            inputValue: bot.memo,
+            inputPlaceholder: 'Enter your memo here',
+            showCloseButton: true,
+          }).then((result) => {
+            bot.memo = result;
+            this.form.memo = bot.memo;
+            this.form.fill(bot);
+            this.form.put('/bot/' + bot.id)
+              .then((response) => {
+                Fire.$emit('AfterCreate');
+              })
+          })
+        },
+        showAlert(text) {
+          swal({
+            text: text + ' was successfully updated',
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-success btn-fill',
             type: 'success'
           })
-        }
-      },
-      editMemoBots(bot) {
-        // Adding an input method from SweetAlert 2 automatically binds an input form.
-        swal({
-          title: 'Edit memo',
-          input: 'text',
-          inputValue: bot.memo,
-          inputPlaceholder: 'Enter your memo here',
-          showCloseButton: true,
-        }).then((result) => {
-          bot.memo = result;
+        },
+        showAlertRun(errorText) {
+          swal({
+            html: "<h5>" + errorText + '</h5> <br><a href="/que">Go to que</a>',
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success btn-fill',
+            type: 'success'
+          })
+        },
+        updateBotNew(params) {
+          // Receives two params: bot instance and action (updateBotName)
+          // Get the second element withh all bot's settings from the passed array
+          let bot = params[1];
+
+          // Run/Stop bot
+          let botStatus = bot.status;
+          if (params[0] === 'runBot') botStatus = 'running';
+          if (params[0] === 'stopBot') botStatus = 'idle';
+
+          // Update account drop down
+          let accountId = bot.account_id;
+          if (params[0] === 'updateAccount') {
+            accountId = this.accounts[params[2]].id; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
+            this.showAlert('Account ');
+          }
+
+          // Update symbol drop down
+          let symbolId = bot.symbol_id;
+          if (params[0] === 'updateSymbol') {
+            symbolId = this.symbols[params[2]].id;
+            this.showAlert('Symbol ');
+          }
+
+          // Update strategy drop down
+          let strategyId = bot.strategy_id;
+          if (params[0] === 'updateStrategy') {
+            strategyId = this.strategies[params[2]].id;
+            this.showAlert('Strategy ');
+          }
+
+          this.form.reset();
+          this.form.status = botStatus; // runBot, stopBot
+          this.form.account_id = accountId; // Account drop down
+          this.form.symbol_id = symbolId; // Symbol drop down
+          this.form.strategy_id = strategyId; // Strategy drop down
+          this.form.name = bot.name;
+
+          this.form.offset = bot.offset;
+          this.form.execution_time = bot.execution_time;
+          this.form.time_range = bot.time_range;
+
+          this.form.place_as_market = bot.place_as_market;
+
+          this.form.time_frame = bot.time_frame;
+          this.form.volume = bot.volume;
+          this.form.bars_to_load = bot.bars_to_load;
+          this.form.rate_limit = bot.rate_limit;
           this.form.memo = bot.memo;
-          this.form.fill(bot);
+
           this.form.put('/bot/' + bot.id)
             .then((response) => {
               Fire.$emit('AfterCreate');
             })
-        })
-      },
-      showAlert(text) {
-        swal({
-          text: text + ' was successfully updated',
-          buttonsStyling: false,
-          confirmButtonClass: 'btn btn-success btn-fill',
-          type: 'success'
-        })
-      },
-      showAlertRun(errorText) {
-        swal({
-          html: "<h5>" + errorText + '</h5> <br><a href="/que">Go to que</a>',
-          buttonsStyling: false,
-          confirmButtonClass: 'btn btn-success btn-fill',
-          type: 'success'
-        })
-      },
-      updateBotNew(params) {
-        // Receives two params: bot instance and action (updateBotName)
-        // Get the second element withh all bot's settings from the passed array
-        let bot = params[1];
-
-        // Run/Stop bot
-        let botStatus = bot.status;
-        if (params[0] === 'runBot') botStatus = 'running';
-        if (params[0] === 'stopBot') botStatus = 'idle';
-
-        // Update account drop down
-        let accountId = bot.account_id;
-        if (params[0] === 'updateAccount') {
-          accountId = this.accounts[params[2]].id; // We send 3 params: action, bot, index (an index of clicked item in dropdown)
-          this.showAlert('Account ');
+            .catch(error => {
+              this.showAlertRun(error.data);
+            })
+        },
+        reloadTableBots() {
+          this.form.reset();
+          this.bots = [];
+          this.accounts = [];
+          this.strategies = [];
+          this.exchanges = [];
+          this.loadBots();
+          this.loadResources();
+          this.showAlert('Bots');
+        },
+        unlinkButtonClick(params) {
+          // params[0] - bot
+          // params[1] - account, symbol or strategy
+          // POST api/account
+          // We use create method in BotController.php
+          this.unlink.botId = params[0].id;
+          this.unlink.unlinkField = params[1];
+          this.unlink.post('/bot')
+            .then((response) => {
+              Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
+              // this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + params[0].id)
+              this.showAlert('Dropdown');
+            })
+            .catch(error => {
+              this.showAlertRun(error.data);
+            })
+        },
+        showNotification(verticalAlign, horizontalAlign, notificationText) {
+          var color = Math.floor((Math.random() * 4) + 1)
+          this.$notify(
+            {
+              component: {
+                template: "<span>" + notificationText + "</span>"
+              },
+              icon: 'ti-info-alt',
+              horizontalAlign: horizontalAlign,
+              verticalAlign: verticalAlign,
+              type: this.type[color]
+            })
+        },
+        getWorkerStatus(row) {
+          // Set place as market flag to fals/true. Otherwise switch does not accept it.
+          row.place_as_market = (row.place_as_market == 1 ? true : false);
+          return;
+          axios.get('/workerstatus/' + row.id).then(({data}) => {
+            this.workerstatus = data;
+          });
+          this.expands = expandedRows.map((row) => row.id);
+          const parsed = JSON.stringify(this.expands);
+          localStorage.setItem('id', parsed);
+          console.log(this.expands)
         }
-
-        // Update symbol drop down
-        let symbolId = bot.symbol_id;
-        if (params[0] === 'updateSymbol') {
-          symbolId = this.symbols[params[2]].id;
-          this.showAlert('Symbol ');
-        }
-
-        // Update strategy drop down
-        let strategyId = bot.strategy_id;
-        if (params[0] === 'updateStrategy') {
-          strategyId = this.strategies[params[2]].id;
-          this.showAlert('Strategy ');
-        }
-
-        this.form.reset();
-        this.form.status = botStatus; // runBot, stopBot
-        this.form.account_id = accountId; // Account drop down
-        this.form.symbol_id = symbolId; // Symbol drop down
-        this.form.strategy_id = strategyId; // Strategy drop down
-        this.form.name = bot.name;
-
-        this.form.offset = bot.offset;
-        this.form.execution_time = bot.execution_time;
-        this.form.time_range = bot.time_range;
-
-        this.form.place_as_market = bot.place_as_market;
-
-        this.form.time_frame = bot.time_frame;
-        this.form.volume = bot.volume;
-        this.form.bars_to_load = bot.bars_to_load;
-        this.form.rate_limit = bot.rate_limit;
-        this.form.memo = bot.memo;
-
-        console.log(this.form);
-
-        this.form.put('/bot/' + bot.id)
-          .then((response) => {
-            Fire.$emit('AfterCreate');
-          })
-          .catch(error => {
-            this.showAlertRun(error.data);
-          })
-      },
-      reloadTableBots() {
-        this.form.reset();
-        this.bots = [];
-        this.accounts = [];
-        this.strategies = [];
-        this.exchanges =[];
-        this.loadBots();
-        this.loadResources();
-        this.showAlert('Bots');
-      },
-      unlinkButtonClick(params){
-        // params[0] - bot
-        // params[1] - account, symbol or strategy
-        // POST api/account
-        // We use create method in BotController.php
-        this.unlink.botId = params[0].id;
-        this.unlink.unlinkField = params[1];
-        this.unlink.post('/bot')
-          .then((response) => {
-            Fire.$emit('AfterCreate'); // Maybe load bots only? Not to load accounts and symbols?
-            // this.showNotification('bottom', 'right', 'Bot successfully updated! <br> id: ' + params[0].id)
-            this.showAlert('Dropdown');
-          })
-          .catch(error => {
-            this.showAlertRun(error.data);
-          })
-      },
-      showNotification (verticalAlign, horizontalAlign, notificationText) {
-        var color = Math.floor((Math.random() * 4) + 1)
-        this.$notify(
-          {
-            component: {
-              template: "<span>" + notificationText + "</span>"
-            },
-            icon: 'ti-info-alt',
-            horizontalAlign: horizontalAlign,
-            verticalAlign: verticalAlign,
-            type: this.type[color]
-          })
-      },
-      getWorkerStatus(row){
-        // Set place as market flag to fals/true. Otherwise switch does not accept it.
-        row.place_as_market = (row.place_as_market == 1 ? true : false);
-        return;
-        axios.get('/workerstatus/' + row.id).then(({data}) => {
-          this.workerstatus = data;
-        });
-      },
-    }
+      }
   }
 </script>
 <style>
