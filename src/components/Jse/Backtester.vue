@@ -23,7 +23,13 @@
                         <b-form-group label="Start date:"
                                       label-for="volume"
                                       class="account-row card-backtasted__form-group">
-                            <span>{{ this.startDate }}</span>
+                            <!--<span>{{ this.startDate }}</span>-->
+                            <!-- Date picker -->
+                            <div class="form-group">
+                                <el-date-picker v-model="startDate" type="date" placeholder="Pick a day"
+                                                :picker-options="pickerOptions1" style="">
+                                </el-date-picker>
+                            </div>
                         </b-form-group>
 
                         <b-form-group label="End date:"
@@ -38,21 +44,16 @@
                             <span>{{ this.barsLoaded }}</span>
                         </b-form-group>
 
+                        <drop-down slide="up" class="card-backtasted__dropdown">
+                            <button slot="title" class="btn dropdown-toggle dropdown-toggle--thin mb-10" data-toggle="dropdown" style="width: 100%;">
+                                <span>{{ pickedTimeFrame }}</span>
+                                <b class="caret"></b>
+                            </button>
 
-
-                        <b-form-group label="Timeframe (1m/5m/1h/1d):"
-                                      label-for="timeframe"
-                                      class="account-row card-backtasted__form-group">
-                            <b-form-input
-                                    id="timeframe"
-                                    v-model="historyStep.bar_time_frame"
-                                    :state="this.validationErrors.has('commission') ? 'invalid' : 'valid'"
-                                    required
-                                    placeholder="TimeFrame"
-                                    v-tooltip="'Time frame of loaded bars'">
-                            </b-form-input>
-                            <b-form-invalid-feedback id="ibars_to_load">{{ this.validationErrors.get('Commission') }}</b-form-invalid-feedback>
-                        </b-form-group>
+                            <li v-for="(timeFrame, index) in timeFrames">
+                                <a href="javascript:void(0)" @click="timeFrameDropDownClick(index)">{{ timeFrame }}</a>
+                            </li>
+                        </drop-down>
 
 
                     </div>
@@ -221,14 +222,17 @@
 </template>
 <script>
   import Vue from 'vue'
-  import {Collapse, CollapseItem} from 'element-ui'
+  import {Collapse, CollapseItem, DatePicker} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
-  import { SpinnerPlugin } from 'bootstrap-vue'
+  import {SpinnerPlugin} from 'bootstrap-vue'
   import swal from 'sweetalert2'
   Vue.use(SpinnerPlugin)
   Vue.use(Collapse)
   Vue.use(CollapseItem)
     export default {
+      components: {
+        [DatePicker.name]: DatePicker
+      },
       data() {
         return{
           backtester_btn: "Go",
@@ -242,7 +246,7 @@
           isHistoryStepLoading: false,
           // loader truncate?
 
-          startDate: '',
+          startDate: '', // Default value for date picker 2019-08-05T00:00:00.000Z 2019-08-05
           endDate: '',
           barsLoaded: '',
 
@@ -274,14 +278,42 @@
             strategy: '',
             execution_symbol_name: '',
             history_symbol_name: '',
-            bar_time_frame: '1m',
+            bar_time_frame: '5m',
+            startDate: ''
           }),
-          symbols: [],
+          symbols: [], // Symbol drop down
+          timeFrames: ['1m', '5m', '1h', '1d'], // Time frame drop down in historical data
+          pickedTimeFrame: '5m',
           executionSymbolName: 'Symbol', // Execution symbol name
           historySymbolName: '',
           type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
           notifications: {
             topCenter: false
+          },
+          // Date picker options
+          pickerOptions1: {
+            shortcuts: [{
+              text: 'Today',
+              onClick (picker) {
+                picker.$emit('pick', new Date())
+              }
+            },
+              {
+                text: 'Yesterday',
+                onClick (picker) {
+                  const date = new Date()
+                  date.setTime(date.getTime() - 3600 * 1000 * 24)
+                  picker.$emit('pick', date)
+                }
+              },
+              {
+                text: 'A week ago',
+                onClick (picker) {
+                  const date = new Date()
+                  date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+                  picker.$emit('pick', date)
+                }
+              }]
           }
         }
       },
@@ -298,6 +330,12 @@
             this.executionSymbolName = data.data[0].execution_symbol_name;
             this.historySymbolName = data.data[0].history_symbol_name;
           });
+          this.historyStep.strategy = 'loadedBarsInfo';
+          this.historyStep.post('/backtest').then((response) => {
+            this.barsLoaded = response.data.loadedBars;
+            this.startDate = response.data.startDate;
+            this.endDate = response.data.latestLoadedBarDate;
+          })
         },
         updateSymbol() {
           alert('update symbol btn click');
@@ -327,7 +365,6 @@
               this.backtester_btn = 'Go';
             })
             .catch(error => {
-              console.log(error);
               this.validationErrors.record(error.data.errors)
               this.showNotification('bottom', 'right', 'Backtester-pc execution error! <br>')
               this.isBacktesterLoading = false;
@@ -361,10 +398,13 @@
           this.historyStep.strategy = strategy;
           this.historyStep.execution_symbol_name = this.executionSymbolName;
           this.historyStep.history_symbol_name = this.historySymbolName;
+          this.historyStep.start_date = this.startDate;
+          this.historyStep.bar_time_frame = this.pickedTimeFrame;
+
           this.historyStep.post('/backtest')
             .then((response) => {
               this.barsLoaded = response.data.barsLoaded;
-              this.startDate = response.data.startDate;
+              //this.startDate = response.data.startDate;
               this.endDate = response.data.endDate;
               this.showNotification('bottom', 'right', 'Bars/Truncate executed! <br>');
               this.isHistoryStepLoading = false;
@@ -372,15 +412,17 @@
             })
             .catch(error => {
               //this.validationErrors.record(error.data.errors)
-              this.showNotification('bottom', 'right', 'Bars/Truncate executed Error! <br>')
+              this.showNotification('bottom', 'right', 'Bars/Truncate executed Error! <br>' + error.data.message)
               this.isHistoryStepLoading = false;
               this.historystep_btn = 'Go';
             })
         },
-
         symbolDropDownClick(index) {
           this.executionSymbolName = this.symbols[index].execution_symbol_name;
           this.historySymbolName = this.symbols[index].history_symbol_name;
+        },
+        timeFrameDropDownClick(index){
+          this.pickedTimeFrame = this.timeFrames[index];
         }
       }
     }
