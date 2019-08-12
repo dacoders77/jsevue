@@ -35,17 +35,17 @@
         <span v-if="backtesterOpen">Close</span>
         <span v-if="!backtesterOpen">Backtester</span>
       </a>
+
+      <!-- Backtester -->
+      <div v-if="backtesterOpen"
+           class="backtested-wrap">
+        <backtester></backtester>
+      </div>
     </div>
 
     <!-- Chart width:100%; height:75vh; padding-top: 10px; float: left -->
     <div id="container"
-         :style="(!backtesterOpen ? 'width:100%; height:75vh; padding-top: 10px; float: left' : 'width:75%; height:75vh; padding-top: 10px; float: left')"></div>
-
-    <!-- Backtester -->
-    <div v-if="backtesterOpen"
-         style="width:25%; padding-left: 10px; border: 0px solid red; float: right">
-      <backtester></backtester>
-    </div>
+         :style="('width:100%; height:75vh; padding-top: 10px;')"></div>
 
   </div>
 </template>
@@ -88,6 +88,7 @@
         isBackTest: false
       }
     },
+
     created() {
     },
     mounted() {
@@ -244,20 +245,16 @@
         this.isBackTest = false; // Don't load back testing profit diagrams
       },
       backtesterButtonClick() {
-        let highchartsContainer = document.querySelector('.highcharts-container');
-
         if (this.backtesterOpen) {
           this.backtesterOpen = false; // Close backtester
-          highchartsContainer.classList.add('card-chat__w-100');
+
         } else {
           this.backtesterOpen = true; // Open backtester
           this.botId = 5;
           this.clientId = 12350;
           this.HistoryBarsLoad(5);
           this.isBackTest = true; // Load back testing profit diagrams
-          if (highchartsContainer.classList.contains('card-chat__w-100')) {
-            highchartsContainer.classList.remove('card-chat__w-100');
-          }
+
         }
       }
     }

@@ -1125,6 +1125,16 @@
     background-color: $white-color;
   }
 }
+.backtested-wrap {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width:25%;
+  padding-left: 10px;
+  border: 0 solid red;
+  z-index: 10000;
+  background-color: $gray-input-bg;
+}
 
 .card-que {
   overflow: auto;
