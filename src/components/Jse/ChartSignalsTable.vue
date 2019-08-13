@@ -2,7 +2,7 @@
     <div>
         <div class="card-chart-header__table-wrapper">
             <!--<table class="table table-hover table-info card-chart-header__table-execution">-->
-            <table class="table table-hover table-info card-chart-header__table-execution" style="width: 200px">
+            <table class="table table-hover table-info card-chart-header__table-execution">
                 <tbody>
                 <tr>
                     <th>ID</th>
