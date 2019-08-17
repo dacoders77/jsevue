@@ -215,7 +215,6 @@
 
                 </el-collapse-item>
 
-
             </el-collapse>
         </div>
   </div>
@@ -232,10 +231,10 @@
   Vue.use(CollapseItem)
 
   export default {
-      components: {
-        [DatePicker.name]: DatePicker
-      },
-      data() {
+    components: {
+      [DatePicker.name]: DatePicker
+    },
+    data() {
         return{
           backtester_btn: "Go",
           backtester_macd_btn: "Go",
@@ -246,7 +245,6 @@
           isBacktesterLoading: false,
           isBacktesterMacdLoading: false,
           isHistoryStepLoading: false,
-          // loader truncate?
 
           startDate: '', // Default value for date picker 2019-08-05T00:00:00.000Z 2019-08-05
           endDate: '',

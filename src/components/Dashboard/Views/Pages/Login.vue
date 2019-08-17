@@ -13,7 +13,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <span class="navbar-brand">JSE BOT</span>
+          <span class="navbar-brand">{{ appName }}</span>
         </div>
       </div>
     </nav>
@@ -129,7 +129,8 @@
                         required: true,
                         min: 5
                     }
-                }
+                },
+                appName: ''
             }
         },
         methods: {
@@ -174,7 +175,17 @@
             ...mapFields(['email', 'password'])
         },
         mounted() {
-            // alert('jojo: ' + process.env.OAUTH_CLIENT_SECRET);
+          axios.get('/logo')
+            .then(({data}) => {
+              //var url = process.env.ROOT_API;
+              //var res = url.split('/');
+              //this.product.image = 'http://' + res[2] + '/' + data.logoFileName;
+              //this.product.logoFileName = data.logoFileName;
+              this.appName = data.appName;
+            })
+            .catch(error => {
+              alert('Settings.vue logo/app name is not loaded');
+            })
         }
     }
 </script>

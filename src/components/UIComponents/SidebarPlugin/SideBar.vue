@@ -6,12 +6,14 @@
       <a class="simple-text logo-mini"
          href="#">
           <div class="logo-img">
-              <img :src="logo" alt="">
+            <!--<img :src="logo" alt="">-->
+            <img :src="logoUrl()"/>
           </div>
       </a>
       <a class="simple-text logo-normal"
          href="#">
-          {{ title }}
+          <!--{{ title }}-->
+        {{ appName }}
       </a>
     </div>
     <div class="sidebar-wrapper" ref="sidebarScrollArea">
@@ -68,11 +70,17 @@
       },
       logo: {
         type: String,
-        default: 'static/img/vue-logo.png'
+        default: ''
       },
       sidebarLinks: {
         type: Array,
         default: () => []
+      }
+    },
+    data() {
+      return {
+        url: '',
+        appName: ''
       }
     },
     computed: {
@@ -92,14 +100,30 @@
       }
     },
     methods: {
+      logoUrl() {
+        axios.get('/logo')
+          .then(({data}) => {
+            var rootUrl = process.env.ROOT_API;
+            var res = rootUrl.split('/');
+            this.url = 'http://' + res[2] + '/' + data.logoFileName;
+            this.appName = data.appName;
+          })
+        return this.url;
+      },
       async initScrollBarAsync () {
         await import('perfect-scrollbar/dist/css/perfect-scrollbar.css')
         const PerfectScroll = await import('perfect-scrollbar')
-        PerfectScroll.initialize(this.$refs.sidebarScrollArea)
+        PerfectScroll.initialize(this.$refs.sidebarScrollArea);
       }
     },
+    created() {
+      // Event is fired in Settings.vue
+      Fire.$on('logoChanged', () => {
+        this.logoUrl();
+      });
+    },
     mounted () {
-      this.initScrollBarAsync()
+      this.initScrollBarAsync();
     },
     beforeDestroy () {
       if (this.$sidebar.showSidebar) {
