@@ -9,7 +9,7 @@
         </div>
         <div class="numbers">
           <p>{{bot.name}}</p>
-          <p class="revenue">{{ netProfit }}</p>
+          <p class="revenue">{{ card.netProfit }}</p>
         </div>
       </div>
       <div class="card-dashboard__bar">
@@ -31,12 +31,12 @@
       </div>
       <div class="card-dashboard__text d-flex flex-grow">
         <p>
-            <span class="pr-15 card-dashboard__trades" v-if="bot.status == 'running'">Trades:
-              <span>{{ total }}</span>
+            <span class="pr-15 card-dashboard__trades">Trades:
+              <span>{{ card.tradesQuantity }}</span>
             </span>
-          <span class="pr-15 card-dashboard__trades" v-else>Trades:</span>
-          <span class="card-dashboard__symbol" v-if="bot.symbol_id">{{ symbol.execution_symbol_name }}</span>
-          <span class="card-dashboard__symbol" v-else></span>
+<!--          <span class="pr-15 card-dashboard__trades" v-else>Trades:</span>-->
+          <span class="card-dashboard__symbol">{{ card.executionSymbolName }}</span>
+<!--          <span class="card-dashboard__symbol" v-else></span>-->
         </p>
         <p>{{ strategy.name }}</p>
       </div>
@@ -51,7 +51,8 @@
       symbol: Object,
       strategy: Object,
       exchange: Object,
-      account: Object
+      account: Object,
+      card: Object
     },
     data() {
       return {
@@ -60,24 +61,24 @@
     },
     computed: {
       // Total trades quantity
-      total: function () {
-        let notNullTrades;
-        notNullTrades = (this.trades.filter(function (trade) {
-          return trade.trade_date !== null;
-        }));
-        if (typeof (notNullTrades[notNullTrades.length - 1]) !== 'undefined') {
-          return notNullTrades.length;
-        }
-      },
+      // total: function () {
+      //   let notNullTrades;
+      //   notNullTrades = (this.trades.filter(function (trade) {
+      //     return trade.trade_date !== null;
+      //   }));
+      //   if (typeof (notNullTrades[notNullTrades.length - 1]) !== 'undefined') {
+      //     return notNullTrades.length;
+      //   }
+      // },
       // Revenue
-      netProfit: function () {
-        if (typeof (this.trades[this.trades.length - 2]) !== 'undefined') {
-          return (this.trades[this.trades.length - 2].net_profit);
-        } // Get the penultimate row. Net profit in the last on is always null
-      }
+      // netProfit: function () {
+      //   if (typeof (this.trades[this.trades.length - 2]) !== 'undefined') {
+      //     return (this.trades[this.trades.length - 2].net_profit);
+      //   } // Get the penultimate row. Net profit in the last on is always null
+      // }
     },
     mounted() {
-      this.HistoryBarsLoad();
+      // this.HistoryBarsLoad();
     },
     methods: {
 

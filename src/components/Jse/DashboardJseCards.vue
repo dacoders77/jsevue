@@ -55,7 +55,7 @@
           this.bots = respB.data.data
 
           const respCards =await axios.get('/cards')
-          this.cards = respB.data.data
+          this.cards = respCards.data
 
 
         } catch (e) {}
@@ -74,6 +74,8 @@
         return this.exchanges.find(e => e.id == this.findAccount(bot).exchange_id)
       },
       findCard(bot) {
+        console.log(bot.index)
+        console.log("1")
         return this.cards.find(c => c.index == bot.index)
       }
     }

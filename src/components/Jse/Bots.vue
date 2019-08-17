@@ -82,18 +82,13 @@
                                    @change="() => { updateBotNew(['updateBotName', props.row]);  validateBots('Rate limit', props.row.rate_limit ); }">
                         </p>
                         <p class="card-bots__expand-prop"><b>Front worker status:</b>
-
-                              <span v-if="!workerstatus.isFrontWorkerRunning" class="text-danger">off-line</span>
-                              <span v-else class="text-success">online</span>
+                          <WorkerStatus :id="props.row.id" class="card-bots__indicators--text card-bots__indicators--front"/>
                         </p>
-
                         <p class="card-bots__expand-prop"><b>Execution worker status:</b>
-                          <span v-if="!workerstatus.isExecutionWorkerRunning" class="text-danger">off-line</span>
-                          <span v-else class="text-success">online</span>
+                          <WorkerStatus :id="props.row.id" class="card-bots__indicators--text card-bots__indicators--execution"/>
                         </p>
                         <p class="card-bots__expand-prop"><b>Que worker status:</b>
-                            <span v-if="!workerstatus.isQueWorkerRunning" class="text-danger">off-line</span>
-                            <span v-else class="text-success">online</span>
+                          <WorkerStatus :id="props.row.id" class="card-bots__indicators--text card-bots__indicators--que"/>
 
                         </p>
                       </div>
@@ -279,7 +274,6 @@
     data () {
       return {
         expands: [],
-        workerstatus: [],
         isExpanded: true,
         isPlaceAsMarket: false, // Market/limit switch
         validationErrors: new ValidationErrors(),
@@ -569,9 +563,11 @@
         expandChange(row,expandedRows) {
           // Set place as market flag to fals/true. Otherwise switch does not accept it.
           // row.place_as_market = (row.place_as_market == 1 ? true : false);
-          axios.get('/workerstatus/' + row.id).then(({data}) => {
-            this.workerstatus = data;
-          });
+          // axios.get('/workerstatus/' + row.id).then(({data}) => {
+          //   this.workerstatus = data;
+          //   this.workerstatus.isFrontWorkerRunning = true
+          //   console.log(this.workerstatus)
+          // });
           this.expands = expandedRows.map((row) => row.id);
           const parsed = JSON.stringify(this.expands);
           localStorage.setItem('id', parsed);

@@ -44,7 +44,7 @@ export const routes = [
       },
       {
         path: 'settings2',
-        name: 'Settings',
+        // name: 'Settings',
         //component: Settings
       },
       {
