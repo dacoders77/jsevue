@@ -1,12 +1,13 @@
 // DashboardJseCards.vue
 <template>
   <div class="row card-dashboard-wrapper">
-    <div class="col-sm-6 col-lg-3 mb-15" v-for="bot in bots">
+    <div class="col-sm-6 col-lg-3 mb-15" v-for="(bot, index) in bots">
       <DashboardJseCard :bot="bot"
                         :account="findAccount(bot)"
                         :symbol="findSymbol(bot)"
                         :exchange="findExchange(bot)"
                         :strategy="findStrategy(bot)"
+                        :card="findCard(bot)"
                         class="h-100"/>
     </div>
   </div>
@@ -25,6 +26,7 @@
         symbols: [],
         accounts: [],
         bots: [],
+        cards: []
       }
     },
     mounted() {
@@ -52,6 +54,10 @@
           const respB = await axios.get('/bot')
           this.bots = respB.data.data
 
+          const respCards =await axios.get('/cards')
+          this.cards = respB.data.data
+
+
         } catch (e) {}
         this.loading = false
       },
@@ -66,6 +72,9 @@
       },
       findExchange(bot) {
         return this.exchanges.find(e => e.id == this.findAccount(bot).exchange_id)
+      },
+      findCard(bot) {
+        return this.cards.find(c => c.index == bot.index)
       }
     }
   }
