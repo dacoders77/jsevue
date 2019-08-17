@@ -105,7 +105,7 @@
   Vue.use(TableColumn)
   export default {
     components: {
-      //
+      // removed
     },
     data() {
       return {
