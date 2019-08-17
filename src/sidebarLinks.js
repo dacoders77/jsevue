@@ -55,6 +55,14 @@ export default [
       {
         name: 'Que',
         path: '/que'
+      },
+      {
+        name: 'Settings',
+        path: '/settings'
+      },
+      {
+        name: 'Users',
+        path: '/users'
       }
     ]
   }

@@ -7,12 +7,8 @@
     export default {
       data() {
         return {
-          //var1: '',
-          //var2: ''
+          //
         }
-      },
-      created() {
-        // First created then mounted
       },
       mounted() {
         var Highchart = require('highcharts/highstock');
