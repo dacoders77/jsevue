@@ -10,8 +10,8 @@ import App from './App.vue'
 import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
 
 //Pusher
-const keyPusher = require('../config/bot.js').default.PUSHER_KEY;
-const clusterPusher = require('../config/bot.js').default.PUSHER_CLUSTER;
+const keyPusher = process.env.PUSHER_KEY;
+const clusterPusher = process.env.PUSHER_CLUSTER;
 
  Vue.prototype.$pusher = new Pusher(keyPusher, {
    encrypted: true,
