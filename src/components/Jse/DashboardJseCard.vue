@@ -9,7 +9,7 @@
         </div>
         <div class="numbers">
           <p>{{card.name}}</p>
-          <p class="revenue">{{ card.netProfit }}</p>
+          <p class="revenue">{{ netProfit }}</p>
         </div>
       </div>
       <div class="card-dashboard__bar">
@@ -56,6 +56,15 @@
       }
     },
     computed: {
+      netProfit() {
+        if (this.card.netProfit) {
+          this.card.netProfit = parseFloat(this.card.netProfit).toFixed(8);
+        }else {
+          this.card.netProfit = '';
+        }
+        return this.card.netProfit;
+      }
+
       // Total trades quantity
       // total: function () {
       //   let notNullTrades;

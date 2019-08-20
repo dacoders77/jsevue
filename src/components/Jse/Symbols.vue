@@ -6,7 +6,7 @@
         </div>
         <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
           <div class="card-body table-responsive p-0">
-            <table class="table table-hover table-info">
+            <table class="table table-hover table-info table-symbols">
               <tbody>
               <tr>
                 <th><i class="ti-info-alt"></i></th>

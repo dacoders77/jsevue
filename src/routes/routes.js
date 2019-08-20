@@ -13,7 +13,7 @@ import Strategies from 'src/components/Jse/Trading/Strategies.vue'
 import Que from 'src/components/Jse/Que.vue'
 import Logs from 'src/components/Jse/Logs.vue'
 import Users from 'src/components/Jse/Users.vue'
-var logViewerUrl = require('../../config/bot').default.LOG_VIEWER_URL;
+var logViewerUrl = process.env.LOG_VIEWER_URL;
 
 export const routes = [
   {

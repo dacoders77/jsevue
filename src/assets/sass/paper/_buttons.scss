@@ -285,6 +285,17 @@
   }
 }
 
+.table-symbols {
+  [class^="el-icon-close"], [class*=" el-icon-close"] {
+    font-family: 'themify'!important;
+    font-size: 10px;
+
+    &::before {
+      content: "\e646";
+    }
+  }
+}
+
 .btn-green {
   @include btn-styles(darken($color-green-status,7%), darken($color-green-status,12%));
 }

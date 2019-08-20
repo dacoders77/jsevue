@@ -2,11 +2,11 @@
   <div>
     <div class="row">
       <div class=" col-md-12 card-bots__buttons">
-          <button type="button"  class="btn btn-wd btn-success btn-fill btn-magnify mr-10" @click.prevent="showAlert('Button reserved')">
+          <button type="button"  class="btn btn-wd btn-success btn-fill btn-magnify mr-10" @click.prevent="showAlert()">
             <i class="ti-control-play"></i>All
           </button>
 
-          <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-10" @click.prevent="showAlert('Button reserved')">
+          <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-10" @click.prevent="showAlert()">
             <i class="ti-control-stop"></i>All
           </button>
         <button type="button" class="btn btn-wd btn-repost btn-fill btn-magnify" @click="reloadTableBots()">
@@ -301,85 +301,11 @@
           unlinkField: ''
         }),
         // workerstatus: {},
-        bots: [
-          {
-            'id':1,
-            'account_id': 9,
-            'bars_to_load': 50,
-            'created_at': '2019-06-10 01:13:39',
-            'db_table_name': 'bot_1',
-            'front_end_id': 12345,
-            'memo': 'memo',
-            'name': 'bot_01',
-            'rate_limit': 4,
-            'status': 'running',
-            'strategy_id': 1,
-            'symbol_id': 1,
-            'time_frame': 1,
-            'updated_at': '2019-06-10 01:13:39',
-            'volume': 1,
-            'place_as_market': false
-          },
-        ],
-        accounts: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            'bot_id': 1,
-            'exchnage_id': 1,
-            'name': 'dd',
-            'api': 'a',
-            'api_secret': 'd',
-            'status': 's',
-            'is_testnet': true,
-            'memo': 'memo'
-          }
-        ], // Random values. Otherwise getting a error on array null value in v-for
-        exchanges: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'name': 'name',
-            'status': 'online',
-            'live_api_path': 'd',
-            'testnet_api_path': 'a',
-            'url': 'www',
-            //
-            'memo': 'memo'
-          }
-        ], // add v-if to all rendered lists (v-for) and delete this 1,2,3,4
-        symbols: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'exchange_id': 1,
-            'execution_symbol_name': 'b',
-            'history_symbol_name': 'c',
-            'is_active': true,
-            //
-            'memo': 'memo'
-          }
-        ],
-        strategies: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'name': 'name',
-            'is_active': true,
-            'macd_settings_id': 1,
-            'pricechannel_settings_id': 1,
-            'strategy_type_id': 1,
-            //
-            'memo': 'memo'
-          }
-        ],
+        bots: [],
+        accounts: [], // Random values. Otherwise getting a error on array null value in v-for
+        exchanges: [], // add v-if to all rendered lists (v-for) and delete this 1,2,3,4
+        symbols: [],
+        strategies: [],
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -446,9 +372,9 @@
               })
           })
         },
-        showAlert(text) {
+        showAlert() {
           swal({
-            text: text + ' was successfully updated',
+            text: 'This event is reserved. No action will be taken.',
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-success btn-fill',
             type: 'success'
