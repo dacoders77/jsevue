@@ -1,29 +1,29 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-
       <div class="card">
         <div class="card-header" style="border: 0px solid red; padding: 0px">
-          <!--<h4 class="title">Trades log</h4>-->
         </div>
         <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
-
           <div class="card-body table-responsive p-0">
             <table class="table table-hover table-info">
               <tbody>
               <tr>
                 <th><i class="ti-info-alt"></i></th>
                 <th>Action</th>
+                <th>URL</th>
+                <th>Live api path</th>
                 <th>Exchange</th>
                 <th>Symbols</th>
               </tr>
-
               <tr v-for="exchange in exchanges" :key="exchange.id">
                 <td>{{ exchange.id }}</td>
                 <td>
-                  <button class="btn btn-icon btn-simple btn-icon--success" @click="addSymbol(exchange)"><i
+                  <button class="btn btn-icon btn-simple btn-icon--success" @click="showModal(exchange)"><i
                     class="ti-plus"></i></button>
                 </td>
+                <td>{{ exchange.url }}</td>
+                <td>{{ exchange.live_api_path }}</td>
                 <td>{{ exchange.name }}</td>
                 <td>
                   <el-tag
@@ -38,38 +38,110 @@
                     <a href="#" style="color:white" @click="onSymbolClick(index)">{{symbol.execution_symbol_name}}</a>
                   </el-tag>
                 </td>
-
               </tr>
               </tbody>
             </table>
-
           </div>
-
         </div>
       </div>
-
       <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-search"></i>
                 </span>Validate symbols
       </button>
-
       <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-search"></i>
                 </span>Delete unvalidated
       </button>
-
       <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
                 <span class="btn-label">
                     <i class="ti-search"></i>
                 </span>Delete inactive
       </button>
-
     </div>
 
     <b-modal
+            no-fade
+            scrollable
+            data-backdrop="static"
+            keyboard="false"
+            id="modal-scoped"
+            size="lg"
+            ref="my-modal"
+            title="Add symbol"
+            @ok=""
+    >
+      <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
+        <div class="card-body table-responsive p-0">
+
+          <table class="table table-hover table-info">
+            <tbody>
+            <tr>
+              <th>Action</th>
+              <th>Symbol(exec)</th>
+              <th>Id(hist)</th>
+              <th>Base</th>
+              <th>Quote</th>
+              <th>BaseId</th>
+              <th>QuoteId</th>
+              <th>Active</th>
+              <th>Taker</th>
+              <th>Maker</th>
+              <th>Type</th>
+            </tr>
+
+            <tr v-for="market in markets" :key="market.id">
+              <td>
+                <button class="btn btn-icon btn-simple btn-icon--success" @click="addSymbol(market)">
+                  <i class="ti-plus"></i></button>
+              </td>
+              <td>{{ market.symbol }}</td>
+              <td>{{ market.id }}</td>
+              <td>{{ market.base }}</td>
+              <td>{{ market.quote }}</td>
+              <td>{{ market.baseId }}</td>
+              <td>{{ market.quoteId }}</td>
+              <td>{{ market.active }}</td>
+              <td>{{ market.taker }}</td>
+              <td>{{ market.maker }}</td>
+              <td>{{ market.type }}</td>
+              <!--<td>{{ market.precision }}</td>
+              <td>{{ market.limits }}</td>-->
+              <!--<td>{{ market.info }}</td>-->
+
+              <!--<td>
+                <button class="btn btn-icon btn-simple btn-icon&#45;&#45;danger" @click="deleteAccount(account)"><i
+                        class="ti-trash"></i></button>
+                <button class="btn btn-icon btn-simple btn-icon&#45;&#45;success" @click="editAccount(account)"><i
+                        class="ti-marker-alt"></i></button>
+                <button class="btn btn-icon btn-simple btn-icon&#45;&#45;info" @click="validateAccount(2)"><i
+                        class="ti-thumb-up"></i></button>
+              </td>
+              <td>{{ account.name }}</td>
+              <td v-if="allExchanges[account.exchange_id - 1] && account.exchange_id">{{
+                allExchanges[account.exchange_id - 1].name }}
+              </td>
+              <td>{{ account.created_at | myDate }}</td>
+              <td>{{ account.api }}</td>
+              <td>
+                <button class="btn btn-icon btn-simple btn-icon&#45;&#45;info" @click="showApiSecret(account.api_secret)"><i
+                        class="ti-user"></i></button>
+              </td>
+              <td><span class="text-success">Online</span></td>
+              <td>{{ account.is_testnet }}</td>
+              <td>{{ account.memo }}</td>-->
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </b-modal>
+
+   <!-- <b-modal
       no-fade
+      scrollable
       data-backdrop="static"
       keyboard="false"
       id="modal-scoped"
@@ -132,7 +204,7 @@
         <p-switch v-model="isSymbolActive" type="primary" on-text="Active" off-text="Not"></p-switch>
 
       </form>
-    </b-modal>
+    </b-modal>-->
 
   </div>
 </template>
@@ -142,7 +214,6 @@
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import PSwitch from 'src/components/UIComponents/Switch.vue'
   import swal from 'sweetalert2'
-
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
@@ -192,6 +263,7 @@
             'memo': 'memo'
           }
         ],
+        markets: [], // The list of available symbols at the exchange
         isSymbolActive: null,
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
@@ -216,29 +288,18 @@
     },
     methods: {
       loadExchanges() {
-        axios.get('/exchange').then(({data}) => (this.exchanges = data.data));  //
+        axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
       },
       loadSymbols() {
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+        axios.get('/trading/markets/1').then(({data}) => (this.markets = data)); // /1 - is not needed but required by get method
       },
-      addSymbol(exchange) {
-        this.form.reset();
-        this.form.exchange_id = exchange.id;
-        this.$refs['my-modal'].show();
-      },
-      deleteSymbol(symbol) {
-        this.form.delete('/symbol/' + symbol.id)
-          .then((response) => {
-            Fire.$emit('AfterCreate');
-            this.showNotification('bottom', 'right', 'Symbol successfully removed! <br>' + '&nbsp')
-          })
-          .catch(error => {
-            this.showNotification('bottom', 'right', 'Symbol delete error! <br>' + '&nbsp')
-            if (error.status === 500) this.showAlert(error.data.message);
-          })
-      },
-      handleOkModalButton(bvModalEvt) {
-        bvModalEvt.preventDefault(); // Prevent modal from closing
+      addSymbol(market) {
+        alert('add symbol clicked');
+        this.form.execution_symbol_name = market.symbol;
+        this.form.history_symbol_name = market.id;
+        this.form.commission = market.taker;
+        this.form.is_active = true;
         this.form.post('/symbol')
           .then((response) => {
             this.$refs['my-modal'].hide();
@@ -249,6 +310,29 @@
             this.validationErrors.record(error.data.errors);
             this.showNotification('bottom', 'right', 'Add symbol error! <br>' + '&nbsp')
           })
+      },
+      deleteSymbol(symbol) {
+
+        console.log(symbol);
+
+        this.form.delete('/symbol/' + symbol.id)
+          .then((response) => {
+            Fire.$emit('AfterCreate');
+            this.showNotification('bottom', 'right', 'Symbol successfully removed! <br>' + '&nbsp')
+          })
+          .catch(error => {
+            this.showNotification('bottom', 'right', 'Symbol delete error! <br>' + '&nbsp')
+            if (error.status === 500) this.showAlert(error.data.message);
+          })
+      },
+      showModal(exchange) {
+        this.form.reset();
+        this.$refs['my-modal'].show();
+        this.form.exchange_id = exchange.id;
+      },
+      // Not used
+      handleOkModalButton(bvModalEvt) {
+        bvModalEvt.preventDefault(); // Prevent modal from closing
       },
       showNotification(verticalAlign, horizontalAlign, notificationText) {
         var color = Math.floor((Math.random() * 4) + 1)
@@ -301,6 +385,14 @@
   }
 </script>
 <style>
+
+  .modal-lg {
+    max-width: 100% !important;
+  }
+
+  .modal-dialog {
+    max-width: 100% !important;
+  }
 
   .el-table .cell {
     white-space: nowrap;
