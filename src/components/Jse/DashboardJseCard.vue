@@ -8,37 +8,37 @@
           </div>
         </div>
         <div class="numbers">
-          <p>{{bot.name}}</p>
+          <p>{{card.name}}</p>
           <p class="revenue">{{ card.netProfit }}</p>
         </div>
       </div>
       <div class="card-dashboard__bar">
         <h5> <!-- account.bots_id == bot.id -->
           <!-- Now go through all exchanges -->
-          <span>{{ exchange.name }}</span>
+          <span>{{ card.exchnageName }}</span>
         </h5>
-        <p class="card-dashboard__status" v-if="bot.status == 'idle'">
-          {{bot.status}}
+        <p class="card-dashboard__status" v-if="card.status == 'idle'">
+          {{card.status}}
           <i class="card-dashboard__status-icon"></i>
         </p>
-        <p class="card-dashboard__status" v-else-if="bot.status == 'running'">
-          {{bot.status}}
+        <p class="card-dashboard__status" v-else-if="card.status == 'running'">
+          {{card.status}}
           <i class="card-dashboard__status-icon card-dashboard__status-icon--fill"></i>
         </p>
         <p class="card-dashboard__status" v-else>
-          {{bot.status}}
+          {{card.status}}
         </p>
       </div>
       <div class="card-dashboard__text d-flex flex-grow">
         <p>
-            <span class="pr-15 card-dashboard__trades">Trades:
+            <span class="pr-15 card-dashboard__trades" v-if="card.status == 'running'">Trades:
               <span>{{ card.tradesQuantity }}</span>
             </span>
-<!--          <span class="pr-15 card-dashboard__trades" v-else>Trades:</span>-->
-          <span class="card-dashboard__symbol">{{ card.executionSymbolName }}</span>
-<!--          <span class="card-dashboard__symbol" v-else></span>-->
+          <span class="pr-15 card-dashboard__trades" v-else>Trades:</span>
+          <span class="card-dashboard__symbol" v-if="card.executionSymbolName">{{ card.executionSymbolName }}</span>
+          <span class="card-dashboard__symbol" v-else></span>
         </p>
-        <p>{{ strategy.name }}</p>
+        <p>{{ card.strategyName }}</p>
       </div>
     </div>
   </div>
@@ -47,16 +47,12 @@
 <script>
   export default {
     props: {
-      bot: Object,
-      symbol: Object,
-      strategy: Object,
-      exchange: Object,
-      account: Object,
+
       card: Object
     },
     data() {
       return {
-        trades: []
+
       }
     },
     computed: {
@@ -82,16 +78,16 @@
     },
     methods: {
 
-      HistoryBarsLoad() {
-        axios.get('trading/history/' + this.bot.id) // Back end bot id
-          .then((response) => {
-            this.trades = response.data.rawTable;
-          })
-          .catch((err) => {
-            console.log('trading/history load error. DashboardJseCard.vue');
-          })
-      }
-    }
+    //   HistoryBarsLoad() {
+    //   //   axios.get('trading/history/' + this.bot.id) // Back end bot id
+    //   //     .then((response) => {
+    //   //       this.trades = response.data.rawTable;
+    //   //     })
+    //   //     .catch((err) => {
+    //   //       console.log('trading/history load error. DashboardJseCard.vue');
+    //   //     })
+    //   // }
+     }
   }
 
 </script>

@@ -133,7 +133,7 @@
           width: '250px',
           height: '200px',
           position: 'top-right',
-          title: '<p>Server notification</p>',
+          title: '<p>Server notifications</p>',
           confirmButtonText: 'Look more',
           timer: 2500,
           //html: '<p>Something went wrong!</p><br><a href @click.prevent="openServerModal()">Look more</a>'

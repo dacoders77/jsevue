@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal id="modal-server" title="Notification"
+    <b-modal id="modal-server" title="Notifications"
              no-fade
              data-backdrop="static"
              keyboard="false"
