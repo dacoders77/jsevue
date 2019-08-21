@@ -12,7 +12,6 @@ import Pusher from 'pusher-js' // https://www.npmjs.com/package/pusher-js
 //Pusher
 const keyPusher = process.env.PUSHER_KEY;
 const clusterPusher = process.env.PUSHER_CLUSTER;
-
  Vue.prototype.$pusher = new Pusher(keyPusher, {
    encrypted: true,
    cluster: clusterPusher
