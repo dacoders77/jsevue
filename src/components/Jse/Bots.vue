@@ -339,6 +339,7 @@
         },
         loadResources() {
           axios.get('/account').then(({data}) => (this.accounts = data.data));
+          console.log(this.accounts)
           axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
           axios.get('/symbol').then(({data}) => (this.symbols = data.data));
           axios.get('/strategy').then(({data}) => (this.strategies = data.data));

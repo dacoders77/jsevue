@@ -61,90 +61,22 @@
       </button>
     </div>
     <b-modal
-            no-fade
-            scrollable
-            data-backdrop="static"
-            keyboard="false"
-            id="modal-scoped"
-            size="lg"
-            ref="my-modal"
-            title="Add symbol"
-            @ok="">
-      <div class="card-content table-responsive table-full-width" style="border: 0px solid blue">
-        <div class="card-body table-responsive p-0">
-          <SymbolAddModal @add-symbol="addSymbol($event)" />
+      no-fade
+      data-backdrop="static"
+      keyboard="false"
+      id="modal-symbol"
+      hide-footer
+      size="lg"
+      ref="my-modal"
+      title="Add symbol">
+      <div class="card-content table-responsive table-modal-symbol" style="border: 0px solid blue">
+        <div class="card-body table-responsive p-0 ">
+          <SymbolAddModal @add-symbol="addSymbol($event)"/>
 
         </div>
       </div>
 
     </b-modal>
-
-   <!-- <b-modal
-      no-fade
-      scrollable
-      data-backdrop="static"
-      keyboard="false"
-      id="modal-scoped"
-      ref="my-modal"
-      size="sm"
-      title="Add symbol"
-      @ok="handleOkModalButton"
-    >
-
-      <form ref="form" @submit.stop.prevent="handleSubmit">
-        <b-form-group label="" label-for="execution_symbol_name">
-          <b-form-input
-            id="execution_symbol_name"
-            v-model="form.execution_symbol_name"
-            :state="this.validationErrors.has('execution_symbol_name') ? 'invalid' : 'valid'"
-            required
-            placeholder="Execution symbol name">
-          </b-form-input>
-          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('execution_symbol_name') }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <b-form-group label="" label-for="history_symbol_name">
-          <b-form-input
-            id="history_symbol_name"
-            v-model="form.history_symbol_name"
-            :state="this.validationErrors.has('history_symbol_name') ? 'invalid' : 'valid'"
-            required
-            placeholder="History symbol name">
-          </b-form-input>
-          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('history_symbol_name') }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <b-form-group label="" label-for="commission">
-          <b-form-input
-            id="commission"
-            v-model="form.commission"
-            :state="this.validationErrors.has('commission') ? 'invalid' : 'valid'"
-            required
-            placeholder="Commission %">
-          </b-form-input>
-          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('commission') }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <b-form-group label="" label-for="memo">
-          <b-form-textarea
-            id="memo"
-            v-model="form.memo"
-            :state="this.validationErrors.has('memo') ? 'invalid' : 'valid'"
-            placeholder="Memo">
-            rows="3"
-            max-rows="6"
-          </b-form-textarea>
-          <b-form-invalid-feedback id="input-1-live-feedback">{{ this.validationErrors.get('memo') }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <p-switch v-model="isSymbolActive" type="primary" on-text="Active" off-text="Not"></p-switch>
-
-      </form>
-    </b-modal>-->
   </div>
 </template>
 <script>
@@ -174,37 +106,11 @@
           is_active: '',
           memo: ''
         }),
-        exchanges: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'name': 'name',
-            'status': 'online',
-            'live_api_path': 'd',
-            'testnet_api_path': 'a',
-            'url': 'www',
-            //
-            'memo': 'memo'
-          }
-        ],
+        markets: [],
+        exchanges: [],
         /*allExchanges: [], // Exchanges for dropdown*/
-        symbols: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'exchange_id': 1,
-            'execution_symbol_name': 'b',
-            'history_symbol_name': 'c',
-            'is_active': true,
-            //
-            'memo': 'memo'
-          }
-        ],
-        markets: [], // The list of available symbols at the exchange
+        symbols: [],
+
         isSymbolActive: null,
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
@@ -233,7 +139,8 @@
       },
       loadSymbols() {
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
-        // axios.get('/trading/markets/1').then(({data}) => (this.markets = data)); // /1 - is not needed but required by get method
+        axios.get('/trading/markets/1').then(({data}) => (this.markets = data));
+        console.log(this.markets)// /1 - is not needed but required by get method
       },
       addSymbol(market) {
         alert('add symbol clicked');

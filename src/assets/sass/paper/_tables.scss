@@ -383,3 +383,64 @@
     }
   }
 }
+#modal-symbol {
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .modal-body {
+    padding-bottom: 50px;
+  }
+
+  button.close {
+    margin-left: auto;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    display: inline-block;
+  }
+}
+.table-modal-symbol {
+  max-height: 50vh;
+  overflow: hidden;
+
+  .card-body {
+    max-height: 50vh;
+    overflow: auto;
+  }
+
+  &__table {
+    overflow: visible;
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__list {
+    display: block;
+    min-height: 470px;
+    width: 100%;
+    list-style: none;
+    //overflow: hidden;
+    margin-left: 0;
+    margin-bottom: 15px;
+    padding: 0;
+
+    &--small{
+      min-height: 50px;
+    }
+  }
+
+  &__list-item {
+    width: 25%;
+    float: left;
+    font-size: 12px;
+  }
+}
