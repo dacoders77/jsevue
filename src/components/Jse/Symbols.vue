@@ -44,20 +44,20 @@
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify">
-                <span class="btn-label">
-                    <i class="ti-search"></i>
-                </span>Validate symbols
+      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-10">
+
+        <i class="ti-thumb-up"></i>
+        Validate symbols
       </button>
-      <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify">
-                <span class="btn-label">
-                    <i class="ti-search"></i>
-                </span>Delete unvalidated
+      <button type="button" class="btn btn-wd btn-danger btn-fill btn-magnify mr-10">
+
+        <i class="ti-trash"></i>
+        Delete unvalidated
       </button>
-      <button type="button" class="btn btn-wd btn-success btn-fill btn-magnify">
-                <span class="btn-label">
-                    <i class="ti-search"></i>
-                </span>Delete inactive
+      <button type="button" class="btn btn-wd btn-danger btn-fill btn-magnify">
+
+        <i class="ti-trash"></i>
+        Delete inactive
       </button>
     </div>
     <b-modal

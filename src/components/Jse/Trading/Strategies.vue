@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <button slot="title" class="btn dropdown-toggle btn-wd" @click="addStrategy()">Add strategy</button>
+      <button slot="title" class="btn btn-default btn-fill btn-wd btn-magnify" @click="addStrategy()"><i class="ti-plus"></i>Add strategy</button>
 
     </div>
 

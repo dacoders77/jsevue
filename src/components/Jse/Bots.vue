@@ -6,13 +6,13 @@
             <i class="ti-control-play"></i>All
           </button>
 
-          <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-10" @click.prevent="showAlert()">
-            <i class="ti-control-stop"></i>All
-          </button>
+        <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-10" @click.prevent="showAlert()">
+          <i class="ti-control-stop"></i>All
+        </button>
         <button type="button" class="btn btn-wd btn-repost btn-fill btn-magnify" @click="reloadTableBots()">
-                <span class="btn-label">
-                    <i class="ti-reload pr-5"></i>
-                </span>Reload table
+
+          <i class="ti-reload pr-5"></i>
+          Reload table
         </button>
       </div>
     </div>

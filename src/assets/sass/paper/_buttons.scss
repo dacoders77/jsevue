@@ -303,7 +303,10 @@
 .btn-red {
   @include btn-styles(darken($color-red,11%), darken($color-red,20%));
 }
-
+.btn-magnify i {
+  padding-right: 5px;
+  padding-bottom: 2px;
+}
 @media (min-width: 768px){
 
   .btn-exchange {

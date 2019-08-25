@@ -51,18 +51,17 @@
 
       <div style="display: flex">
         <drop-down>
-          <button slot="title" class="btn dropdown-toggle btn-wd">
-            <i class="ti-plus"></i>Add Exchnage
+          <button slot="title" class="btn btn-default btn-fill  mr-10 btn-magnify dropdown-toggle">
+            <i class="ti-plus"></i>Add exchnage
             <b class="caret"></b>
           </button>
           <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a>
           </li>
         </drop-down>
         &nbsp
-        <button type="button" class="btn dropdown-toggle btn-wd btn-magnify" @click="validateExchanges">
-                <span class="btn-label">
-                    <i class="ti-thumb-up"></i>
-                </span>Validate exchanges
+        <button type="button" class="btn btn-warning btn-fill btn-wd btn-magnify" @click="validateExchanges">
+          <i class="ti-thumb-up"></i>
+          Validate exchanges
         </button>
       </div>
 

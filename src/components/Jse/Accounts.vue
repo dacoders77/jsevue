@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <button class="btn btn-default btn-fill btn-wd" @click="addAccount()">Add account</button>
+      <button class="btn btn-default btn-fill btn-wd btn-magnify" @click="addAccount()"><i class="ti-plus"></i>Add account</button>
 
     </div>
 
