@@ -200,6 +200,9 @@
 .mr-15 {
   margin-right: 15px;
 }
+.mt-15 {
+  margin-top: 15px;
+}
 
 .ml-auto {
   margin-left: auto;
@@ -235,6 +238,9 @@
   &--no-width {
     width: auto;
   }
+}
+.d-inline-block {
+  display: inline-block;
 }
 
 .flex-grow {
