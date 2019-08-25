@@ -31,10 +31,10 @@
       </div>
       <div class="card-dashboard__text d-flex flex-grow">
         <p>
-            <span class="pr-15 card-dashboard__trades" v-if="card.status == 'running'">Trades:
-              <span>{{ card.tradesQuantity }}</span>
+            <span class="pr-15 card-dashboard__trades">Trades:
+              <b v-if="card.tradesQuantity">{{ card.tradesQuantity }}</b>
+              <b v-else>0</b>
             </span>
-          <span class="pr-15 card-dashboard__trades" v-else>Trades:</span>
           <span class="card-dashboard__symbol" v-if="card.executionSymbolName">{{ card.executionSymbolName }}</span>
           <span class="card-dashboard__symbol" v-else></span>
         </p>
@@ -58,7 +58,7 @@
     computed: {
       netProfit() {
         if (this.card.netProfit) {
-          this.card.netProfit = parseFloat(this.card.netProfit).toFixed(8);
+          this.card.netProfit = parseFloat(this.card.netProfit).toFixed(10);
         }else {
           this.card.netProfit = '';
         }

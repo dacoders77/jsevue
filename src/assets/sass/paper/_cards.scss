@@ -846,7 +846,7 @@
     text-align: right;
     padding-left: 10px;
     flex-grow: 1;
-    max-width: 66%;
+    max-width: 70%;
     overflow: hidden;
 
     p {
@@ -891,12 +891,18 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+      flex-wrap: wrap;
     }
   }
 
   &__trades {
     width: 60%;
+    min-width: 150px;
     word-break: break-all;
+    white-space: wrap;
+    b{
+      font-weight: 400;
+    }
   }
 
   &__symbol {
@@ -1040,7 +1046,6 @@
 
     &--execution {
 
-
       i {
         padding-right: 5px;
       }
@@ -1056,17 +1061,6 @@
     background-color: lighten($info-bg, 32%);
     z-index: 1030;
     padding: 10px 15px;
-
-    //&::before {
-    //  content: "";
-    //  position: absolute;
-    //  height: 14px;
-    //  width: 10px;
-    //  right: 15px;
-    //  bottom: 10px;
-    //  background-color: lighten($info-bg, 32%);
-    //  z-index: 1000;
-    //}
   }
 
   &__table-wrapper {
@@ -1086,7 +1080,6 @@
         background-color: $gray-input-bg;
         -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .5);
       }
-
   }
 
   &__checkbox-execution {
@@ -1113,8 +1106,8 @@
         }
 
         label {
-            margin-left: 7px;
-            line-height: 20px;
+          margin-left: 7px;
+          line-height: 20px;
         }
       }
   }
@@ -1376,7 +1369,15 @@
     }
   }
   }
+@media (max-width: 1300px) {
+  .card-dashboard {
 
+    .numbers {
+
+      max-width: 66%;
+    }
+  }
+}
 @media (max-width: 991px) {
   .card {
     .card-content {
