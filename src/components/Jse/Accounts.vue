@@ -174,36 +174,8 @@
         },
         pickedExchange: 'Pick an exchange',
         isTestnet: null,
-        accounts: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            'bot_id': 1,
-            'exchnage_id': 1,
-            'name': 'dd',
-            'api': 'a',
-            'api_secret': 'd',
-            'status': 's',
-            'is_testnet': true,
-            'memo': 'memo'
-          }
-        ],
-        allExchanges: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'name': 'name',
-            'status': 'online',
-            'live_api_path': 'd',
-            'testnet_api_path': 'a',
-            'url': 'www',
-            //
-            'memo': 'memo'
-          }
-        ],
+        accounts: [],
+        allExchanges: [],
         modalMode: 'xxx' // Can be add or edit. Depending add or edit button is clicked
       }
 

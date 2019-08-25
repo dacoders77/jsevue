@@ -50,15 +50,11 @@
       </div>
 
       <div style="display: flex">
-        <drop-down>
-          <button slot="title" class="btn btn-default btn-fill  mr-10 btn-magnify dropdown-toggle">
-            <i class="ti-plus"></i>Add exchnage
-            <b class="caret"></b>
-          </button>
-          <li v-for="(ex, index) in allExchanges"><a href="javascript:void(0)" @click="createExchnage(ex)">{{ ex }}</a>
-          </li>
-        </drop-down>
-        &nbsp
+        <button slot="title" class="btn btn-default btn-fill  mr-10 btn-magnify dropdown-toggle"
+                @click="$bvModal.show('exchange-scroll-modal')">
+          <i class="ti-plus"></i>Add exchnage
+        </button>
+
         <button type="button" class="btn btn-warning btn-fill btn-wd btn-magnify" @click="validateExchanges">
           <i class="ti-thumb-up"></i>
           Validate exchanges
@@ -66,6 +62,8 @@
       </div>
 
     </div>
+
+    <ExchangesAddModal @create-exchange="createExchnage($event)"/>
 
     <b-modal
       no-fade
@@ -81,7 +79,7 @@
       <form ref="form" @submit.stop.prevent="handleSubmit" class="form-exchange">
         <b-form-group label="Name:" label-for="name" class="exchange-row">
 
-          <b-form-input
+        <b-form-input
             id="name"
             v-model="form.name"
             :state="this.validationErrors.has('name') ? 'invalid' : 'valid'"
@@ -148,15 +146,19 @@
 </template>
 <script>
   import Vue from 'vue'
+  import { ModalPlugin } from 'bootstrap-vue'
   import {Table, TableColumn, Tag} from 'element-ui'
   import ValidationErrors from 'src/components/Jse/ValidationErrors'
   import swal from 'sweetalert2'
+  import ExchangesAddModal from './ExchangesAddModal.vue'
 
   Vue.use(Table)
   Vue.use(TableColumn)
+  Vue.use(ModalPlugin)
   export default {
     components: {
-      [Tag.name]: Tag
+      [Tag.name]: Tag,
+      ExchangesAddModal
     },
     data() {
       return {
@@ -170,22 +172,8 @@
           status: '',
           memo: ''
         }),
-        exchanges: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'name': 'name',
-            'status': 'online',
-            'live_api_path': 'd',
-            'testnet_api_path': 'a',
-            'url': 'www',
-            //
-            'memo': 'memo'
-          }
-        ],
-        allExchanges: ['exchange1', 'exchange2'], // Exchnages for dropdown
+        exchanges: [],
+        // allExchanges: ['exchange1', 'exchange2'], // Exchnages for dropdown
         type: ['', 'info', 'success', 'warning', 'danger'], // For notifications
         notifications: {
           topCenter: false
@@ -201,15 +189,15 @@
     },
     mounted() {
       this.loadExchanges();
-      this.loadExchangesList(); // Exchanges for dropdown
+
     },
     methods: {
       loadExchanges() {
         axios.get('/exchange').then(({data}) => (this.exchanges = data.data)); // Resource controllers are defined in api.php
       },
-      loadExchangesList() {
-        axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // ExchangeController.php@show
-      },
+      // loadExchangesList() {
+      //   axios.get('/exchange/1').then(({data}) => (this.allExchanges = data)); // ExchangeController.php@show
+      // },
       editExchange(exchange) {
         this.form.reset();
         this.form.fill(exchange);

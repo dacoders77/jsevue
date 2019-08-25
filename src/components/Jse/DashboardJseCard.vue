@@ -47,7 +47,6 @@
 <script>
   export default {
     props: {
-
       card: Object
     },
     data() {
@@ -64,39 +63,7 @@
         }
         return this.card.netProfit;
       }
-
-      // Total trades quantity
-      // total: function () {
-      //   let notNullTrades;
-      //   notNullTrades = (this.trades.filter(function (trade) {
-      //     return trade.trade_date !== null;
-      //   }));
-      //   if (typeof (notNullTrades[notNullTrades.length - 1]) !== 'undefined') {
-      //     return notNullTrades.length;
-      //   }
-      // },
-      // Revenue
-      // netProfit: function () {
-      //   if (typeof (this.trades[this.trades.length - 2]) !== 'undefined') {
-      //     return (this.trades[this.trades.length - 2].net_profit);
-      //   } // Get the penultimate row. Net profit in the last on is always null
-      // }
     },
-    mounted() {
-      // this.HistoryBarsLoad();
-    },
-    methods: {
-
-    //   HistoryBarsLoad() {
-    //   //   axios.get('trading/history/' + this.bot.id) // Back end bot id
-    //   //     .then((response) => {
-    //   //       this.trades = response.data.rawTable;
-    //   //     })
-    //   //     .catch((err) => {
-    //   //       console.log('trading/history load error. DashboardJseCard.vue');
-    //   //     })
-    //   // }
-     }
   }
 
 </script>

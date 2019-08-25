@@ -455,7 +455,6 @@
           this.exchanges = [];
           this.loadBots();
           this.loadResources();
-          this.showAlert('Bots');
         },
         unlinkButtonClick(params) {
           // params[0] - bot

@@ -220,45 +220,9 @@
         }),
         strategyId: [], // Price channel or macd. Shown in drop down in modal
         strategies: null,
-        strategies2: [
-          {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'name': 'name',
-            'is_active': true,
-            'macd_settings_id': 1,
-            'pricechannel_settings_id': 1,
-            'strategy_type_id': 1,
-            //
-            'memo': 'memo'
-          }
-        ],
+        strategies2: [],
         strategiesSettings: [],
-        strategiesSettings2: {
-          'pricechannel_settings': {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'time_frame': 1,
-            'sma_filer_period': 1,
-            //
-            'memo': 'memo'
-          },
-          'macd_settings': {
-            'id': '1',
-            'created_at': '2019-06-10 01:31:52',
-            'updated_at': '2019-06-10 01:31:52',
-            //
-            'ema_period': 1,
-            'macd_line_period': 1,
-            'macd_signalline_period': 1,
-            //
-            'memo': 'memo'
-          }
-        }, // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
+        strategiesSettings2: {}, // Get tables pricechannel_settings and macd_settings. These are arrays! index - 1!
         strategyTypes: [
           {'id': 1, 'name': 'Price channel'},
           {'id': 2, 'name': 'MACD'}

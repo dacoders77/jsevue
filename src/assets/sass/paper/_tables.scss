@@ -383,7 +383,8 @@
     }
   }
 }
-#modal-symbol {
+#modal-symbol,
+#exchange-scroll-modal{
   .modal-header {
     display: flex;
     align-items: center;
@@ -405,6 +406,7 @@
     display: inline-block;
   }
 }
+
 .table-modal-symbol {
   max-height: 50vh;
   overflow: hidden;
@@ -412,6 +414,28 @@
   .card-body {
     max-height: 50vh;
     overflow: auto;
+    -webkit-overflow-scrolling: auto;
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, .5);
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    }
+  }
+
+  &__list-exchanges {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: 7px;
+      &:hover {
+          background-color: $smoke-bg;
+      }
+    }
   }
 
   &__table {
