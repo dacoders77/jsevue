@@ -1,34 +1,32 @@
 <template>
   <div>
     <h2 class="mt-0">Personal settings</h2>
-    <div class="row d-flex">
-      <div class="col-12 col-md-8">
+    <div class="row">
+      <div class="col-12">
         <form ref="form" @submit.stop.prevent="handleSubmit" class="form-exchange">
-          <b-form-group label="Name:" label-for="userName" class="exchange-row mb-15 mt-15">
+          <b-form-group label="Name:" label-for="userName" class="exchange-row mb-15 mt-15 justify-content-start">
 
-            <b-form-input v-model="product.appName" id="userName" length="50"></b-form-input>
+            <b-form-input v-model="product.appName" id="userName" length="50" style="max-width:400px; width:100%;"></b-form-input>
 
           </b-form-group>
-          <div class="exchange-row alight-items-top  mb-15">
-            <label for="image" class="mt-10">Profile picture:</label>
-            <div>
+          <div class="exchange-row alight-items-top  mb-15 justify-content-start">
+            <label for="image" class="mt-10" style="width:150px;">Profile picture:</label>
+            <div class="mb-15">
+
+              <img :src="this.product.image" width="120" height="120"/>
+              <p>{{ product.logoFileName }}</p>
               <input id="image" type="file" @change="imageChanged">
-              {{ product.logoFileName }}
             </div>
           </div>
           <div class="d-flex justify-content-start">
             <div style="width:150px;"></div>
-            <b-button class="btn btn-info btn-fill btn-wd btn-magnify " @click="updateAppName()">
+            <button class="btn btn-info btn-fill btn-wd btn-magnify ml-15" @click="updateAppName()">
               <i class="ti-save"></i>Save
-            </b-button>
+            </button>
           </div>
         </form>
       </div>
-      <div class="col-12 col-md-4 text-align-right mt-15">
 
-        <img :src="this.product.image" width="200" height="200"/>
-        <p>{{ product.logoFileName }}</p>
-      </div>
     </div>
   </div>
 

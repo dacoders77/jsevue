@@ -113,15 +113,15 @@
                   min-width="60px">
                   <template slot-scope="scope">
                     <div v-if="scope.row.status == 'idle'">
-                      <button type="button" class="btn btn-fill btn-success btn-circle"
+                      <button type="button" class="btn btn-icon btn-simple btn-icon--success"
                               @click="updateBotNew(['runBot', scope.row])">
-                        <span class="btn-label"><i class="ti-control-play"></i></span>
+                        <i class="ti-control-play"></i>
                       </button>
                     </div>
                     <div v-if="scope.row.status == 'running'">
-                      <button type="button" class="btn btn-fill btn-warning btn-circle"
+                      <button type="button" class="btn btn-icon btn-simple btn-icon--warning"
                               @click="updateBotNew(['stopBot', scope.row])">
-                        <span class="btn-label"><i class="ti-control-stop"></i></span>
+                        <i class="ti-control-stop"></i>
                       </button>
                     </div>
                   </template>

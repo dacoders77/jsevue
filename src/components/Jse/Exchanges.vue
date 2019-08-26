@@ -33,8 +33,8 @@
                 <td>{{ exchange.name }}</td>
                 <td>{{ exchange.created_at | myDate }}</td>
                 <td>
-                  <button class="btn btn-icon btn-simple btn-icon--info"><a :href="exchange.url"><i class="ti-link"></i></a>
-                  </button>
+                  <a class="btn btn-icon btn-simple btn-icon--info" :href="exchange.url"><i class="ti-link"></i>
+                  </a>
                 </td>
                 <td>{{ exchange.live_api_path }}</td>
                 <td>{{ exchange.testnet_api_path }}</td>
@@ -50,14 +50,13 @@
       </div>
 
       <div style="display: flex">
-        <button slot="title" class="btn btn-default btn-fill  mr-10 btn-magnify dropdown-toggle"
+        <button slot="title" class="btn btn-default btn-fill btn-wl mr-10 btn-magnify"
                 @click="$bvModal.show('exchange-scroll-modal')">
           <i class="ti-plus"></i>Add exchnage
         </button>
 
-        <button type="button" class="btn btn-warning btn-fill btn-wd btn-magnify" @click="validateExchanges">
-          <i class="ti-thumb-up"></i>
-          Validate exchanges
+        <button type="button" class="btn btn-warning btn-fill btn-wl btn-magnify" @click="validateExchanges">
+          <i class="ti-thumb-up"></i>Validate exchanges
         </button>
       </div>
 

@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-default btn-fill btn-wd" @click="adduser()">Add user</button>
+            <button class="btn btn-default btn-fill btn-wl btn-magnify" @click="adduser()"><i class="ti-plus"></i>Add user</button>
 
         </div>
 

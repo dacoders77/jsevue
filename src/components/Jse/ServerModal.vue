@@ -6,16 +6,16 @@
              keyboard="false"
              size="xl"
              ok-only>
-      <button type="button" class="btn btn-warning btn-sm table-notification__btn" @click.prevent="showUnreadItems">
-        <span class="btn-label"> <i class="ti-email"></i></span>
+      <button type="button" class="btn btn-warning btn-fill btn-wd btn-magnify table-notification__btn" @click.prevent="showUnreadItems">
+        <i class="ti-email"></i>
         Show unread
       </button>
-      <button type="button" class="btn btn-success btn-sm table-notification__btn" @click.prevent="showAllItems">
-        <span class="btn-label"> <i class="ti-email"></i></span>
+      <button type="button" class="btn btn-success btn-fill btn-wd btn-magnify table-notification__btn" @click.prevent="showAllItems">
+        <i class="ti-email"></i>
         Show all
       </button>
-      <button @click.prevent="deleteAllRow" type="button" class="btn btn-sm btn-danger table-notification__btn">
-        <span class="btn-label"><i class="ti-trash"></i> Delete all</span>
+      <button @click.prevent="deleteAllRow" type="button" class="btn btn-danger btn-fill btn-wd btn-magnify table-notification__btn">
+        <i class="ti-trash"></i> Delete all
       </button>
       <div class="row">
         <div class="col-xs-12 overflow-scroll">
@@ -40,7 +40,7 @@
               </td>
               <td class="">{{item.date}}</td>
               <td class="text-align-center" style="width: 50px">
-                <button type="button" class="btn btn-fill btn-danger btn-circle btn-sm" @click="removeRow(item)">
+                <button type="button" class="btn btn-icon btn-simple btn-icon--danger btn-sm" @click="removeRow(item)">
                   <i class="ti-trash"></i>
                 </button>
               </td>

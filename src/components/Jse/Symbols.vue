@@ -1,5 +1,22 @@
 <template>
   <div class="row">
+    <div class="col-12 card-bots__buttons ml-15">
+      <button type="button" class="btn btn-wl btn-warning btn-fill btn-magnify mr-10">
+
+        <i class="ti-thumb-up"></i>
+        Validate symbols
+      </button>
+      <button type="button" class="btn btn-wl btn-danger btn-fill btn-magnify mr-10">
+
+        <i class="ti-trash"></i>
+        Delete unvalidated
+      </button>
+      <button type="button" class="btn btn-wl btn-danger btn-fill btn-magnify">
+
+        <i class="ti-trash"></i>
+        Delete inactive
+      </button>
+    </div>
     <div class="col-md-12">
       <div class="card">
         <div class="card-header" style="border: 0px solid red; padding: 0px">
@@ -44,21 +61,6 @@
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify mr-10">
-
-        <i class="ti-thumb-up"></i>
-        Validate symbols
-      </button>
-      <button type="button" class="btn btn-wd btn-danger btn-fill btn-magnify mr-10">
-
-        <i class="ti-trash"></i>
-        Delete unvalidated
-      </button>
-      <button type="button" class="btn btn-wd btn-danger btn-fill btn-magnify">
-
-        <i class="ti-trash"></i>
-        Delete inactive
-      </button>
     </div>
     <b-modal
       no-fade

@@ -9,7 +9,8 @@
         </div>
         <div class="numbers">
           <p>{{card.name}}</p>
-          <p class="revenue">{{ netProfit }}</p>
+          <p class="revenue" v-if="netProfit">{{ netProfit }}</p>
+          <p class="revenue" v-else>0</p>
         </div>
       </div>
       <div class="card-dashboard__bar">
@@ -51,7 +52,6 @@
     },
     data() {
       return {
-
       }
     },
     computed: {

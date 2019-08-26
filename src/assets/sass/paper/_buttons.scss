@@ -1,90 +1,105 @@
 .btn,
-.navbar .navbar-nav > li > a.btn{
-    border-radius: $border-radius-btn-base;
-    box-sizing: border-box;
-    border-width: $border-thick;
-    background-color: $transparent-bg;
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
+.navbar .navbar-nav > li > a.btn {
+  border-radius: $border-radius-btn-base;
+  box-sizing: border-box;
+  border-width: $border-thick;
+  background-color: $transparent-bg;
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
 
-    padding: $padding-base-vertical $padding-base-horizontal;
+  padding: $padding-base-vertical $padding-base-horizontal;
 
-    @include btn-styles($default-color, $default-states-color);
-    @include transition($fast-transition-time, linear);
+  @include btn-styles($default-color, $default-states-color);
+  @include transition($fast-transition-time, linear);
 
-    &:hover,
-    &:focus{
-        outline: 0 !important;
+  &:hover,
+  &:focus {
+    outline: 0 !important;
+  }
+
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    @include box-shadow(none);
+    outline: 0 !important;
+  }
+
+  &.btn-icon {
+    padding: 10px;
+    border-radius: 50%;
+    background-color: $default-bg;
+    border: 1px solid transparent;
+    line-height: 1;
+
+
+    i {
+      margin-right: 0px;
+      font-size: 16px;
+      color: $white-color;
+      line-height: 1 !important;
     }
-    &:active,
-    &.active,
-    .open > &.dropdown-toggle {
-         @include box-shadow(none);
-         outline: 0 !important;
-    }
 
-    &.btn-icon {
-        padding: 10px;
-        border-radius: 50%;
-        background-color: $default-bg;
-        border: 1px solid transparent;
-        line-height: 1;
+    &--success {
+      background-color: $success-color;
 
+      &:hover,
+      &:focus {
+        border: 1px solid $success-color;
+        background-color: $white-bg;
 
         i {
-          margin-right: 0px;
-          font-size: 16px;
-          color: $white-color;
-          line-height: 1!important;
+          color: $success-color;
         }
+      }
+    }
 
-        &--success {
-            background-color: $success-color;
+    &--warning {
+      background-color: $warning-color;
 
-            &:hover,
-            &:focus {
-              border: 1px solid $success-color;
-              background-color: $white-bg;
+      &:hover,
+      &:focus {
+        border: 1px solid $warning-color;
+        background-color: $white-bg;
 
-              i {
-                color: $success-color;
-              }
-            }
+        i {
+          color: $warning-color;
         }
+      }
+    }
 
-        &--info {
-          background-color: $info-color;
+    &--info {
+      background-color: $info-color;
 
-          &:hover,
-          &:focus {
-             border: 1px solid $info-color;
-             background-color: $white-bg;
+      &:hover,
+      &:focus {
+        border: 1px solid $info-color;
+        background-color: $white-bg;
 
-            i {
-              color: $info-color;
-            }
-          }
+        i {
+          color: $info-color;
         }
+      }
+    }
 
-        &--danger {
-          background-color: $danger-color;
+    &--danger {
+      background-color: $danger-color;
 
-          &:hover,
-          &:focus {
-             border: 1px solid $danger-color;
-             background-color: $white-bg;
+      &:hover,
+      &:focus {
+        border: 1px solid $danger-color;
+        background-color: $white-bg;
 
-            i {
-              color: $danger-color;
-            }
-          }
+        i {
+          color: $danger-color;
         }
+      }
+    }
 
-      &--green {
-        background-color: darken($color-green-status, 7%);
-        line-height: 1;
+    &--green {
+      background-color: darken($color-green-status, 7%);
+      line-height: 1;
 
-        &:hover,
+      &:hover,
         &:focus {
           background-color: darken($color-green-status, 12%);
           border-color: darken($color-green-status, 12%);
@@ -221,7 +236,10 @@
 }
 .navbar .navbar-nav > li > a.btn.btn-wd,
 .btn-wd{
-    min-width: 140px;
+    min-width: 150px;
+}
+.btn-wl{
+  min-width: 200px;
 }
 
 .btn-group.select{
