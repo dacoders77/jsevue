@@ -1,46 +1,37 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col-xs-4">
-                <div class="card">
-                    <div class="card-content text-left">
-                        <h3>App logo:</h3>
-                        <input type="file" @change="imageChanged">
-                        {{ product.logoFileName }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-4">
-                <div class="card">
-                    <div class="card-content text-center">
-                        <img :src="this.product.image" width="127"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-4">
-                <div class="card">
-                    <div class="card-content text-left">
-                        <h3>App name:</h3>
-                    </div>
-                </div>
-            </div>
+  <div>
+    <h2 class="mt-0">Personal settings</h2>
+    <div class="row d-flex">
+      <div class="col-12 col-md-8">
+        <form ref="form" @submit.stop.prevent="handleSubmit" class="form-exchange">
+          <b-form-group label="Name:" label-for="userName" class="exchange-row mb-15 mt-15">
 
-            <div class="col-xs-4">
-                <div class="card">
-                    <div style="display: inline-block">
-                        <b-form-group class="account-row">
-                            <b-form-input v-model="product.appName" length="50"></b-form-input>
-                        </b-form-group>
-                    </div>
-                    <div style="display: inline-block; height: 60px; padding: 12px 0;">
-                        <b-button variant="primary" @click="updateAppName()">Save</b-button>
-                    </div>
-                </div>
+            <b-form-input v-model="product.appName" id="userName" length="50"></b-form-input>
+
+          </b-form-group>
+          <div class="exchange-row alight-items-top  mb-15">
+            <label for="image" class="mt-10">Profile picture:</label>
+            <div>
+              <input id="image" type="file" @change="imageChanged">
+              {{ product.logoFileName }}
             </div>
-        </div>
+          </div>
+          <div class="d-flex justify-content-start">
+            <div style="width:150px;"></div>
+            <b-button class="btn btn-info btn-fill btn-wd btn-magnify " @click="updateAppName()">
+              <i class="ti-save"></i>Save
+            </b-button>
+          </div>
+        </form>
+      </div>
+      <div class="col-12 col-md-4 text-align-right mt-15">
+
+        <img :src="this.product.image" width="200" height="200"/>
+        <p>{{ product.logoFileName }}</p>
+      </div>
     </div>
+  </div>
+
 </template>
 <script>
   export default {

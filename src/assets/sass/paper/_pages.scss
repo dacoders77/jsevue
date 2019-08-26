@@ -157,6 +157,10 @@
   display: flex;
 }
 
+.alight-items-top {
+  align-items: flex-start;
+}
+
 .w-100 {
   width: 100%!important;
 }
@@ -203,6 +207,12 @@
 .mt-15 {
   margin-top: 15px;
 }
+.mt {
+  margin-top: 10px;
+}
+.mt-0 {
+  margin-top: 0;
+}
 
 .ml-auto {
   margin-left: auto;
@@ -239,6 +249,9 @@
     width: auto;
   }
 }
+.justify-content-start {
+  justify-content: flex-start;
+}
 .d-inline-block {
   display: inline-block;
 }
@@ -256,6 +269,9 @@
 }
 .text-align-center {
   text-align: center!important;
+}
+.text-align-right {
+  text-align: right;
 }
 
 .position-relative {
