@@ -5,7 +5,7 @@
       ref="table"
       style="width: 100%"
       class="table-modal-symbol__table table-info">
-      <el-table-column type="expand">
+      <el-table-column type="expand" width="40">
         <template slot-scope="props">
           <span class="mt-15 d-inline-block">Info:</span>
           <ul class="table-modal-symbol__list">
@@ -45,7 +45,7 @@
         </template>
         <el-table-column
           label="Action"
-          min-width="60px">
+          width="70px">
           <template slot-scope="scope">
             <button class="btn btn-icon btn-simple btn-icon--success" @click="$emit('add-symbol', scope.row)">
               <i class="ti-plus"></i>
@@ -55,13 +55,13 @@
 
         <el-table-column
           prop="symbol"
-          min-width="60"
-          label="Symbol(exec)">
+          width="80"
+          label="Symbol">
         </el-table-column>
         <el-table-column
           prop="id"
-          min-width="60"
-          label="Id(hist)">
+          width="80"
+          label="Id">
         </el-table-column>
         <el-table-column
           prop="base"
@@ -75,13 +75,13 @@
         </el-table-column>
         <el-table-column
           prop="baseId"
-          min-width="60"
-          label="BaseId">
+          min-width="70"
+          label="Base Id">
         </el-table-column>
         <el-table-column
           prop="quoteId"
-          min-width="60"
-          label="QuoteId">
+          min-width="70"
+          label="Quote Id">
         </el-table-column>
         <el-table-column
           prop="active"
@@ -91,12 +91,12 @@
         </el-table-column>
         <el-table-column
           prop="taker"
-          min-width="50"
+          min-width="60"
           label="Taker">
         </el-table-column>
         <el-table-column
           prop="maker"
-          min-width="50"
+          min-width="60"
           label="Maker">
         </el-table-column>
         <el-table-column

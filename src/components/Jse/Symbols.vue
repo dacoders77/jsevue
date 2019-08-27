@@ -50,8 +50,7 @@
                     type="primary"
                     :closable="true"
                     :close-transition="false"
-                    @close="deleteSymbol(symbol)"
-                  >
+                    @close="deleteSymbol(symbol)">
                     <a href="#" style="color:white" @click="onSymbolClick(index)">{{symbol.execution_symbol_name}}</a>
                   </el-tag>
                 </td>
