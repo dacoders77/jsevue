@@ -28,7 +28,7 @@
                   <th><i class="ti-info-alt"></i></th>
                   <th>Queue</th>
                   <th>Bot ID/Symbol</th>
-                  <th>Payload</th>
+                  <th>Payload</th>2
                   <th>Attempts</th>
                   <th>Reserverd at</th>
                   <th>Available at</th>

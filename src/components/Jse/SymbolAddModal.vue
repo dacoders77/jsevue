@@ -33,10 +33,11 @@
       <el-table-column>
         <template slot="header" slot-scope="scope">
           <div class="table-modal-symbol__table-header">
-            <div class="table-modal-symbol__checkbox">
-              <input type="checkbox" id="checkbox" v-model="checked">
-              <label for="checkbox">Active</label>
+            <div class="table-modal-symbol__switch">
+              <b>Active</b>
+              <p-switch  color="black" v-model="switchesActive.defaultOff"></p-switch>
             </div>
+
             <el-input
               v-model="search"
               placeholder="Type to search"
@@ -111,6 +112,7 @@
 </template>
 <script>
   import {Table, TableColumn, Input, InputNumber} from 'element-ui';
+  import PSwitch from 'src/components/UIComponents/Switch.vue'
   import Vue from 'vue';
 
   Vue.use(Table);
@@ -118,12 +120,18 @@
   Vue.use(Input);
   Vue.use(InputNumber);
   export default {
+    components: {
+      PSwitch
+    },
     data() {
       return {
         loading: false,
         markets: [],
         search: '',
-        checked: false
+        checked: false,
+        switchesActive: {
+          defaultOff: false
+        }
       }
     },
     computed: {
@@ -134,15 +142,8 @@
         });
       },
       arraySearch() {
-        // return this.array.filter((row) => {
-        //   for(var key in row){
-        //     if(String(row[key]).toLowerCase().indexOf(this.search.toLowerCase()) !== -1){
-        //       return true;
-        //     }
-        //   }
-        //   return false;
-        // });
-        if (this.checked) {
+
+        if (this.switchesActive.defaultOff) {
           console.log(this.array.filter(item => item.active === true && Object.values(item).toString().toLowerCase().includes(this.search.toLowerCase())));
           return this.array.filter(item => item.active === true && Object.values(item).toString().toLowerCase().includes(this.search.toLowerCase()));
         } else {

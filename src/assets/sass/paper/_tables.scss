@@ -458,6 +458,7 @@
     padding: 0!important;
 
     > .el-input {
+      padding-right: 0!important;
       input  {
         padding-right: 40px!important;
       }
@@ -467,19 +468,18 @@
       }
     }
   }
-  &__checkbox {
+  &__switch {
+    min-width: 200px;
     padding: 0!important;
-    width: 150px;
-    display: flex!important;
-    align-items: center!important;
+    margin-right: 20px;
 
-    input {
-      display: inline-block;
-      margin-right: 7px!important;
+    b {
+      margin-right: 7px;
+    }
 
-          }
-    label {
-      margin-bottom: 0;
+    .bootstrap-switch-container,
+    .bootstrap-switch{
+      padding: 0!important;
     }
   }
   span {

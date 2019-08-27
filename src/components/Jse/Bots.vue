@@ -489,11 +489,7 @@
         expandChange(row,expandedRows) {
           // Set place as market flag to fals/true. Otherwise switch does not accept it.
           // row.place_as_market = (row.place_as_market == 1 ? true : false);
-          // axios.get('/workerstatus/' + row.id).then(({data}) => {
-          //   this.workerstatus = data;
-          //   this.workerstatus.isFrontWorkerRunning = true
-          //   console.log(this.workerstatus)
-          // });
+
           this.expands = expandedRows.map((row) => row.id);
           const parsed = JSON.stringify(this.expands);
           localStorage.setItem('id', parsed);
