@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-12 pb-10">
+      <div class="col-md-12 card-bots__buttons">
         <button type="button" class="btn btn-wd btn-danger btn-fill btn-magnify mr-10" @click="truncateQue()">
 
           <i class="ti-trash pr-5 pb-2" style="line-height: inherit"></i>

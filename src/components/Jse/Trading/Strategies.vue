@@ -1,5 +1,9 @@
 <template>
   <div class="row exchange">
+    <div class="col-md-12 card-bots__buttons">
+      <button slot="title" class="btn btn-default btn-fill btn-wd btn-magnify" @click="addStrategy()"><i class="ti-plus"></i>Add strategy</button>
+    </div>
+
     <div class="col-md-12">
 
       <div class="card">
@@ -58,8 +62,6 @@
 
         </div>
       </div>
-
-      <button slot="title" class="btn btn-default btn-fill btn-wd btn-magnify" @click="addStrategy()"><i class="ti-plus"></i>Add strategy</button>
 
     </div>
 

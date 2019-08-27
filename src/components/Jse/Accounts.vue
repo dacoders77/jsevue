@@ -1,6 +1,9 @@
 <template>
 
   <div class="row">
+    <div class="col-md-12 card-bots__buttons">
+      <button class="btn btn-default btn-fill btn-wd btn-magnify" @click="addAccount()"><i class="ti-plus"></i>Add account</button>
+    </div>
     <div class="col-md-12">
 
       <div class="card">
@@ -53,8 +56,6 @@
           </div>
         </div>
       </div>
-
-      <button class="btn btn-default btn-fill btn-wd btn-magnify" @click="addAccount()"><i class="ti-plus"></i>Add account</button>
 
     </div>
 

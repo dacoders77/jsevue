@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-12 card-bots__buttons ml-15">
+    <div class="col-md-12 card-bots__buttons">
       <button type="button" class="btn btn-wl btn-warning btn-fill btn-magnify mr-10">
 
         <i class="ti-thumb-up"></i>

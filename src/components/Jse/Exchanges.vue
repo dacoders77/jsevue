@@ -1,6 +1,17 @@
 <template>
 
   <div class="row exchange">
+    <div class="col-md-12 card-bots__buttons">
+        <button slot="title" class="btn btn-default btn-fill btn-wl mr-10 btn-magnify"
+                @click="$bvModal.show('exchange-scroll-modal')">
+          <i class="ti-plus"></i>Add exchnage
+        </button>
+
+        <button type="button" class="btn btn-warning btn-fill btn-wl btn-magnify" @click="validateExchanges">
+          <i class="ti-thumb-up"></i>Validate exchanges
+        </button>
+      </div>
+
     <div class="col-md-12">
 
       <div class="card">
@@ -47,17 +58,6 @@
           </div>
 
         </div>
-      </div>
-
-      <div style="display: flex">
-        <button slot="title" class="btn btn-default btn-fill btn-wl mr-10 btn-magnify"
-                @click="$bvModal.show('exchange-scroll-modal')">
-          <i class="ti-plus"></i>Add exchnage
-        </button>
-
-        <button type="button" class="btn btn-warning btn-fill btn-wl btn-magnify" @click="validateExchanges">
-          <i class="ti-thumb-up"></i>Validate exchanges
-        </button>
       </div>
 
     </div>
