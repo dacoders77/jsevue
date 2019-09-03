@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="isBots">
     <div class="row">
-      <div class=" col-md-12 card-bots__buttons">
+      <div class="col-md-12 card-bots__buttons">
           <button type="button"  class="btn btn-wd btn-success btn-fill btn-magnify mr-10" @click.prevent="showAlert()">
             <i class="ti-control-play"></i>All
           </button>
@@ -16,6 +16,7 @@
         </button>
       </div>
     </div>
+
     <div class="row position-relative">
       <div class="col-md-12">
 
@@ -253,6 +254,7 @@
       </div>
     </div>
   </div>
+  <div v-else>'<h5>Backtester is disabled. Navigate to:</h5><a href="http://167.179.86.245">http://167.179.86.245</a></div>
 </template>
 <script>
   import Vue from 'vue'
@@ -273,6 +275,7 @@
     },
     data () {
       return {
+        isBots: false,
         expands: [],
         isExpanded: true,
         isPlaceAsMarket: false, // Market/limit switch
@@ -339,10 +342,17 @@
         },
         loadResources() {
           axios.get('/account').then(({data}) => (this.accounts = data.data));
-          console.log(this.accounts)
           axios.get('/exchange').then(({data}) => (this.exchanges = data.data));
           axios.get('/symbol').then(({data}) => (this.symbols = data.data));
           axios.get('/strategy').then(({data}) => (this.strategies = data.data));
+          // Load component status. Show or not
+          axios.get('/logo')
+            .then(({data}) => {
+              (data.allowBots == 'true' ? this.isBots = true : this.isBots = false)
+            })
+            .catch(error => {
+              alert('Bots.vue component status load error');
+            })
         },
         validateBots(name, value) {
           if (value) {

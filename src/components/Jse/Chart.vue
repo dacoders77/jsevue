@@ -57,7 +57,6 @@
   import {TabsPlugin} from 'bootstrap-vue'
   import {FormCheckboxPlugin} from 'bootstrap-vue'
   import swal from 'sweetalert2'
-
   Vue.use(FormCheckboxPlugin)
   Vue.use(TabsPlugin)
   export default {
@@ -67,6 +66,7 @@
     },
     data() {
       return {
+        isBackTester: false,
         quotes: [],
         botId: 1,
         clientId: 12345,
@@ -104,6 +104,14 @@
         axios.get('/bot').then(({data}) => (this.bots = data.data));
         axios.get('/account').then(({data}) => (this.accounts = data.data));
         axios.get('/symbol').then(({data}) => (this.symbols = data.data));
+        // Load component status. Show or not
+        axios.get('/logo')
+          .then(({data}) => {
+            (data.allowBackTester == 'true' ? this.isBackTester = true : this.isBackTester = false)
+          })
+          .catch(error => {
+            alert('Chart.vue component status load error');
+          })
       },
       HistoryBarsLoad(botId) {
         axios.get('trading/history/' + botId) // Back end bot id
@@ -116,23 +124,17 @@
             this.chart.series[5].setData(response.data.shortTradeMarkers, true);
             this.chart.series[6].setData(response.data.macdLine, true);
             this.chart.series[7].setData(response.data.macdSignalLine, true);
-
             if (!this.isBackTest) {
               this.chart.series[8].setData(response.data.accumulatedProfit, true);
               this.chart.series[9].setData(response.data.netProfit, true);
             }
-
             if (this.isBackTest) {
               this.chart.series[8].setData(response.data.accumulatedProfitBackTest, true);
               this.chart.series[9].setData(response.data.netProfitBackTest, true);
             }
-
             this.chart.series[10].setData(response.data.executionLongMarkers, true);
             this.chart.series[11].setData(response.data.executionShortMarkers, true);
             this.botSymbol = response.data.symbol;
-
-            console.log(response.data);
-
           })
           .catch((err) => {
             //alert("Chart.vue can not get history bars. " + err);
@@ -245,16 +247,29 @@
         this.isBackTest = false; // Don't load back testing profit diagrams
       },
       backtesterButtonClick() {
-        if (this.backtesterOpen) {
-          this.backtesterOpen = false; // Close backtester
 
+        // status here
+        //alert(this.isBackTester)
+
+        if (this.isBackTester){
+          if (this.backtesterOpen) {
+            this.backtesterOpen = false; // Close backtester
+
+          } else {
+            this.backtesterOpen = true; // Open backtester
+            this.botId = 5;
+            this.clientId = 12350;
+            this.HistoryBarsLoad(5);
+            this.isBackTest = true; // Load back testing profit diagrams
+          }
         } else {
-          this.backtesterOpen = true; // Open backtester
-          this.botId = 5;
-          this.clientId = 12350;
-          this.HistoryBarsLoad(5);
-          this.isBackTest = true; // Load back testing profit diagrams
-
+          swal({
+            html:
+              '<h5>Backtester is disabled. Navigate to:</h5><a href="http://167.179.86.245">http://167.179.86.245</a>',
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success btn-fill',
+            type: 'success'
+          })
         }
       }
     }
