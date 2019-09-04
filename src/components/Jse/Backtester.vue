@@ -370,6 +370,9 @@
             this.showNotification('bottom', 'right', 'Backtester-pc execution error! <br>')
             this.isBacktesterLoading = false;
             this.backtester_btn = 'Go';
+            console.log(response);
+            console.log(this.priceChannel.get('/backtest'));
+            console.log(this.priceChannel.post('/backtest'));
           })
       },
       macdBacktestClick() {

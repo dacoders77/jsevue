@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2 class="mt-0">Personal settings</h2>
-    <div class="row">
       <div class="col-12">
 
         <form ref="form" v-on:submit.prevent class="form-exchange">
@@ -19,7 +18,7 @@
           </div>
 
           <div class="d-flex justify-content-start">
-            <div style="width:150px;">Allow Bots: </div>
+            <div style="width:150px;" class="mr-20 text-transform">Allow Bots: </div>
             <b-form-checkbox
                     id="checkbox-1"
                     v-model="product.allowBots"
@@ -31,7 +30,7 @@
           </div>
 
           <div class="d-flex justify-content-start">
-            <div style="width:150px;">Allow back tester: </div>
+            <div style="width:150px;" class="mr-20 text-transform">Allow back tester: </div>
             <b-form-checkbox
                     id="checkbox-1"
                     v-model="product.allowBackTester"
@@ -53,8 +52,6 @@
       </div>
 
     </div>
-  </div>
-
 </template>
 <script>
   import PSwitch from 'src/components/UIComponents/Switch.vue'
