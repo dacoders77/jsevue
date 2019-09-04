@@ -220,12 +220,13 @@
         this.channel.bind("App\\Events\\jseevent", function (data) {
           // Full event name as shown at pusher debug console
           if (data.payload['clientId'] == self.clientId) { // Back end id. Each bot instance must han a unique number
+
             if (data.payload.messageType === 'symbolTickPriceResponse') self.ChartBarsUpdate(data.payload, self.botId);
 
             if (data.payload.messageType === 'reloadChartAfterHistoryLoaded') {
-              //Vue.toasted.show("Chart is reloaded!", { type: 'success' });
               self.HistoryBarsLoad(self.botId)
             }
+
             if (data.payload.messageType === 'backTestingResult') {
               swal({
                 html:
@@ -247,10 +248,7 @@
         this.isBackTest = false; // Don't load back testing profit diagrams
       },
       backtesterButtonClick() {
-
-        // status here
-        //alert(this.isBackTester)
-
+        // Check whether to show backtester or not
         if (this.isBackTester){
           if (this.backtesterOpen) {
             this.backtesterOpen = false; // Close backtester

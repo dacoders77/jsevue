@@ -254,7 +254,7 @@
       </div>
     </div>
   </div>
-  <div v-else>'<h5>Backtester is disabled. Navigate to:</h5><a href="http://167.179.86.245">http://167.179.86.245</a></div>
+  <div v-else>'<h5>Bots component is disabled. Navigate to:</h5><a href="http://167.179.86.245">http://167.179.86.245</a></div>
 </template>
 <script>
   import Vue from 'vue'
