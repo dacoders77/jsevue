@@ -58,7 +58,7 @@
                         </p>
                         <p class="card-bots__expand-prop">
                           <label for="id_bots_time_frame">Time frame:</label>
-                          <input id="id_bots_time_frame" type="text" class="form-control form-control--xs" maxlength="1" v-model="props.row.time_frame"
+                          <input id="id_bots_time_frame" type="text" class="form-control form-control--xs" maxlength="2" v-model="props.row.time_frame"
                                  :disabled="props.row.status == 'running'"
                                  @change="() => { updateBotNew(['updateTimeFrame', props.row]); validateBots('Time frame', props.row.time_frame ); }">
                         </p>

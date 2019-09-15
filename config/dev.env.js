@@ -10,6 +10,6 @@ module.exports = merge(prodEnv, {
   //PUSHER_KEY: '"957f41d7acfeba2194c8"', // Nastya's key?
   //PUSHER_CLUSTER: '"ap1"', // Nastya's?
 
-  PUSHER_KEY: '"72d2ded78de1bafac432"', // Boris's local
-  PUSHER_CLUSTER: '"mt1"' // Boris's cluster
+  PUSHER_KEY: '"72d2ded78de1bafac432"', // Boris' local
+  PUSHER_CLUSTER: '"mt1"' // Boris' cluster
 })

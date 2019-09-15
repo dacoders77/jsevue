@@ -282,7 +282,7 @@
             startDate: ''
           }),
           symbols: [], // Symbol drop down
-          timeFrames: ['1m', '5m', '1h', '1d'], // Time frame drop down in historical data
+          timeFrames: ['1m', '5m', '15m', '1h', '1d'], // Time frame drop down in historical data
           pickedTimeFrame: '5m',
           executionSymbolName: 'Symbol', // Execution symbol name
           historySymbolName: '',
