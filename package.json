@@ -23,7 +23,7 @@
     "element-ui": "^2.12.0",
     "fullcalendar": "^3.10.1",
     "google-maps": "^3.2.1",
-    "highcharts": "^7.2.0",
+    "highcharts": "^7.2.2",
     "highcharts-vue": "^1.3.5",
     "jvectormap-next": "^3.0.0",
     "laravel-echo": "^1.5.4",
